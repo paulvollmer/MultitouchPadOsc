@@ -32,17 +32,19 @@ import com.alderstone.multitouch.mac.touchpad.*;
 
 
 class Touchpad implements Observer {
-  
+
   private static final int MAX_FINGER_BLOBS = 10;
   private int width, height;
-  
+
   TouchpadObservable tpo;
   Finger blobs[] = new Finger[MAX_FINGER_BLOBS];
 
 
 
 
-
+  /**
+   * Constructor
+   */
   public Touchpad(int width, int height) {	
     this.width  = width;
     this.height = height;
@@ -53,13 +55,13 @@ class Touchpad implements Observer {
 
 
 
-
-  // Magic Trackpad Multitouch update event 
+  /**
+   * Magic Trackpad Multitouch update event 
+   */
   public void update(Observable obj, Object arg) {
     // The event 'arg' is of type: com.alderstone.multitouch.mac.touchpad.Finger
     Finger f = (Finger) arg;
-    
-    
+
     int angle = f.getAngle();
     float rAngle = f.getAngleInRadians();
     int frame = f.getFrame();
@@ -73,29 +75,35 @@ class Touchpad implements Observer {
     float xVelo = f.getXVelocity();
     float y = f.getY();
     float yVelo = f.getYVelocity();
-    
-    println("ID: "+id+
-            ", Frame: "+frame+
-            ", Timestamp: "+(int)timestamp+
-            ", State: "+state+
-            ", X: "+x+
-            ", Y: "+y+
-            ", X-Velo: "+xVelo+
-            ", Y-Velo: "+yVelo+
-            ", Angle: "+angle+
-            ", Size: "+size+
-            ", MajorAxis: "+majorAxis+
-            ", MinorAxis: "+minorAxis);
-    
-   if (f != null && f.getState() == FingerState.PRESSED) { 
-     println(FingerState.PRESSED);
-   }
-   if (f != null && f.getState() == FingerState.RELEASED) { 
-     println(FingerState.RELEASED);
-   }
-    
-   if (id <= MAX_FINGER_BLOBS)
-     blobs[id-1]= f;
+
+    /*println("ID: "+id+
+     ", Frame: "+frame+
+     ", Timestamp: "+(int)timestamp+
+     ", State: "+state+
+     ", X: "+x+
+     ", Y: "+y+
+     ", X-Velo: "+xVelo+
+     ", Y-Velo: "+yVelo+
+     ", Angle: "+angle+
+     ", Size: "+size+
+     ", MajorAxis: "+majorAxis+
+     ", MinorAxis: "+minorAxis);
+     */
+    if (f != null && f.getState() == FingerState.PRESSED) { 
+      //println(FingerState.PRESSED);
+    }
+    if (f != null && f.getState() == FingerState.RELEASED) { 
+      //println(FingerState.RELEASED);
+    }
+
+    // Send osc message
+    OscMessage message = new OscMessage("/magictrackpad/x");
+    message.add(123);
+    osc.send(message, net);
+    println("send");
+
+    if (id <= MAX_FINGER_BLOBS)
+      blobs[id-1]= f;
   }	
 
 
@@ -113,28 +121,27 @@ class Touchpad implements Observer {
         int ysize = (int) (10*f.getSize() * (f.getMinorAxis()/2));
         int ang   = f.getAngle();
 
-        
+
         pushMatrix();  
-          translate(x-xsize/2, y-ysize/2);
-      
-          pushMatrix();
-            rotate(radians(-ang));  // convert degrees to radians
-            noStroke();
-            fill(255);
-            ellipse(0, 0, xsize, ysize);
-          popMatrix();
-          
-          stroke(255, 0, 0);
-          noFill();
-          line(-5, 0, 5, 0);
-          line(0, -5, 0, 5);
-          
-          fill(255, 0, 0);
-          text(""+i, 5, -5);
+        translate(x-xsize/2, y-ysize/2);
+
+        pushMatrix();
+        rotate(radians(-ang));  // convert degrees to radians
+        noStroke();
+        fill(255);
+        ellipse(0, 0, xsize, ysize);
+        popMatrix();
+
+        stroke(255, 0, 0);
+        noFill();
+        line(-5, 0, 5, 0);
+        line(0, -5, 0, 5);
+
+        fill(255, 0, 0);
+        text(""+i, 5, -5);
         popMatrix();
       }
     }
   }
-  
 }
 

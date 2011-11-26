@@ -1,6 +1,5 @@
 /**
  * MagicTrackpadOsc is developed by Paul Vollmer (wrong-entertainment.com)
- * Based on http://kenai.com/projects/macmultitouch/
  * 
  * 
  * Copyright (c) 2011 Paul Vollmer
@@ -25,25 +24,56 @@
  * @version     0.1.0
  */
 
+import wrongPowder.io.Config;
+import oscP5.*;
+import netP5.*;
+
+Config config = new Config();;
+OscP5 osc;
+NetAddress net;
+
+PImage backgroundImage;
 Touchpad touchpad;
 
 
 
 
 
+/**
+ * Setup
+ */
 void setup() {
-  size(800, 600);
+  // Load Property file
+  config.loadStatic(dataPath("")+"config.txt");
+  config.list();
+  
+  size(593, 600);
   smooth();
+  
+  // Load background image
+  backgroundImage = loadImage("MagicTrackpad-01.png");
+  
+  // start oscP5, listening for incoming messages at port XXXX
+  osc = new OscP5(this, 8000);
+  
+  // myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,
+  // an ip address and a port number. myRemoteLocation is used as parameter in
+  // oscP5.send() when sending osc packets to another computer, device, 
+  // application. usage see below. for testing purposes the listening port
+  // and the port of the remote location address are the same, hence you will
+  // send messages back to this sketch.
+  net = new NetAddress("192.168.178.151", 8000);
   
   touchpad = new Touchpad(width, height);
 }
 
 
 
-
-
+/**
+ * Draw
+ */
 void draw() {
-  background(0);
+  background(backgroundImage);
   noStroke();
   
   touchpad.draw();
