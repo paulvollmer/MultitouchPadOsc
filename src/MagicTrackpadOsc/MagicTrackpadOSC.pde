@@ -24,18 +24,24 @@
  * @version     0.1.0
  */
 
+import wrongPowder.io.Log;
 import wrongPowder.io.Config;
 import oscP5.*;
 import netP5.*;
 
+Log log;
 Config config = new Config();;
 OscP5 osc;
 NetAddress net;
 
-PImage backgroundImage;
 Touchpad touchpad;
+PImage backgroundImage;
+int spacing = 100;
 
-
+// osc default values
+int inPort;
+String outHost;
+int outPort;
 
 
 
@@ -47,14 +53,23 @@ void setup() {
   config.loadStatic(dataPath("")+"config.txt");
   config.list();
   
+  log = new Log(this);
+  log.init();
+  log.info("SETUP Starts");
+  
   size(593, 600);
   smooth();
   
   // Load background image
   backgroundImage = loadImage("MagicTrackpad-01.png");
   
-  // start oscP5, listening for incoming messages at port XXXX
-  osc = new OscP5(this, 8000);
+  // Set osc host-, oortnumber
+  inPort = config.getIntProperty("osc.inport", 8000);
+  outHost = config.getStringProperty("osc.outhost", "127.0.0.1");
+  outPort = config.getIntProperty("osc.outport", 9000);
+  log.info("OSC Input Port: "+inPort+", Output Host: "+outHost+", Output Port: "+outPort);
+  // start oscP5, listening for incoming messages
+  osc = new OscP5(this, inPort);
   
   // myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,
   // an ip address and a port number. myRemoteLocation is used as parameter in
@@ -62,7 +77,7 @@ void setup() {
   // application. usage see below. for testing purposes the listening port
   // and the port of the remote location address are the same, hence you will
   // send messages back to this sketch.
-  net = new NetAddress("192.168.178.151", 8000);
+  net = new NetAddress(outHost, outPort);
   
   touchpad = new Touchpad(width, height);
 }
@@ -77,5 +92,10 @@ void draw() {
   noStroke();
   
   touchpad.draw();
+  
+  noStroke();
+  fill(0);
+  text("Port: "+outPort+
+       "\nHost: "+outHost, 45,50);
 }
 

@@ -1,4 +1,2 @@
-
-src/MagicTrackpadOsc/code/libGlulogicMT.jnilib
-
-src/MagicTrackpadOsc/code/GlulogicMT.jar
+src/MagicTrackpadOsc/code
+src/MagicTrackpadOsc/logs
