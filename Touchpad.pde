@@ -91,6 +91,7 @@ class Touchpad implements Observer {
      println(FingerState.PRESSED);
    }
    if (f != null && f.getState() == FingerState.RELEASED { 
+   if (f != null && f.getState() == FingerState.RELEASED) { 
      println(FingerState.RELEASED);
    }
     
