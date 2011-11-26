@@ -1,8 +1,9 @@
 #wrongPowder.io.Config
-#Sat Nov 26 20:43:47 CET 2011
+#Sat Nov 26 22:03:43 CET 2011
 osc.outport=9000
 app.framerate=30
 app.height=300
 app.width=300
 osc.outhost="192.168.178.151"
-app.count=30
+app.count=64
+osc.trackpadname=mt1
