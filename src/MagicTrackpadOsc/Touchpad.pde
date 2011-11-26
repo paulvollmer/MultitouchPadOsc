@@ -115,29 +115,29 @@ class Touchpad implements Observer {
       Finger f = blobs[i];
       if (f != null && f.getState() == FingerState.PRESSED) {
 
-        int x     = (int) (width  * (f.getX()));
-        int y     = (int) (height * (1-f.getY()));
+        int x     = (int) ((width-spacing)  * (f.getX()));
+        int y     = (int) ((height-spacing) * (1-f.getY()));
         int xsize = (int) (10*f.getSize() * (f.getMajorAxis()/2));
         int ysize = (int) (10*f.getSize() * (f.getMinorAxis()/2));
         int ang   = f.getAngle();
 
 
         pushMatrix();  
-        translate(x-xsize/2, y-ysize/2);
+        translate((x+(spacing/2))-xsize/2, (y+125)-ysize/2);
 
         pushMatrix();
         rotate(radians(-ang));  // convert degrees to radians
         noStroke();
-        fill(255);
+        fill(#FF4800);
         ellipse(0, 0, xsize, ysize);
         popMatrix();
 
-        stroke(255, 0, 0);
+        stroke(255);
         noFill();
         line(-5, 0, 5, 0);
         line(0, -5, 0, 5);
 
-        fill(255, 0, 0);
+        fill(0);
         text(""+i, 5, -5);
         popMatrix();
       }
