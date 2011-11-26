@@ -20,7 +20,7 @@
  * Boston, MA  02111-1307  USA
  * 
  * @author      Paul Vollmer
- * @modified    2011.11.25
+ * @modified    2011.11.26
  * @version     0.1.0
  */
 
@@ -42,6 +42,19 @@ PImage backgroundImage;
 String outHost;
 int outPort;
 String oscTrackpadName;
+boolean oscStateActive         = false;
+boolean oscFrameActive         = false;
+boolean oscTimestampActive     = false;
+boolean oscXposActive          = false;
+boolean oscYposActive          = false;
+boolean oscXveloActive         = false;
+boolean oscYveloActive         = false;
+boolean oscMajorAxisActive     = false;
+boolean oscMinorAxisActive     = false;
+boolean oscSizeActive          = false;
+boolean oscAngleActive         = false;
+boolean oscAngleRadiansActive  = false;
+
 
 
 
