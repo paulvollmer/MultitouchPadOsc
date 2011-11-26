@@ -90,7 +90,6 @@ class Touchpad implements Observer {
    if (f != null && f.getState() == FingerState.PRESSED) { 
      println(FingerState.PRESSED);
    }
-   if (f != null && f.getState() == FingerState.RELEASED { 
    if (f != null && f.getState() == FingerState.RELEASED) { 
      println(FingerState.RELEASED);
    }
@@ -115,15 +114,23 @@ class Touchpad implements Observer {
         int ang   = f.getAngle();
 
         
-        pushMatrix();
-        translate(x-xsize/2, y-ysize/2);
-        pushMatrix();
-        rotate(radians(-ang));  // convert degrees to radians
-        fill(255);
-        ellipse(0,0,xsize,ysize);
-        popMatrix();
-        fill(255,0,0);
-        text(""+i,0,0);
+        pushMatrix();  
+          translate(x-xsize/2, y-ysize/2);
+      
+          pushMatrix();
+            rotate(radians(-ang));  // convert degrees to radians
+            noStroke();
+            fill(255);
+            ellipse(0, 0, xsize, ysize);
+          popMatrix();
+          
+          stroke(255, 0, 0);
+          noFill();
+          line(-5, 0, 5, 0);
+          line(0, -5, 0, 5);
+          
+          fill(255, 0, 0);
+          text(""+i, 5, -5);
         popMatrix();
       }
     }
