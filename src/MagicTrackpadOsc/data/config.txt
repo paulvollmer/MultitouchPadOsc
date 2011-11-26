@@ -1,0 +1,8 @@
+#wrongPowder.io.Config
+#Sat Nov 26 19:21:54 CET 2011
+app.framerate=30
+osc.outport=8000
+app.width=300
+app.height=300
+app.count=5
+osc.outhost="127.0.0.1"
