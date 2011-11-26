@@ -97,11 +97,9 @@ class Touchpad implements Observer {
     }
 
     // Send osc message
-    OscMessage message = new OscMessage("/magictrackpad/x");
-    message.add(123);
-    osc.send(message, net);
-    println("send");
-
+    oscmessage("test/", x);
+        
+        
     if (id <= MAX_FINGER_BLOBS)
       blobs[id-1]= f;
   }	
@@ -114,16 +112,16 @@ class Touchpad implements Observer {
     for (int i=0; i<MAX_FINGER_BLOBS;i++) {
       Finger f = blobs[i];
       if (f != null && f.getState() == FingerState.PRESSED) {
-
-        int x     = (int) ((width-spacing)  * (f.getX()));
-        int y     = (int) ((height-spacing) * (1-f.getY()));
+  
+        int x     = (int) ((width-80)  * (f.getX()));
+        int y     = (int) ((height-165) * (1-f.getY()));
         int xsize = (int) (10*f.getSize() * (f.getMajorAxis()/2));
         int ysize = (int) (10*f.getSize() * (f.getMinorAxis()/2));
         int ang   = f.getAngle();
 
 
         pushMatrix();  
-        translate((x+(spacing/2))-xsize/2, (y+125)-ysize/2);
+        translate((x+(45))-xsize/2, (y+125)-ysize/2);
 
         pushMatrix();
         rotate(radians(-ang));  // convert degrees to radians
@@ -140,6 +138,11 @@ class Touchpad implements Observer {
         fill(0);
         text(""+i, 5, -5);
         popMatrix();
+        
+        // if message sended, green point indicator
+        /*noStroke();
+        fill(0, 255, 0);
+        ellipse(50, 62, 20, 20);*/
       }
     }
   }

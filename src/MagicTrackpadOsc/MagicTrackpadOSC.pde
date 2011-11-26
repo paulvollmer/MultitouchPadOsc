@@ -29,19 +29,19 @@ import wrongPowder.io.Config;
 import oscP5.*;
 import netP5.*;
 
+// classes
 Log log;
-Config config = new Config();;
-OscP5 osc;
-NetAddress net;
-
+Config config = new Config();
+NetAddress oscnet;
 Touchpad touchpad;
-PImage backgroundImage;
-int spacing = 100;
 
-// osc default values
-int inPort;
+// background image
+PImage backgroundImage;
+
+// osc variables
 String outHost;
 int outPort;
+String oscTrackpadName;
 
 
 
@@ -52,34 +52,33 @@ void setup() {
   // Load Property file
   config.loadStatic(dataPath("")+"config.txt");
   config.list();
-  
+
   log = new Log(this);
   log.init();
   log.info("SETUP Starts");
-  
+
   size(593, 600);
   smooth();
-  
+  int tempFramerate = config.getIntProperty("app.framerate", 30);
+  frameRate(tempFramerate);
+  log.info("SETUP Framerate: "+tempFramerate);
+
   // Load background image
   backgroundImage = loadImage("MagicTrackpad-01.png");
-  
+
   // Set osc host-, oortnumber
-  inPort = config.getIntProperty("osc.inport", 8000);
   outHost = config.getStringProperty("osc.outhost", "127.0.0.1");
   outPort = config.getIntProperty("osc.outport", 9000);
-  log.info("OSC Input Port: "+inPort+", Output Host: "+outHost+", Output Port: "+outPort);
-  // start oscP5, listening for incoming messages
-  osc = new OscP5(this, inPort);
-  
-  // myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,
-  // an ip address and a port number. myRemoteLocation is used as parameter in
-  // oscP5.send() when sending osc packets to another computer, device, 
-  // application. usage see below. for testing purposes the listening port
-  // and the port of the remote location address are the same, hence you will
-  // send messages back to this sketch.
-  net = new NetAddress(outHost, outPort);
-  
+  log.info("OSC Output Host: "+outHost+", Output Port: "+outPort);
+  oscTrackpadName = config.getStringProperty("osc.trackpadname", "magictrackpad");
+  log.info("OSC Trackpad Name: "+oscTrackpadName);
+
+  // set up a remote location
+  oscnet = new NetAddress("192.168.178.151", 9000);
+
   touchpad = new Touchpad(width, height);
+
+  log.info("SETUP Ready");
 }
 
 
@@ -90,12 +89,30 @@ void setup() {
 void draw() {
   background(backgroundImage);
   noStroke();
-  
+
   touchpad.draw();
-  
+
   noStroke();
   fill(0);
   text("Port: "+outPort+
-       "\nHost: "+outHost, 45,50);
+    "\nHost: "+outHost, 45, 50);
+}
+
+
+
+/**
+ *
+ * @param path The osc path. bsp. "/example/"
+ * @param n The float value
+ */
+void oscmessage(String path, float n) {
+  String tempPath = oscTrackpadName+"/"+path;
+  // create a new OscMessage with an address pattern, in this case /test.
+  OscMessage myOscMessage = new OscMessage(tempPath);
+  // add a value (an integer) to the OscMessage
+  myOscMessage.add(n);
+  // send the OscMessage to the remote location. 
+  OscP5.flush(myOscMessage, oscnet);
+  log.info("OSC MESSAGE "+tempPath+n);
 }
 
