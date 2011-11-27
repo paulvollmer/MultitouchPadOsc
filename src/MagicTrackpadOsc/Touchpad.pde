@@ -21,7 +21,7 @@
  * Boston, MA  02111-1307  USA
  * 
  * @author      Paul Vollmer
- * @modified    2011.11.25
+ * @modified    2011.11.26
  * @version     0.1.0
  */
 
@@ -38,7 +38,23 @@ class Touchpad implements Observer {
 
   TouchpadObservable tpo;
   Finger blobs[] = new Finger[MAX_FINGER_BLOBS];
-
+  
+  
+  // multitouch variables
+  int id;
+  //FingerState state = f.getState();
+  int frame;
+  int timestamp;
+  float x;
+  float xVelo;
+  float y;
+  float yVelo;
+  float majorAxis;
+  float minorAxis;
+  float size;
+  int angle;
+  float rAngle;
+  
 
 
 
@@ -61,45 +77,36 @@ class Touchpad implements Observer {
   public void update(Observable obj, Object arg) {
     // The event 'arg' is of type: com.alderstone.multitouch.mac.touchpad.Finger
     Finger f = (Finger) arg;
-
-    int angle = f.getAngle();
-    float rAngle = f.getAngleInRadians();
-    int frame = f.getFrame();
-    int id = f.getID();
-    float majorAxis = f.getMajorAxis();
-    float minorAxis = f.getMinorAxis();
-    float size = f.getSize();
-    FingerState state = f.getState(); 
-    double timestamp = f.getTimestamp();
-    float x = f.getX();
-    float xVelo = f.getXVelocity();
-    float y = f.getY();
-    float yVelo = f.getYVelocity();
-
-    /*println("ID: "+id+
-     ", Frame: "+frame+
-     ", Timestamp: "+(int)timestamp+
-     ", State: "+state+
-     ", X: "+x+
-     ", Y: "+y+
-     ", X-Velo: "+xVelo+
-     ", Y-Velo: "+yVelo+
-     ", Angle: "+angle+
-     ", Size: "+size+
-     ", MajorAxis: "+majorAxis+
-     ", MinorAxis: "+minorAxis);
-     */
-    if (f != null && f.getState() == FingerState.PRESSED) { 
+    
+    // check if osc.out = 0, send osc message
+    if(oscOut == 0) {
+      // id of finger
+      id = f.getID();
+      FingerState state = f.getState();
+      frame = f.getFrame();
+      timestamp = (int)f.getTimestamp();
+      x = f.getX();
+      xVelo = f.getXVelocity();
+      y = f.getY();
+      yVelo = f.getYVelocity();
+      majorAxis = f.getMajorAxis();
+      minorAxis = f.getMinorAxis();
+      size = f.getSize();
+      angle = f.getAngle();
+      rAngle = f.getAngleInRadians();
+    }
+    
+    
+    /*if (f != null && f.getState() == FingerState.PRESSED) { 
       //println(FingerState.PRESSED);
     }
     if (f != null && f.getState() == FingerState.RELEASED) { 
       //println(FingerState.RELEASED);
-    }
+    }*/
 
     // Send osc message
-    oscmessage("test/", x);
-        
-        
+    //oscmessage(""+id+"/", x);
+    
     if (id <= MAX_FINGER_BLOBS)
       blobs[id-1]= f;
   }	
@@ -108,11 +115,29 @@ class Touchpad implements Observer {
 
 
 
+  /**
+   * draw
+   */
   public void draw() {
     for (int i=0; i<MAX_FINGER_BLOBS;i++) {
       Finger f = blobs[i];
       if (f != null && f.getState() == FingerState.PRESSED) {
-  
+        
+        // check if osc.out = 0, send osc message
+        if(oscOut == 0) {
+          if(oscFrameActive == 0) oscmessage(""+id+"/frame/", frame);
+          if(oscTimestampActive == 0) oscmessage(""+id+"/timestamp/", timestamp);
+          if(oscPositionActive == 0) oscmessage(""+id+"/x/", x);
+          if(oscPositionActive == 0) oscmessage(""+id+"/y/", y);
+          if(oscVelocityActive == 0) oscmessage(""+id+"/xvelo/", xVelo);
+          if(oscVelocityActive == 0) oscmessage(""+id+"/yvelo/", yVelo);
+          if(oscMAxisActive == 0) oscmessage(""+id+"/majoraxis/", majorAxis);
+          if(oscMAxisActive == 0) oscmessage(""+id+"/minoraxis/", minorAxis);
+          if(oscSizeActive == 0) oscmessage(""+id+"/size/", size);
+          if(oscAngleActive == 0) oscmessage(""+id+"/angle/", angle);
+          if(oscAngleActive == 0) oscmessage(""+id+"/rangle/", rAngle);
+        }
+        
         int x     = (int) ((width-80)  * (f.getX()));
         int y     = (int) ((height-165) * (1-f.getY()));
         int xsize = (int) (10*f.getSize() * (f.getMajorAxis()/2));
@@ -126,7 +151,7 @@ class Touchpad implements Observer {
         pushMatrix();
         rotate(radians(-ang));  // convert degrees to radians
         noStroke();
-        fill(#FF4800);
+        fill(0, 155, 255);
         ellipse(0, 0, xsize, ysize);
         popMatrix();
 
@@ -136,7 +161,8 @@ class Touchpad implements Observer {
         line(0, -5, 0, 5);
 
         fill(0);
-        text(""+i, 5, -5);
+        text("ID: "+(i+1), 5, -5);
+        
         popMatrix();
         
         // if message sended, green point indicator
@@ -146,5 +172,55 @@ class Touchpad implements Observer {
       }
     }
   }
+  
+  
+  
+  
+  /**
+ *
+ * @param path The osc path. bsp. "/example/"
+ * @param n The float value
+ * @return osc event
+ */
+void oscmessage(String path, float n) {
+  String tempPath = oscTrackpadName+"/"+path;
+  
+  // create a new OscMessage with an address pattern, in this case /test.
+  OscMessage myOscMessage = new OscMessage(tempPath);
+  
+  // add a value (an integer) to the OscMessage
+  myOscMessage.add(n);
+  
+  // send the OscMessage to the remote location. 
+  OscP5.flush(myOscMessage, oscnet);
+  
+  log.info("OSC MESSAGE "+tempPath+n);
+}
+
+/**
+ *
+ * @param path The osc path. bsp. "/example/"
+ * @param n The float value
+ * @return osc event
+ */
+void oscmessage(String path, String s) {
+  String tempPath = oscTrackpadName+"/"+path;
+  
+  // create a new OscMessage with an address pattern, in this case /test.
+  OscMessage myOscMessage = new OscMessage(tempPath);
+  
+  // add a value (an string) to the OscMessage
+  myOscMessage.add(s);
+  
+  // send the OscMessage to the remote location. 
+  OscP5.flush(myOscMessage, oscnet);
+  
+  log.info("OSC MESSAGE "+tempPath+s);
+}
+
+
+
+
+
 }
 
