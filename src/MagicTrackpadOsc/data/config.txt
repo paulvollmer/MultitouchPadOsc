@@ -1,6 +1,6 @@
 #wrongPowder.io.Config
-#Sat Nov 26 22:30:15 CET 2011
-app.count=75
+#Sun Nov 27 16:57:59 CET 2011
+app.count=80
 osc.state=0
 osc.size=0
 osc.minoraxis=0
@@ -16,6 +16,7 @@ app.height=300
 osc.angle=0
 app.framerate=30
 osc.outport=9000
+osc.out=true
 osc.xvelo=0
 osc.outhost="192.168.178.151"
 osc.angleradians=0
