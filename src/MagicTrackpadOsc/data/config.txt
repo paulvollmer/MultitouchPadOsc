@@ -1,22 +1,18 @@
 #wrongPowder.io.Config
-#Sun Nov 27 16:57:59 CET 2011
-app.count=80
-osc.state=0
-osc.size=0
-osc.minoraxis=0
-osc.trackpadname=mt1
-osc.yvelo=0
-osc.frame=0
-app.width=300
-osc.majoraxis=0
-osc.y=0
-osc.x=0
-osc.timestamp=0
+#Mon Nov 28 00:18:01 CET 2011
 app.height=300
-osc.angle=0
-app.framerate=30
 osc.outport=9000
-osc.out=true
-osc.xvelo=0
-osc.outhost="192.168.178.151"
-osc.angleradians=0
+app.framerate=30
+osc.velocity=0
+osc.state=0
+osc.out=1
+osc.position=0
+app.count=150
+osc.frame=0
+osc.timestamp=0
+osc.angle=0
+osc.trackpadname=mt1
+osc.size=0
+osc.outhost="127.0.0.1"
+app.width=300
+osc.maxis=0

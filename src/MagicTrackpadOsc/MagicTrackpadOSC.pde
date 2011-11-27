@@ -26,14 +26,22 @@
 
 import wrongPowder.io.Log;
 import wrongPowder.io.Config;
+import wrongPowder.gui.*;
 import oscP5.*;
 import netP5.*;
 
 
 
-// classes
+// Log
 Log log;
+
+// Config
 Config config = new Config();
+String configPath;
+
+// GUI
+IconButton iconbutton;
+
 NetAddress oscnet;
 Touchpad touchpad;
 
@@ -46,19 +54,15 @@ int outPort;
 // osc master name
 String oscTrackpadName;
 // what will be send
-boolean oscOut;
-boolean oscStateActive;
-boolean oscFrameActive;
-boolean oscTimestampActive;
-boolean oscXposActive;
-boolean oscYposActive;
-boolean oscXveloActive;
-boolean oscYveloActive;
-boolean oscMajorAxisActive;
-boolean oscMinorAxisActive;
-boolean oscSizeActive;
-boolean oscAngleActive;
-boolean oscAngleRadiansActive;
+int oscOut;
+int oscStateActive;
+int oscFrameActive;
+int oscTimestampActive;
+int oscPositionActive;
+int oscVelocityActive;
+int oscMAxisActive;
+int oscSizeActive;
+int oscAngleActive;
 
 
 
@@ -68,8 +72,9 @@ boolean oscAngleRadiansActive;
  * Setup
  */
 void setup() {
+  configPath = dataPath("")+"config.txt";
   // Load Property file
-  config.loadStatic(dataPath("")+"config.txt");
+  config.loadStatic(configPath);
   config.list();
   
   
@@ -91,44 +96,49 @@ void setup() {
   backgroundImage = loadImage("MagicTrackpad-01.png");
   
   
+  // GUI
+  iconbutton = new IconButton(this);
+  iconbutton.init(loadImage("oscActive_on.png"), loadImage("oscActive_off.png"), 45, 50);
+
+
+  
   // Setting up osc host-, port
   outHost = config.getStringProperty("osc.outhost", "127.0.0.1");
   outPort = config.getIntProperty("osc.outport", 9000);
   log.info("OSC Output Host: "+outHost+", Output Port: "+outPort);
+  
   // osc message master name
   oscTrackpadName = config.getStringProperty("osc.trackpadname", "magictrackpad");
   log.info("OSC Trackpad Name: "+oscTrackpadName);
-  // oscOut, if true it send messages
-  oscOut = config.getBooleanProperty("osc.out", false);
+  
+  // oscOut, if 0 it send messages
+  oscOut = config.getIntProperty("osc.out", 1);
   log.info("OSC Out: "+oscOut);
+  
   // state
-  oscStateActive = config.getBooleanProperty("osc.state", false);
+  oscStateActive = config.getIntProperty("osc.state", 1);
   log.info("OSC State: "+oscStateActive);
   // frame
-  oscFrameActive = config.getBooleanProperty("osc.frame", false);
+  oscFrameActive = config.getIntProperty("osc.frame", 1);
   log.info("OSC Frame: "+oscFrameActive);
   // timestamp
-  oscTimestampActive = config.getBooleanProperty("osc.timestamp", false);
+  oscTimestampActive = config.getIntProperty("osc.timestamp", 1);
   log.info("OSC Timestamp: "+oscTimestampActive);
   // x, y pos
-  oscXposActive = config.getBooleanProperty("osc.x", false);
-  oscYposActive = config.getBooleanProperty("osc.y", false);
-  log.info("OSC X position: "+oscXposActive+", Y position: "+oscYposActive);
+  oscPositionActive = config.getIntProperty("osc.pos", 1);
+  log.info("OSC X position: "+oscPositionActive);
   // x, y velocity
-  oscXveloActive = config.getBooleanProperty("osc.xvelo", false);
-  oscYveloActive = config.getBooleanProperty("osc.yvelo", false);
-  log.info("OSC X velocity: "+oscXveloActive+", Y velocity: "+oscYveloActive);
+  oscVelocityActive = config.getIntProperty("osc.xvelo", 1);
+  log.info("OSC Velocity: "+oscVelocityActive);
   // major, minor axis
-  oscMajorAxisActive = config.getBooleanProperty("osc.majoraxis", false);
-  oscMinorAxisActive = config.getBooleanProperty("osc.minoraxis", false);
-  log.info("OSC Minor axis: "+oscMajorAxisActive+", Mayor axis: "+oscMinorAxisActive);
+  oscMAxisActive = config.getIntProperty("osc.maxis", 1);
+  log.info("OSC Minor axis: "+oscMAxisActive);
   // size
-  oscSizeActive = config.getBooleanProperty("osc.size", false);
+  oscSizeActive = config.getIntProperty("osc.size", 1);
   log.info("OSC Size: "+oscSizeActive);
   // angle, angle in radians
-  oscAngleActive = config.getBooleanProperty("osc.angle", false);
-  oscAngleRadiansActive = config.getBooleanProperty("osc.angleradians", false);
-  log.info("OSC Angle: "+oscAngleActive+", Angle in radians: "+oscAngleRadiansActive);
+  oscAngleActive = config.getIntProperty("osc.angle", 1);
+  log.info("OSC Angle: "+oscAngleActive);
   
 
   // set up a remote location
@@ -159,8 +169,22 @@ void draw() {
   
   noStroke();
   fill(0);
-  text("Port: "+outPort+
-    "\nHost: "+outHost, 45, 50);
+  text("Host: "+outHost + ", Port: "+outPort, 45, 120);
+    
+  // GUI
+  iconbutton.draw();
+}
+
+
+
+
+
+
+/**
+ * mousePressed
+ */
+void mousePressed() {
+  iconbutton.mousePressed(mouseX, mouseY);
 }
 
 
@@ -168,22 +192,87 @@ void draw() {
 
 
 /**
- *
- * @param path The osc path. bsp. "/example/"
- * @param n The float value
+ * keyPressed
  */
-void oscmessage(String path, float n) {
-  String tempPath = oscTrackpadName+"/"+path;
-  
-  // create a new OscMessage with an address pattern, in this case /test.
-  OscMessage myOscMessage = new OscMessage(tempPath);
-  
-  // add a value (an integer) to the OscMessage
-  myOscMessage.add(n);
-  
-  // send the OscMessage to the remote location. 
-  OscP5.flush(myOscMessage, oscnet);
-  
-  log.info("OSC MESSAGE "+tempPath+n);
+void keyPressed() {
+  switch(key) {
+    // oscOut
+    case 'q':
+      oscOut = intTrigger("osc.out", oscOut);
+      break;
+    
+    // oscStateActive
+    case '1':
+      oscStateActive = intTrigger("osc.state", oscStateActive);
+      break;
+    
+    // oscFrameActive
+    case '2':
+      oscFrameActive = intTrigger("osc.frame", oscFrameActive);
+      break;
+    
+    // oscTimestampActive
+    case '3':
+      oscTimestampActive = intTrigger("osc.timestamp", oscTimestampActive);
+      break;
+    
+    // oscPositionActive
+    case '4':
+      oscPositionActive = intTrigger("osc.position", oscPositionActive);
+      break;
+      
+    // oscVelocityActive
+    case '5':
+      oscVelocityActive = intTrigger("osc.velocity", oscVelocityActive);
+      break;
+      
+    // oscMAxisActive
+    case '6':
+      oscMAxisActive = intTrigger("osc.maxis", oscMAxisActive);
+      break;
+      
+    // oscSizeActive
+    case '7':
+      oscSizeActive = intTrigger("osc.size", oscSizeActive);
+      break;
+      
+    // oscAngleActive
+    case '8':
+      oscAngleActive = intTrigger("osc.angle", oscAngleActive);
+      break;
+  }
 }
 
+
+
+
+
+/**
+ * intTrigger
+ * Trigger a valuebetween 0 and 1.
+ * 0 = true
+ * 1 = false
+ * 
+ * @param property Config property name
+ * @param i Trigger status
+ * @return  
+ */
+int intTrigger(String property, int i) {
+  int temp = 0;
+  
+  if(i == 0) {
+    temp = 1;
+  }
+  else if(i == 1) {
+    temp = 0;
+  }
+  else {
+    println("Not correct keyEvent");
+  }
+  
+  println(property+"; "+temp);
+  config.setProperty(property, temp);
+  // Save a copy to data folder.
+  config.store(configPath);
+  return temp;
+}
