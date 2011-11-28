@@ -137,9 +137,11 @@ void setup() {
   log.info("OSC Timestamp: "+oscTimestampActive);
   // x, y pos
   oscPositionActive = config.getIntProperty("osc.pos", 1);
+  oscPositionActive = config.getIntProperty("osc.position", 1);
   log.info("OSC X position: "+oscPositionActive);
   // x, y velocity
   oscVelocityActive = config.getIntProperty("osc.xvelo", 1);
+  oscVelocityActive = config.getIntProperty("osc.velocity", 1);
   log.info("OSC Velocity: "+oscVelocityActive);
   // major, minor axis
   oscMAxisActive = config.getIntProperty("osc.maxis", 1);
