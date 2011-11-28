@@ -106,7 +106,7 @@ class Touchpad implements Observer {
     }*/
     
     if (id <= MAX_FINGER_BLOBS)
-      blobs[id-1]= f;
+      blobs[id]= f;
   }	
 
 
