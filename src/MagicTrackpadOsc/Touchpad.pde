@@ -33,6 +33,7 @@ import com.alderstone.multitouch.mac.touchpad.*;
 
 class Touchpad implements Observer {
 
+  public boolean send;
   private static final int MAX_FINGER_BLOBS = 10;
   private int width, height;
 
@@ -169,6 +170,7 @@ class Touchpad implements Observer {
         /*noStroke();
         fill(0, 255, 0);
         ellipse(50, 62, 20, 20);*/
+        send = true;
       }
     }
   }
