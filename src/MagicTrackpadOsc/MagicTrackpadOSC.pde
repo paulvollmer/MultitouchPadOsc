@@ -40,7 +40,10 @@ Config config = new Config();
 String configPath;
 
 // GUI
-IconButton iconbutton;
+IconButton oscactiveButton;
+PImage oscactiveSend;
+IconButton settingsButton;
+IconButton consoleButton;
 
 NetAddress oscnet;
 Touchpad touchpad;
@@ -97,10 +100,18 @@ void setup() {
   
   
   // GUI
-  iconbutton = new IconButton(this);
-  iconbutton.init(loadImage("oscActive_on.png"), loadImage("oscActive_off.png"), 45, 50);
-
-
+  oscactiveButton = new IconButton(this);
+  oscactiveButton.init(loadImage("oscactive_on.png"), loadImage("oscactive_off.png"), 45, 50);
+  oscactiveButton.status = 1;
+  oscactiveSend = loadImage("oscactive_send.png");
+  
+  settingsButton = new IconButton(this);
+  settingsButton.init(loadImage("settings_on.png"), loadImage("settings_off.png"), 90, 50);
+  settingsButton.status = 1;
+  consoleButton = new IconButton(this);
+  consoleButton.init(loadImage("console_on.png"), loadImage("console_off.png"), 171, 50);
+  consoleButton.status = 1;
+  
   
   // Setting up osc host-, port
   outHost = config.getStringProperty("osc.outhost", "127.0.0.1");
@@ -172,7 +183,18 @@ void draw() {
   text("Host: "+outHost + ", Port: "+outPort, 45, 120);
     
   // GUI
-  iconbutton.draw();
+  oscactiveButton.draw();
+  settingsButton.draw();
+  consoleButton.draw();
+  
+  if(settingsButton.status == 0) {
+    fill(0, 150);
+    rect(55, 125, width-110, 420);
+  }
+  if(consoleButton.status == 0) {
+    fill(0, 150);
+    rect(55, 125, width-110, 420);
+  }
 }
 
 
@@ -184,7 +206,9 @@ void draw() {
  * mousePressed
  */
 void mousePressed() {
-  iconbutton.mousePressed(mouseX, mouseY);
+  oscactiveButton.mousePressed(mouseX, mouseY);
+  settingsButton.mousePressed(mouseX, mouseY);
+  consoleButton.mousePressed(mouseX, mouseY);
 }
 
 
