@@ -163,10 +163,6 @@ class Touchpad implements Observer {
         
         popMatrix();
         
-        // if message sended, green point indicator
-        /*noStroke();
-        fill(0, 255, 0);
-        ellipse(50, 62, 20, 20);*/
         send = true;
       }
     }
