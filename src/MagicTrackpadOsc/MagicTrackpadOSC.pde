@@ -35,25 +35,29 @@ import netP5.*;
 // Log
 Log log;
 
+
 // Config
 Config config = new Config();
 String configPath;
 
+
 // GUI
 IconButton oscactiveButton;
-PImage oscactiveSend;
 PImage oscactiveSendImage;
 
 IconButton settingsButton;
+String settingsContent;
+
 IconButton consoleButton;
+// Arraylist to store console messages
+ArrayList<String> consoleContent = new ArrayList<String>();
+// max size of arraylist
+int consoleContentSize = 27;
 
+
+// Osc
 NetAddress oscnet;
-Touchpad touchpad;
-
-// background image
-PImage backgroundImage;
-
-// osc variables
+// osc host, port
 String outHost;
 int outPort;
 // osc master name
@@ -69,6 +73,12 @@ int oscMAxisActive;
 int oscSizeActive;
 int oscAngleActive;
 
+// Magic Trackpad
+Touchpad touchpad;
+
+// background image
+PImage backgroundImage;
+
 
 
 
@@ -77,6 +87,7 @@ int oscAngleActive;
  * Setup
  */
 void setup() {
+  // Initialize config class
   configPath = dataPath("")+"config.txt";
   // Load Property file
   config.loadStatic(configPath);
@@ -95,39 +106,25 @@ void setup() {
   int tempFramerate = config.getIntProperty("app.framerate", 30);
   frameRate(tempFramerate);
   log.info("SETUP Framerate: "+tempFramerate);
-  
+  this.frame.setTitle("test");
   
   // Load background image
   backgroundImage = loadImage("MagicTrackpad-01.png");
-  
-  
-  // GUI
-  oscactiveButton = new IconButton(this);
-  oscactiveButton.init(loadImage("oscactive_on.png"), loadImage("oscactive_off.png"), 45, 50);
-  oscactiveButton.status = 1;
-  oscactiveSend = loadImage("oscactive_send.png");
-  
-  settingsButton = new IconButton(this);
-  settingsButton.init(loadImage("settings_on.png"), loadImage("settings_off.png"), 90, 50);
-  settingsButton.status = 1;
-  consoleButton = new IconButton(this);
-  consoleButton.init(loadImage("console_on.png"), loadImage("console_off.png"), 171, 50);
-  consoleButton.status = 1;
   
   
   // Setting up osc host-, port
   outHost = config.getStringProperty("osc.outhost", "127.0.0.1");
   outPort = config.getIntProperty("osc.outport", 9000);
   log.info("OSC Output Host: "+outHost+", Output Port: "+outPort);
+  // set up a remote location
+  oscnet = new NetAddress("192.168.178.116", 9000);
   
   // osc message master name
   oscTrackpadName = config.getStringProperty("osc.trackpadname", "magictrackpad");
   log.info("OSC Trackpad Name: "+oscTrackpadName);
-  
   // oscOut, if 0 it send messages
   oscOut = config.getIntProperty("osc.out", 1);
   log.info("OSC Out: "+oscOut);
-  
   // state
   oscStateActive = config.getIntProperty("osc.state", 1);
   log.info("OSC State: "+oscStateActive);
@@ -138,11 +135,9 @@ void setup() {
   oscTimestampActive = config.getIntProperty("osc.timestamp", 1);
   log.info("OSC Timestamp: "+oscTimestampActive);
   // x, y pos
-  oscPositionActive = config.getIntProperty("osc.pos", 1);
   oscPositionActive = config.getIntProperty("osc.position", 1);
   log.info("OSC X position: "+oscPositionActive);
   // x, y velocity
-  oscVelocityActive = config.getIntProperty("osc.xvelo", 1);
   oscVelocityActive = config.getIntProperty("osc.velocity", 1);
   log.info("OSC Velocity: "+oscVelocityActive);
   // major, minor axis
@@ -155,9 +150,34 @@ void setup() {
   oscAngleActive = config.getIntProperty("osc.angle", 1);
   log.info("OSC Angle: "+oscAngleActive);
   
-
-  // set up a remote location
-  oscnet = new NetAddress("192.168.178.151", 9000);
+  
+  
+  // GUI
+  oscactiveButton = new IconButton(this);
+  oscactiveButton.init(loadImage("oscactive_on.png"), loadImage("oscactive_off.png"), 60, 50);
+  oscactiveButton.status = oscOut;
+  println(oscOut+", oscactiveButton: "+oscactiveButton.status);
+  oscactiveSendImage = loadImage("oscactive_send.png");
+  
+  settingsButton = new IconButton(this);
+  settingsButton.init(loadImage("settings_on.png"), loadImage("settings_off.png"), 90, 50);
+  settingsButton.status = 1;
+  settingsContent = "OSC SETTINGS\n"+
+                    "\n"+
+                    "   master name\n"+
+                    "   state active\n"+
+                    "   frame active\n"+
+                    "   timestamp active\n"+
+                    "   x, y position active\n"+
+                    "   x, y velocity active\n"+
+                    "   minor/major axis active\n"+
+                    "   size active\n"+
+                    "   angle active";
+                 
+  
+  consoleButton = new IconButton(this);
+  consoleButton.init(loadImage("console_on.png"), loadImage("console_off.png"), 171, 50);
+  consoleButton.status = 1;
   
   
   touchpad = new Touchpad(width, height);
@@ -185,19 +205,50 @@ void draw() {
   noStroke();
   fill(0);
   text("Host: "+outHost + ", Port: "+outPort, 45, 120);
-    
+  
   // GUI
   oscactiveButton.draw();
   settingsButton.draw();
   consoleButton.draw();
   
+  
   if(settingsButton.status == 0) {
+    consoleButton.status = 1;
+   
+    // ground
+    noStroke();
     fill(0, 150);
     rect(55, 125, width-110, 420);
+    
+    fill(255);
+    text(settingsContent, 60, 150);
+    
+    checkEllipse(oscStateActive,     65, 188);
+    checkEllipse(oscFrameActive,     65, 202);
+    checkEllipse(oscTimestampActive, 65, 216);
+    checkEllipse(oscPositionActive,  65, 230);
+    checkEllipse(oscVelocityActive,  65, 244);
+    checkEllipse(oscMAxisActive,     65, 258);
+    checkEllipse(oscSizeActive,      65, 272);
+    checkEllipse(oscAngleActive,     65, 286);
   }
+  
   if(consoleButton.status == 0) {
+    settingsButton.status = 1;
+    
+    // ground
+    noStroke();
     fill(0, 150);
     rect(55, 125, width-110, 420);
+    
+    // console text
+    fill(#1CF6FF);
+      for (int i = consoleContent.size()-1; i >= 0; i--) {
+        text(consoleContent.get(i), 60, 145+(i*15));
+      }
+  }
+  
+  
   // send osc signal icon
   if(oscOut == 0 && touchpad.send == true) {
     // if message sended, green point indicator
@@ -213,13 +264,34 @@ void draw() {
 
 
 
+void checkEllipse(int var, int x, int y) {
+  if(var == 0) {
+    fill(0, 255, 0);
+  }
+  else {
+    fill(255, 0, 0);
+  }
+  ellipse(x, y, 10, 10);
+}
+
+
+
+
+
 /**
  * mousePressed
  */
 void mousePressed() {
+  // GUI
   oscactiveButton.mousePressed(mouseX, mouseY);
+  oscOut = oscactiveButton.status;
+  config.setProperty("osc.out", oscOut);
+  
   settingsButton.mousePressed(mouseX, mouseY);
   consoleButton.mousePressed(mouseX, mouseY);
+  
+  
+  config.store(configPath);
 }
 
 
@@ -232,10 +304,11 @@ void mousePressed() {
 void keyPressed() {
   switch(key) {
     // oscOut
-    case 'q':
+    /*case 'q':
+      oscactiveButton.status = oscOut;
       oscOut = intTrigger("osc.out", oscOut);
       break;
-    
+    */
     // oscStateActive
     case '1':
       oscStateActive = intTrigger("osc.state", oscStateActive);

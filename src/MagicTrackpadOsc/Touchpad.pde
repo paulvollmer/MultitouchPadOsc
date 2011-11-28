@@ -34,6 +34,7 @@ import com.alderstone.multitouch.mac.touchpad.*;
 class Touchpad implements Observer {
 
   public boolean send;
+  
   private static final int MAX_FINGER_BLOBS = 10;
   private int width, height;
 
@@ -106,7 +107,7 @@ class Touchpad implements Observer {
     }*/
     
     if (id <= MAX_FINGER_BLOBS)
-      blobs[id]= f;
+      blobs[id-1]= f;
   }	
 
 
@@ -123,7 +124,7 @@ class Touchpad implements Observer {
         
         // check if osc.out = 0, send osc message
         if(oscOut == 0) {
-          if(oscFrameActive == 0) oscmessage(""+id+"/frame/", frame);
+          if(oscFrameActive == 0) oscmessage(""+id+"/frame/", f.getFrame()); //frame);
           if(oscTimestampActive == 0) oscmessage(""+id+"/timestamp/", timestamp);
           if(oscPositionActive == 0) oscmessage(""+id+"/x/", x);
           if(oscPositionActive == 0) oscmessage(""+id+"/y/", y);
@@ -137,7 +138,7 @@ class Touchpad implements Observer {
         }
         
         int x     = (int) ((width-80)  * (f.getX()));
-        int y     = (int) ((height-165) * (1-f.getY()));
+        int y     = (int) ((height-165) * (f.getY()));
         int xsize = (int) (10*f.getSize() * (f.getMajorAxis()/2));
         int ysize = (int) (10*f.getSize() * (f.getMinorAxis()/2));
         int ang   = f.getAngle();
@@ -164,6 +165,7 @@ class Touchpad implements Observer {
         popMatrix();
         
         send = true;
+        
       }
     }
   }
@@ -190,6 +192,10 @@ void oscmessage(String path, float n) {
   OscP5.flush(myOscMessage, oscnet);
   
   log.info("OSC MESSAGE "+tempPath+n);
+  // add to arraylist consoleContent
+  consoleContent.add(0, "OSC MESSAGE "+tempPath+n);
+  if(consoleContent.size() > consoleContentSize)
+    consoleContent.remove(consoleContentSize);
 }
 
 /**
