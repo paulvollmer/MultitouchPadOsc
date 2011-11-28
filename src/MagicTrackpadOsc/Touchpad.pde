@@ -104,9 +104,6 @@ class Touchpad implements Observer {
     if (f != null && f.getState() == FingerState.RELEASED) { 
       //println(FingerState.RELEASED);
     }*/
-
-    // Send osc message
-    //oscmessage(""+id+"/", x);
     
     if (id <= MAX_FINGER_BLOBS)
       blobs[id-1]= f;
