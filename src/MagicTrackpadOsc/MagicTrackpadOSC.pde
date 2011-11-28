@@ -42,6 +42,8 @@ String configPath;
 // GUI
 IconButton oscactiveButton;
 PImage oscactiveSend;
+PImage oscactiveSendImage;
+
 IconButton settingsButton;
 IconButton consoleButton;
 
@@ -196,6 +198,13 @@ void draw() {
   if(consoleButton.status == 0) {
     fill(0, 150);
     rect(55, 125, width-110, 420);
+  // send osc signal icon
+  if(oscOut == 0 && touchpad.send == true) {
+    // if message sended, green point indicator
+    noStroke();
+    noFill();
+    image(oscactiveSendImage, 60, 50);
+    touchpad.send = false;
   }
 }
 
