@@ -51,7 +51,7 @@ Build with [Processing](http://www.processing.org)
 
 * * *
 
-###Download###  
+###Download  
 ![Github zip download](https://github.com/images/modules/download/zip.png "MagicTrackpadOsc Github download zip") 
 ![Github tar download](https://github.com/images/modules/download/tar.png "MagicTrackpadOsc Github download tar")  
 You can download this project in either [zip](https://github.com/WrongEntertainment/MagicTrackpadOsc/zipball/master) or [tar](https://github.com/WrongEntertainment/MagicTrackpadOsc/tarball/master) formats.
