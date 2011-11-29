@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<!-- Title -->
+		<title>MagicTrackpadOsc GitHub Page</title>
+		<!-- Meta -->
+		<meta name="description"    content="magic trackpad osc sender">
+		<meta name="keywords"       content="MagicTrackpadOsc, magic trackpad osc, multitouch, osc, open sound control, oscP5, osc event, oscEvent, osc message, oscMessage, send, receive, github, wrong entertainment, wrong-entertainment.com">
+		<meta name="author"         content="Paul Vollmer, wrong-entertainment.com">
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="../styles.css" />
+	</head>
+
+
+	<body>
+		<a href="https://wrongentertainment.github.com//MagicTrackpadOsc"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>	
+	
+		<!-- Header -->
+		<header>	
+			<h1><a href="https://github.com/WrongEntertainment/MagicTrackpadOsc">MagicTrackpadOsc </a></h1>
+			<div class="subline">
+				An Application to send multitouch messages from Magic Trackpad
+	    	</div>
+		</header>  
+		
+		<!-- Navigation -->
+		<nav>
+			<b><a href="introduction.html" target="_self">Introduction</a> | <a href="guide.html" target="_self">User Guide</a> | <a href="download.html" target="_self">Download</a> | <a href="contact.html" target="_self">Contact</a></b>
+		</nav>
+		
+		<!-- Introduction
+		<section id="intro">
+			<span class="small">sending open sound control</span>
+		</section> -->
+		
+    	<!-- Main content area -->  
+		<section>
+			<h2>User Guide</h2>
+			<div id="guide">
+				<h3>Screenshots</h3>
+				<img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_01.jpg" width="500px">
+				<div class="subline">Application standart screen</div></br>
+				<img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_02.jpg" width="500px">
+				<div class="subline">Application settings</div></br>
+				<img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_03.jpg" width="500px">
+				<div class="subline">Application console</div>
+				
+				<h3>Installation</h3>
+				<p>Install: Mac Java Application, no installation needed.</p>
+				<p>License: GNU Lesser General Public License</p>
+				<p>Dependencies: Mac OS 10.5+</p>
+				
+				<h3>Auswählbare OSC-Messages:</h3>
+						<pre># TRACKPADNAME: settings name osc.trackpadname
+# FINGER-ID: the finger id (from 0 to 20)
+
+TRACKPADNAME/FINGER-ID/frame
+TRACKPADNAME/FINGER-ID/timestamp
+TRACKPADNAME/FINGER-ID/x
+TRACKPADNAME/FINGER-ID/y
+TRACKPADNAME/FINGER-ID/xvelocity
+TRACKPADNAME/FINGER-ID/yvelocity
+TRACKPADNAME/FINGER-ID/majoraxis
+TRACKPADNAME/FINGER-ID/minoraxis
+TRACKPADNAME/FINGER-ID/size
+TRACKPADNAME/FINGER-ID/angle
+TRACKPADNAME/FINGER-ID/rangle</pre>
+				</p>
+				<p><b>Processing example</b></p>
+				<p>This example is based on <a href="http://www.sojamo.de/libraries/oscP5/index.html">oscP5</a> Library example</p>
+				<pre>/**
+ * This example shows how toreceive osc messages from
+ * Magic Trackpad. It will draw a ellipse with values from
+ * received x-, y position and size.
+ * 
+ * Based on oscP5sendreceive by andreas schlegel
+ * oscP5 website at http://www.sojamo.de/oscP5
+ */
+
+import oscP5.*;
+import netP5.*;
+
+OscP5 oscP5;
+NetAddress myRemoteLocation;
+
+boolean oscIn;
+float x, y, diam;
+
+
+void setup() {
+	size(400,400);
+	smooth();
+	frameRate(25);
+	/* start oscP5, listening for incoming messages at port 12000 */
+	oscP5 = new OscP5(this,9000);
+	
+	/* myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,
+ 	 * an ip address and a port number. myRemoteLocation is used as parameter in
+ 	 * oscP5.send() when sending osc packets to another computer, device, 
+ 	 * application. usage see below. for testing purposes the listening port
+ 	 * and the port of the remote location address are the same, hence you will
+ 	 * send messages back to this sketch.
+	 */
+	myRemoteLocation = new NetAddress("192.168.178.110",9000);
+}
+
+
+void draw() {
+	background(255);
+
+	noStroke();
+	fill(#00A8FA);
+	ellipse(x, y, diam, diam);
+}
+
+
+void mousePressed() {
+	/* in the following different ways of creating osc messages are shown by example */
+	OscMessage myMessage = new OscMessage("/test");
+
+	myMessage.add(123); /* add an int to the osc message */
+
+	/* send the message */
+	oscP5.send(myMessage, myRemoteLocation); 
+}
+
+
+/* incoming osc message are forwarded to the oscEvent method. */
+void oscEvent(OscMessage theOscMessage) {
+	/* print the address pattern and the typetag of the received OscMessage */
+	/*print("### received an osc message.");
+	print(" addrpattern: "+theOscMessage.addrPattern());
+	println(" typetag: "+theOscMessage.typetag());*/
+	
+	for(int i=0; i<20; i++) {
+		if(theOscMessage.checkAddrPattern("mt1/"+i+"/size/") == true) {
+			if(theOscMessage.checkTypetag("f")) {
+				diam = theOscMessage.get(0).floatValue() * 50;
+				println(diam);
+
+			}
+		}
+
+		if(theOscMessage.checkAddrPattern("mt1/"+i+"/x/") == true) {
+			x = map(theOscMessage.get(0).floatValue(), 0, 1, 0, width);
+		}
+		if(theOscMessage.checkAddrPattern("mt1/"+i+"/y/") == true) {
+			y = map(theOscMessage.get(0).floatValue(), 1, 0, 0, height);
+			println("Position x:"+x+", y: "+y);
+		}
+
+	}
+
+}
+			</pre>
+	    	</div>
+		</section>  
+		
+		<!-- Sidebar 
+		<aside>
+			<p>This is a sidebar.</p>
+		</aside> -->
+		
+		<!-- Footer -->  
+		<footer>
+			</br><img src="http://www.wrong-entertainment.com/code/fhp_white.png" height="35" alt="fh-potsdam, university of applied sciences"/> 
+			<img src="http://www.wrong-entertainment.com/code/wng_slogan_white.png" height="40" hspace=30 alt="wrong-entertainment.com creative studiolab for motion and graphicdesign"/>  
+			<img src="http://www.wrong-entertainment.com/code/github_white.png" height="45" alt="github, social coding"/></br>
+			<p>Paul Vollmer, <b><a href="http:www.wrong-entertainment.com">wrong-entertainment.com </a></b></br>
+			Get the source code on <b><a href="https://github.com/WrongEntertainment/MagicTrackpadOsc">Github</a></b> or write a <b><a href="paul.vollmer@fh-potsdam.de"> Mail</a></b></p>
+		</footer>
+
+</body>
+</html>

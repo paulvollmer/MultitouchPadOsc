@@ -1,0 +1,84 @@
+body {
+   background-color: #DBDBDB;
+   font-family: Helvetica, Arial, FreeSans, san-serif;
+   color: #000;
+   margin: 0px;
+}
+
+header {
+	margin-left: 7%;
+}
+
+nav {
+	margin-top: 40px;
+	padding-top: 25px;
+	padding-bottom: 5px;
+	padding-left: 18%;
+	background-color: #CCC;
+}
+
+nav a {
+	text-decoration: none
+}
+
+section {
+	margin-left: 18%;
+	margin-top: 80px;
+	padding-bottom: 100px;
+	font-size: 14px;
+	width: 780px;
+}
+
+
+
+footer {
+	padding-top: 10px;
+	padding-bottom: 20px;
+	padding-left: 7%;
+	background: #27323b;
+	color: #647d90;
+	font-size: 10pt;
+	font-style: italic;
+	bottom:0px;
+}
+footer a {
+	color: #647d90;
+}
+
+
+h1 {
+	font-size: 3.8em;
+	color: #171717;
+	margin-bottom: 3px;
+}
+h1 a { text-decoration: none }
+
+h2 {
+	margin-top: 80px;
+	font-size: 32px;
+	color: #171717;
+}
+
+h3 {
+	padding-top: 64px;
+}
+
+a { color: #171717; }
+
+pre {
+	background: #27323b;
+	color: #fff;
+	padding: 15px;
+}
+
+/* Fix this
+   Fix the footer to the end of page */
+#contact {
+	padding-bottom: 100px;
+}
+
+.subline {
+	font-size: 12px;
+	margin-top: 5px;
+	font-style: italic;
+}
