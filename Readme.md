@@ -74,9 +74,9 @@ Mac OS 10.5+
 
 ###Contact###
 
-Mail: [Paul Vollmer](paul.vollmer@fh-potsdam.de)
-Url: [wrong-entertainment.com](http://www.wrong-entertainment.com)
-Github: [github.com/WrongEntertainment](http://wrongentertainment.github.com/MagicTrackpadOsc)
+Mail: [Paul Vollmer](paul.vollmer@fh-potsdam.de)  
+Url: [wrong-entertainment.com](http://www.wrong-entertainment.com)  
+Github: [github.com/WrongEntertainment](http://wrongentertainment.github.com/MagicTrackpadOsc)  
 
 * * *
 
