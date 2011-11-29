@@ -3,15 +3,18 @@
   
 MagicTrackpadOsc (version 0.1.0 codename fTouch) is developed by: [wrong-entertainment](http://wrong-entertainment.com)  
 Copyright 2011 Paul Vollmer   
-
+  
+The wrongPowder Project Page is Hosted at http://wrongentertainment.github.com/MagicTrackpadOsc/  
+Check out for New released Version at https://github.com/WrongEntertainment/MagicTrackpadOsc  
+  
 This file is part of MagicTrackpadOsc.  
    
 ###Description  
 
 <img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_01.jpg" width=250 >
 <img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_02.jpg" width=250 >
-<img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_03.jpg" width=250 >
-
+<img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_03.jpg"
+  
 MagicTrackpadOSC ist eine Applikation für das Magic Trackpad (Apple) mit dem man die eingehenden Multitouch Events  
 als OSC-Message versenden kann. Dadurch ist es möglich,das Trackpad als Controller zu verwenden.  
 Die MagicTrackpadOSC Applikation ist mit dem Betriebssystem MacOS 10.5+ zu benutzen, damit ein valider Support 
@@ -48,10 +51,7 @@ Build with [Processing](http://www.processing.org)
 
 * * *
 
-###Download###
-The wrongPowder Project Page is Hosted at http://wrongentertainment.github.com/wrongPowder  
-Check out for New released Version at https://github.com/WrongEntertainment/wrongPowder  
-  
+###Download###  
 ![Github zip download](https://github.com/images/modules/download/zip.png "MagicTrackpadOsc Github download zip") 
 ![Github tar download](https://github.com/images/modules/download/tar.png "MagicTrackpadOsc Github download tar")  
 You can download this project in either [zip](https://github.com/WrongEntertainment/MagicTrackpadOsc/zipball/master) or [tar](https://github.com/WrongEntertainment/MagicTrackpadOsc/tarball/master) formats.
