@@ -1,18 +1,18 @@
 #wrongPowder.io.Config
-#Mon Nov 28 14:59:14 CET 2011
+#Sat Dec 03 11:17:10 CET 2011
 app.height=300
 osc.outport=9000
 app.framerate=30
 osc.velocity=1
-osc.state=0
+osc.state=1
 osc.out=0
-osc.position=1
-app.count=336
-osc.frame=0
-osc.timestamp=0
-osc.angle=0
+osc.position=0
+app.count=360
+osc.frame=1
+osc.timestamp=1
+osc.angle=1
 osc.trackpadname=mt1
-osc.size=0
+osc.size=1
 osc.outhost="127.0.0.1"
 app.width=300
-osc.maxis=0
+osc.maxis=1

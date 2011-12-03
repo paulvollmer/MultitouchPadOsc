@@ -79,6 +79,8 @@ Touchpad touchpad;
 // background image
 PImage backgroundImage;
 
+PFont font;
+
 
 
 
@@ -111,6 +113,8 @@ void setup() {
   // Load background image
   backgroundImage = loadImage("MagicTrackpad-01.png");
   
+  font = createFont("Courier", 12);
+  textFont(font);
   
   // Setting up osc host-, port
   outHost = config.getStringProperty("osc.outhost", "127.0.0.1");
@@ -154,7 +158,7 @@ void setup() {
   
   // GUI
   oscactiveButton = new IconButton(this);
-  oscactiveButton.init(loadImage("oscactive_on.png"), loadImage("oscactive_off.png"), 60, 50);
+  oscactiveButton.init(loadImage("oscactive_on.png"), loadImage("oscactive_off.png"), 54, 50);
   oscactiveButton.status = oscOut;
   println(oscOut+", oscactiveButton: "+oscactiveButton.status);
   oscactiveSendImage = loadImage("oscactive_send.png");
@@ -164,15 +168,15 @@ void setup() {
   settingsButton.status = 1;
   settingsContent = "OSC SETTINGS\n"+
                     "\n"+
-                    "   master name\n"+
-                    "   state active\n"+
-                    "   frame active\n"+
-                    "   timestamp active\n"+
-                    "   x, y position active\n"+
-                    "   x, y velocity active\n"+
-                    "   minor/major axis active\n"+
-                    "   size active\n"+
-                    "   angle active";
+                    "   master name              (change at config file)\n"+
+                    "   state active             (shortcut 1)\n"+
+                    "   frame active             (shortcut 2)\n"+
+                    "   timestamp active         (shortcut 3)\n"+
+                    "   x, y position active     (shortcut 4)\n"+
+                    "   x, y velocity active     (shortcut 5)\n"+
+                    "   minor/major axis active  (shortcut 6)\n"+
+                    "   size active              (shortcut 7)\n"+
+                    "   angle active             (shortcut 8)";
                  
   
   consoleButton = new IconButton(this);
@@ -204,7 +208,7 @@ void draw() {
   
   noStroke();
   fill(0);
-  text("Host: "+outHost + ", Port: "+outPort, 45, 120);
+  text("Host: "+outHost + ", Port: "+outPort, 54, 110);
   
   // GUI
   oscactiveButton.draw();
@@ -223,14 +227,14 @@ void draw() {
     fill(255);
     text(settingsContent, 60, 150);
     
-    checkEllipse(oscStateActive,     65, 188);
-    checkEllipse(oscFrameActive,     65, 202);
-    checkEllipse(oscTimestampActive, 65, 216);
-    checkEllipse(oscPositionActive,  65, 230);
-    checkEllipse(oscVelocityActive,  65, 244);
-    checkEllipse(oscMAxisActive,     65, 258);
-    checkEllipse(oscSizeActive,      65, 272);
-    checkEllipse(oscAngleActive,     65, 286);
+    checkEllipse(oscStateActive,     65, 192);
+    checkEllipse(oscFrameActive,     65, 207);
+    checkEllipse(oscTimestampActive, 65, 222);
+    checkEllipse(oscPositionActive,  65, 237);
+    checkEllipse(oscVelocityActive,  65, 252);
+    checkEllipse(oscMAxisActive,     65, 267);
+    checkEllipse(oscSizeActive,      65, 282);
+    checkEllipse(oscAngleActive,     65, 297);
   }
   
   if(consoleButton.status == 0) {
