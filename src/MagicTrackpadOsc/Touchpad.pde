@@ -124,8 +124,6 @@ class Touchpad implements Observer {
         
         // check if osc.out = 0, send osc message
         if(oscOut == 0) {
-          if(oscFrameActive == 0) oscmessage(""+id+"/frame/", f.getFrame()); //frame);
-          if(oscTimestampActive == 0) oscmessage(""+id+"/timestamp/", timestamp);
           if(oscFrameActive == 0) oscmessage("/frame/", f.getFrame()); //frame);
           if(oscTimestampActive == 0) oscmessage("/timestamp/", timestamp);
           if(oscPositionActive == 0) oscmessage(""+id+"/x/", x);
