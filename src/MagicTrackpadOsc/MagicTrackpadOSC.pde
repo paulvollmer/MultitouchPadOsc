@@ -108,7 +108,7 @@ void setup() {
   int tempFramerate = config.getIntProperty("app.framerate", 30);
   frameRate(tempFramerate);
   log.info("SETUP Framerate: "+tempFramerate);
-  this.frame.setTitle("test");
+  this.frame.setTitle("MagicTrackpadOsc v.0.1.0");
   
   // Load background image
   backgroundImage = loadImage("MagicTrackpad-01.png");
