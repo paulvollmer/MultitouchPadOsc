@@ -138,14 +138,14 @@ class Touchpad implements Observer {
         }
         
         int x     = (int) ((width-80)  * (f.getX()));
-        int y     = (int) ((height-165) * (f.getY()));
+        int y     = (int) map(f.getY(), 0, 1, 555, 140);
         int xsize = (int) (10*f.getSize() * (f.getMajorAxis()/2));
         int ysize = (int) (10*f.getSize() * (f.getMinorAxis()/2));
         int ang   = f.getAngle();
 
 
         pushMatrix();  
-        translate((x+(45))-xsize/2, (y+125)-ysize/2);
+        translate((x+(45))-xsize/2, (y)-ysize/2);
 
         pushMatrix();
         rotate(radians(-ang));  // convert degrees to radians

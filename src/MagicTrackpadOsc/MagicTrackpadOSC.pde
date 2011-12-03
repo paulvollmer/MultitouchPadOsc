@@ -258,7 +258,7 @@ void draw() {
     // if message sended, green point indicator
     noStroke();
     noFill();
-    image(oscactiveSendImage, 60, 50);
+    image(oscactiveSendImage, 54, 50);
     touchpad.send = false;
   }
 }
