@@ -15,7 +15,7 @@
 
 
 	<body>
-		<a href="https://wrongentertainment.github.com/MagicTrackpadOsc"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>	
+		<a href="https://github.com/WrongEntertainment/MagicTrackpadOsc"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>	
 	
 		<!-- Header -->
 		<header>	
@@ -48,27 +48,50 @@
 				<div class="subline">Application console</div>
 				
 				<h3>Installation</h3>
-				<p>Install: Mac Java Application, no installation needed.</p>
-				<p>License: GNU Lesser General Public License</p>
-				<p>Dependencies: Mac OS 10.5+</p>
+				<p><b>Install</b></br>Mac Java Application, no installation needed.</br></p>
+				<p><b>License</b></br>GNU Lesser General Public License</br></p>
+				<p><b>Platform</b></br>Mac</p>
+				<p><b>Dependencies</b></br>Mac OS 10.5+</p>
 				
 				<h3>Auswählbare OSC-Messages:</h3>
 						<pre># TRACKPADNAME: settings name osc.trackpadname
 # FINGER-ID: the finger id (from 0 to 20)
 
+
 TRACKPADNAME/FINGER-ID/frame
+# return the current frame.
+
 TRACKPADNAME/FINGER-ID/timestamp
+# return the current timestamp
+
 TRACKPADNAME/FINGER-ID/x
+# return the x value of the finger.
+
 TRACKPADNAME/FINGER-ID/y
+# return the y value of the finger.
+
 TRACKPADNAME/FINGER-ID/xvelocity
+# return the x velocity of the finger.
+
 TRACKPADNAME/FINGER-ID/yvelocity
+# return the y velocity of the finger.
+
 TRACKPADNAME/FINGER-ID/majoraxis
+# return the major axis of the finger.
+
 TRACKPADNAME/FINGER-ID/minoraxis
+# return the minor axis of the finger.
+
 TRACKPADNAME/FINGER-ID/size
+# return the size of the finger.
+
 TRACKPADNAME/FINGER-ID/angle
-TRACKPADNAME/FINGER-ID/rangle</pre>
+# return the angle of the finger.
+
+TRACKPADNAME/FINGER-ID/rangle
+# return the angle of the finger (in radians).</pre>
 				</p>
-				<p><b>Processing example</b></p>
+				<h3>Processing example</h3>
 				<p>This example is based on <a href="http://www.sojamo.de/libraries/oscP5/index.html">oscP5</a> Library example</p>
 				<pre>/**
  * This example shows how toreceive osc messages from
