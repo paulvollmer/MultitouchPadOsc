@@ -31,36 +31,43 @@
 
 /**
  * Setup
+ * 
+ * Load the settings xml file.
+ * Load background image.
  */
-void testApp::setup(){
+void testApp::setup() {
+	cout << "Setup start" << endl;
+	
 	// XML settings
+	string filepath = "MagicTrackpadOscSettings.xml";
 	// We load our settings file.
-	// if it doesn't exist we can still make one by hitting the 's' key
-	if( xmlSettings.loadFile("MagicTrackpadOscSettings.xml") ){
-		cout << "MagicTrackpadOscSettings.xml loaded!" << endl;
-	}else{
-		cout << "unable to load MagicTrackpadOscSettings.xml check data/ folder" << endl;
+	// If it doesn't exist we can still make...
+	if( xmlSettings.loadFile(filepath) ) {
+		cout << filepath << " loaded!" << endl;
+	} else {
+		cout << "unable to load " << filepath << " check data/ folder" << endl;
 	}
 	
-	// read the settings file.
-	// app settings
-	int appFramerate = xmlSettings.getValue("app:framerate", 60);
-	int appCount     = xmlSettings.getValue("app:count", 1);
-	cout << "app:framerate = " << appFramerate << endl;
-	cout << "app:count     = " << appCount << endl;
-	// osc settings
-	string oscoutHost    = xmlSettings.getValue("osc:outhost", "127.0.0.1");
-	int oscoutPort       = xmlSettings.getValue("osc:outport", 1234);
-	int oscout           = xmlSettings.getValue("osc:out", 1);
-	string oscDevicename = xmlSettings.getValue("osc:devicename", "mtosc");
-	int oscFrame         = xmlSettings.getValue("osc:frame", 1);
-	int oscTimestamp     = xmlSettings.getValue("osc:timestamp", 1);
-	int oscPosition      = xmlSettings.getValue("osc:position", 1);
-	int oscVelocity      = xmlSettings.getValue("osc:velocity", 1);
-	int oscSize          = xmlSettings.getValue("osc:size", 1);
-	int oscMaxis         = xmlSettings.getValue("osc:maxis", 1);
-	int oscAngle         = xmlSettings.getValue("osc:angle", 1);
-	cout << "osc:outhost    = " << oscoutHost << endl;
+	// Read the settings file.
+	// Application settings
+	appFramerate = xmlSettings.getValue("app:framerate", 60);
+	appCount     = xmlSettings.getValue("app:count", 1);
+	/*cout << "app:framerate = " << appFramerate << endl;
+	cout << "app:count     = " << appCount << endl;*/
+	
+	// OSC settings
+	oscoutHost    = xmlSettings.getValue("osc:outhost", "127.0.0.1");
+	oscoutPort    = xmlSettings.getValue("osc:outport", 1234);
+	oscout        = xmlSettings.getValue("osc:out", 1);                  // if 0 it send messages
+	oscDevicename = xmlSettings.getValue("osc:devicename", "mtosc");
+	oscFrame      = xmlSettings.getValue("osc:frame", 1);
+	oscTimestamp  = xmlSettings.getValue("osc:timestamp", 1);
+	oscPosition   = xmlSettings.getValue("osc:position", 1);
+	oscVelocity   = xmlSettings.getValue("osc:velocity", 1);
+	oscSize       = xmlSettings.getValue("osc:size", 1);
+	oscMaxis      = xmlSettings.getValue("osc:maxis", 1);
+	oscAngle      = xmlSettings.getValue("osc:angle", 1);
+	/*cout << "osc:outhost    = " << oscoutHost << endl;
 	cout << "osc:outport    = " << oscoutPort << endl;
 	cout << "osc:out        = " << oscout << endl;
 	cout << "osc:devicename = " << oscDevicename << endl;
@@ -70,48 +77,55 @@ void testApp::setup(){
 	cout << "osc:velocity   = " << oscVelocity << endl;
 	cout << "osc:size       = " << oscSize << endl;
 	cout << "osc:maxis      = " << oscMaxis << endl;
-	cout << "osc:angle      = " << oscAngle << endl;
+	cout << "osc:angle      = " << oscAngle << endl;*/
+	
+	// add +1 to app:count and save the settings file.
+	appCount++;
+	xmlSettings.setValue("app:count", appCount);
+	xmlSettings.saveFile(filepath);
+	cout << "settings saved to xml!" << endl;
 	
 	
+	// Images
+	backgroundImage.loadImage("MagicTrackpad.png");
 	
-	ofSetBackgroundAuto(false); // nicing up, maybe....
-    ofBackground(0,0,0);
-	
-	// --- add the listeners
+	// add the listeners
     ofAddListener(pad.update, this, &testApp::padUpdates);
     ofAddListener(pad.touchAdded, this, &testApp::newTouch);
     ofAddListener(pad.touchRemoved, this, &testApp::removedTouch);
-	
 	cout << "Number of Devices: " << pad.getNumDevices() << endl;
+	
+	cout << "Setup ready!" << endl;
 }
+
 
 
 /**
  * Update
  */
-void testApp::update(){
+void testApp::update() {
 	//cout << "Touchcount: " << pad.getTouchCount() << endl;
 }
+
 
 
 /**
  * Draw
  */
-void testApp::draw(){
-	ofEnableAlphaBlending();
-    ofEnableSmoothing();
-    
-    ofSetColor(0,0,0,16);
-    ofRect(0,0,ofGetWidth(),ofGetHeight());
-    
-    ofSetColor(255,255,255);
+void testApp::draw() {
+	// background image
+	ofFill();
+	ofSetColor(255);
+	backgroundImage.draw(0, 0);
+	
+    ofSetColor(0);
     ofDrawBitmapString("TouchCount: "+ofToString(pad.getTouchCount(), 0),
                        20, 20);
     
     // connect all touches with a line
     std::vector<ofPoint>touches;
     pad.getTouchesAsOfPoints(&touches);
-    for (int i=0; (i<touches.size()-1 && touches.size()>1); i++) {
+    for(int i=0; (i<touches.size()-1 && touches.size()>1); i++) {
         ofSetColor(255, 128, 22);
         ofLine(touches.at(i).x*ofGetWidth(),
                touches.at(i).y*ofGetHeight(),
@@ -120,9 +134,9 @@ void testApp::draw(){
     }
     
     // ---- if we have only 2 touches, draw a line
-    if (pad.getTouchCount()==2) {
+    if(pad.getTouchCount()==2) {
         MTouch t1,t2;
-        if (pad.getTouchAt(0,&t1) && pad.getTouchAt(1,&t2) ){
+        if(pad.getTouchAt(0,&t1) && pad.getTouchAt(1,&t2) ){
             ofSetColor(22, 255, 225);
             ofLine(t1.x*ofGetWidth(), t1.y*ofGetHeight(),
                    t2.x*ofGetWidth(), t2.y*ofGetHeight());
@@ -133,15 +147,14 @@ void testApp::draw(){
         }
     }
     else {
-		
-		for (int i=0; i<pad.getTouchCount(); i++) {
+		for(int i=0; i<pad.getTouchCount(); i++) {
 			// get a single touch as MTouch struct....
 			MTouch _t;
 			if(!pad.getTouchAt(i,&_t)) continue; // guard..
 			
 			// ... or as ofPoint
 			ofPoint _p(0,0,0);
-			if (!pad.getTouchAsOfPointAt(i,&_p)) continue; // guard..
+			if(!pad.getTouchAsOfPointAt(i,&_p)) continue; // guard..
 			
 			
 			char _s [128];
@@ -152,7 +165,7 @@ void testApp::draw(){
 			
 			// using MTouch struct
 			glPushMatrix();
-			ofSetColor(0xff0000);
+			ofSetHexColor(0xff0000);
 			ofTranslate(_t.x*ofGetWidth(),
 						_t.y*ofGetHeight(),0);
 			ofRotateZ(_t.angle);
@@ -166,7 +179,7 @@ void testApp::draw(){
 			
 			// using ofPoint
 			glPushMatrix();
-			ofSetColor(0xffff00);
+			ofSetHexColor(0xffff00);
 			ofTranslate(_p.x*ofGetWidth(),
 						_p.y*ofGetHeight(),0);
 			s = 10;
@@ -177,6 +190,7 @@ void testApp::draw(){
 		}
     }
 }
+
 
 //--------------------------------------------------------------
 void testApp::padUpdates(int & t) {
@@ -191,47 +205,74 @@ void testApp::removedTouch(int & r) {
     printf("------ a removed touch\n",r);
 }
 
-//--------------------------------------------------------------
-void testApp::keyPressed(int key){
+
+/**
+ * Key pressed
+ */
+void testApp::keyPressed(int key) {
 
 }
 
-//--------------------------------------------------------------
-void testApp::keyReleased(int key){
+
+/**
+ * Key released
+ */
+void testApp::keyReleased(int key) {
 
 }
 
-//--------------------------------------------------------------
-void testApp::mouseMoved(int x, int y ){
+
+/**
+ * Mouse moved
+ */
+void testApp::mouseMoved(int x, int y) {
 
 }
 
-//--------------------------------------------------------------
-void testApp::mouseDragged(int x, int y, int button){
+
+/**
+ * Mouse dragged
+ */
+void testApp::mouseDragged(int x, int y, int button) {
 
 }
 
-//--------------------------------------------------------------
-void testApp::mousePressed(int x, int y, int button){
+
+/**
+ * Mouse pressed
+ */
+void testApp::mousePressed(int x, int y, int button) {
 
 }
 
-//--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
+
+/**
+ * Mouse released
+ */
+void testApp::mouseReleased(int x, int y, int button) {
 
 }
 
-//--------------------------------------------------------------
-void testApp::windowResized(int w, int h){
+
+/**
+ * Window resized
+ */
+void testApp::windowResized(int w, int h) {
 
 }
 
-//--------------------------------------------------------------
-void testApp::gotMessage(ofMessage msg){
+
+/**
+ * Got message
+ */
+void testApp::gotMessage(ofMessage msg) {
 
 }
 
-//--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+
+/**
+ * Drag event
+ */
+void testApp::dragEvent(ofDragInfo dragInfo) { 
 
 }

@@ -83,7 +83,6 @@ NAME( const NAME& );
 #include "MTTypes.h"
 
 #define _NUM_TOUCH_FINGERS 16 // who has more then 16 fingers?
-
 #define _MAX_DEVICES 4 //who has more than 4 devices?
 
 static Finger _touches[_NUM_TOUCH_FINGERS];
@@ -94,7 +93,7 @@ static int _mt_callback(int device, Finger *data, int nFingers,
                         double timestamp, int frame);
 
 /*
- define event types // simplified Finger type
+ * define event types // simplified Finger type
  */
 typedef struct MTouch {
     int ID,frame;
@@ -103,7 +102,7 @@ typedef struct MTouch {
 } MTouch;
 
 /*
- TODO: optimize the container to store timestamps, when a touch is added
+ * TODO: optimize the container to store timestamps, when a touch is added
  */
 typedef struct TouchFrame {
     Finger touches[_NUM_TOUCH_FINGERS];
@@ -118,46 +117,44 @@ static ofEvent<TouchFrame> MTUpdateBlock;
 
 
 /*
- The actual class
- 
- maybe it's better to implement this as a singleton
- using the DEF_SINGLETON macro...
- 
- TODO: implement method to return scaled (ofGetWidth/Height) result. Listener?
+ * The actual class
+ *
+ * maybe it's better to implement this as a singleton
+ * using the DEF_SINGLETON macro...
+ *
+ * TODO: implement method to return scaled (ofGetWidth/Height) result. Listener?
  */
-
 class ofxMultiTouchPad {
     
-public:
-    ofEvent<int> update; // occurs each callback call and sends the touchCount
-    ofEvent<int> touchAdded; // if the number of touches increased
-    ofEvent<int> touchRemoved;  // less touches as before
+	public:
+		ofEvent<int> update;        // occurs each callback call and sends the touchCount
+		ofEvent<int> touchAdded;    // if the number of touches increased
+		ofEvent<int> touchRemoved;  // less touches as before
     
-    static const int maxTouches;
-    ofxMultiTouchPad();  // initialize and create a link to the device
-    ~ofxMultiTouchPad(); // unlink the device
+		static const int maxTouches;
+		ofxMultiTouchPad();    // initialize and create a link to the device
+		~ofxMultiTouchPad();   // unlink the device
     
-    bool getTouchAt(int pos, MTouch * touch);
-    bool getTouchAsOfPointAt(int pos, ofPoint * p);
-    int  getTouchCount();
-    void getTouchesAsOfPoints(std::vector<ofPoint> * pointv);
+		bool getTouchAt(int pos, MTouch * touch);
+		bool getTouchAsOfPointAt(int pos, ofPoint * p);
+		int  getTouchCount();
+		void getTouchesAsOfPoints(std::vector<ofPoint> * pointv);
 	
-	int getNumDevices();
+		int getNumDevices();
     
-protected:
-    TouchFrame _touchData;
-    static int _guard;
-    void callBackTriggered(TouchFrame & _t); // callback callback
+	protected:
+		TouchFrame _touchData;
+		static int _guard;
+		void callBackTriggered(TouchFrame & _t); // callback callback
     
 	
-	int numDevices;
+		int numDevices;
 	
-    /*
-     deprecated ?
-     */
-    Finger (*fingers)[_NUM_TOUCH_FINGERS];
-    int * _fingerCount;
+		/*
+		 * deprecated ?
+		 */
+		Finger (*fingers)[_NUM_TOUCH_FINGERS];
+		int * _fingerCount;
 };
-
 
 #endif

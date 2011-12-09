@@ -59,10 +59,9 @@ static int _mt_callback(int device, Finger *data, int nFingers,
 }
 
 
-ofxMultiTouchPad::ofxMultiTouchPad()
-{
+ofxMultiTouchPad::ofxMultiTouchPad() {
     _guard++;
-    if (_guard==1) {
+    if(_guard==1) {
         printf("Creating Multitouch device\n");
 		
 		CFMutableArrayRef* deviceList = MTDeviceCreateList();
@@ -89,10 +88,10 @@ ofxMultiTouchPad::ofxMultiTouchPad()
     this->_fingerCount = &fingerCount;
 }
 
-ofxMultiTouchPad::~ofxMultiTouchPad()
-{
+
+ofxMultiTouchPad::~ofxMultiTouchPad() {
     _guard--;
-    if (_guard==0) {
+    if(_guard==0) {
         printf("Multitouch device has been disconnected\n");
 		
 		for(int i=0;i<numDevices;i++){
@@ -109,15 +108,15 @@ ofxMultiTouchPad::~ofxMultiTouchPad()
     this->_fingerCount = NULL;
 }
 
-int ofxMultiTouchPad::getNumDevices()
-{
+
+int ofxMultiTouchPad::getNumDevices() {
 	return numDevices;
 }
 
-bool ofxMultiTouchPad::getTouchAt(int pos, MTouch* touch)
-{
+
+bool ofxMultiTouchPad::getTouchAt(int pos, MTouch* touch) {
     MTouch _t;
-    if (pos < _touchData.count) {
+    if(pos < _touchData.count) {
         Finger f = _touchData.touches[pos];
         _t.ID = f.identifier;
         _t.frame = f.frame;
@@ -140,8 +139,8 @@ bool ofxMultiTouchPad::getTouchAt(int pos, MTouch* touch)
     }
 }
 
-bool ofxMultiTouchPad::getTouchAsOfPointAt(int pos, ofPoint* p)
-{
+
+bool ofxMultiTouchPad::getTouchAsOfPointAt(int pos, ofPoint* p) {
     ofPoint _t(0,0,0);
     if (pos < _touchData.count) {
         Finger f = _touchData.touches[pos];
@@ -156,8 +155,8 @@ bool ofxMultiTouchPad::getTouchAsOfPointAt(int pos, ofPoint* p)
     }
 }
 
-int ofxMultiTouchPad::getTouchCount()
-{
+
+int ofxMultiTouchPad::getTouchCount() {
 	//    int e;
 	//    if (_fingerCount==NULL) {
 	//        e = -1;
@@ -167,7 +166,8 @@ int ofxMultiTouchPad::getTouchCount()
     return _touchData.count;
 }
 
-void ofxMultiTouchPad::getTouchesAsOfPoints(std::vector<ofPoint> * pointv){
+
+void ofxMultiTouchPad::getTouchesAsOfPoints(std::vector<ofPoint> * pointv) {
     pointv->erase(pointv->begin(),pointv->begin()+pointv->size());
     TouchFrame _data = _touchData;
     for (int i=0; i<_data.count; i++)
@@ -178,15 +178,14 @@ void ofxMultiTouchPad::getTouchesAsOfPoints(std::vector<ofPoint> * pointv){
 
 
 // ------------------------------------------------------------- protected
-void ofxMultiTouchPad::callBackTriggered(TouchFrame  & _t)
-{
-    if (_touchData.count < _t.count) {
+void ofxMultiTouchPad::callBackTriggered(TouchFrame  & _t) {
+    if(_touchData.count < _t.count) {
         /*
-         TODO: extract the new touch and pass its ID
+         * TODO: extract the new touch and pass its ID
          */
         ofNotifyEvent(touchAdded, _t.count, this);
     }
-    if (_touchData.count > _t.count) {
+    if(_touchData.count > _t.count) {
         ofNotifyEvent(touchRemoved, _t.count, this);
     }
     _touchData = _t;

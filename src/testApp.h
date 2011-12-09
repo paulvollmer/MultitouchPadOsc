@@ -33,16 +33,16 @@
 #include "ofxMultiTouchPad.h"
 
 
-class testApp : public ofBaseApp{
+class testApp : public ofBaseApp {
 
 	public:
 		void setup();
 		void update();
 		void draw();
-
-		void keyPressed  (int key);
+		
+		void keyPressed(int key);
 		void keyReleased(int key);
-		void mouseMoved(int x, int y );
+		void mouseMoved(int x, int y);
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
@@ -53,9 +53,29 @@ class testApp : public ofBaseApp{
 		void padUpdates(int & t);
 		void newTouch(int & n);
 		void removedTouch(int & r);
-	
+		
+		
 	private:
 		// XML settings
-		ofxXmlSettings xmlSettings;
+		ofxXmlSettings  xmlSettings;
+		int             appFramerate;
+		int             appCount;
+		string          oscoutHost;
+		int             oscoutPort;
+		int             oscout;
+		string          oscDevicename;
+		int             oscFrame;
+		int             oscTimestamp;
+		int             oscPosition;
+		int             oscVelocity;
+		int             oscSize;
+		int             oscMaxis;
+		int             oscAngle;
+	
+		
 		ofxMultiTouchPad pad;
+		
+		// Images
+		ofImage backgroundImage;
+	
 };

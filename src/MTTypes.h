@@ -84,7 +84,7 @@ extern "C" {
 }
 #endif
 #endif
-/*
- END types
- */
 
+/*
+ * END types
+ */
