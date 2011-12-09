@@ -2,7 +2,7 @@
   
 This file is part of MagicTrackpadOsc.  
   
-MagicTrackpadOsc (version 0.1.0 codename fTouch) is developed by:  
+MagicTrackpadOsc (version 0.1.1 codename secondTouch) is developed by:  
 Paul Vollmer [wrong-entertainment.com](http://wrong-entertainment.com)    
   
 The MagicTrackpadOsc Project Page is Hosted at http://wrongentertainment.github.com/MagicTrackpadOsc/  
@@ -22,13 +22,13 @@ gewährleistet wird.
 **License**  
 GNU Lesser General Public License  
 **Install**  
-Mac Java Application, no installation needed.  
+-  
 **Platform**  
 Mac OS  
 **Dependencies**  
 Mac OS 10.5+  
 
-Build with [Processing](http://www.processing.org) 
+Build with [openFrameworks](http://www.openframeworks.cc) 
 
 * * *
 
@@ -43,7 +43,7 @@ Github: http://www.github.com/WrongEntertainment
 
 ###License  
 
-**MagicTrackpadOsc 0.1.0**   
+**MagicTrackpadOsc 0.1.1**   
   
 Copyright (c) 2011 Paul Vollmer  
   
@@ -63,5 +63,5 @@ Free Software Foundation, Inc., 59 Temple Place, Suite 330,
 Boston, MA  02111-1307  USA  
   
 Author      Paul Vollmer  
-Modified    2011.12.03  
-Version     0.1.0
+Modified    2011.12.09  
+Version     0.1.1

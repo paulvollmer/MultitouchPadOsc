@@ -1,0 +1,20 @@
+<!-- MagicTrackpadOsc Settings -->
+
+<app>
+	<framerate>60</framerate>
+	<count>398</count>
+</app>
+
+<osc>
+	<outhost>"127.0.0.1"</outhost>
+	<outport>9000</outport>
+	<out>0</out>
+	<devicename>mt</devicename>
+	<frame>0</frame>
+	<timestamp>0</timestamp>
+	<position>0</position>
+	<velocity>0</velocity>
+	<size>0</size>
+	<maxis>0</maxis>
+	<angle>0</angle>
+</osc>
