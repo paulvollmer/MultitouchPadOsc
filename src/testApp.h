@@ -30,7 +30,18 @@
 
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
+#include "ofxOsc.h"
+
 #include "ofxMultiTouchPad.h"
+
+#include "wCheckbox.h"
+#include "wImageButton.h"
+
+#define PROJECTNAME "MagicTrackpadOsc"
+#define PROJECTVERSION "0.1.1"
+
+
+
 
 
 class testApp : public ofBaseApp {
@@ -49,6 +60,7 @@ class testApp : public ofBaseApp {
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+		void exit();
 		
 		void padUpdates(int & t);
 		void newTouch(int & n);
@@ -57,25 +69,39 @@ class testApp : public ofBaseApp {
 		
 	private:
 		// XML settings
-		ofxXmlSettings  xmlSettings;
-		int             appFramerate;
-		int             appCount;
-		string          oscoutHost;
-		int             oscoutPort;
-		int             oscout;
-		string          oscDevicename;
-		int             oscFrame;
-		int             oscTimestamp;
-		int             oscPosition;
-		int             oscVelocity;
-		int             oscSize;
-		int             oscMaxis;
-		int             oscAngle;
+		ofxXmlSettings   xmlSettings;           // xml of addon
+		string           xmlSettingsFilepath;   // xml filepath
 	
+		// Application
+		int appFramerate;
+		int appWindowx;
+		int appWindowy;
+		int appCount;
+	
+		// OSC
+		ofxOscSender   oscSender;   // osc of addon
+		int            oscOut;      // osc active variable, if 0 = true, 1 = false
+		string         oscHost;     // osc host variable
+		int            oscPort;     // osc port variable
 		
-		ofxMultiTouchPad pad;
+		// Multitouch Trackpad
+		ofxMultiTouchPad   pad;
+		string             padDevicename;
+		int                padFrame;
+		int                padTimestamp;
+		int                padPosition;
+		int                padVelocity;
+		int                padSize;
+		int                padMaxis;
+		int                padAngle;
 		
 		// Images
 		ofImage backgroundImage;
+	
+		// GUI
+		wImageButton btnOscActive;   // button to trigger osc activity on/off
+		wImageButton btnSettings;    // button to show/hide settings
+		wImageButton btnConsole;     // button to show/hide console
+		wCheckbox    cbFrame;        // checkbox to trigger pad frame on/off
 	
 };

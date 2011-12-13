@@ -38,6 +38,10 @@
 
 #include "ofxMultiTouchPad.h"
 
+
+
+
+
 int ofxMultiTouchPad::_guard = 0;
 const int ofxMultiTouchPad::maxTouches = _NUM_TOUCH_FINGERS;
 
