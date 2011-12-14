@@ -1,22 +1,22 @@
 <!-- MagicTrackpadOsc Settings -->
 <app>
     <framerate>60</framerate>
-    <count>401</count>
-    <windowx>50</windowx>
-    <windowy>50</windowy>
+    <count>427</count>
+    <windowx>568</windowx>
+    <windowy>127</windowy>
 </app>
 <osc>
     <outhost>127.0.0.1</outhost>
     <outport>9000</outport>
-    <out>0</out>
+    <out>1</out>
 </osc>
 <pad>
     <devicename>mt</devicename>
     <frame>0</frame>
-    <timestamp>0</timestamp>
-    <position>0</position>
-    <velocity>0</velocity>
-    <size>0</size>
-    <maxis>0</maxis>
+    <timestamp>1</timestamp>
+    <position>1</position>
+    <velocity>1</velocity>
+    <size>1</size>
+    <maxis>1</maxis>
     <angle>0</angle>
 </pad>

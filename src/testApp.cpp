@@ -41,6 +41,7 @@
 void testApp::setup() {
 	cout << "Setup start" << endl;
 	
+	
 	// Initialize settings file.
 	settings.init("settings.xml");
 	
@@ -71,14 +72,13 @@ void testApp::setup() {
 	btnSettings.init("settings_on.png", "settings_off.png", 90, 50);
 	btnConsole.init("console_on.png", "console_off.png", 171, 50);
 	
-	cbFrame.init("frame active", 60, 155);
-	cbTimestamp.init("timestamp active", 60, 170);
-	cbPosition.init("x-, y-position active", 60, 185);
-	
-	cbVelocity.init("x, y-velocity active", 60, 200);
-	cbMaxis.init("maxis active", 60, 215);
-	cbSize.init("size active", 60, 230);
-	cbAngle.init("angle active", 60, 245);
+	cbFrame.init("frame active                 (shortcut 2)", 60, 155, settings.padFrame);
+	cbTimestamp.init("timestamp active             (shortcut 3)", 60, 170, settings.padTimestamp);
+	cbPosition.init("x-, y-position active        (shortcut 4)", 60, 185, settings.padPosition);
+	cbVelocity.init("x-, y-velocity active        (shortcut 5)", 60, 200, settings.padVelocity);
+	cbMaxis.init("minor-, major-axis active    (shortcut 6)", 60, 215, settings.padMaxis);
+	cbSize.init("size active                  (shortcut 7)", 60, 230, settings.padSize);
+	cbAngle.init("angle active                 (shortcut 8)", 60, 245, settings.padAngle);
 	
 	
 	
@@ -132,20 +132,9 @@ void testApp::draw() {
 		ofRect(55, 125, ofGetWidth()-110, 420);
 		ofDisableAlphaBlending();
 		// text
-		ofSetColor(0, 255, 0);
-		string test = string("test")+" hello";
-		cout << test << endl;
-		string s = string("OSC SETTINGS \n")+
-		           "master name              (change name at config file)\n";
-		           /*string("osc active               (shortcut 1)\n")+
-		           string("frame active             (shortcut 2)\n")+
-		           string("timestamp active         (shortcut 3)\n")+
-		           string("x, y position active     (shortcut 4)\n")+
-		           string("x, y velocity active     (shortcut 5)\n")+
-		           string("minor/major axis active  (shortcut 6)\n")+
-		           string("size active              (shortcut 7)\n")+
-				          "angle active             (shortcut 8)";*/
-		ofDrawBitmapString(s, 60, 150);
+		ofSetColor(0, 255, 255);
+		ofDrawBitmapString("OSC SETTINGS", 60, 150);
+		ofDrawBitmapString("device name (change name at config file)", 60, 295);
 		
 		cbFrame.display();
 		cbTimestamp.display();
@@ -300,6 +289,8 @@ void testApp::keyPressed(int key) {
 			} else {
 				settings.padFrame = 0;
 			}
+			cbFrame.status = settings.padFrame;
+			
 			cout << "Shortcut padFrame: " << settings.padFrame << endl;
 			break;
 		
@@ -310,6 +301,8 @@ void testApp::keyPressed(int key) {
 			} else {
 				settings.padTimestamp = 0;
 			}
+			cbTimestamp.status = settings.padTimestamp;
+			
 			cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
 			break;
 		
@@ -320,6 +313,8 @@ void testApp::keyPressed(int key) {
 			} else {
 				settings.padPosition = 0;
 			}
+			cbPosition.status = settings.padPosition;
+			
 			cout << "Shortcut padPosition: " << settings.padPosition << endl;
 			break;
 
@@ -330,27 +325,33 @@ void testApp::keyPressed(int key) {
 			} else {
 				settings.padVelocity = 0;
 			}
+			cbVelocity.status = settings.padVelocity;
+			
 			cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
 			break;
 
 		// OSC size
 		case '6':
-			if (settings.padSize == 0) {
-				settings.padSize = 1;
-			} else {
-				settings.padSize = 0;
-			}
-			cout << "Shortcut padSize: " << settings.padSize << endl;
-			break;
-
-		// OSC maxis
-		case '7':
 			if (settings.padMaxis == 0) {
 				settings.padMaxis = 1;
 			} else {
 				settings.padMaxis = 0;
 			}
+			cbMaxis.status = settings.padMaxis;
+			
 			cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
+			break;
+
+		// OSC maxis
+		case '7':
+			if (settings.padSize == 0) {
+				settings.padSize = 1;
+			} else {
+				settings.padSize = 0;
+			}
+			cbSize.status = settings.padSize;
+			
+			cout << "Shortcut padSize: " << settings.padSize << endl;
 			break;
 
 		// OSC angle
@@ -360,6 +361,8 @@ void testApp::keyPressed(int key) {
 			} else {
 				settings.padAngle = 0;
 			}
+			cbAngle.status = settings.padAngle;
+			
 			cout << "Shortcut padAngle: " << settings.padAngle << endl;
 			break;
 
@@ -414,7 +417,27 @@ void testApp::mousePressed(int x, int y, int button) {
 	
 	if(btnSettings.status == true) {
 		cbFrame.pressed(x, y);
+		settings.padFrame = cbFrame.status;
+
+		cbTimestamp.pressed(x, y);
+		settings.padTimestamp = cbTimestamp.status;
+
+		cbPosition.pressed(x, y);
+		settings.padPosition = cbPosition.status;
+		
+		cbVelocity.pressed(x, y);
+		settings.padVelocity = cbVelocity.status;
+		
+		cbMaxis.pressed(x, y);
+		settings.padMaxis = cbMaxis.status;
+		
+		cbSize.pressed(x, y);
+		settings.padSize = cbSize.status;
+		
+		cbAngle.pressed(x, y);
+		settings.padAngle = cbAngle.status;
 	}
+	
 }
 
 
