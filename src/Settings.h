@@ -39,20 +39,37 @@ class Settings {
 	public:
 		/* Constructor */
 		Settings();
-		Settings(string _filepath);
 	
 	
 		/* Methods */
 		void init(string _filepath);
+		void save();
 	
 	
 		/* Variables */
-		string filepath;
+		// XML
+		string filepath;           // Path to settings XML file.
+		
+		// Application variables
+		int      appFramerate;     // Application framerate
+		int      appWindowx;       // Application window x-position
+		int      appWindowy;       // Application window y-position
+		int      appCount;         // Application counter
+		
+		// OSC variables
+		int      oscOut;           // OSC active variable, if 0 = true, 1 = false
+		string   oscHost;          // OSC host variable
+		int      oscPort;          // OSC port variable
 	
-		int appFramerate;
-		int appWindowx;
-		int appWindowy;
-		int appCount;
+		// Trackpad variables
+		string   padDevicename;    // Trackpad devicename
+		int      padFrame;         // Trackpad frame
+		int      padTimestamp;     // Trackpad timestamp
+		int      padPosition;      // Trackpad finger x-, y-position
+		int      padVelocity;      // Trackpad finger x-, y-velocity
+		int      padSize;          // Trackpad finger size
+		int      padMaxis;         // Trackpad finger minor-, major-axis
+		int      padAngle;         // Trackpad finger angle
 	
 		
 	

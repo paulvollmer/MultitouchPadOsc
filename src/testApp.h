@@ -29,15 +29,9 @@
 #pragma once
 
 #include "ofMain.h"
-
-#include "ofxXmlSettings.h"
 #include "Settings.h"
-
-
 #include "ofxOsc.h"
-
 #include "ofxMultiTouchPad.h"
-
 #include "wCheckbox.h"
 #include "wImageButton.h"
 
@@ -72,33 +66,14 @@ class testApp : public ofBaseApp {
 		
 		
 	private:
-		// XML settings
-		ofxXmlSettings   xmlSettings;           // xml of addon
-		string           xmlSettingsFilepath;   // xml filepath
+		// Settings
 		Settings settings;
-	
-		// Application
-		int appFramerate;
-		int appWindowx;
-		int appWindowy;
-		int appCount;
 	
 		// OSC
 		ofxOscSender   oscSender;   // osc of addon
-		int            oscOut;      // osc active variable, if 0 = true, 1 = false
-		string         oscHost;     // osc host variable
-		int            oscPort;     // osc port variable
 		
 		// Multitouch Trackpad
 		ofxMultiTouchPad   pad;
-		string             padDevicename;
-		int                padFrame;
-		int                padTimestamp;
-		int                padPosition;
-		int                padVelocity;
-		int                padSize;
-		int                padMaxis;
-		int                padAngle;
 		
 		// Images
 		ofImage backgroundImage;

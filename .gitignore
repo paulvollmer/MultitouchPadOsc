@@ -1,5 +1,6 @@
 build
-bin/MagicTrackpadOscDebug.app
-MagicTrackpadOsc.xcodeproj/wrongMacBookpro.mode1v3
 
+bin/MagicTrackpadOscDebug.app
+
+MagicTrackpadOsc.xcodeproj/wrongMacBookpro.mode1v3
 MagicTrackpadOsc.xcodeproj/wrongMacBookpro.pbxuser

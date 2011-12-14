@@ -41,71 +41,21 @@
 void testApp::setup() {
 	cout << "Setup start" << endl;
 	
-	
-	// Initialize settings file, load and set variables.
+	// Initialize settings file.
 	settings.init("settings.xml");
-	
-	// XML settings
-	// Set the filepath of xmlSettings XML.
-	xmlSettingsFilepath = "settings.xml";
-	// We load our settings file.
-	// If it doesn't exist we can still make...
-	if( xmlSettings.loadFile(xmlSettingsFilepath) ) {
-		cout << "  " << xmlSettingsFilepath << " loaded!" << endl;
-	} else {
-		cout << "  unable to load " << xmlSettingsFilepath << " check data/ folder" << endl;
-	}
-	
-	// Read the settings file.
-	// Application settings
-	appFramerate = xmlSettings.getValue("app:framerate", 60);
-	appWindowx   = xmlSettings.getValue("app:windowx", 50);
-	appWindowy   = xmlSettings.getValue("app:windowy", 50);
-	appCount     = xmlSettings.getValue("app:count", 1);
-	cout << "  app:framerate  = " << appFramerate << endl;
-	cout << "  app:windowx    = " << appWindowx << endl;
-	cout << "  app:windowy    = " << appWindowy << endl;
-	cout << "  app:count      = " << appCount << endl;
-	
-	// osc settings
-	// If 0 = true, 1 = false
-	oscHost = xmlSettings.getValue("osc:outhost", "127.0.0.1");
-	oscPort = xmlSettings.getValue("osc:outport", 1234);
-	oscOut  = xmlSettings.getValue("osc:out", 1);
-	cout << "  osc:outhost    = " << oscHost << endl;
-	cout << "  osc:outport    = " << oscPort << endl;
-	cout << "  osc:out        = " << oscOut << endl;
-	
-	padDevicename = xmlSettings.getValue("osc:devicename", "mtosc");
-	padFrame      = xmlSettings.getValue("osc:frame", 1);
-	padTimestamp  = xmlSettings.getValue("osc:timestamp", 1);
-	padPosition   = xmlSettings.getValue("osc:position", 1);
-	padVelocity   = xmlSettings.getValue("osc:velocity", 1);
-	padSize       = xmlSettings.getValue("osc:size", 1);
-	padMaxis      = xmlSettings.getValue("osc:maxis", 1);
-	padAngle      = xmlSettings.getValue("osc:angle", 1);
-	cout << "  osc:devicename = " << padDevicename << endl;
-	cout << "  osc:frame      = " << padFrame << endl;
-	cout << "  osc:timestamp  = " << padTimestamp << endl;
-	cout << "  osc:position   = " << padPosition << endl;
-	cout << "  osc:velocity   = " << padVelocity << endl;
-	cout << "  osc:size       = " << padSize << endl;
-	cout << "  osc:maxis      = " << padMaxis << endl;
-	cout << "  osc:angle      = " << padAngle << endl;
 	
 	
 	// Application
 	// All application settings below.
 	// Set the framerate, window title, add +1 to app:count
-	ofSetFrameRate(appFramerate);
+	ofSetFrameRate(settings.appFramerate);
 	ofSetWindowTitle(string(PROJECTNAME)+string(" - ")+PROJECTVERSION);
-	ofSetWindowPosition(appWindowx, appWindowy);
-	appCount++;
+	ofSetWindowPosition(settings.appWindowx, settings.appWindowy);
 	
 	
 	// OSC
 	// open an outgoing connection to oscHost:oscPort
-	oscSender.setup(oscHost, oscPort);
+	oscSender.setup(settings.oscHost, settings.oscPort);
 	
 	
 	// Images
@@ -115,7 +65,7 @@ void testApp::setup() {
 	// GUI
 	// set the status to osc:out settings value
 	btnOscActive.init("oscactive_on.png", "oscactive_off.png", 54, 50);
-	if(oscOut == 0) btnOscActive.status = true;
+	if(settings.oscOut == 0) btnOscActive.status = true;
 	else btnOscActive.status = false;
 	
 	btnSettings.init("settings_on.png", "settings_off.png", 90, 50);
@@ -221,7 +171,7 @@ void testApp::draw() {
     ofSetColor(0);
 	ofDrawBitmapString("Local-IP: ",
 					   50, 95);
-	ofDrawBitmapString("Host: "+ofToString(oscHost)+" Port: "+ofToString(oscPort),
+	ofDrawBitmapString("Host: "+ofToString(settings.oscHost)+" Port: "+ofToString(settings.oscPort),
 					   50, 110);
     ofDrawBitmapString("TouchCount: "+ofToString(pad.getTouchCount(), 0),
                        20, 20);
@@ -333,84 +283,84 @@ void testApp::keyPressed(int key) {
 	switch(key) {
 		// OSC out
 		case '1':
-			if (oscOut == 0) {
-				oscOut = 1;
+			if (settings.oscOut == 0) {
+				settings.oscOut = 1;
 				btnOscActive.status = !btnOscActive.status;
 			} else {
-				oscOut = 0;
+				settings.oscOut = 0;
 				btnOscActive.status = !btnOscActive.status;
 			}
-			cout << "Shortcut oscOut: " << oscOut << endl;
+			cout << "Shortcut oscOut: " << settings.oscOut << endl;
 			break;
 		
 		// OSC frame
 		case '2':
-			if (padFrame == 0) {
-				padFrame = 1;
+			if (settings.padFrame == 0) {
+				settings.padFrame = 1;
 			} else {
-				padFrame = 0;
+				settings.padFrame = 0;
 			}
-			cout << "Shortcut padFrame: " << padFrame << endl;
+			cout << "Shortcut padFrame: " << settings.padFrame << endl;
 			break;
 		
 		// OSC timestamp
 		case '3':
-			if (padTimestamp == 0) {
-				padTimestamp = 1;
+			if (settings.padTimestamp == 0) {
+				settings.padTimestamp = 1;
 			} else {
-				padTimestamp = 0;
+				settings.padTimestamp = 0;
 			}
-			cout << "Shortcut padTimestamp: " << padTimestamp << endl;
+			cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
 			break;
 		
 		// OSC position
 		case '4':
-			if (padPosition == 0) {
-				padPosition = 1;
+			if (settings.padPosition == 0) {
+				settings.padPosition = 1;
 			} else {
-				padPosition = 0;
+				settings.padPosition = 0;
 			}
-			cout << "Shortcut padPosition: " << padPosition << endl;
+			cout << "Shortcut padPosition: " << settings.padPosition << endl;
 			break;
 
 		// OSC velocity
 		case '5':
-			if (padVelocity == 0) {
-				padVelocity = 1;
+			if (settings.padVelocity == 0) {
+				settings.padVelocity = 1;
 			} else {
-				padVelocity = 0;
+				settings.padVelocity = 0;
 			}
-			cout << "Shortcut padVelocity: " << padVelocity << endl;
+			cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
 			break;
 
 		// OSC size
 		case '6':
-			if (padSize == 0) {
-				padSize = 1;
+			if (settings.padSize == 0) {
+				settings.padSize = 1;
 			} else {
-				padSize = 0;
+				settings.padSize = 0;
 			}
-			cout << "Shortcut padSize: " << padSize << endl;
+			cout << "Shortcut padSize: " << settings.padSize << endl;
 			break;
 
 		// OSC maxis
 		case '7':
-			if (padMaxis == 0) {
-				padMaxis = 1;
+			if (settings.padMaxis == 0) {
+				settings.padMaxis = 1;
 			} else {
-				padMaxis = 0;
+				settings.padMaxis = 0;
 			}
-			cout << "Shortcut padMaxis: " << padMaxis << endl;
+			cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
 			break;
 
 		// OSC angle
 		case '8':
-			if (padAngle == 0) {
-				padAngle = 1;
+			if (settings.padAngle == 0) {
+				settings.padAngle = 1;
 			} else {
-				padAngle = 0;
+				settings.padAngle = 0;
 			}
-			cout << "Shortcut padAngle: " << padAngle << endl;
+			cout << "Shortcut padAngle: " << settings.padAngle << endl;
 			break;
 
 		default:
@@ -453,8 +403,8 @@ void testApp::mouseDragged(int x, int y, int button) {
 void testApp::mousePressed(int x, int y, int button) {
 	// GUI
 	btnOscActive.pressed(x, y);
-	if(btnOscActive.status == true) oscOut = 0;
-	else oscOut = 1;
+	if(btnOscActive.status == true) settings.oscOut = 0;
+	else settings.oscOut = 1;
 	
 	btnSettings.pressed(x, y);
 	if(btnSettings.status == true) btnConsole.status = false;
@@ -473,7 +423,7 @@ void testApp::mousePressed(int x, int y, int button) {
  * Mouse released
  */
 void testApp::mouseReleased(int x, int y, int button) {
-	if (oscOut == true) {
+	if (settings.oscOut == true) {
 		ofxOscMessage m;
 		m.setAddress( "/test" );
 		m.addIntArg( 1 );
@@ -520,52 +470,8 @@ void testApp::dragEvent(ofDragInfo dragInfo) {
 void testApp::exit() {
 	cout << "Exit start" << endl;
 	
-	
-	// Application variable update
-	// Save the current app count to XML file.
-	xmlSettings.setValue("app:count", appCount);
-	cout << "  appCount      = " << appCount << endl;
-	
-	// Get the current window x, y position and save to XML file.
-	appWindowx = ofGetWindowPositionX();
-	appWindowy = ofGetWindowPositionY();
-	xmlSettings.setValue("app:windowx", appWindowx);
-	xmlSettings.setValue("app:windowy", appWindowy);
-	cout << "  appWindowx    = " << appWindowx << endl;
-	cout << "  appWindowy    = " << appWindowy << endl;
-	
-	
-	// OSC variable update
-	// Save the current OSC variables to XML file.
-	xmlSettings.setValue("osc:outhost", oscHost);
-	xmlSettings.setValue("osc:outport", oscPort);
-	xmlSettings.setValue("osc:out", oscOut);
-	
-	xmlSettings.setValue("osc:devicename", padDevicename);
-	xmlSettings.setValue("osc:frame", padFrame);
-	xmlSettings.setValue("osc:timestamp", padTimestamp);
-	xmlSettings.setValue("osc:position", padPosition);
-	xmlSettings.setValue("osc:velocity", padVelocity);
-	xmlSettings.setValue("osc:size", padSize);
-	xmlSettings.setValue("osc:maxis", padMaxis);
-	xmlSettings.setValue("osc:angle", padAngle);
-	cout << "  oscHost       = " << oscHost << endl;
-	cout << "  oscPort       = " << oscPort << endl;
-	cout << "  oscOut        = " << oscOut << endl;
-	cout << "  oscDevicename = " << padDevicename << endl;
-	cout << "  padFrame      = " << padFrame << endl;
-	cout << "  padTimestamp  = " << padTimestamp << endl;
-	cout << "  padPosition   = " << padPosition << endl;
-	cout << "  padVelocity   = " << padVelocity << endl;
-	cout << "  padSize       = " << padSize << endl;
-	cout << "  padMaxis      = " << padMaxis << endl;
-	cout << "  padAngle      = " << padAngle << endl;
-	
-	
-	// save the settings file.
-	xmlSettings.saveFile(xmlSettingsFilepath);
-	cout << "  settings saved to " << xmlSettingsFilepath << " xml!" << endl;
-	
+	// Update settings file.
+	settings.save();
 	
 	cout << "Exit ready" << endl;
 }
