@@ -36,7 +36,6 @@
  * Constructor
  */
 wCheckbox::wCheckbox() {
-	status = false;
 	size = 10;
 }
 
@@ -44,14 +43,24 @@ wCheckbox::wCheckbox() {
 
 /**
  * Initialize
+ *
+ * _message Checkbox message
+ * _x Checkbox X-position
+ * _y Checkbox Y-position
+ * _status Checkbox status
  */
-void wCheckbox::init(string _message, int _x, int _y) {
+void wCheckbox::init(string _message, int _x, int _y, int _status) {
 	message = _message;
 	x       = _x;
 	y       = _y;
+	status  = _status;
 	
 	// Initialize interaction
 	interaction.init(x, y, size, size);
+}
+
+void wCheckbox::init(string _message, int _x, int _y) {
+	init(_message, _x, _y, 1);
 }
 
 
@@ -60,11 +69,20 @@ void wCheckbox::init(string _message, int _x, int _y) {
  * Display the button
  */
 void wCheckbox::display() {
-	if (status == true) {
+	switch (status) {
+		case 0:
+			ofSetColor(0 ,255, 0);
+			break;
+		case 1:
+			ofSetColor(255, 0, 0);
+			break;
+	}
+	
+	/*if (status == true) {
 		ofSetColor(0 ,255, 0);
 	} else {
 		ofSetColor(255, 0, 0);
-	}
+	}*/
 	ofFill();
 	ofRect(x, y, size, size);
 	
@@ -81,6 +99,14 @@ void wCheckbox::display() {
  */
 void wCheckbox::pressed(int _mx, int _my) {
 	if(interaction.overRect(_mx, _my)) {
-		status = !status;
+		//status = !status;
+		switch (status) {
+			case 0:
+				status = 1;
+				break;
+			case 1:
+				status = 0;
+				break;
+		}
 	}
 }

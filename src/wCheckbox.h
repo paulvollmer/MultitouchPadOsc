@@ -42,12 +42,13 @@ class wCheckbox {
 		wCheckbox();
 	
 		/* Methods */
+		void init(string _message, int _x, int _y, int _status);
 		void init(string _message, int _x, int _y);
 		void display();
 		void pressed(int _mx, int _my);
 	
 		/* Variables */
-		bool status;
+		int status;
 	
 	
 	private:
