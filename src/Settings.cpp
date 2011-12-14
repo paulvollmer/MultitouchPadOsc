@@ -43,6 +43,8 @@ Settings::Settings() {
 /**
  * Initialize XML settings file.
  * Load file and store all XML tags to variables.
+ *
+ * _filepath Path to our settings XML file.
  */
 void Settings::init(string _filepath) {
 	// set the _filepath to variable filepath
@@ -103,7 +105,7 @@ void Settings::init(string _filepath) {
 
 
 /**
- * Update all variables.
+ * Update all variables and save XML file.
  */
 void Settings::save() {
 	// Application variable update
