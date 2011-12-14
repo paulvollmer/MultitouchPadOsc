@@ -1,7 +1,7 @@
 <!-- MagicTrackpadOsc Settings -->
 <app>
     <framerate>60</framerate>
-    <count>436</count>
+    <count>446</count>
     <windowx>568</windowx>
     <windowy>127</windowy>
 </app>
@@ -14,8 +14,8 @@
     <devicename>mt</devicename>
     <frame>0</frame>
     <timestamp>1</timestamp>
-    <position>1</position>
-    <velocity>1</velocity>
+    <position>0</position>
+    <velocity>0</velocity>
     <size>1</size>
     <maxis>1</maxis>
     <angle>0</angle>
