@@ -1,2 +1,2 @@
-src/MagicTrackpadOsc/code
-src/MagicTrackpadOsc/logs
+build
+bin/MagicTrackpadOscDebug.app
