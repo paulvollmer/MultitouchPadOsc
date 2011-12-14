@@ -32,7 +32,7 @@
 
 
 
-/*
+/**
  * Constructor
  */
 wImageButton::wImageButton() {

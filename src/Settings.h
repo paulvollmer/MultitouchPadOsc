@@ -26,61 +26,40 @@
 
 
 
-#include "wCheckbox.h"
+#pragma once
+
+#include "ofxXmlSettings.h"
 
 
 
 
 
-/*
- * Constructor
- */
-wCheckbox::wCheckbox() {
-	status = false;
-	size = 10;
-}
-
-
-
-/**
- * Initialize
- */
-void wCheckbox::init(string _message, int _x, int _y) {
-	message = _message;
-	x       = _x;
-	y       = _y;
+class Settings {
 	
-	// Initialize interaction
-	interaction.init(x, y, size, size);
-}
-
-
-
-/**
- * Display the button
- */
-void wCheckbox::display() {
-	if (status == true) {
-		ofSetColor(0 ,255, 0);
-	} else {
-		ofSetColor(255, 0, 0);
-	}
-	ofFill();
-	ofRect(x, y, size, size);
+	public:
+		/* Constructor */
+		Settings();
+		Settings(string _filepath);
 	
-	// message
-	ofSetColor(0, 255, 255);
-	ofFill();
-	ofDrawBitmapString(message, x+size+10, y+size);
-}
-
-
-
-/**
- * Mouse pressed
- */
-void wCheckbox::pressed(int _mx, int _my) {
-	if(interaction.overRect(_mx, _my)) {
-		status = !status;
-	}
-}
+	
+		/* Methods */
+		void init(string _filepath);
+	
+	
+		/* Variables */
+		string filepath;
+	
+		int appFramerate;
+		int appWindowx;
+		int appWindowy;
+		int appCount;
+	
+		
+	
+	
+	
+	private:
+		// openFrameworks xml addon
+		ofxXmlSettings   xmlSettings;
+	
+};

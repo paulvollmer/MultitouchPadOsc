@@ -29,7 +29,11 @@
 #pragma once
 
 #include "ofMain.h"
+
 #include "ofxXmlSettings.h"
+#include "Settings.h"
+
+
 #include "ofxOsc.h"
 
 #include "ofxMultiTouchPad.h"
@@ -71,6 +75,7 @@ class testApp : public ofBaseApp {
 		// XML settings
 		ofxXmlSettings   xmlSettings;           // xml of addon
 		string           xmlSettingsFilepath;   // xml filepath
+		Settings settings;
 	
 		// Application
 		int appFramerate;
@@ -102,6 +107,13 @@ class testApp : public ofBaseApp {
 		wImageButton btnOscActive;   // button to trigger osc activity on/off
 		wImageButton btnSettings;    // button to show/hide settings
 		wImageButton btnConsole;     // button to show/hide console
+	
 		wCheckbox    cbFrame;        // checkbox to trigger pad frame on/off
+		wCheckbox    cbTimestamp;    // checkbox to trigger pad timestamp on/off
+		wCheckbox    cbPosition;     // checkbox to trigger finger x-, y-position on/off
+		wCheckbox    cbVelocity;     // checkbox to trigger finger x-, y-velocity on/off
+		wCheckbox    cbMaxis;        // checkbox to trigger finger minor-, major-axis on/off
+		wCheckbox    cbSize;         // checkbox to trigger finger size on/off
+		wCheckbox    cbAngle;        // checkbox to trigger finger angle on/off
 	
 };

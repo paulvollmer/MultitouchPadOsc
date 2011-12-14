@@ -42,6 +42,9 @@ void testApp::setup() {
 	cout << "Setup start" << endl;
 	
 	
+	// Initialize settings file, load and set variables.
+	settings.init("settings.xml");
+	
 	// XML settings
 	// Set the filepath of xmlSettings XML.
 	xmlSettingsFilepath = "settings.xml";
@@ -118,7 +121,15 @@ void testApp::setup() {
 	btnSettings.init("settings_on.png", "settings_off.png", 90, 50);
 	btnConsole.init("console_on.png", "console_off.png", 171, 50);
 	
-	cbFrame.init("hello world", 150, 150);
+	cbFrame.init("frame active", 60, 155);
+	cbTimestamp.init("timestamp active", 60, 170);
+	cbPosition.init("x-, y-position active", 60, 185);
+	
+	cbVelocity.init("x, y-velocity active", 60, 200);
+	cbMaxis.init("maxis active", 60, 215);
+	cbSize.init("size active", 60, 230);
+	cbAngle.init("angle active", 60, 245);
+	
 	
 	
 	// Multitouch Trackpad
@@ -160,7 +171,6 @@ void testApp::draw() {
 	btnOscActive.display();
 	btnSettings.display();
 	btnConsole.display();
-	cbFrame.display();
 	
 	
 	// settings button
@@ -176,16 +186,24 @@ void testApp::draw() {
 		string test = string("test")+" hello";
 		cout << test << endl;
 		string s = string("OSC SETTINGS \n")+
-		           string("master name              (change name at config file)\n")+
-		           string("osc active               (shortcut 1)\n")+
+		           "master name              (change name at config file)\n";
+		           /*string("osc active               (shortcut 1)\n")+
 		           string("frame active             (shortcut 2)\n")+
 		           string("timestamp active         (shortcut 3)\n")+
 		           string("x, y position active     (shortcut 4)\n")+
 		           string("x, y velocity active     (shortcut 5)\n")+
 		           string("minor/major axis active  (shortcut 6)\n")+
 		           string("size active              (shortcut 7)\n")+
-				          "angle active             (shortcut 8)";
+				          "angle active             (shortcut 8)";*/
 		ofDrawBitmapString(s, 60, 150);
+		
+		cbFrame.display();
+		cbTimestamp.display();
+		cbPosition.display();
+		cbVelocity.display();
+		cbMaxis.display();
+		cbSize.display();
+		cbAngle.display();
 	}
 	
 	// console button
@@ -444,7 +462,9 @@ void testApp::mousePressed(int x, int y, int button) {
 	btnConsole.pressed(x, y);
 	if(btnConsole.status == true) btnSettings.status = false;
 	
-	cbFrame.pressed(x, y);
+	if(btnSettings.status == true) {
+		cbFrame.pressed(x, y);
+	}
 }
 
 
