@@ -51,8 +51,6 @@ void TextConsole::init() {
 
 
 void TextConsole::display(int _x, int _y) {
-	ofSetColor(255, 0, 0);
-	ofFill();
 	for(int i=0; i<NUM_STRINGS; i++) {
 		ofDrawBitmapString(consoleStrings[i], _x, _y+(i*15));
 	}
@@ -65,7 +63,8 @@ void TextConsole::addString(string msg) {
 	
 	if(currentConsoleStrings < NUM_STRINGS) {
 		currentConsoleStrings++;
-	} else {
+	}
+	if(currentConsoleStrings == NUM_STRINGS) {
 		currentConsoleStrings = 0;
 	}
 }
