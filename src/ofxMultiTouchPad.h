@@ -98,7 +98,7 @@ static int _mt_callback(int device, Finger *data, int nFingers,
 typedef struct MTouch {
     int ID,frame;
     float angle,size,x,y;
-    MTouch(): ID(-1),frame(0),x(0),y(0),angle(0.f),size(0.f){}
+	MTouch(): ID(-1),frame(0),x(0),y(0),angle(0.f),size(0.f){}
 } MTouch;
 
 /*

@@ -15,6 +15,7 @@
 		4E65878F14921C5F0034FFF9 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E65878A14921C5F0034FFF9 /* ofxXmlSettings.cpp */; };
 		4E6587DC1492401A0034FFF9 /* wInteraction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E6587DB1492401A0034FFF9 /* wInteraction.cpp */; };
 		4E6587E4149243120034FFF9 /* wImageButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E6587E2149243120034FFF9 /* wImageButton.cpp */; };
+		4ECDE0AC149A07E2002035C7 /* TextConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ECDE0AA149A07E2002035C7 /* TextConsole.cpp */; };
 		4ED528E81498A02E0073955D /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4ED528E71498A02E0073955D /* Settings.cpp */; };
 		4EE364A4149278E0005C74E8 /* osc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE36498149278E0005C74E8 /* osc.a */; };
 		4EE364A5149278E0005C74E8 /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4EE3649C149278E0005C74E8 /* ofxOscBundle.cpp */; };
@@ -86,6 +87,8 @@
 		4E6587DB1492401A0034FFF9 /* wInteraction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wInteraction.cpp; sourceTree = "<group>"; };
 		4E6587E2149243120034FFF9 /* wImageButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wImageButton.cpp; sourceTree = "<group>"; };
 		4E6587E3149243120034FFF9 /* wImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wImageButton.h; sourceTree = "<group>"; };
+		4ECDE0AA149A07E2002035C7 /* TextConsole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextConsole.cpp; sourceTree = "<group>"; };
+		4ECDE0AB149A07E2002035C7 /* TextConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextConsole.h; sourceTree = "<group>"; };
 		4ED528E61498A02E0073955D /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		4ED528E71498A02E0073955D /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
 		4EE36483149278E0005C74E8 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
@@ -126,7 +129,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* MagicTrackpadOsc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicTrackpadOsc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* MagicTrackpadOscDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicTrackpadOscDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* MagicTrackpadOscApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; path = MagicTrackpadOscApp.cpp; sourceTree = "<group>"; };
 		E4B69E1F0A3A1BDC003C02F2 /* MagicTrackpadOscApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MagicTrackpadOscApp.h; sourceTree = "<group>"; };
@@ -295,12 +298,12 @@
 		4EE368101493A357005C74E8 /* wGui */ = {
 			isa = PBXGroup;
 			children = (
-				4EE3680D1493A34D005C74E8 /* wCheckbox.cpp */,
 				4EE3680E1493A34D005C74E8 /* wCheckbox.h */,
-				4E6587DB1492401A0034FFF9 /* wInteraction.cpp */,
+				4EE3680D1493A34D005C74E8 /* wCheckbox.cpp */,
 				4E6587DA1492401A0034FFF9 /* wInteraction.h */,
-				4E6587E2149243120034FFF9 /* wImageButton.cpp */,
+				4E6587DB1492401A0034FFF9 /* wInteraction.cpp */,
 				4E6587E3149243120034FFF9 /* wImageButton.h */,
+				4E6587E2149243120034FFF9 /* wImageButton.cpp */,
 			);
 			name = wGui;
 			sourceTree = "<group>";
@@ -368,7 +371,7 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* MagicTrackpadOsc.app */,
+				E4B69B5B0A3A1756003C02F2 /* MagicTrackpadOscDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -376,14 +379,16 @@
 			isa = PBXGroup;
 			children = (
 				4E65873B149103D80034FFF9 /* MTTypes.h */,
-				4E65873C149103D80034FFF9 /* ofxMultiTouchPad.cpp */,
 				4E65873D149103D80034FFF9 /* ofxMultiTouchPad.h */,
+				4E65873C149103D80034FFF9 /* ofxMultiTouchPad.cpp */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				E4B69E1E0A3A1BDC003C02F2 /* MagicTrackpadOscApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* MagicTrackpadOscApp.h */,
+				E4B69E1E0A3A1BDC003C02F2 /* MagicTrackpadOscApp.cpp */,
 				4EE368101493A357005C74E8 /* wGui */,
 				4ED528E61498A02E0073955D /* Settings.h */,
 				4ED528E71498A02E0073955D /* Settings.cpp */,
+				4ECDE0AB149A07E2002035C7 /* TextConsole.h */,
+				4ECDE0AA149A07E2002035C7 /* TextConsole.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -416,7 +421,7 @@
 			);
 			name = MagicTrackpadOsc;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* MagicTrackpadOsc.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* MagicTrackpadOscDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -498,6 +503,7 @@
 				4EE364A8149278E0005C74E8 /* ofxOscSender.cpp in Sources */,
 				4EE3680F1493A34D005C74E8 /* wCheckbox.cpp in Sources */,
 				4ED528E81498A02E0073955D /* Settings.cpp in Sources */,
+				4ECDE0AC149A07E2002035C7 /* TextConsole.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

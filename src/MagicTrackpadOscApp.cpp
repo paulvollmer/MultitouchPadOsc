@@ -39,12 +39,14 @@
  * Load background image.
  */
 void MagicTrackpadOscApp::setup() {
-	cout << "Setup start" << endl;
+	
+	// Console
+	console.init();
 	
 	
 	// Initialize settings file.
 	settings.init("settings.xml");
-	
+	console.addString(ofToString(settings.filepath) + " loaded");
 	
 	// Application
 	// All application settings below.
@@ -57,6 +59,10 @@ void MagicTrackpadOscApp::setup() {
 	// OSC
 	// open an outgoing connection to oscHost:oscPort
 	oscSender.setup(settings.oscHost, settings.oscPort);
+	console.addString(ofToString("Host: ") +
+					  ofToString(settings.oscHost) +
+					  ofToString(" Port: ") +
+					  ofToString(settings.oscPort) + " connected");
 	
 	
 	// Images
@@ -65,21 +71,20 @@ void MagicTrackpadOscApp::setup() {
 	
 	// GUI
 	// set the status to osc:out settings value
-	btnOscActive.init("oscactive_on.png", "oscactive_off.png", 54, 50);
+	btnOscActive.init("oscactive_on.png", "oscactive_off.png", 40, 10);
 	if(settings.oscOut == 0) btnOscActive.status = true;
 	else btnOscActive.status = false;
 	
-	btnSettings.init("settings_on.png", "settings_off.png", 90, 50);
-	btnConsole.init("console_on.png", "console_off.png", 171, 50);
+	btnSettings.init("settings_on.png", "settings_off.png", 90, 10);
+	btnConsole.init("console_on.png", "console_off.png", 171, 10);
 	
-	cbFrame.init("frame active                 (shortcut 2)", 60, 155, settings.padFrame);
-	cbTimestamp.init("timestamp active             (shortcut 3)", 60, 170, settings.padTimestamp);
-	cbPosition.init("x-, y-position active        (shortcut 4)", 60, 185, settings.padPosition);
-	cbVelocity.init("x-, y-velocity active        (shortcut 5)", 60, 200, settings.padVelocity);
-	cbMaxis.init("minor-, major-axis active    (shortcut 6)", 60, 215, settings.padMaxis);
-	cbSize.init("size active                  (shortcut 7)", 60, 230, settings.padSize);
-	cbAngle.init("angle active                 (shortcut 8)", 60, 245, settings.padAngle);
-	
+	cbFrame.init("frame active                 (shortcut 2)", 60, 130, settings.padFrame);
+	cbTimestamp.init("timestamp active             (shortcut 3)", 60, 145, settings.padTimestamp);
+	cbPosition.init("x-, y-position active        (shortcut 4)", 60, 160, settings.padPosition);
+	cbVelocity.init("x-, y-velocity active        (shortcut 5)", 60, 175, settings.padVelocity);
+	cbMaxis.init("minor-, major-axis active    (shortcut 6)", 60, 190, settings.padMaxis);
+	cbSize.init("size active                  (shortcut 7)", 60, 205, settings.padSize);
+	cbAngle.init("angle active                 (shortcut 8)", 60, 220, settings.padAngle);
 	
 	
 	// Multitouch Trackpad
@@ -87,10 +92,8 @@ void MagicTrackpadOscApp::setup() {
     ofAddListener(pad.update, this, &MagicTrackpadOscApp::padUpdates);
     ofAddListener(pad.touchAdded, this, &MagicTrackpadOscApp::newTouch);
     ofAddListener(pad.touchRemoved, this, &MagicTrackpadOscApp::removedTouch);
-	cout << "  number of trackpad devices: " << pad.getNumDevices() << endl;
-	
-	
-	cout << "Setup ready" << endl;
+	//cout << "  number of trackpad devices: " << pad.getNumDevices() << endl;
+	console.addString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()));
 }
 
 
@@ -123,19 +126,31 @@ void MagicTrackpadOscApp::draw() {
 	btnConsole.display();
 	
 	
+	// Local-IP, Host: xxx.xxx.xxx.xxx Port: xxxx
+    ofFill();
+	ofSetColor(0);
+	/*ofDrawBitmapString("Local-IP: ",
+	 50, 95);*/
+	ofDrawBitmapString("Host: "+ofToString(settings.oscHost)+" Port: "+ofToString(settings.oscPort),
+					   275, 25);
+    ofSetColor(255);
+	ofDrawBitmapString("TouchCount: "+ofToString(pad.getTouchCount(), 0),
+                       40, 580);
+	
+	
 	// settings button
 	if(btnSettings.status == true) {
 		// ground
 		ofEnableAlphaBlending();
 		ofSetColor(0, 150);
 		ofFill();
-		ofRect(55, 125, ofGetWidth()-110, 420);
+		ofRect(55, 40, ofGetWidth()-110, 500);
 		ofDisableAlphaBlending();
-		// text
+		// headline text
 		ofSetColor(0, 255, 255);
-		ofDrawBitmapString("OSC SETTINGS", 60, 150);
-		ofDrawBitmapString("device name (change name at config file)", 60, 295);
+		ofDrawBitmapString("OSC SETTINGS", 60, 70);
 		
+		ofDrawBitmapString("device name (change name at config file)", 60, 115);
 		cbFrame.display();
 		cbTimestamp.display();
 		cbPosition.display();
@@ -151,49 +166,65 @@ void MagicTrackpadOscApp::draw() {
 		ofEnableAlphaBlending();
 		ofSetColor(0, 150);
 		ofFill();
-		ofRect(55, 125, ofGetWidth()-110, 420);
+		ofRect(55, 40, ofGetWidth()-110, 500);
 		ofDisableAlphaBlending();
+		
+		// headline text
+		ofSetColor(0, 255, 255);
+		ofDrawBitmapString("OSC CONSOLE - SEND MESSAGES", 60, 70);
+		
+		//ofDrawBitmapString("device name (change name at config file)", 60, 115);
+		console.display(60, 115);
 	}
 	
 	
-	// Local-IP, Host: xxx.xxx.xxx.xxx Port: xxxx
-    ofSetColor(0);
-	ofDrawBitmapString("Local-IP: ",
-					   50, 95);
-	ofDrawBitmapString("Host: "+ofToString(settings.oscHost)+" Port: "+ofToString(settings.oscPort),
-					   50, 110);
-    ofDrawBitmapString("TouchCount: "+ofToString(pad.getTouchCount(), 0),
-                       20, 20);
-    
 	
     // connect all touches with a line
     std::vector<ofPoint>touches;
     pad.getTouchesAsOfPoints(&touches);
+	
     for(int i=0; (i<touches.size()-1 && touches.size()>1); i++) {
         ofSetColor(0 ,255, 255);
-        int x1 = ofMap(touches.at(i).x,   0.0, 1.0, 40,  ofGetWidth()-40);
-		int y1 = ofMap(touches.at(i).y,   0.0, 1.0, 125, ofGetHeight()-40);
-		int x2 = ofMap(touches.at(i+1).x, 0.0, 1.0, 40,  ofGetWidth()-40);
-		int y2 = ofMap(touches.at(i+1).y, 0.0, 1.0, 125, ofGetHeight()-40);
+        int x1 = ofMap(touches.at(i).x,   0.0, 1.0, 40, ofGetWidth()-40);
+		int y1 = ofMap(touches.at(i).y,   0.0, 1.0, 80, ofGetHeight()-40);
+		int x2 = ofMap(touches.at(i+1).x, 0.0, 1.0, 40, ofGetWidth()-40);
+		int y2 = ofMap(touches.at(i+1).y, 0.0, 1.0, 80, ofGetHeight()-40);
 		ofLine(x1, y1, x2, y2);
     }
     
+	
+	// display all finger blobs
 	for(int i=0; i<pad.getTouchCount(); i++) {
 		// get a single touch as MTouch struct....
 		MTouch touch;
 		if(!pad.getTouchAt(i,&touch)) continue; // guard..
 		
 		// using MTouch struct
-		int x = ofMap(touch.x, 0.0, 1.0, 40,  ofGetWidth()-40);
-		int y = ofMap(touch.y, 0.0, 1.0, 125, ofGetHeight()-40);
+		int x = ofMap(touch.x, 0.0, 1.0, 40, ofGetWidth()-40);
+		int y = ofMap(touch.y, 0.0, 1.0, 80, ofGetHeight()-40);
+		int size = touch.size*50;
+		
+		
+		// Transform
+		ofPushMatrix();
+		ofTranslate(x, y, 0);
+		ofRotateZ(touch.angle);
+		
+		ofEnableSmoothing();
+		
 		ofSetColor(0, 155, 255);
 		ofFill();
-		ofEllipse(x, y, 20, 20);
+		ofEllipse(0, 0, size, size*0.625);
 		
 		ofSetColor(0);
 		ofNoFill();
-		ofLine(x-5, y, x+5, y);
-		ofLine(x, y-5, x, y+5);
+		ofLine(-5, 0, 5, 0);
+		ofLine(0, -5, 0, +5);
+		
+		ofDisableSmoothing();
+		
+		ofPopMatrix();
+		
 		
 		// draw info
 		/*char _s [128];
@@ -213,9 +244,52 @@ void MagicTrackpadOscApp::draw() {
  * Trackpad update
  */
 void MagicTrackpadOscApp::padUpdates(int & t) {
-	if (settings.oscOut == true) {
-		
+	//MTouch touch;
+	//Finger f;
+	
+	if (settings.oscOut == 0) {
 		printf("pad updates & has %i touches\n",t);
+		string s;
+		
+		// check if padFrame is active
+		/*if (settings.padFrame == 0) {
+			cout << "padFrame " << ofToString(f.frame) << endl;
+			
+		}
+		
+		// check if padTimestamp is active
+		if (settings.padTimestamp == 0) {
+			cout << "padTimestamp" << endl;
+		}
+		
+		// check if padPosition is active
+		if (settings.padPosition == 0) {
+			cout << "padPosition" << endl;
+		}
+		
+		// check if padVelocity is active
+		if (settings.padVelocity == 0) {
+			cout << "padVelocity" << endl;
+		}
+		
+		// check if padSize is active
+		if (settings.padSize == 0) {
+			cout << "padSize" << endl;
+		}
+		
+		// check if padAngle is active
+		if (settings.padAngle == 0) {
+			cout << "padAngle" << endl;
+		}*/
+		
+		
+		for(int i=0; i<t; i++) {
+			MTouch touch;
+			Finger finger;
+			//cout << finger.frame << endl;
+			cout << "x: " << touch.x << endl;
+			//console.addString(ofToString("tst ") + ofToString(finger.majorAxis));
+		}
 		
 		/*ofxOscMessage m;
 		m.setAddress("/" + settings.padDevicename + "/" + ofToString(t));

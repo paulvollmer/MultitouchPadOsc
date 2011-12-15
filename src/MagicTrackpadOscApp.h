@@ -30,6 +30,7 @@
 
 #include "ofMain.h"
 #include "Settings.h"
+#include "TextConsole.h"
 #include "ofxOsc.h"
 #include "ofxMultiTouchPad.h"
 #include "wCheckbox.h"
@@ -66,8 +67,11 @@ class MagicTrackpadOscApp : public ofBaseApp {
 		
 		
 	private:
-		// Settings
+		// XML Settings
 		Settings settings;
+		
+		// Console
+		TextConsole console;
 	
 		// OSC
 		ofxOscSender   oscSender;   // osc of addon
@@ -82,7 +86,6 @@ class MagicTrackpadOscApp : public ofBaseApp {
 		wImageButton btnOscActive;   // button to trigger osc activity on/off
 		wImageButton btnSettings;    // button to show/hide settings
 		wImageButton btnConsole;     // button to show/hide console
-	
 		wCheckbox    cbFrame;        // checkbox to trigger pad frame on/off
 		wCheckbox    cbTimestamp;    // checkbox to trigger pad timestamp on/off
 		wCheckbox    cbPosition;     // checkbox to trigger finger x-, y-position on/off
