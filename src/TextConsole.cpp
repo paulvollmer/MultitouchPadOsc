@@ -50,6 +50,9 @@ void TextConsole::init() {
 
 
 
+/**
+ * display counsole text
+ */
 void TextConsole::display(int _x, int _y) {
 	for(int i=0; i<NUM_STRINGS; i++) {
 		ofDrawBitmapString(consoleStrings[i], _x, _y+(i*15));
@@ -58,6 +61,9 @@ void TextConsole::display(int _x, int _y) {
 
 
 
+/**
+ * add a string to console text
+ */
 void TextConsole::addString(string msg) {
 	consoleStrings[currentConsoleStrings] = msg;
 	

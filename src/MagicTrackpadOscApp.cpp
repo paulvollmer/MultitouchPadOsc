@@ -85,6 +85,7 @@ void MagicTrackpadOscApp::setup() {
 	cbMaxis.init("minor-, major-axis active    (shortcut 6)", 60, 190, settings.padMaxis);
 	cbSize.init("size active                  (shortcut 7)", 60, 205, settings.padSize);
 	cbAngle.init("angle active                 (shortcut 8)", 60, 220, settings.padAngle);
+	console.addString("GUI Initialized");
 	
 	
 	// Multitouch Trackpad
@@ -102,7 +103,6 @@ void MagicTrackpadOscApp::setup() {
  * Update
  */
 void MagicTrackpadOscApp::update() {
-	//cout << "Touchcount: " << pad.getTouchCount() << endl;
 }
 
 
@@ -204,7 +204,6 @@ void MagicTrackpadOscApp::draw() {
 		int y = ofMap(touch.y, 0.0, 1.0, 80, ofGetHeight()-40);
 		int size = touch.size*50;
 		
-		
 		// Transform
 		ofPushMatrix();
 		ofTranslate(x, y, 0);
@@ -212,10 +211,12 @@ void MagicTrackpadOscApp::draw() {
 		
 		ofEnableSmoothing();
 		
+		// finger blob circle
 		ofSetColor(0, 155, 255);
 		ofFill();
 		ofEllipse(0, 0, size, size*0.625);
 		
+		// cross at the circle center
 		ofSetColor(0);
 		ofNoFill();
 		ofLine(-5, 0, 5, 0);
@@ -224,6 +225,54 @@ void MagicTrackpadOscApp::draw() {
 		ofDisableSmoothing();
 		
 		ofPopMatrix();
+		
+		
+		// OSC
+		if(settings.oscOut == 0) {
+			
+			// check if padFrame is active
+			if (settings.padFrame == 0) {
+				string s = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/frame";
+				cout << s << "/" << touch.frame << endl;
+			}
+			 
+			// check if padTimestamp is active
+			/*if (settings.padTimestamp == 0) {
+				cout << "padTimestamp " << touch. << endl;
+			}*/
+			 
+			// check if padPosition is active
+			// send osc message, float value between 0 and 1.
+			// e.g. /mt/1/x/0.5
+			if (settings.padPosition == 0) {
+				string s = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/x";
+				cout << s << "/" << touch.x << endl;
+				
+				ofxOscMessage m;
+				m.setAddress(s);
+				m.addFloatArg(touch.x);
+				oscSender.sendMessage(m);
+				
+				console.addString(ofToString("OSC ") + ofToString(s) + ofToString("/") + ofToString(touch.x));
+			}
+			 
+			// check if padVelocity is active
+			/*if (settings.padVelocity == 0) {
+				cout << "padVelocity" << endl;
+			}*/
+			 
+			// check if padSize is active
+			if (settings.padSize == 0) {
+				cout << "padSize " << touch.size << endl;
+			}
+			 
+			// check if padAngle is active
+			if (settings.padAngle == 0) {
+				cout << "padAngle " << touch.angle << endl;
+			}
+			
+		}
+		
 		
 		
 		// draw info
@@ -244,61 +293,7 @@ void MagicTrackpadOscApp::draw() {
  * Trackpad update
  */
 void MagicTrackpadOscApp::padUpdates(int & t) {
-	//MTouch touch;
-	//Finger f;
-	
-	if (settings.oscOut == 0) {
-		printf("pad updates & has %i touches\n",t);
-		string s;
-		
-		// check if padFrame is active
-		/*if (settings.padFrame == 0) {
-			cout << "padFrame " << ofToString(f.frame) << endl;
-			
-		}
-		
-		// check if padTimestamp is active
-		if (settings.padTimestamp == 0) {
-			cout << "padTimestamp" << endl;
-		}
-		
-		// check if padPosition is active
-		if (settings.padPosition == 0) {
-			cout << "padPosition" << endl;
-		}
-		
-		// check if padVelocity is active
-		if (settings.padVelocity == 0) {
-			cout << "padVelocity" << endl;
-		}
-		
-		// check if padSize is active
-		if (settings.padSize == 0) {
-			cout << "padSize" << endl;
-		}
-		
-		// check if padAngle is active
-		if (settings.padAngle == 0) {
-			cout << "padAngle" << endl;
-		}*/
-		
-		
-		for(int i=0; i<t; i++) {
-			MTouch touch;
-			Finger finger;
-			//cout << finger.frame << endl;
-			cout << "x: " << touch.x << endl;
-			//console.addString(ofToString("tst ") + ofToString(finger.majorAxis));
-		}
-		
-		/*ofxOscMessage m;
-		m.setAddress("/" + settings.padDevicename + "/" + ofToString(t));
-		//m.addIntArg( 1 );
-		m.addFloatArg(1);
-		//m.addStringArg( "hello" );
-		//m.addFloatArg( ofGetElapsedTimef() );
-		oscSender.sendMessage( m );*/
-	}
+	printf("pad updates & has %i touches\n",t);
 }
 
 
@@ -308,7 +303,6 @@ void MagicTrackpadOscApp::padUpdates(int & t) {
  */
 void MagicTrackpadOscApp::newTouch(int & n) {
     printf("+ a new touch\n",n);
-	
 }
 
 
@@ -434,7 +428,6 @@ void MagicTrackpadOscApp::keyPressed(int key) {
  * Key released
  */
 void MagicTrackpadOscApp::keyReleased(int key) {
-	
 }
 
 
@@ -443,7 +436,6 @@ void MagicTrackpadOscApp::keyReleased(int key) {
  * Mouse moved
  */
 void MagicTrackpadOscApp::mouseMoved(int x, int y) {
-	
 }
 
 
@@ -452,7 +444,6 @@ void MagicTrackpadOscApp::mouseMoved(int x, int y) {
  * Mouse dragged
  */
 void MagicTrackpadOscApp::mouseDragged(int x, int y, int button) {
-
 }
 
 
@@ -463,16 +454,48 @@ void MagicTrackpadOscApp::mouseDragged(int x, int y, int button) {
 void MagicTrackpadOscApp::mousePressed(int x, int y, int button) {
 	// GUI
 	btnOscActive.pressed(x, y);
-	if(btnOscActive.status == true) settings.oscOut = 0;
-	else settings.oscOut = 1;
+	if(btnOscActive.status == true) {
+		settings.oscOut = 0;
+	} else {
+		settings.oscOut = 1;
+	}
+	
 	
 	btnSettings.pressed(x, y);
-	if(btnSettings.status == true) btnConsole.status = false;
+	if(btnSettings.status == true) {
+		// hide console panel
+		btnConsole.status = false;
+		
+		cbFrame.pressed(x, y);
+		settings.padFrame = cbFrame.status;
+		
+		cbTimestamp.pressed(x, y);
+		settings.padTimestamp = cbTimestamp.status;
+		
+		cbPosition.pressed(x, y);
+		settings.padPosition = cbPosition.status;
+		
+		cbVelocity.pressed(x, y);
+		settings.padVelocity = cbVelocity.status;
+		
+		cbMaxis.pressed(x, y);
+		settings.padMaxis = cbMaxis.status;
+		
+		cbSize.pressed(x, y);
+		settings.padSize = cbSize.status;
+		
+		cbAngle.pressed(x, y);
+		settings.padAngle = cbAngle.status;
+	}
+	
 	
 	btnConsole.pressed(x, y);
-	if(btnConsole.status == true) btnSettings.status = false;
+	if(btnConsole.status == true) {
+		// hide settings panel
+		btnSettings.status = false;
+	}
 	
-	if(btnSettings.status == true) {
+	/*if(btnSettings.status == true) {
 		cbFrame.pressed(x, y);
 		settings.padFrame = cbFrame.status;
 
@@ -493,7 +516,7 @@ void MagicTrackpadOscApp::mousePressed(int x, int y, int button) {
 		
 		cbAngle.pressed(x, y);
 		settings.padAngle = cbAngle.status;
-	}
+	}*/
 	
 }
 
@@ -503,33 +526,32 @@ void MagicTrackpadOscApp::mousePressed(int x, int y, int button) {
  * Mouse released
  */
 void MagicTrackpadOscApp::mouseReleased(int x, int y, int button) {
-	
 }
+
 
 
 /**
  * Window resized
  */
 void MagicTrackpadOscApp::windowResized(int w, int h) {
-	
 }
+
 
 
 /**
  * Got message
  */
 void MagicTrackpadOscApp::gotMessage(ofMessage msg) {
-	
 }
+
 
 
 /**
  * Drag event
  */
 void MagicTrackpadOscApp::dragEvent(ofDragInfo dragInfo) {
-	
-
 }
+
 
 
 /**
@@ -540,10 +562,6 @@ void MagicTrackpadOscApp::dragEvent(ofDragInfo dragInfo) {
  * Save OSC variables like Host, Port etc.
  */
 void MagicTrackpadOscApp::exit() {
-	cout << "Exit start" << endl;
-	
 	// Update settings file.
 	settings.save();
-	
-	cout << "Exit ready" << endl;
 }
