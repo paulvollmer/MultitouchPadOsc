@@ -15,9 +15,11 @@ Copyright (2011) Paul Vollmer
 ###Description  
 
 MagicTrackpadOSC ist eine Applikation für das Magic Trackpad (Apple) mit dem man die eingehenden Multitouch Events  
-als OSC-Message versenden kann. Dadurch ist es möglich,das Trackpad als Controller zu verwenden.  
+als OSC-Message versenden kann. Dadurch ist es möglich das Trackpad als Controller zu verwenden.  
 Die MagicTrackpadOSC Applikation ist mit dem Betriebssystem MacOS 10.5+ zu benutzen, damit ein valider Support 
 gewährleistet wird.  
+
+Als Font kommt die [Bitstream Vera.ttf](http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/1.10/) zum Einsatz.  
 
 **License**  
 GNU Lesser General Public License  
@@ -28,7 +30,7 @@ Mac OS
 **Dependencies**  
 Mac OS 10.5+  
 
-Build with [openFrameworks](http://www.openframeworks.cc) 
+Build with [openFrameworks](http://www.openframeworks.cc) version 0.07  
 
 * * *
 
