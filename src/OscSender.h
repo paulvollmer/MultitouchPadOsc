@@ -20,7 +20,7 @@
  * Boston, MA  02111-1307  USA
  * 
  * @author      Paul Vollmer
- * @modified    2011.12.15
+ * @modified    2011.12.09
  * @version     0.1.1
  */
 
@@ -28,32 +28,27 @@
 
 #pragma once
 
-#include "ofMain.h"
-
-#define NUM_STRINGS 20
+#include "ofxOsc.h"
 
 
 
 
-class TextConsole {
+
+class OscSender {
 	
 	public:
 		/* Constructor */
-		TextConsole();
+		OscSender();
 	
 	
 		/* Methods */
-		void init(ofTrueTypeFont &_f);
-		void display(int _x, int _y);
-		void addString(string msg);
-	
-	
-		/* Variables */
-		int    currentConsoleStrings;
-		string consoleStrings[NUM_STRINGS];
-	
+		void init(string _host, int _port);
+		void intMessage(string s, int val);
+		void floatMessage(string s, float val);
+		
 	
 	private:
-		ofTrueTypeFont font;
+		// openFrameworks osc addon
+		ofxOscSender   oscSender;
 	
 };

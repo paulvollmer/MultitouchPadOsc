@@ -31,7 +31,7 @@
 #include "ofMain.h"
 #include "Settings.h"
 #include "TextConsole.h"
-#include "ofxOsc.h"
+#include "OscSender.h"
 #include "ofxMultiTouchPad.h"
 #include "wCheckbox.h"
 #include "wImageButton.h"
@@ -67,6 +67,9 @@ class MagicTrackpadOscApp : public ofBaseApp {
 		
 		
 	private:
+		// Font
+		ofTrueTypeFont vera;
+		
 		// XML Settings
 		Settings settings;
 		
@@ -74,7 +77,7 @@ class MagicTrackpadOscApp : public ofBaseApp {
 		TextConsole console;
 	
 		// OSC
-		ofxOscSender   oscSender;   // osc of addon
+		OscSender   oscSender;
 		
 		// Multitouch Trackpad
 		ofxMultiTouchPad   pad;

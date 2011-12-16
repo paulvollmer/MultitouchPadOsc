@@ -20,40 +20,56 @@
  * Boston, MA  02111-1307  USA
  * 
  * @author      Paul Vollmer
- * @modified    2011.12.15
+ * @modified    2011.12.14
  * @version     0.1.1
  */
 
 
 
-#pragma once
-
-#include "ofMain.h"
-
-#define NUM_STRINGS 20
+#include "OscSender.h"
 
 
 
 
-class TextConsole {
+
+/**
+ * Constructor
+ */
+OscSender::OscSender() {
+}
+
+
+
+/**
+ * Initialize
+ * Open an outgoing connection to oscHost:oscPort
+ */
+void OscSender::init(string _host, int _port) {
+	oscSender.setup(_host, _port);
+}
+
+
+
+/**
+ * Send an osc message (integer value)
+ */
+void OscSender::intMessage(string s, int val) {
+	ofxOscMessage m;
 	
-	public:
-		/* Constructor */
-		TextConsole();
+	m.setAddress(s);
+	m.addIntArg(val);
 	
+	oscSender.sendMessage(m);
+}
+
+/**
+ * Send an osc message (float value)
+ */
+void OscSender::floatMessage(string s, float val) {
+	ofxOscMessage m;
 	
-		/* Methods */
-		void init(ofTrueTypeFont &_f);
-		void display(int _x, int _y);
-		void addString(string msg);
+	m.setAddress(s);
+	m.addFloatArg(val);
 	
-	
-		/* Variables */
-		int    currentConsoleStrings;
-		string consoleStrings[NUM_STRINGS];
-	
-	
-	private:
-		ofTrueTypeFont font;
-	
-};
+	oscSender.sendMessage(m);
+}

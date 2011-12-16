@@ -49,7 +49,8 @@ wCheckbox::wCheckbox() {
  * _y Checkbox Y-position
  * _status Checkbox status
  */
-void wCheckbox::init(string _message, int _x, int _y, int _status) {
+void wCheckbox::init(ofTrueTypeFont &_f, string _message, int _x, int _y, int _status) {
+	font    = _f;
 	message = _message;
 	x       = _x;
 	y       = _y;
@@ -59,8 +60,8 @@ void wCheckbox::init(string _message, int _x, int _y, int _status) {
 	interaction.init(x, y, size, size);
 }
 
-void wCheckbox::init(string _message, int _x, int _y) {
-	init(_message, _x, _y, 1);
+void wCheckbox::init(ofTrueTypeFont &_f, string _message, int _x, int _y) {
+	init(_f, _message, _x, _y, 1);
 }
 
 
@@ -89,7 +90,7 @@ void wCheckbox::display() {
 	// message
 	ofSetColor(0, 255, 255);
 	ofFill();
-	ofDrawBitmapString(message, x+size+10, y+size);
+	font.drawString(message, x+size+10, y+size);
 }
 
 

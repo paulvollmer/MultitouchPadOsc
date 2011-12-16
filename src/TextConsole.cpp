@@ -43,7 +43,8 @@ TextConsole::TextConsole() {
 /**
  * Initialize
  */
-void TextConsole::init() {
+void TextConsole::init(ofTrueTypeFont &_f) {
+	font = _f;
 	// set the currentConsoleStrings to 0
 	currentConsoleStrings = 0;
 }
@@ -55,7 +56,7 @@ void TextConsole::init() {
  */
 void TextConsole::display(int _x, int _y) {
 	for(int i=0; i<NUM_STRINGS; i++) {
-		ofDrawBitmapString(consoleStrings[i], _x, _y+(i*15));
+		font.drawString(consoleStrings[i], _x, _y+(i*15));
 	}
 }
 

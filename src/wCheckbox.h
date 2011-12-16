@@ -42,8 +42,8 @@ class wCheckbox {
 		wCheckbox();
 	
 		/* Methods */
-		void init(string _message, int _x, int _y, int _status);
-		void init(string _message, int _x, int _y);
+		void init(ofTrueTypeFont &_f, string _message, int _x, int _y, int _status);
+		void init(ofTrueTypeFont &_f, string _message, int _x, int _y);
 		void display();
 		void pressed(int _mx, int _my);
 	
@@ -52,6 +52,8 @@ class wCheckbox {
 	
 	
 	private:
+		ofTrueTypeFont font;
+		
 		wInteraction interaction;
 
 		/* Variables */

@@ -40,8 +40,11 @@
  */
 void MagicTrackpadOscApp::setup() {
 	
+	// Font
+	vera.loadFont("Vera.ttf", 10, true, false);
+	
 	// Console
-	console.init();
+	console.init(vera);
 	
 	
 	// Initialize settings file.
@@ -57,8 +60,7 @@ void MagicTrackpadOscApp::setup() {
 	
 	
 	// OSC
-	// open an outgoing connection to oscHost:oscPort
-	oscSender.setup(settings.oscHost, settings.oscPort);
+	oscSender.init(settings.oscHost, settings.oscPort);
 	console.addString(ofToString("Host: ") +
 					  ofToString(settings.oscHost) +
 					  ofToString(" Port: ") +
@@ -75,16 +77,16 @@ void MagicTrackpadOscApp::setup() {
 	if(settings.oscOut == 0) btnOscActive.status = true;
 	else btnOscActive.status = false;
 	
-	btnSettings.init("settings_on.png", "settings_off.png", 90, 10);
-	btnConsole.init("console_on.png", "console_off.png", 171, 10);
+	btnSettings.init("settings_on.png",  "settings_off.png",  90,  10);
+	btnConsole.init("console_on.png",    "console_off.png",   171, 10);
 	
-	cbFrame.init("frame active                 (shortcut 2)", 60, 130, settings.padFrame);
-	cbTimestamp.init("timestamp active             (shortcut 3)", 60, 145, settings.padTimestamp);
-	cbPosition.init("x-, y-position active        (shortcut 4)", 60, 160, settings.padPosition);
-	cbVelocity.init("x-, y-velocity active        (shortcut 5)", 60, 175, settings.padVelocity);
-	cbMaxis.init("minor-, major-axis active    (shortcut 6)", 60, 190, settings.padMaxis);
-	cbSize.init("size active                  (shortcut 7)", 60, 205, settings.padSize);
-	cbAngle.init("angle active                 (shortcut 8)", 60, 220, settings.padAngle);
+	cbFrame.init(vera,      "frame active",               60, 130, settings.padFrame);
+	cbTimestamp.init(vera,  "timestamp active",           60, 145, settings.padTimestamp);
+	cbPosition.init(vera,   "x-, y-position active",      60, 160, settings.padPosition);
+	cbVelocity.init(vera,   "x-, y-velocity active",      60, 175, settings.padVelocity);
+	cbMaxis.init(vera,      "minor-, major-axis active",  60, 190, settings.padMaxis);
+	cbSize.init(vera,       "size active",                60, 205, settings.padSize);
+	cbAngle.init(vera,      "angle active",               60, 220, settings.padAngle);
 	console.addString("GUI Initialized");
 	
 	
@@ -126,60 +128,19 @@ void MagicTrackpadOscApp::draw() {
 	btnConsole.display();
 	
 	
-	// Local-IP, Host: xxx.xxx.xxx.xxx Port: xxxx
+	// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
     ofFill();
 	ofSetColor(0);
-	/*ofDrawBitmapString("Local-IP: ",
-	 50, 95);*/
-	ofDrawBitmapString("Host: "+ofToString(settings.oscHost)+" Port: "+ofToString(settings.oscPort),
-					   275, 25);
+	vera.drawString("Host: "+ofToString(settings.oscHost)+" Port: "+ofToString(settings.oscPort),
+	                330, 25);
+	
     ofSetColor(255);
-	ofDrawBitmapString("TouchCount: "+ofToString(pad.getTouchCount(), 0),
-                       40, 580);
+	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0),
+                    40, 580);
 	
 	
-	// settings button
-	if(btnSettings.status == true) {
-		// ground
-		ofEnableAlphaBlending();
-		ofSetColor(0, 150);
-		ofFill();
-		ofRect(55, 40, ofGetWidth()-110, 500);
-		ofDisableAlphaBlending();
-		// headline text
-		ofSetColor(0, 255, 255);
-		ofDrawBitmapString("OSC SETTINGS", 60, 70);
-		
-		ofDrawBitmapString("device name (change name at config file)", 60, 115);
-		cbFrame.display();
-		cbTimestamp.display();
-		cbPosition.display();
-		cbVelocity.display();
-		cbMaxis.display();
-		cbSize.display();
-		cbAngle.display();
-	}
-	
-	// console button
-	if(btnConsole.status == true) {
-		// ground
-		ofEnableAlphaBlending();
-		ofSetColor(0, 150);
-		ofFill();
-		ofRect(55, 40, ofGetWidth()-110, 500);
-		ofDisableAlphaBlending();
-		
-		// headline text
-		ofSetColor(0, 255, 255);
-		ofDrawBitmapString("OSC CONSOLE - SEND MESSAGES", 60, 70);
-		
-		//ofDrawBitmapString("device name (change name at config file)", 60, 115);
-		console.display(60, 115);
-	}
-	
-	
-	
-    // connect all touches with a line
+	// Display finger blobs
+	// connect all touches with a line
     std::vector<ofPoint>touches;
     pad.getTouchesAsOfPoints(&touches);
 	
@@ -227,13 +188,27 @@ void MagicTrackpadOscApp::draw() {
 		ofPopMatrix();
 		
 		
+		// draw info
+		/*char _s [128];
+		 sprintf(_s, "ID %05i, frame: %05i, x: %6.3f, y: %6.3f, angle: %8.3f,"
+		 "size: %6.3f nFingers: %d\n",
+		 touch.ID,touch.frame,touch.x,touch.y,touch.angle,
+		 touch.size,pad.getTouchCount());
+		 ofSetHexColor(0xffffff);
+		 ofDrawBitmapString((string)_s, 0,0);*/
+		
+		
+		
 		// OSC
 		if(settings.oscOut == 0) {
 			
-			// check if padFrame is active
+			// Check if padFrame is active
 			if (settings.padFrame == 0) {
-				string s = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/frame";
-				cout << s << "/" << touch.frame << endl;
+				// Send osc message, integer value with the current frame.
+				// e.g. /mt/1/frame/23
+				string sFrame = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/frame";
+				oscSender.intMessage(sFrame, touch.frame);
+				console.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
 			}
 			 
 			// check if padTimestamp is active
@@ -242,18 +217,15 @@ void MagicTrackpadOscApp::draw() {
 			}*/
 			 
 			// check if padPosition is active
-			// send osc message, float value between 0 and 1.
-			// e.g. /mt/1/x/0.5
 			if (settings.padPosition == 0) {
-				string s = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/x";
-				cout << s << "/" << touch.x << endl;
-				
-				ofxOscMessage m;
-				m.setAddress(s);
-				m.addFloatArg(touch.x);
-				oscSender.sendMessage(m);
-				
-				console.addString(ofToString("OSC ") + ofToString(s) + ofToString("/") + ofToString(touch.x));
+				// Send osc message, float value between 0 and 1.
+				// e.g. /mt/1/x/0.5
+				string sX = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/x";
+				string sY = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/y";
+				oscSender.floatMessage(sX, touch.x);
+				oscSender.floatMessage(sY, touch.y);
+				console.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
+				console.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
 			}
 			 
 			// check if padVelocity is active
@@ -263,28 +235,73 @@ void MagicTrackpadOscApp::draw() {
 			 
 			// check if padSize is active
 			if (settings.padSize == 0) {
-				cout << "padSize " << touch.size << endl;
+				// Send osc message, float value between 0 and 1.
+				// e.g. /mt/1/size/0.5
+				string sSize = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/size";
+				oscSender.floatMessage(sSize, touch.size);
+				console.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
 			}
 			 
 			// check if padAngle is active
 			if (settings.padAngle == 0) {
-				cout << "padAngle " << touch.angle << endl;
+				// Send osc message, float value between 0 and 1.
+				// e.g. /mt/1/angle/0.5
+				string sAngle = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/angle";
+				oscSender.floatMessage(sAngle, touch.angle);
+				console.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
 			}
-			
 		}
-		
-		
-		
-		// draw info
-		/*char _s [128];
-		sprintf(_s, "ID %05i, frame: %05i, x: %6.3f, y: %6.3f, angle: %8.3f,"
-				"size: %6.3f nFingers: %d\n",
-				touch.ID,touch.frame,touch.x,touch.y,touch.angle,
-				touch.size,pad.getTouchCount());
-		ofSetHexColor(0xffffff);
-		ofDrawBitmapString((string)_s, 0,0);*/
     }
 	
+	
+	// settings button
+	if(btnSettings.status == true) {
+		// ground
+		ofEnableAlphaBlending();
+		ofSetColor(0, 150);
+		ofFill();
+		ofRect(55, 40, ofGetWidth()-110, 500);
+		ofDisableAlphaBlending();
+		// headline text
+		ofSetColor(0, 255, 255);
+		vera.drawString("OSC SETTINGS", 60, 70);
+		
+		vera.drawString("device name (change name at config file)", 60, 115);
+		cbFrame.display();
+		cbTimestamp.display();
+		cbPosition.display();
+		cbVelocity.display();
+		cbMaxis.display();
+		cbSize.display();
+		cbAngle.display();
+		// shortcuts
+		vera.drawString("[Shortcut: 2]", 450, 140);
+		vera.drawString("[Shortcut: 3]", 450, 155);
+		vera.drawString("[Shortcut: 4]", 450, 170);
+		vera.drawString("[Shortcut: 5]", 450, 185);
+		vera.drawString("[Shortcut: 6]", 450, 200);
+		vera.drawString("[Shortcut: 7]", 450, 215);
+		vera.drawString("[Shortcut: 8]", 450, 230);
+		
+		vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 60, 250);
+	}
+	
+	// console button
+	if(btnConsole.status == true) {
+		// ground
+		ofEnableAlphaBlending();
+		ofSetColor(0, 150);
+		ofFill();
+		ofRect(55, 40, ofGetWidth()-110, 500);
+		ofDisableAlphaBlending();
+		
+		// headline text
+		ofSetColor(0, 255, 255);
+		vera.drawString("OSC CONSOLE - SEND MESSAGES", 60, 70);
+		
+		//ofDrawBitmapString("device name (change name at config file)", 60, 115);
+		console.display(60, 115);
+	}
 }
 
 
@@ -494,30 +511,6 @@ void MagicTrackpadOscApp::mousePressed(int x, int y, int button) {
 		// hide settings panel
 		btnSettings.status = false;
 	}
-	
-	/*if(btnSettings.status == true) {
-		cbFrame.pressed(x, y);
-		settings.padFrame = cbFrame.status;
-
-		cbTimestamp.pressed(x, y);
-		settings.padTimestamp = cbTimestamp.status;
-
-		cbPosition.pressed(x, y);
-		settings.padPosition = cbPosition.status;
-		
-		cbVelocity.pressed(x, y);
-		settings.padVelocity = cbVelocity.status;
-		
-		cbMaxis.pressed(x, y);
-		settings.padMaxis = cbMaxis.status;
-		
-		cbSize.pressed(x, y);
-		settings.padSize = cbSize.status;
-		
-		cbAngle.pressed(x, y);
-		settings.padAngle = cbAngle.status;
-	}*/
-	
 }
 
 
