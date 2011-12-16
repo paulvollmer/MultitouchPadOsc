@@ -1,7 +1,7 @@
 build
 
-bin/MagicTrackpadOscDebug.app
-bin/MagicTrackpadOsc.app
+bin/MultitouchPadOscDebug.app
+bin/MultitouchPadOsc.app
 
-MagicTrackpadOsc.xcodeproj/wrongMacBookpro.mode1v3
-MagicTrackpadOsc.xcodeproj/wrongMacBookpro.pbxuser
+MultitouchPadOsc.xcodeproj/wrongMacBookpro.mode1v3
+MultitouchPadOsc.xcodeproj/wrongMacBookpro.pbxuser
