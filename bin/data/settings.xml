@@ -1,7 +1,7 @@
-<!-- MagicTrackpadOsc Settings -->
+<!-- MultitouchPadOsc Settings -->
 <app>
     <framerate>30</framerate>
-    <count>460</count>
+    <count>468</count>
     <windowx>208</windowx>
     <windowy>158</windowy>
 </app>
