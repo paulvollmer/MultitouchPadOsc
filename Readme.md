@@ -8,27 +8,28 @@ Paul Vollmer [wrong-entertainment.com](http://wrong-entertainment.com)
 The MultitouchPadOsc Project Page is Hosted at http://wrongentertainment.github.com/MultitouchPadOsc/  
 Check out for New released Version at https://github.com/WrongEntertainment/MultitouchPadOsc  
    
-Copyright (2011) Paul Vollmer 
+Copyright (2011) Paul Vollmer  
+
+Third Party Code Additional copyright notices and license terms applicable to portions of the Software are set forth in the THIRDPARTYLICENSEREADME.txt file.
 
 * * *
 
 ###Description  
 
-MultitouchPadOsc ist eine Applikation für das Magic Trackpad (Apple) mit dem man die eingehenden Multitouch Events  
-als OSC-Message versenden kann. Dadurch ist es möglich das Trackpad als Controller zu verwenden.  
-Die MagicTrackpadOSC Applikation ist mit dem Betriebssystem MacOS 10.5+ zu benutzen, damit ein valider Support 
-gewährleistet wird.  
-
-Als Font kommt die [Bitstream Vera.ttf](http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/1.10/) zum Einsatz.  
+MultitouchPadOsc is an application to check the incomming Multitouch Events and send these events as an osc-message.  
+So you can use your Multitouch Pad as a control-device to manipulate something.  
+  
+It will be used the [Bitstream Vera.ttf](http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/1.10/) font.  
 
 **License**  
 GNU Lesser General Public License  
 **Install**  
--  
+Package Istallation    
 **Platform**  
 Mac OS  
 **Dependencies**  
-Mac OS 10.5+  
+Software: Mac OS 10.5+  
+Hardware: MacBook, MacBook Pro with a Multitouch Trackpad or an Magic Trackpad.
 
 Build with [openFrameworks](http://www.openframeworks.cc) version 0.07  
 
