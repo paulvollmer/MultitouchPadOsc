@@ -40,6 +40,10 @@
  */
 void MultitouchPadOscApp::setup() {
 	
+	// Set the data-path to application/Recource directory.
+	// Use the Application Support directory for RELEASE mode.
+	ofSetDataPathRoot("/Library/Application Support/MultitouchPadOsc/");
+	
 	// Font
 	vera.loadFont("Vera.ttf", 10, true, false);
 	
@@ -69,6 +73,7 @@ void MultitouchPadOscApp::setup() {
 	
 	// Images
 	backgroundImage.loadImage("MagicTrackpad.png");
+	oscSendImage.loadImage("oscactive_send.png");
 	
 	
 	// GUI
@@ -80,13 +85,13 @@ void MultitouchPadOscApp::setup() {
 	btnSettings.init("settings_on.png",  "settings_off.png",  90,  10);
 	btnConsole.init("console_on.png",    "console_off.png",   171, 10);
 	
-	cbFrame.init(vera,      "frame active",               60, 130, settings.padFrame);
-	cbTimestamp.init(vera,  "timestamp active",           60, 145, settings.padTimestamp);
-	cbPosition.init(vera,   "x-, y-position active",      60, 160, settings.padPosition);
-	cbVelocity.init(vera,   "x-, y-velocity active",      60, 175, settings.padVelocity);
-	cbMaxis.init(vera,      "minor-, major-axis active",  60, 190, settings.padMaxis);
-	cbSize.init(vera,       "size active",                60, 205, settings.padSize);
-	cbAngle.init(vera,      "angle active",               60, 220, settings.padAngle);
+	cbFrame.init(vera,      "frame active",               60, 155, settings.padFrame);
+	cbTimestamp.init(vera,  "timestamp active",           60, 170, settings.padTimestamp);
+	cbPosition.init(vera,   "x-, y-position active",      60, 185, settings.padPosition);
+	cbVelocity.init(vera,   "x-, y-velocity active",      60, 200, settings.padVelocity);
+	cbMaxis.init(vera,      "minor-, major-axis active",  60, 215, settings.padMaxis);
+	cbSize.init(vera,       "size active",                60, 230, settings.padSize);
+	cbAngle.init(vera,      "angle active",               60, 245, settings.padAngle);
 	console.addString("GUI Initialized");
 	
 	
@@ -128,12 +133,7 @@ void MultitouchPadOscApp::draw() {
 	btnConsole.display();
 	
 	
-	// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
-    ofFill();
-	ofSetColor(0);
-	vera.drawString("Host: "+ofToString(settings.oscHost)+" Port: "+ofToString(settings.oscPort),
-	                330, 25);
-	
+	//
     ofSetColor(255);
 	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0),
                     40, 580);
@@ -201,6 +201,12 @@ void MultitouchPadOscApp::draw() {
 		
 		// OSC
 		if(settings.oscOut == 0) {
+			// if osc message will be send,
+			// show osc send icon.
+			ofSetColor(255);
+			ofFill();
+			oscSendImage.draw(40, 10);
+		
 			
 			// Check if padFrame is active
 			if (settings.padFrame == 0) {
@@ -262,11 +268,15 @@ void MultitouchPadOscApp::draw() {
 		ofFill();
 		ofRect(55, 40, ofGetWidth()-110, 500);
 		ofDisableAlphaBlending();
-		// headline text
+		// Osc settings
 		ofSetColor(0, 255, 255);
+		ofFill();
 		vera.drawString("OSC SETTINGS", 60, 70);
-		
-		vera.drawString("device name (change name at config file)", 60, 115);
+		// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
+		vera.drawString("Host: "+ofToString(settings.oscHost), 60, 105);
+		vera.drawString("Port: "+ofToString(settings.oscPort), 60, 120);
+		vera.drawString("Devicename: <" + ofToString(settings.padDevicename) + ">   (change name at config file)", 60, 135);
+		vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 60, 150);
 		cbFrame.display();
 		cbTimestamp.display();
 		cbPosition.display();
@@ -275,15 +285,13 @@ void MultitouchPadOscApp::draw() {
 		cbSize.display();
 		cbAngle.display();
 		// shortcuts
-		vera.drawString("[Shortcut: 2]", 450, 140);
-		vera.drawString("[Shortcut: 3]", 450, 155);
-		vera.drawString("[Shortcut: 4]", 450, 170);
-		vera.drawString("[Shortcut: 5]", 450, 185);
-		vera.drawString("[Shortcut: 6]", 450, 200);
-		vera.drawString("[Shortcut: 7]", 450, 215);
-		vera.drawString("[Shortcut: 8]", 450, 230);
-		
-		vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 60, 250);
+		vera.drawString("[Shortcut: 2]", 450, 165);
+		vera.drawString("[Shortcut: 3]", 450, 180);
+		vera.drawString("[Shortcut: 4]", 450, 195);
+		vera.drawString("[Shortcut: 5]", 450, 210);
+		vera.drawString("[Shortcut: 6]", 450, 225);
+		vera.drawString("[Shortcut: 7]", 450, 240);
+		vera.drawString("[Shortcut: 8]", 450, 255);
 	}
 	
 	// console button
@@ -300,7 +308,7 @@ void MultitouchPadOscApp::draw() {
 		vera.drawString("OSC CONSOLE - SEND MESSAGES", 60, 70);
 		
 		//ofDrawBitmapString("device name (change name at config file)", 60, 115);
-		console.display(60, 115);
+		console.display(60, 105);
 	}
 }
 

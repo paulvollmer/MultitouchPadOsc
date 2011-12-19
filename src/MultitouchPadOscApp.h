@@ -84,6 +84,7 @@ class MultitouchPadOscApp : public ofBaseApp {
 		
 		// Images
 		ofImage backgroundImage;
+		ofImage oscSendImage;
 	
 		// GUI
 		wImageButton btnOscActive;   // button to trigger osc activity on/off
