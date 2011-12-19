@@ -91,10 +91,10 @@ class MultitouchPadOscApp : public ofBaseApp {
 		wImageButton btnSettings;    // button to show/hide settings
 		wImageButton btnConsole;     // button to show/hide console
 		wCheckbox    cbFrame;        // checkbox to trigger pad frame on/off
-		wCheckbox    cbTimestamp;    // checkbox to trigger pad timestamp on/off
+		//wCheckbox    cbTimestamp;    // checkbox to trigger pad timestamp on/off
 		wCheckbox    cbPosition;     // checkbox to trigger finger x-, y-position on/off
-		wCheckbox    cbVelocity;     // checkbox to trigger finger x-, y-velocity on/off
-		wCheckbox    cbMaxis;        // checkbox to trigger finger minor-, major-axis on/off
+		//wCheckbox    cbVelocity;     // checkbox to trigger finger x-, y-velocity on/off
+		//wCheckbox    cbMaxis;        // checkbox to trigger finger minor-, major-axis on/off
 		wCheckbox    cbSize;         // checkbox to trigger finger size on/off
 		wCheckbox    cbAngle;        // checkbox to trigger finger angle on/off
 	

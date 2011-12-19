@@ -86,12 +86,12 @@ void MultitouchPadOscApp::setup() {
 	btnConsole.init("console_on.png",    "console_off.png",   171, 10);
 	
 	cbFrame.init(vera,      "frame active",               60, 155, settings.padFrame);
-	cbTimestamp.init(vera,  "timestamp active",           60, 170, settings.padTimestamp);
-	cbPosition.init(vera,   "x-, y-position active",      60, 185, settings.padPosition);
-	cbVelocity.init(vera,   "x-, y-velocity active",      60, 200, settings.padVelocity);
-	cbMaxis.init(vera,      "minor-, major-axis active",  60, 215, settings.padMaxis);
-	cbSize.init(vera,       "size active",                60, 230, settings.padSize);
-	cbAngle.init(vera,      "angle active",               60, 245, settings.padAngle);
+	//cbTimestamp.init(vera,  "timestamp active",           60, 170, settings.padTimestamp);
+	cbPosition.init(vera,   "x-, y-position active",      60, 170, settings.padPosition);
+	//cbVelocity.init(vera,   "x-, y-velocity active",      60, 200, settings.padVelocity);
+	//cbMaxis.init(vera,      "minor-, major-axis active",  60, 215, settings.padMaxis);
+	cbSize.init(vera,       "size active",                60, 185, settings.padSize);
+	cbAngle.init(vera,      "angle active",               60, 200, settings.padAngle);
 	console.addString("GUI Initialized");
 	
 	
@@ -219,7 +219,8 @@ void MultitouchPadOscApp::draw() {
 			 
 			// check if padTimestamp is active
 			/*if (settings.padTimestamp == 0) {
-				cout << "padTimestamp " << touch. << endl;
+				Finger finger;
+				cout << "padTimestamp " << finger.timestamp << endl;
 			}*/
 			 
 			// check if padPosition is active
@@ -236,7 +237,8 @@ void MultitouchPadOscApp::draw() {
 			 
 			// check if padVelocity is active
 			/*if (settings.padVelocity == 0) {
-				cout << "padVelocity" << endl;
+				Finger finger;
+				cout << "padVelocity " << finger.mm.vel.x << endl;
 			}*/
 			 
 			// check if padSize is active
@@ -278,10 +280,10 @@ void MultitouchPadOscApp::draw() {
 		vera.drawString("Devicename: <" + ofToString(settings.padDevicename) + ">   (change name at config file)", 60, 135);
 		vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 60, 150);
 		cbFrame.display();
-		cbTimestamp.display();
+		//cbTimestamp.display();
 		cbPosition.display();
-		cbVelocity.display();
-		cbMaxis.display();
+		//cbVelocity.display();
+		//cbMaxis.display();
 		cbSize.display();
 		cbAngle.display();
 		// shortcuts
@@ -289,9 +291,9 @@ void MultitouchPadOscApp::draw() {
 		vera.drawString("[Shortcut: 3]", 450, 180);
 		vera.drawString("[Shortcut: 4]", 450, 195);
 		vera.drawString("[Shortcut: 5]", 450, 210);
-		vera.drawString("[Shortcut: 6]", 450, 225);
-		vera.drawString("[Shortcut: 7]", 450, 240);
-		vera.drawString("[Shortcut: 8]", 450, 255);
+		//vera.drawString("[Shortcut: 6]", 450, 225);
+		//vera.drawString("[Shortcut: 7]", 450, 240);
+		//vera.drawString("[Shortcut: 8]", 450, 255);
 	}
 	
 	// console button
@@ -371,7 +373,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			break;
 		
 		// OSC timestamp
-		case '3':
+		/*case '3':
 			if (settings.padTimestamp == 0) {
 				settings.padTimestamp = 1;
 			} else {
@@ -380,10 +382,10 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			cbTimestamp.status = settings.padTimestamp;
 			
 			cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
-			break;
+			break;*/
 		
 		// OSC position
-		case '4':
+		case '3':
 			if (settings.padPosition == 0) {
 				settings.padPosition = 1;
 			} else {
@@ -395,7 +397,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			break;
 
 		// OSC velocity
-		case '5':
+		/*case '5':
 			if (settings.padVelocity == 0) {
 				settings.padVelocity = 1;
 			} else {
@@ -404,10 +406,10 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			cbVelocity.status = settings.padVelocity;
 			
 			cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
-			break;
+			break;*/
 
-		// OSC size
-		case '6':
+		// OSC maxis
+		/*case '4':
 			if (settings.padMaxis == 0) {
 				settings.padMaxis = 1;
 			} else {
@@ -416,10 +418,10 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			cbMaxis.status = settings.padMaxis;
 			
 			cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
-			break;
+			break;*/
 
 		// OSC maxis
-		case '7':
+		case '4':
 			if (settings.padSize == 0) {
 				settings.padSize = 1;
 			} else {
@@ -431,7 +433,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			break;
 
 		// OSC angle
-		case '8':
+		case '5':
 			if (settings.padAngle == 0) {
 				settings.padAngle = 1;
 			} else {
@@ -494,17 +496,17 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		cbFrame.pressed(x, y);
 		settings.padFrame = cbFrame.status;
 		
-		cbTimestamp.pressed(x, y);
-		settings.padTimestamp = cbTimestamp.status;
+		//cbTimestamp.pressed(x, y);
+		//settings.padTimestamp = cbTimestamp.status;
 		
 		cbPosition.pressed(x, y);
 		settings.padPosition = cbPosition.status;
 		
-		cbVelocity.pressed(x, y);
-		settings.padVelocity = cbVelocity.status;
+		//cbVelocity.pressed(x, y);
+		//settings.padVelocity = cbVelocity.status;
 		
-		cbMaxis.pressed(x, y);
-		settings.padMaxis = cbMaxis.status;
+		//cbMaxis.pressed(x, y);
+		//settings.padMaxis = cbMaxis.status;
 		
 		cbSize.pressed(x, y);
 		settings.padSize = cbSize.status;
