@@ -72,7 +72,7 @@ void MultitouchPadOscApp::setup() {
 	
 	
 	// Images
-	backgroundImage.loadImage("MagicTrackpad.png");
+	backgroundImage.loadImage("background.png");
 	oscSendImage.loadImage("oscactive_send.png");
 	
 	
@@ -276,8 +276,11 @@ void MultitouchPadOscApp::draw() {
 		vera.drawString("OSC SETTINGS", 60, 70);
 		// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
 		vera.drawString("Host: "+ofToString(settings.oscHost), 60, 105);
+		vera.drawString("[change at settings.xml file]", 350, 105);
 		vera.drawString("Port: "+ofToString(settings.oscPort), 60, 120);
-		vera.drawString("Devicename: <" + ofToString(settings.padDevicename) + ">   (change name at config file)", 60, 135);
+		vera.drawString("[change at settings.xml file]", 350, 120);
+		vera.drawString("Devicename: <" + ofToString(settings.padDevicename) + ">", 60, 135);
+		vera.drawString("[change at settings.xml file]", 350, 135);
 		vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 60, 150);
 		cbFrame.display();
 		//cbTimestamp.display();
