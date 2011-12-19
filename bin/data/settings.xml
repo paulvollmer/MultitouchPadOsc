@@ -1,12 +1,12 @@
 <!-- MultitouchPadOsc Settings -->
 <app>
     <framerate>30</framerate>
-    <count>468</count>
-    <windowx>208</windowx>
-    <windowy>158</windowy>
+    <count>0</count>
+    <windowx>200</windowx>
+    <windowy>100</windowy>
 </app>
 <osc>
-    <outhost>192.168.178.151</outhost>
+    <outhost>127.0.0.1</outhost>
     <outport>9000</outport>
     <out>0</out>
 </osc>
