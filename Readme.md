@@ -16,15 +16,15 @@ Third Party Code Additional copyright notices and license terms applicable to po
 
 ###Description  
 
-MultitouchPadOsc is an application to check the incomming Multitouch Events and send these events as an osc-message.  
-So you can use your Multitouch Pad as a control-device to manipulate something.  
+The MultitouchPadOsc application checks the incomming Multitouch Events and send them as an osc-message.  
+It gives the possibility to use a Multitouch Pad as a control-device.  
   
-It will be used the [Bitstream Vera.ttf](http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/1.10/) font.  
+The application is using the [Bitstream Vera](http://ftp.gnome.org/pub/GNOME/sources/ttf-bitstream-vera/1.10/) font.  
 
 **License**  
 GNU Lesser General Public License  
 **Install**  
-Package Istallation    
+Package Installation    
 **Platform**  
 Mac OS  
 **Dependencies**  
@@ -66,5 +66,5 @@ Free Software Foundation, Inc., 59 Temple Place, Suite 330,
 Boston, MA  02111-1307  USA  
   
 Author      Paul Vollmer  
-Modified    2011.12.09  
+Modified    2011.12.19  
 Version     0.1.1
