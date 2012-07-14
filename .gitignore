@@ -5,3 +5,6 @@ bin/MultitouchPadOsc.app
 
 MultitouchPadOsc.xcodeproj/wrongMacBookpro.mode1v3
 MultitouchPadOsc.xcodeproj/wrongMacBookpro.pbxuser
+
+
+*.DS_Store
