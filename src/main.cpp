@@ -29,17 +29,51 @@
  *  @openFrameworks   0071
  *  @dependencies     
  *  @modified         2012.07.15
- *  @version          0.1.1a
+ *  @version          0.1.2
  */
 
 #include "ofMain.h"
 #include "MultitouchPadOscApp.h"
 #include "ofAppGlutWindow.h"
+#include "Cocoa/Cocoa.h"
 
 
 int main() {
     ofAppGlutWindow window;
 	ofSetupOpenGL(&window, 600, 600, OF_WINDOW); // setup the GL context
+	
+	if (NSApp){  
+        NSMenu      *menu;  
+        NSMenuItem  *menuItem;   
+		
+        [NSApp setMainMenu:[[NSMenu alloc] init]];  
+		
+		// Appname menu
+		menu = [[NSMenu alloc] initWithTitle:@""];  
+		[menu addItemWithTitle:@"About MultitouchPadOsc" action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
+		
+		[menu addItem:[NSMenuItem separatorItem]];
+		
+		[menu addItemWithTitle:@"Hide MultitouchPadOsc" action:@selector(hide:) keyEquivalent:@"h"];
+		
+		menuItem = (NSMenuItem *)[menu addItemWithTitle:@"Hide Others" action:@selector(hideOtherApplications:) keyEquivalent:@"h"];
+		[menuItem setKeyEquivalentModifierMask:(NSAlternateKeyMask|NSCommandKeyMask)];
+		
+		[menu addItemWithTitle:@"Show All" action:@selector(unhideAllApplications:) keyEquivalent:@""];
+		
+		[menu addItem:[NSMenuItem separatorItem]];
+		
+		[menu addItemWithTitle:@"Quit MultitouchPadOsc" action:@selector(terminate:) keyEquivalent:@"q"]; 
+		
+		// Put menu into the menubar
+		menuItem = [[NSMenuItem alloc] initWithTitle:@"Apple" action:nil keyEquivalent:@""];  
+		[menuItem setSubmenu:menu];  
+		[[NSApp mainMenu] addItem:menuItem];
+		// Tell the application object that this is now the application menu
+		//[NSApp setMainMenu:menu];
+		
+    }
+	
 	// this kicks off the running of my app can be
 	// OF_WINDOW or OF_FULLSCREEN pass in width and height too:
 	ofRunApp(new MultitouchPadOscApp());
