@@ -77,3 +77,10 @@ void wImageButton::pressed(int _mx, int _my) {
 		status = !status;
 	}
 }
+
+
+void wImageButton::setPosition(int _x, int _y){
+	x = _x;
+	y = _y;
+	interaction.init(x, y, on.width, on.height);
+}

@@ -45,6 +45,7 @@ class wImageButton {
 		void init(string _on, string _off, int _x, int _y);
 		void display();
 		void pressed(int _mx, int _my);
+		void setPosition(int x, int y);
 	
 		/* Variables */
 		bool status;
