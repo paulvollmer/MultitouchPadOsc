@@ -24,7 +24,6 @@
 		AF6E4B0815B2FA6000D281DB /* MultitouchPadOscApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4AF715B2FA6000D281DB /* MultitouchPadOscApp.cpp */; };
 		AF6E4B0915B2FA6000D281DB /* ofxMultiTouchPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4AF915B2FA6000D281DB /* ofxMultiTouchPad.cpp */; };
 		AF6E4B0A15B2FA6000D281DB /* OscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4AFB15B2FA6000D281DB /* OscSender.cpp */; };
-		AF6E4B0B15B2FA6000D281DB /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4AFD15B2FA6000D281DB /* Settings.cpp */; };
 		AF6E4B0C15B2FA6000D281DB /* TextConsole.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4AFF15B2FA6000D281DB /* TextConsole.cpp */; };
 		AF6E4B0D15B2FA6000D281DB /* wCheckbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4B0115B2FA6000D281DB /* wCheckbox.cpp */; };
 		AF6E4B0E15B2FA6000D281DB /* wImageButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4B0315B2FA6000D281DB /* wImageButton.cpp */; };
@@ -36,6 +35,7 @@
 		AF6E4B2815B2FC8A00D281DB /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6E4B2715B2FC8A00D281DB /* MultitouchSupport.framework */; };
 		AF6E4B8215B2FEDE00D281DB /* THIRDPARTYLICENSEREADME.txt in Copy Files Resources */ = {isa = PBXBuildFile; fileRef = AF6E4B7C15B2FE1C00D281DB /* THIRDPARTYLICENSEREADME.txt */; };
 		AF6E4BB015B300D300D281DB /* ofxXmlDefaultSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4BAE15B300D300D281DB /* ofxXmlDefaultSettings.cpp */; };
+		AF6E4C2415B30D0800D281DB /* Vera.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = AF6E4C1015B30CE200D281DB /* Vera.ttf */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -80,6 +80,16 @@
 				AF6E4B8215B2FEDE00D281DB /* THIRDPARTYLICENSEREADME.txt in Copy Files Resources */,
 			);
 			name = "Copy Files Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF6E4C3715B30D1000D281DB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				AF6E4C2415B30D0800D281DB /* Vera.ttf in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E4C2427710CC5ABF004149E2 /* CopyFiles */ = {
@@ -135,8 +145,6 @@
 		AF6E4AFA15B2FA6000D281DB /* ofxMultiTouchPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMultiTouchPad.h; sourceTree = "<group>"; };
 		AF6E4AFB15B2FA6000D281DB /* OscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OscSender.cpp; sourceTree = "<group>"; };
 		AF6E4AFC15B2FA6000D281DB /* OscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OscSender.h; sourceTree = "<group>"; };
-		AF6E4AFD15B2FA6000D281DB /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
-		AF6E4AFE15B2FA6000D281DB /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		AF6E4AFF15B2FA6000D281DB /* TextConsole.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextConsole.cpp; sourceTree = "<group>"; };
 		AF6E4B0015B2FA6000D281DB /* TextConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextConsole.h; sourceTree = "<group>"; };
 		AF6E4B0115B2FA6000D281DB /* wCheckbox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wCheckbox.cpp; sourceTree = "<group>"; };
@@ -155,6 +163,7 @@
 		AF6E4B7C15B2FE1C00D281DB /* THIRDPARTYLICENSEREADME.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = THIRDPARTYLICENSEREADME.txt; path = resources/THIRDPARTYLICENSEREADME.txt; sourceTree = "<group>"; };
 		AF6E4BAE15B300D300D281DB /* ofxXmlDefaultSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxXmlDefaultSettings.cpp; path = ../../../addons/ofxXmlDefaultSettings/src/ofxXmlDefaultSettings.cpp; sourceTree = SOURCE_ROOT; };
 		AF6E4BAF15B300D300D281DB /* ofxXmlDefaultSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxXmlDefaultSettings.h; path = ../../../addons/ofxXmlDefaultSettings/src/ofxXmlDefaultSettings.h; sourceTree = SOURCE_ROOT; };
+		AF6E4C1015B30CE200D281DB /* Vera.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Vera.ttf; path = resources/Vera.ttf; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -360,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				AF6E4B7C15B2FE1C00D281DB /* THIRDPARTYLICENSEREADME.txt */,
+				AF6E4C1015B30CE200D281DB /* Vera.ttf */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -458,8 +468,6 @@
 				AF6E4AF815B2FA6000D281DB /* MultitouchPadOscApp.h */,
 				AF6E4AFB15B2FA6000D281DB /* OscSender.cpp */,
 				AF6E4AFC15B2FA6000D281DB /* OscSender.h */,
-				AF6E4AFD15B2FA6000D281DB /* Settings.cpp */,
-				AF6E4AFE15B2FA6000D281DB /* Settings.h */,
 				AF6E4AFF15B2FA6000D281DB /* TextConsole.cpp */,
 				AF6E4B0015B2FA6000D281DB /* TextConsole.h */,
 				AF6E4B1115B2FA8100D281DB /* MultitouchPad */,
@@ -489,6 +497,7 @@
 				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
 				E4C2427710CC5ABF004149E2 /* CopyFiles */,
 				AF6E4B7615B2FE0A00D281DB /* Copy Files Resources */,
+				AF6E4C3715B30D1000D281DB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -578,7 +587,6 @@
 				AF6E4B0815B2FA6000D281DB /* MultitouchPadOscApp.cpp in Sources */,
 				AF6E4B0915B2FA6000D281DB /* ofxMultiTouchPad.cpp in Sources */,
 				AF6E4B0A15B2FA6000D281DB /* OscSender.cpp in Sources */,
-				AF6E4B0B15B2FA6000D281DB /* Settings.cpp in Sources */,
 				AF6E4B0C15B2FA6000D281DB /* TextConsole.cpp in Sources */,
 				AF6E4B0D15B2FA6000D281DB /* wCheckbox.cpp in Sources */,
 				AF6E4B0E15B2FA6000D281DB /* wImageButton.cpp in Sources */,

@@ -1,30 +1,36 @@
 /**
- * MagicTrackpadOsc is developed by Paul Vollmer (wrong-entertainment.com)
- * 
- * 
- * Copyright (c) 2011 Paul Vollmer
+ *  MultitouchPadOscApp.cpp
+ *  This file is part of MultitouchPadOsc
  *
- * MagicTrackpadOsc is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- * 
- * MagicTrackpadOsc is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General
- * Public License along with MagicTrackpadOsc; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA  02111-1307  USA
- * 
- * @author      Paul Vollmer
- * @modified    2011.12.09
- * @version     0.1.1
+ *  
+ *  The MIT License
+ *  Copyright (c) 2012 Paul Vollmer, http://www.wrong-entertainment.com
+ *  All rights reserved.
+ *  
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ *  and  associated documentation files  (the "Software"),  to deal in the Software without
+ *  restriction, including without limitation the rights to use, copy, modify, merge, publish,
+ *  distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *  
+ *  The above copyright notice and this permission notice shall be included in
+ *  all copies or substantial portions of the Software.
+ *  
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ *  BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  
+ *  @plattform        MacOs 10.6+
+ *                    Win XXX
+ *                    Linux XXX
+ *  @openFrameworks   0071
+ *  @dependencies     
+ *  @modified         2012.07.15
+ *  @version          0.1.1a
  */
-
-
 
 #include "MultitouchPadOscApp.h"
 
@@ -35,40 +41,126 @@
 /**
  * Setup
  * 
- * Load the settings xml file.
+ * Load the default settings xml.
+ * Load Font
+ * Initialize osc sender
+ * Initialize ofxMultiTouchPad
  * Load background image.
+ * Initialize GUI
  */
 void MultitouchPadOscApp::setup() {
 	
+	// Load our default xml file.
+	defXml.load();
+	
+	defXml.setFrameRate();
+	defXml.setFullscreen();
+	//defXml.setWindowShape();
+	ofSetWindowShape(600, 600);
+	defXml.setWindowPosition();
+	ofSetWindowTitle("MultitouchPadOsc");
+	//defXml.setWindowTitle();
+	
+	// OSC variables
+	if (defXml.tagExists("osc", 0)) {
+		defXmlOscOut  = defXml.getValue("osc:out", 1);
+		defXmlOscHost = defXml.getValue("osc:host", "127.0.0.1");
+		defXmlOscPort = defXml.getValue("osc:port", 12345);
+	}
+	// if no default parameter exist, let create some.
+	else {
+		defXmlOscOut  = 1;
+		defXmlOscHost = "127.0.0.1";
+		defXmlOscPort = 12345;
+		
+		defXml.addTag("osc");
+		defXml.pushTag("osc", 0);
+		defXml.addValue("out", defXmlOscOut);
+		defXml.addValue("host", defXmlOscHost);
+		defXml.addValue("port", defXmlOscPort);
+		defXml.popTag();
+		defXml.saveFile();
+	}
+	// Trackpad variables
+	if (defXml.tagExists("pad", 0)) {
+		defXmlPadDevicename = defXml.getValue("pad:devicename", "mtpadosc");
+		defXmlPadFrame      = defXml.getValue("pad:frame", 1);
+		defXmlPadTimestamp  = defXml.getValue("pad:timestamp", 1);
+		defXmlPadPosition   = defXml.getValue("pad:position", 1);
+		defXmlPadVelocity   = defXml.getValue("pad:velocity", 1);
+		defXmlPadSize       = defXml.getValue("pad:size", 1);
+		defXmlPadMaxis      = defXml.getValue("pad:maxis", 1);
+		defXmlPadAngle      = defXml.getValue("pad:angle", 1);
+	}
+	else {
+		defXmlPadDevicename = "mtpadosc";
+		defXmlPadFrame      = 1;
+		defXmlPadTimestamp  = 1;
+		defXmlPadPosition   = 1;
+		defXmlPadVelocity   = 1;
+		defXmlPadSize       = 1;
+		defXmlPadMaxis      = 1;
+		defXmlPadAngle      = 1;
+		
+		defXml.addTag("pad");
+		defXml.pushTag("pad", 0);
+		defXml.addValue("devicename", defXmlPadDevicename);
+		defXml.addValue("frame", defXmlPadFrame);
+		defXml.addValue("timestamp", defXmlPadTimestamp);
+		defXml.addValue("position", defXmlPadPosition);
+		defXml.addValue("velocity", defXmlPadVelocity);
+		defXml.addValue("size", defXmlPadSize);
+		defXml.addValue("maxis", defXmlPadMaxis);
+		defXml.addValue("angle", defXmlPadAngle);
+		defXml.popTag();
+		defXml.saveFile();
+	}
+	
+	ofLog() << "[MultitouchPadOsc] XML default settings loaded";
+	ofLog() << "[MultitouchPadOsc] XML osc:out        = " << defXmlOscOut;
+	ofLog() << "[MultitouchPadOsc] XML osc:host       = " << defXmlOscHost;
+	ofLog() << "[MultitouchPadOsc] XML osc:port       = " << defXmlOscPort;
+	ofLog() << "[MultitouchPadOsc] XML pad:devicename = " << defXmlPadDevicename;
+	ofLog() << "[MultitouchPadOsc] XML pad:frame      = " << defXmlPadFrame;
+	ofLog() << "[MultitouchPadOsc] XML pad:timestamp  = " << defXmlPadTimestamp;
+	ofLog() << "[MultitouchPadOsc] XML pad:position   = " << defXmlPadPosition;
+	ofLog() << "[MultitouchPadOsc] XML pad:velocity   = " << defXmlPadVelocity;
+	ofLog() << "[MultitouchPadOsc] XML pad:size       = " << defXmlPadSize;
+	ofLog() << "[MultitouchPadOsc] XML pad:maxis      = " << defXmlPadMaxis;
+	ofLog() << "[MultitouchPadOsc] XML pad:angle      = " << defXmlPadAngle;
+	
+	
+	
+	
 	// Set the data-path to application/Recource directory.
 	// Use the Application Support directory for RELEASE mode.
-	ofSetDataPathRoot("/Library/Application Support/MultitouchPadOsc/");
+	//ofSetDataPathRoot("/Library/Application Support/MultitouchPadOsc/");
 	
 	// Font
-	vera.loadFont("Vera.ttf", 10, true, false);
+	vera.loadFont(ofFilePath::getCurrentWorkingDirectory() + "/Vera.ttf", 10, true, false);
 	
 	// Console
 	console.init(vera);
 	
 	
 	// Initialize settings file.
-	settings.init("settings.xml");
-	console.addString(ofToString(settings.filepath) + " loaded");
+	//settings.init("settings.xml");
+	//console.addString(ofToString(settings.filepath) + " loaded");
 	
 	// Application
 	// All application settings below.
 	// Set the framerate, window title, add +1 to app:count
-	ofSetFrameRate(settings.appFramerate);
-	ofSetWindowTitle(string(PROJECTNAME)+string(" - ")+PROJECTVERSION);
-	ofSetWindowPosition(settings.appWindowx, settings.appWindowy);
+	//ofSetFrameRate(settings.appFramerate);
+	//ofSetWindowTitle(string(PROJECTNAME)+string(" - ")+PROJECTVERSION);
+	//ofSetWindowPosition(settings.appWindowx, settings.appWindowy);
 	
 	
 	// OSC
-	oscSender.init(settings.oscHost, settings.oscPort);
+	oscSender.init(defXmlOscHost, defXmlOscPort);
 	console.addString(ofToString("Host: ") +
-					  ofToString(settings.oscHost) +
+					  ofToString(defXmlOscHost) +
 					  ofToString(" Port: ") +
-					  ofToString(settings.oscPort) + " connected");
+					  ofToString(defXmlOscPort) + " connected");
 	
 	
 	// Images
@@ -79,19 +171,19 @@ void MultitouchPadOscApp::setup() {
 	// GUI
 	// set the status to osc:out settings value
 	btnOscActive.init("oscactive_on.png", "oscactive_off.png", 40, 10);
-	if(settings.oscOut == 0) btnOscActive.status = true;
+	if(defXmlOscOut == 0) btnOscActive.status = true;
 	else btnOscActive.status = false;
 	
 	btnSettings.init("settings_on.png",  "settings_off.png",  90,  10);
 	btnConsole.init("console_on.png",    "console_off.png",   171, 10);
 	
-	cbFrame.init(vera,      "frame active",               60, 155, settings.padFrame);
-	//cbTimestamp.init(vera,  "timestamp active",           60, 170, settings.padTimestamp);
-	cbPosition.init(vera,   "x-, y-position active",      60, 170, settings.padPosition);
-	//cbVelocity.init(vera,   "x-, y-velocity active",      60, 200, settings.padVelocity);
-	//cbMaxis.init(vera,      "minor-, major-axis active",  60, 215, settings.padMaxis);
-	cbSize.init(vera,       "size active",                60, 185, settings.padSize);
-	cbAngle.init(vera,      "angle active",               60, 200, settings.padAngle);
+	cbFrame.init(vera,      "frame active",               60, 155, defXmlPadFrame);
+	//cbTimestamp.init(vera,  "timestamp active",           60, 170, defXmlPadTimestamp);
+	cbPosition.init(vera,   "x-, y-position active",      60, 170, defXmlPadPosition);
+	//cbVelocity.init(vera,   "x-, y-velocity active",      60, 200, defXmlPadVelocity);
+	//cbMaxis.init(vera,      "minor-, major-axis active",  60, 215, defXmlPadMaxis);
+	cbSize.init(vera,       "size active",                60, 185, defXmlPadSize);
+	cbAngle.init(vera,      "angle active",               60, 200, defXmlPadAngle);
 	console.addString("GUI Initialized");
 	
 	
@@ -200,7 +292,7 @@ void MultitouchPadOscApp::draw() {
 		
 		
 		// OSC
-		if(settings.oscOut == 0) {
+		if(defXmlOscOut == 0) {
 			// if osc message will be send,
 			// show osc send icon.
 			ofSetColor(255);
@@ -209,10 +301,10 @@ void MultitouchPadOscApp::draw() {
 		
 			
 			// Check if padFrame is active
-			if (settings.padFrame == 0) {
+			if (defXmlPadFrame == 0) {
 				// Send osc message, integer value with the current frame.
 				// e.g. /mt/1/frame/23
-				string sFrame = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/frame";
+				string sFrame = ofToString("/") + ofToString(defXmlPadDevicename) + ofToString("/") + ofToString(i) + "/frame";
 				oscSender.intMessage(sFrame, touch.frame);
 				console.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
 			}
@@ -224,11 +316,11 @@ void MultitouchPadOscApp::draw() {
 			}*/
 			 
 			// check if padPosition is active
-			if (settings.padPosition == 0) {
+			if (defXmlPadPosition == 0) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/x/0.5
-				string sX = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/x";
-				string sY = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/y";
+				string sX = ofToString("/") + ofToString(defXmlPadDevicename) + ofToString("/") + ofToString(i) + "/x";
+				string sY = ofToString("/") + ofToString(defXmlPadDevicename) + ofToString("/") + ofToString(i) + "/y";
 				oscSender.floatMessage(sX, touch.x);
 				oscSender.floatMessage(sY, touch.y);
 				console.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
@@ -242,19 +334,19 @@ void MultitouchPadOscApp::draw() {
 			}*/
 			 
 			// check if padSize is active
-			if (settings.padSize == 0) {
+			if (defXmlPadSize == 0) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/size/0.5
-				string sSize = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/size";
+				string sSize = ofToString("/") + ofToString(defXmlPadDevicename) + ofToString("/") + ofToString(i) + "/size";
 				oscSender.floatMessage(sSize, touch.size);
 				console.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
 			}
 			 
 			// check if padAngle is active
-			if (settings.padAngle == 0) {
+			if (defXmlPadAngle == 0) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/angle/0.5
-				string sAngle = ofToString("/") + ofToString(settings.padDevicename) + ofToString("/") + ofToString(i) + "/angle";
+				string sAngle = ofToString("/") + ofToString(defXmlPadDevicename) + ofToString("/") + ofToString(i) + "/angle";
 				oscSender.floatMessage(sAngle, touch.angle);
 				console.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
 			}
@@ -275,11 +367,11 @@ void MultitouchPadOscApp::draw() {
 		ofFill();
 		vera.drawString("OSC SETTINGS", 60, 70);
 		// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
-		vera.drawString("Host: "+ofToString(settings.oscHost), 60, 105);
+		vera.drawString("Host: "+ofToString(defXmlOscHost), 60, 105);
 		vera.drawString("[change at settings.xml file]", 350, 105);
-		vera.drawString("Port: "+ofToString(settings.oscPort), 60, 120);
+		vera.drawString("Port: "+ofToString(defXmlOscPort), 60, 120);
 		vera.drawString("[change at settings.xml file]", 350, 120);
-		vera.drawString("Devicename: <" + ofToString(settings.padDevicename) + ">", 60, 135);
+		vera.drawString("Devicename: <" + ofToString(defXmlPadDevicename) + ">", 60, 135);
 		vera.drawString("[change at settings.xml file]", 350, 135);
 		vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 60, 150);
 		cbFrame.display();
@@ -353,26 +445,26 @@ void MultitouchPadOscApp::keyPressed(int key) {
 	switch(key) {
 		// OSC out
 		case '1':
-			if (settings.oscOut == 0) {
-				settings.oscOut = 1;
+			if (defXmlOscOut == 0) {
+				defXmlOscOut = 1;
 				btnOscActive.status = !btnOscActive.status;
 			} else {
-				settings.oscOut = 0;
+				defXmlOscOut = 0;
 				btnOscActive.status = !btnOscActive.status;
 			}
-			cout << "Shortcut oscOut: " << settings.oscOut << endl;
+			cout << "Shortcut oscOut: " << defXmlOscOut << endl;
 			break;
 		
 		// OSC frame
 		case '2':
-			if (settings.padFrame == 0) {
-				settings.padFrame = 1;
+			if (defXmlPadFrame == 0) {
+				defXmlPadFrame = 1;
 			} else {
-				settings.padFrame = 0;
+				defXmlPadFrame = 0;
 			}
-			cbFrame.status = settings.padFrame;
+			cbFrame.status = defXmlPadFrame;
 			
-			cout << "Shortcut padFrame: " << settings.padFrame << endl;
+			cout << "Shortcut padFrame: " << defXmlPadFrame << endl;
 			break;
 		
 		// OSC timestamp
@@ -389,14 +481,14 @@ void MultitouchPadOscApp::keyPressed(int key) {
 		
 		// OSC position
 		case '3':
-			if (settings.padPosition == 0) {
-				settings.padPosition = 1;
+			if (defXmlPadPosition == 0) {
+				defXmlPadPosition = 1;
 			} else {
-				settings.padPosition = 0;
+				defXmlPadPosition = 0;
 			}
-			cbPosition.status = settings.padPosition;
+			cbPosition.status = defXmlPadPosition;
 			
-			cout << "Shortcut padPosition: " << settings.padPosition << endl;
+			cout << "Shortcut padPosition: " << defXmlPadPosition << endl;
 			break;
 
 		// OSC velocity
@@ -425,26 +517,26 @@ void MultitouchPadOscApp::keyPressed(int key) {
 
 		// OSC maxis
 		case '4':
-			if (settings.padSize == 0) {
-				settings.padSize = 1;
+			if (defXmlPadSize == 0) {
+				defXmlPadSize = 1;
 			} else {
-				settings.padSize = 0;
+				defXmlPadSize = 0;
 			}
-			cbSize.status = settings.padSize;
+			cbSize.status = defXmlPadSize;
 			
-			cout << "Shortcut padSize: " << settings.padSize << endl;
+			cout << "Shortcut padSize: " << defXmlPadSize << endl;
 			break;
 
 		// OSC angle
 		case '5':
-			if (settings.padAngle == 0) {
-				settings.padAngle = 1;
+			if (defXmlPadAngle == 0) {
+				defXmlPadAngle = 1;
 			} else {
-				settings.padAngle = 0;
+				defXmlPadAngle = 0;
 			}
-			cbAngle.status = settings.padAngle;
+			cbAngle.status = defXmlPadAngle;
 			
-			cout << "Shortcut padAngle: " << settings.padAngle << endl;
+			cout << "Shortcut padAngle: " << defXmlPadAngle << endl;
 			break;
 
 		default:
@@ -485,9 +577,9 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 	// GUI
 	btnOscActive.pressed(x, y);
 	if(btnOscActive.status == true) {
-		settings.oscOut = 0;
+		defXmlOscOut = 0;
 	} else {
-		settings.oscOut = 1;
+		defXmlOscOut = 1;
 	}
 	
 	
@@ -497,13 +589,13 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		btnConsole.status = false;
 		
 		cbFrame.pressed(x, y);
-		settings.padFrame = cbFrame.status;
+		defXmlPadFrame = cbFrame.status;
 		
 		//cbTimestamp.pressed(x, y);
 		//settings.padTimestamp = cbTimestamp.status;
 		
 		cbPosition.pressed(x, y);
-		settings.padPosition = cbPosition.status;
+		defXmlPadPosition = cbPosition.status;
 		
 		//cbVelocity.pressed(x, y);
 		//settings.padVelocity = cbVelocity.status;
@@ -512,10 +604,10 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		//settings.padMaxis = cbMaxis.status;
 		
 		cbSize.pressed(x, y);
-		settings.padSize = cbSize.status;
+		defXmlPadSize = cbSize.status;
 		
 		cbAngle.pressed(x, y);
-		settings.padAngle = cbAngle.status;
+		defXmlPadAngle = cbAngle.status;
 	}
 	
 	
@@ -568,6 +660,17 @@ void MultitouchPadOscApp::dragEvent(ofDragInfo dragInfo) {
  * Save OSC variables like Host, Port etc.
  */
 void MultitouchPadOscApp::exit() {
-	// Update settings file.
-	settings.save();
+	
+	//defXML.setWindowPosition();
+	defXml.setValue("pad:devicename", defXmlPadDevicename, 0);
+	defXml.setValue("pad:frame", defXmlPadFrame, 0);
+	defXml.setValue("pad:timestamp", defXmlPadTimestamp, 0);
+	defXml.setValue("pad:position", defXmlPadPosition, 0);
+	defXml.setValue("pad:velocity", defXmlPadVelocity, 0);
+	defXml.setValue("pad:size", defXmlPadSize, 0);
+	defXml.setValue("pad:maxis", defXmlPadMaxis, 0);
+	defXml.setValue("pad:angle", defXmlPadAngle, 0);
+	
+	// Save the current settings to xml.
+	defXml.saveSettings();
 }
