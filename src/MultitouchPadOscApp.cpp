@@ -164,18 +164,18 @@ void MultitouchPadOscApp::setup() {
 	
 	
 	// Images
-	backgroundImage.loadImage("background.png");
-	oscSendImage.loadImage("oscactive_send.png");
+	backgroundImage.loadImage(ofFilePath::getCurrentWorkingDirectory() + "/background.png");
+	oscSendImage.loadImage(ofFilePath::getCurrentWorkingDirectory() + "/oscactive_send.png");
 	
 	
 	// GUI
 	// set the status to osc:out settings value
-	btnOscActive.init("oscactive_on.png", "oscactive_off.png", 40, 10);
+	btnOscActive.init(ofFilePath::getCurrentWorkingDirectory() + "/oscactive_on.png", ofFilePath::getCurrentWorkingDirectory() + "/oscactive_off.png", 40, 10);
 	if(defXmlOscOut == 0) btnOscActive.status = true;
 	else btnOscActive.status = false;
 	
-	btnSettings.init("settings_on.png",  "settings_off.png",  90,  10);
-	btnConsole.init("console_on.png",    "console_off.png",   171, 10);
+	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/settings_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/settings_off.png",  90,  10);
+	btnConsole.init(ofFilePath::getCurrentWorkingDirectory() + "/console_on.png",    ofFilePath::getCurrentWorkingDirectory() + "/console_off.png",   171, 10);
 	
 	cbFrame.init(vera,      "frame active",               60, 155, defXmlPadFrame);
 	//cbTimestamp.init(vera,  "timestamp active",           60, 170, defXmlPadTimestamp);

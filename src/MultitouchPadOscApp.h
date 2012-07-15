@@ -100,9 +100,6 @@ class MultitouchPadOscApp : public ofBaseApp {
 		// Multitouch Trackpad
 		ofxMultiTouchPad   pad;
 	
-	
-	
-	
 		// Console
 		TextConsole console;
 	
