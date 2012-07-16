@@ -40,7 +40,7 @@
 
 int main() {
     ofAppGlutWindow window;
-	ofSetupOpenGL(&window, 600, 600, OF_WINDOW); // setup the GL context
+	ofSetupOpenGL(&window, 500, 400, OF_WINDOW); // setup the GL context
 	
 	if (NSApp){  
         NSMenu      *menu;  
