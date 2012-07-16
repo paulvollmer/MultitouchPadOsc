@@ -1,55 +1,101 @@
 /**
- * MagicTrackpadOsc is developed by Paul Vollmer (wrong-entertainment.com)
- * 
- * 
- * Copyright (c) 2011 Paul Vollmer
+ *  wInteraction.h
+ *  This file is part of MultitouchPadOsc
  *
- * MagicTrackpadOsc is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- * 
- * MagicTrackpadOsc is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General
- * Public License along with MagicTrackpadOsc; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place, Suite 330,
- * Boston, MA  02111-1307  USA
- * 
- * @author      Paul Vollmer
- * @modified    2011.12.09
- * @version     0.1.1
+ *  
+ *  The MIT License
+ *  Copyright (c) 2012 Paul Vollmer, http://www.wrong-entertainment.com
+ *  All rights reserved.
+ *  
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ *  and  associated documentation files  (the "Software"),  to deal in the Software without
+ *  restriction, including without limitation the rights to use, copy, modify, merge, publish,
+ *  distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
+ *  
+ *  The above copyright notice and this permission notice shall be included in
+ *  all copies or substantial portions of the Software.
+ *  
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ *  BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *  
+ *  @plattform        MacOs 10.6+
+ *                    Win XXX
+ *                    Linux XXX
+ *  @openFrameworks   0071
+ *  @dependencies     
+ *  @modified         2012.07.16
+ *  @version          0.1.2
  */
 
-
-
-#pragma once
-
-
+#ifndef _WINTERACTION
+#define _WINTERACTION
 
 
 
 class wInteraction {
 
 	public:
-		/* Constructor */
-		wInteraction();
+		/**
+		 * Constructor
+		 */
+		wInteraction(){}
 	
-		/* Methods */
-		void init(int _x, int _y, int _width, int _height);
-		bool overRect(int _mx, int _my, int _x, int _y, int _width, int _height);
-		bool overRect(int _mx, int _my);
+	
+		
+		/**
+		 * Initialize
+		 * Calculate the width and height of interaction area.
+		 */
+		void init(int _x, int _y, int _width, int _height) {
+			x      = _x;
+			y      = _y;
+			width  = _x+_width;
+			height = _y+_height;
+		}
+	
+	
+		/**
+		 * Check if the mouse is over a rectangle.
+		 */
+		bool overRect(int _mx, int _my, int _x, int _y, int _width, int _height) {
+			if(_mx > _x        && _my > _y &&
+			   _mx < _x+_width && _my < _y+_height) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	
+	
+		/**
+		 * Check if the mouse is over a rectangle.
+		 * Use this method if you have init wInteraction before.
+		 */
+		bool overRect(int _mx, int _my) {
+			if(_mx > x     && _my > y &&
+			   _mx < width && _my < height) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	
 	
 	
 	private:
-		/* Variables */
+		/**
+		 * Variables
+		 */
 		int x;
 		int y;
 		int width;
 		int height;
 	
 };
+
+#endif
