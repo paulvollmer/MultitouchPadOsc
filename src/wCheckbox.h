@@ -98,7 +98,7 @@ class wCheckbox {
 			ofRect(x, y, size, size);
 		
 			// message
-			ofSetColor(0, 255, 255);
+			ofSetColor(ofColor::white);
 			ofFill();
 			font.drawString(message, x+size+10, y+size);
 		}
@@ -123,7 +123,9 @@ class wCheckbox {
 	
 	
 	
-		/* Variables */
+		/**
+		 * Variables
+		 */
 		int status;
 	
 	

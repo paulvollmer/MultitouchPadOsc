@@ -137,10 +137,8 @@ void MultitouchPadOscApp::setup() {
 	//ofSetDataPathRoot("/Library/Application Support/MultitouchPadOsc/");
 	
 	
-	
 	// Font
-	vera.loadFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf", 10, true, false);
-	
+	vera.loadFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf", 9, true, false);
 	
 	
 	// OSC
@@ -148,10 +146,8 @@ void MultitouchPadOscApp::setup() {
 	console.addString(ofToString("Host: ") + ofToString(defXmlOscHost) + ofToString(" Port: ") + ofToString(defXmlOscPort) + " connected");
 	
 	
-	
 	// Console
 	console.init(vera);
-	
 	
 	
 	// Images
@@ -164,17 +160,16 @@ void MultitouchPadOscApp::setup() {
 	if(defXmlOscOut == 0) btnOscActive.status = true;
 	else btnOscActive.status = false;
 	
-	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_off.png",  90,  10);
-	btnConsole.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/console_on.png",    ofFilePath::getCurrentWorkingDirectory() + "/gui/console_off.png",   171, 10);
+	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_off.png",  10,  0);
+	btnConsole.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/console_on.png",    ofFilePath::getCurrentWorkingDirectory() + "/gui/console_off.png",   87, 0);
 	
-	cbFrame.init(vera,      "frame active",               60, 155, defXmlPadFrame);
+	cbFrame.init(vera,      "frame active",               15, 190, defXmlPadFrame);
 	//cbTimestamp.init(vera,  "timestamp active",           60, 170, defXmlPadTimestamp);
-	cbPosition.init(vera,   "x-, y-position active",      60, 170, defXmlPadPosition);
+	cbPosition.init(vera,   "x-, y-position active",      15, 210, defXmlPadPosition);
 	//cbVelocity.init(vera,   "x-, y-velocity active",      60, 200, defXmlPadVelocity);
 	//cbMaxis.init(vera,      "minor-, major-axis active",  60, 215, defXmlPadMaxis);
-	cbSize.init(vera,       "size active",                60, 185, defXmlPadSize);
-	cbAngle.init(vera,      "angle active",               60, 200, defXmlPadAngle);
-	console.addString("GUI Initialized");
+	cbSize.init(vera,       "size active",                15, 230, defXmlPadSize);
+	cbAngle.init(vera,      "angle active",               15, 250, defXmlPadAngle);
 	
 	
 	// Multitouch Trackpad
@@ -183,6 +178,10 @@ void MultitouchPadOscApp::setup() {
     ofAddListener(pad.touchAdded, this, &MultitouchPadOscApp::newTouch);
     ofAddListener(pad.touchRemoved, this, &MultitouchPadOscApp::removedTouch);
 	//cout << "  number of trackpad devices: " << pad.getNumDevices() << endl;
+	
+	
+	// Add messages to Console
+	console.addString("Application started!");
 	console.addString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()));
 }
 
@@ -221,7 +220,7 @@ void MultitouchPadOscApp::draw(){
 	
 	//
     ofSetColor(255);
-	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 40, ofGetHeight()-20);
+	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 15, ofGetHeight()-15);
 	
 	
 	// Display finger blobs
@@ -353,20 +352,20 @@ void MultitouchPadOscApp::draw(){
 		ofEnableAlphaBlending();
 		ofSetColor(0, 150);
 		ofFill();
-		ofRect(55, 40, ofGetWidth()-110, 500);
+		ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 		ofDisableAlphaBlending();
 		// Osc settings
-		ofSetColor(0, 255, 255);
+		ofSetColor(ofColor::white);
 		ofFill();
-		vera.drawString("OSC SETTINGS", 60, 70);
+		vera.drawString("OSC SETTINGS", 15, 50);
 		// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
-		vera.drawString("Host: "+ofToString(defXmlOscHost), 60, 105);
-		vera.drawString("[change at settings.xml file]", 350, 105);
-		vera.drawString("Port: "+ofToString(defXmlOscPort), 60, 120);
-		vera.drawString("[change at settings.xml file]", 350, 120);
-		vera.drawString("Devicename: <" + ofToString(defXmlPadDevicename) + ">", 60, 135);
-		vera.drawString("[change at settings.xml file]", 350, 135);
-		vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 60, 150);
+		vera.drawString("Host: "+ofToString(defXmlOscHost), 15, 90);
+		vera.drawString("[change at settings.xml file]", 251, 90);
+		vera.drawString("Port: "+ofToString(defXmlOscPort), 15, 110);
+		vera.drawString("[change at settings.xml file]", 251, 110);
+		vera.drawString("Devicename: " + defXmlPadDevicename, 15, 130);
+		vera.drawString("[change at settings.xml file]", 251, 130);
+		vera.drawString("[To open the settings xml, press key '0']", 167, 150);
 		cbFrame.display();
 		//cbTimestamp.display();
 		cbPosition.display();
@@ -375,13 +374,12 @@ void MultitouchPadOscApp::draw(){
 		cbSize.display();
 		cbAngle.display();
 		// shortcuts
-		vera.drawString("[Shortcut: 2]", 450, 165);
-		vera.drawString("[Shortcut: 3]", 450, 180);
-		vera.drawString("[Shortcut: 4]", 450, 195);
-		vera.drawString("[Shortcut: 5]", 450, 210);
-		//vera.drawString("[Shortcut: 6]", 450, 225);
-		//vera.drawString("[Shortcut: 7]", 450, 240);
-		//vera.drawString("[Shortcut: 8]", 450, 255);
+		vera.drawString("[Shortcut: 2]", 350, 200);
+		vera.drawString("[Shortcut: 3]", 350, 220);
+		vera.drawString("[Shortcut: 4]", 350, 240);
+		vera.drawString("[Shortcut: 5]", 350, 260);
+		
+		//vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 15, 150);
 	}
 	
 	// console button
@@ -390,15 +388,13 @@ void MultitouchPadOscApp::draw(){
 		ofEnableAlphaBlending();
 		ofSetColor(0, 150);
 		ofFill();
-		ofRect(55, 40, ofGetWidth()-110, 500);
+		ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 		ofDisableAlphaBlending();
 		
 		// headline text
-		ofSetColor(0, 255, 255);
-		vera.drawString("OSC CONSOLE - SEND MESSAGES", 60, 70);
-		
-		//ofDrawBitmapString("device name (change name at config file)", 60, 115);
-		console.display(60, 105);
+		ofSetColor(ofColor::white);
+		vera.drawString("OSC CONSOLE - SEND MESSAGES", 15, 50);
+		console.display(15, 90);
 	}
 }
 
@@ -435,6 +431,13 @@ void MultitouchPadOscApp::removedTouch(int & r) {
  * Key pressed
  */
 void MultitouchPadOscApp::keyPressed(int key) {
+	// Open the settings xml file
+	if(key == '0') {
+		string commandStr = "open " + ofFilePath::getCurrentWorkingDirectory() + "/ofSettings.xml";
+		system(commandStr.c_str());
+	}
+	
+	
 	switch(key) {
 		// OSC out
 		case '1':

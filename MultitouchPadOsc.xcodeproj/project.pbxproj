@@ -30,16 +30,16 @@
 		AF6E4B2815B2FC8A00D281DB /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6E4B2715B2FC8A00D281DB /* MultitouchSupport.framework */; };
 		AF6E4B8215B2FEDE00D281DB /* THIRDPARTYLICENSEREADME.txt in Copy Files Resources */ = {isa = PBXBuildFile; fileRef = AF6E4B7C15B2FE1C00D281DB /* THIRDPARTYLICENSEREADME.txt */; };
 		AF6E4BB015B300D300D281DB /* ofxXmlDefaultSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E4BAE15B300D300D281DB /* ofxXmlDefaultSettings.cpp */; };
-		AF6E4C4F15B30F3900D281DB /* console_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4C4615B30F1C00D281DB /* console_off.png */; };
-		AF6E4C5015B30F3900D281DB /* console_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4C4715B30F1C00D281DB /* console_on.png */; };
-		AF6E4C5115B30F3900D281DB /* oscactive_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4C4815B30F1C00D281DB /* oscactive_off.png */; };
-		AF6E4C5215B30F3900D281DB /* oscactive_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4C4915B30F1C00D281DB /* oscactive_on.png */; };
-		AF6E4C5315B30F3900D281DB /* oscactive_send.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4C4A15B30F1C00D281DB /* oscactive_send.png */; };
-		AF6E4C5415B30F3900D281DB /* settings_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4C4B15B30F1C00D281DB /* settings_off.png */; };
-		AF6E4C5515B30F3900D281DB /* settings_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4C4C15B30F1C00D281DB /* settings_on.png */; };
 		AF6E4C6215B3120C00D281DB /* Credits.rtf in Copy Files Resources */ = {isa = PBXBuildFile; fileRef = AF6E4C6115B311FE00D281DB /* Credits.rtf */; };
 		AF6E4D9B15B42AF000D281DB /* Vera.ttf in Copy Files Font */ = {isa = PBXBuildFile; fileRef = AF6E4D9915B42AC000D281DB /* Vera.ttf */; };
 		AF6E4DB715B42CEA00D281DB /* MultitouchPadOsc.icns in Copy Files Resources */ = {isa = PBXBuildFile; fileRef = AF6E4DB615B42CE400D281DB /* MultitouchPadOsc.icns */; };
+		AF6E4E6415B448D400D281DB /* console_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E5D15B448CD00D281DB /* console_off.png */; };
+		AF6E4E6515B448D400D281DB /* console_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E5E15B448CD00D281DB /* console_on.png */; };
+		AF6E4E6615B448D400D281DB /* oscactive_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E5F15B448CD00D281DB /* oscactive_off.png */; };
+		AF6E4E6715B448D400D281DB /* oscactive_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E6015B448CD00D281DB /* oscactive_on.png */; };
+		AF6E4E6815B448D400D281DB /* oscactive_send.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E6115B448CD00D281DB /* oscactive_send.png */; };
+		AF6E4E6915B448D400D281DB /* settings_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E6215B448CD00D281DB /* settings_off.png */; };
+		AF6E4E6A15B448D400D281DB /* settings_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E6315B448CD00D281DB /* settings_on.png */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in Copy Files Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -94,13 +94,13 @@
 			dstPath = gui;
 			dstSubfolderSpec = 6;
 			files = (
-				AF6E4C4F15B30F3900D281DB /* console_off.png in Copy Files GUI */,
-				AF6E4C5015B30F3900D281DB /* console_on.png in Copy Files GUI */,
-				AF6E4C5115B30F3900D281DB /* oscactive_off.png in Copy Files GUI */,
-				AF6E4C5215B30F3900D281DB /* oscactive_on.png in Copy Files GUI */,
-				AF6E4C5315B30F3900D281DB /* oscactive_send.png in Copy Files GUI */,
-				AF6E4C5415B30F3900D281DB /* settings_off.png in Copy Files GUI */,
-				AF6E4C5515B30F3900D281DB /* settings_on.png in Copy Files GUI */,
+				AF6E4E6415B448D400D281DB /* console_off.png in Copy Files GUI */,
+				AF6E4E6515B448D400D281DB /* console_on.png in Copy Files GUI */,
+				AF6E4E6615B448D400D281DB /* oscactive_off.png in Copy Files GUI */,
+				AF6E4E6715B448D400D281DB /* oscactive_on.png in Copy Files GUI */,
+				AF6E4E6815B448D400D281DB /* oscactive_send.png in Copy Files GUI */,
+				AF6E4E6915B448D400D281DB /* settings_off.png in Copy Files GUI */,
+				AF6E4E6A15B448D400D281DB /* settings_on.png in Copy Files GUI */,
 			);
 			name = "Copy Files GUI";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,16 +183,16 @@
 		AF6E4B7C15B2FE1C00D281DB /* THIRDPARTYLICENSEREADME.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = THIRDPARTYLICENSEREADME.txt; path = resources/THIRDPARTYLICENSEREADME.txt; sourceTree = "<group>"; };
 		AF6E4BAE15B300D300D281DB /* ofxXmlDefaultSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxXmlDefaultSettings.cpp; path = ../../../addons/ofxXmlDefaultSettings/src/ofxXmlDefaultSettings.cpp; sourceTree = SOURCE_ROOT; };
 		AF6E4BAF15B300D300D281DB /* ofxXmlDefaultSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxXmlDefaultSettings.h; path = ../../../addons/ofxXmlDefaultSettings/src/ofxXmlDefaultSettings.h; sourceTree = SOURCE_ROOT; };
-		AF6E4C4615B30F1C00D281DB /* console_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = console_off.png; path = resources/console_off.png; sourceTree = "<group>"; };
-		AF6E4C4715B30F1C00D281DB /* console_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = console_on.png; path = resources/console_on.png; sourceTree = "<group>"; };
-		AF6E4C4815B30F1C00D281DB /* oscactive_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_off.png; path = resources/oscactive_off.png; sourceTree = "<group>"; };
-		AF6E4C4915B30F1C00D281DB /* oscactive_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_on.png; path = resources/oscactive_on.png; sourceTree = "<group>"; };
-		AF6E4C4A15B30F1C00D281DB /* oscactive_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_send.png; path = resources/oscactive_send.png; sourceTree = "<group>"; };
-		AF6E4C4B15B30F1C00D281DB /* settings_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_off.png; path = resources/settings_off.png; sourceTree = "<group>"; };
-		AF6E4C4C15B30F1C00D281DB /* settings_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_on.png; path = resources/settings_on.png; sourceTree = "<group>"; };
 		AF6E4C6115B311FE00D281DB /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Credits.rtf; path = resources/Credits.rtf; sourceTree = "<group>"; };
 		AF6E4D9915B42AC000D281DB /* Vera.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Vera.ttf; path = resources/Font/Vera.ttf; sourceTree = "<group>"; };
 		AF6E4DB615B42CE400D281DB /* MultitouchPadOsc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MultitouchPadOsc.icns; path = resources/MultitouchPadOsc.icns; sourceTree = "<group>"; };
+		AF6E4E5D15B448CD00D281DB /* console_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = console_off.png; path = resources/gui/console_off.png; sourceTree = "<group>"; };
+		AF6E4E5E15B448CD00D281DB /* console_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = console_on.png; path = resources/gui/console_on.png; sourceTree = "<group>"; };
+		AF6E4E5F15B448CD00D281DB /* oscactive_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_off.png; path = resources/gui/oscactive_off.png; sourceTree = "<group>"; };
+		AF6E4E6015B448CD00D281DB /* oscactive_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_on.png; path = resources/gui/oscactive_on.png; sourceTree = "<group>"; };
+		AF6E4E6115B448CD00D281DB /* oscactive_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_send.png; path = resources/gui/oscactive_send.png; sourceTree = "<group>"; };
+		AF6E4E6215B448CD00D281DB /* settings_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_off.png; path = resources/gui/settings_off.png; sourceTree = "<group>"; };
+		AF6E4E6315B448CD00D281DB /* settings_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_on.png; path = resources/gui/settings_on.png; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -395,10 +395,10 @@
 			isa = PBXGroup;
 			children = (
 				AF6E4DB615B42CE400D281DB /* MultitouchPadOsc.icns */,
-				AF6E4D9715B42AB700D281DB /* Font */,
-				AF6E4C4D15B30F2000D281DB /* gui */,
 				AF6E4C6115B311FE00D281DB /* Credits.rtf */,
 				AF6E4B7C15B2FE1C00D281DB /* THIRDPARTYLICENSEREADME.txt */,
+				AF6E4C4D15B30F2000D281DB /* gui */,
+				AF6E4D9715B42AB700D281DB /* Font */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -423,13 +423,13 @@
 		AF6E4C4D15B30F2000D281DB /* gui */ = {
 			isa = PBXGroup;
 			children = (
-				AF6E4C4615B30F1C00D281DB /* console_off.png */,
-				AF6E4C4715B30F1C00D281DB /* console_on.png */,
-				AF6E4C4815B30F1C00D281DB /* oscactive_off.png */,
-				AF6E4C4915B30F1C00D281DB /* oscactive_on.png */,
-				AF6E4C4A15B30F1C00D281DB /* oscactive_send.png */,
-				AF6E4C4B15B30F1C00D281DB /* settings_off.png */,
-				AF6E4C4C15B30F1C00D281DB /* settings_on.png */,
+				AF6E4E5D15B448CD00D281DB /* console_off.png */,
+				AF6E4E5E15B448CD00D281DB /* console_on.png */,
+				AF6E4E5F15B448CD00D281DB /* oscactive_off.png */,
+				AF6E4E6015B448CD00D281DB /* oscactive_on.png */,
+				AF6E4E6115B448CD00D281DB /* oscactive_send.png */,
+				AF6E4E6215B448CD00D281DB /* settings_off.png */,
+				AF6E4E6315B448CD00D281DB /* settings_on.png */,
 			);
 			name = gui;
 			sourceTree = "<group>";
