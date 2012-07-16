@@ -29,7 +29,7 @@
  *  @openFrameworks   0071
  *  @dependencies     
  *  @modified         2012.07.15
- *  @version          0.1.1a
+ *  @version          0.1.2
  */
 
 #pragma once
@@ -76,7 +76,6 @@ class MultitouchPadOscApp : public ofBaseApp {
 	private:
 		// XML Settings
 		ofxXmlDefaultSettings defXml;
-		////////////////////////int    defXmlAppCount;         // Application counter
 		// OSC variables
 		int    defXmlOscOut;           // Send out OSC message, 0 = true, 1 = false
 		string defXmlOscHost;          // OSC host variable
@@ -103,12 +102,9 @@ class MultitouchPadOscApp : public ofBaseApp {
 		// Console
 		TextConsole console;
 	
-		// Images
-		ofImage backgroundImage;
-		ofImage oscSendImage;
-	
 		// GUI
 		wImageButton btnOscActive;   // button to trigger osc activity on/off
+		ofImage      oscSendImage;
 		wImageButton btnSettings;    // button to show/hide settings
 		wImageButton btnConsole;     // button to show/hide console
 		wCheckbox    cbFrame;        // checkbox to trigger pad frame on/off

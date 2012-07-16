@@ -29,7 +29,7 @@
  *  @openFrameworks   0071
  *  @dependencies     
  *  @modified         2012.07.15
- *  @version          0.1.1a
+ *  @version          0.1.2
  */
 
 #include "MultitouchPadOscApp.h"
@@ -50,16 +50,17 @@
  */
 void MultitouchPadOscApp::setup() {
 	
+	// ofxXmlDefaultSettings
 	// Load our default xml file.
 	defXml.load();
 	
 	defXml.setFrameRate();
 	defXml.setFullscreen();
 	//defXml.setWindowShape();
-	ofSetWindowShape(600, 600);
+	ofSetWindowShape(500, 400);
 	defXml.setWindowPosition();
-	ofSetWindowTitle("MultitouchPadOsc");
 	//defXml.setWindowTitle();
+	ofSetWindowTitle("MultitouchPadOsc");
 	
 	// OSC variables
 	if (defXml.tagExists("osc", 0)) {
@@ -131,51 +132,40 @@ void MultitouchPadOscApp::setup() {
 	
 	
 	
-	
 	// Set the data-path to application/Recource directory.
 	// Use the Application Support directory for RELEASE mode.
 	//ofSetDataPathRoot("/Library/Application Support/MultitouchPadOsc/");
 	
+	
+	
 	// Font
-	vera.loadFont(ofFilePath::getCurrentWorkingDirectory() + "/Vera.ttf", 10, true, false);
+	vera.loadFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf", 10, true, false);
+	
+	
+	
+	// OSC
+	oscSender.init(defXmlOscHost, defXmlOscPort);
+	console.addString(ofToString("Host: ") + ofToString(defXmlOscHost) + ofToString(" Port: ") + ofToString(defXmlOscPort) + " connected");
+	
+	
 	
 	// Console
 	console.init(vera);
 	
 	
-	// Initialize settings file.
-	//settings.init("settings.xml");
-	//console.addString(ofToString(settings.filepath) + " loaded");
-	
-	// Application
-	// All application settings below.
-	// Set the framerate, window title, add +1 to app:count
-	//ofSetFrameRate(settings.appFramerate);
-	//ofSetWindowTitle(string(PROJECTNAME)+string(" - ")+PROJECTVERSION);
-	//ofSetWindowPosition(settings.appWindowx, settings.appWindowy);
-	
-	
-	// OSC
-	oscSender.init(defXmlOscHost, defXmlOscPort);
-	console.addString(ofToString("Host: ") +
-					  ofToString(defXmlOscHost) +
-					  ofToString(" Port: ") +
-					  ofToString(defXmlOscPort) + " connected");
-	
 	
 	// Images
-	backgroundImage.loadImage(ofFilePath::getCurrentWorkingDirectory() + "/background.png");
-	oscSendImage.loadImage(ofFilePath::getCurrentWorkingDirectory() + "/oscactive_send.png");
+	oscSendImage.loadImage(ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_send.png");
 	
 	
 	// GUI
 	// set the status to osc:out settings value
-	btnOscActive.init(ofFilePath::getCurrentWorkingDirectory() + "/oscactive_on.png", ofFilePath::getCurrentWorkingDirectory() + "/oscactive_off.png", 40, 10);
+	btnOscActive.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_on.png", ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_off.png", ofGetWidth()-36, 0);
 	if(defXmlOscOut == 0) btnOscActive.status = true;
 	else btnOscActive.status = false;
 	
-	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/settings_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/settings_off.png",  90,  10);
-	btnConsole.init(ofFilePath::getCurrentWorkingDirectory() + "/console_on.png",    ofFilePath::getCurrentWorkingDirectory() + "/console_off.png",   171, 10);
+	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_off.png",  90,  10);
+	btnConsole.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/console_on.png",    ofFilePath::getCurrentWorkingDirectory() + "/gui/console_off.png",   171, 10);
 	
 	cbFrame.init(vera,      "frame active",               60, 155, defXmlPadFrame);
 	//cbTimestamp.init(vera,  "timestamp active",           60, 170, defXmlPadTimestamp);
@@ -212,14 +202,18 @@ void MultitouchPadOscApp::update() {
  * Draw the backgroundImage
  * Display the GUI
  */
-void MultitouchPadOscApp::draw() {
-	// background image
+void MultitouchPadOscApp::draw(){
+	
+	// background
+	ofBackground(111, 112, 114);
+	
 	ofFill();
-	ofSetColor(255);
-	backgroundImage.draw(0, 0);
+	ofSetColor(88, 88, 90);
+	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	
 	
 	// GUI
+	ofSetColor(255);
 	btnOscActive.display();
 	btnSettings.display();
 	btnConsole.display();
@@ -227,8 +221,7 @@ void MultitouchPadOscApp::draw() {
 	
 	//
     ofSetColor(255);
-	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0),
-                    40, 580);
+	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 40, ofGetHeight()-20);
 	
 	
 	// Display finger blobs
@@ -297,7 +290,7 @@ void MultitouchPadOscApp::draw() {
 			// show osc send icon.
 			ofSetColor(255);
 			ofFill();
-			oscSendImage.draw(40, 10);
+			oscSendImage.draw(ofGetWidth()-36, 0);
 		
 			
 			// Check if padFrame is active
@@ -632,6 +625,7 @@ void MultitouchPadOscApp::mouseReleased(int x, int y, int button) {
  * Window resized
  */
 void MultitouchPadOscApp::windowResized(int w, int h) {
+	btnOscActive.setPosition(w-36, 0);
 }
 
 
