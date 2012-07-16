@@ -32,12 +32,11 @@
  *  @version          0.1.2
  */
 
-#pragma once
+#ifndef _WCHECKBOX
+#define _WCHECKBOX
 
 #include "ofMain.h"
 #include "wInteraction.h"
-
-
 
 
 
@@ -140,3 +139,5 @@ class wCheckbox {
 		string message;
 	
 };
+
+#endif

@@ -32,12 +32,11 @@
  *  @version          0.1.2
  */
 
-#pragma once
+#ifndef _WIMAGEBUTTON
+#define _WIMAGEBUTTON
 
 #include "ofMain.h"
 #include "wInteraction.h"
-
-
 
 
 
@@ -111,3 +110,5 @@ class wImageButton {
 		ofImage off;
 
 };
+
+#endif

@@ -32,34 +32,70 @@
  *  @version          0.1.1
  */
 
-#pragma once
+#ifndef _TEXTCONSOLE
+#define _TEXTCONSOLE
 
 #include "ofMain.h"
-
 #define NUM_STRINGS 20
-
 
 
 
 class TextConsole {
 	
 	public:
-		/* Constructor */
-		TextConsole();
+		/**
+		 * Constructor
+		 */
+		TextConsole() {}
 	
 	
-		/* Methods */
-		void init(ofTrueTypeFont &_f);
-		void display(int _x, int _y);
-		void addString(string msg);
+	
+		/**
+		 * Initialize
+		 */
+		void init(ofTrueTypeFont &_f) {
+			font = _f;
+			// set the currentConsoleStrings to 0
+			currentConsoleStrings = 0;
+		}
 	
 	
-		/* Variables */
+		/**
+		 * display counsole text
+		 */
+		void display(int _x, int _y) {
+			for(int i=0; i<NUM_STRINGS; i++) {
+				font.drawString(consoleStrings[i], _x, _y+(i*15));
+			}
+		}
+	
+	
+		/**
+		 * add a string to console text
+		 */
+		void addString(string msg) {
+			consoleStrings[currentConsoleStrings] = msg;
+		
+			if(currentConsoleStrings < NUM_STRINGS) {
+				currentConsoleStrings++;
+			}
+			if(currentConsoleStrings == NUM_STRINGS) {
+				currentConsoleStrings = 0;
+			}
+		}
+	
+	
+		/**
+		 * Variables
+		 */
 		int    currentConsoleStrings;
 		string consoleStrings[NUM_STRINGS];
+	
 	
 	
 	private:
 		ofTrueTypeFont font;
 	
 };
+
+#endif
