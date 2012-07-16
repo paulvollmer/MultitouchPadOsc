@@ -28,8 +28,8 @@
  *                    Linux XXX
  *  @openFrameworks   0071
  *  @dependencies     
- *  @modified         2012.07.15
- *  @version          0.1.1
+ *  @modified         2012.07.16
+ *  @version          0.1.2
  */
 
 #ifndef _TEXTCONSOLE

@@ -28,7 +28,7 @@
  *                    Linux XXX
  *  @openFrameworks   0071
  *  @dependencies     
- *  @modified         2012.07.15
+ *  @modified         2012.07.16
  *  @version          0.1.2
  */
 
@@ -44,7 +44,10 @@
 #include "wImageButton.h"
 
 #define PROJECTNAME "MultitouchPadOsc"
-#define PROJECTVERSION "0.1.1"
+#define PROJECTVERSION "0.1.2"
+
+// Used to print debugging infos to console
+//#define MULTITOUCHPADOSC_DEBUG
 
 
 

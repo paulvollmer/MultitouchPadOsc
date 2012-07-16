@@ -28,7 +28,7 @@
  *                    Linux XXX
  *  @openFrameworks   0071
  *  @dependencies     
- *  @modified         2012.07.15
+ *  @modified         2012.07.16
  *  @version          0.1.2
  */
 
@@ -448,7 +448,9 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlOscOut = 0;
 				btnOscActive.status = !btnOscActive.status;
 			}
-			cout << "Shortcut oscOut: " << defXmlOscOut << endl;
+			#ifdef MULTITOUCHPADOSC_DEBUG
+				cout << "Shortcut oscOut: " << defXmlOscOut << endl;
+			#endif
 			break;
 		
 		// OSC frame
@@ -460,7 +462,9 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			}
 			cbFrame.status = defXmlPadFrame;
 			
-			cout << "Shortcut padFrame: " << defXmlPadFrame << endl;
+			#ifdef MULTITOUCHPADOSC_DEBUG
+				cout << "Shortcut padFrame: " << defXmlPadFrame << endl;
+			#endif
 			break;
 		
 		// OSC timestamp
@@ -484,7 +488,9 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			}
 			cbPosition.status = defXmlPadPosition;
 			
-			cout << "Shortcut padPosition: " << defXmlPadPosition << endl;
+			#ifdef MULTITOUCHPADOSC_DEBUG
+				cout << "Shortcut padPosition: " << defXmlPadPosition << endl;
+			#endif
 			break;
 
 		// OSC velocity
@@ -520,7 +526,9 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			}
 			cbSize.status = defXmlPadSize;
 			
-			cout << "Shortcut padSize: " << defXmlPadSize << endl;
+			#ifdef MULTITOUCHPADOSC_DEBUG
+				cout << "Shortcut padSize: " << defXmlPadSize << endl;
+			#endif
 			break;
 
 		// OSC angle
@@ -532,7 +540,9 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			}
 			cbAngle.status = defXmlPadAngle;
 			
-			cout << "Shortcut padAngle: " << defXmlPadAngle << endl;
+			#ifdef MULTITOUCHPADOSC_DEBUG
+				cout << "Shortcut padAngle: " << defXmlPadAngle << endl;
+			#endif
 			break;
 
 		default:
@@ -659,6 +669,7 @@ void MultitouchPadOscApp::dragEvent(ofDragInfo dragInfo) {
 void MultitouchPadOscApp::exit() {
 	
 	//defXML.setWindowPosition();
+	defXml.setValue("osc:out", defXmlOscOut, 0);
 	defXml.setValue("pad:devicename", defXmlPadDevicename, 0);
 	defXml.setValue("pad:frame", defXmlPadFrame, 0);
 	defXml.setValue("pad:timestamp", defXmlPadTimestamp, 0);
