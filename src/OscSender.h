@@ -29,7 +29,7 @@
  *  @openFrameworks   0071
  *  @dependencies     
  *  @modified         2012.07.15
- *  @version          0.1.1
+ *  @version          0.1.2
  */
 
 #pragma once
@@ -43,15 +43,49 @@
 class OscSender {
 	
 	public:
-		/* Constructor */
-		OscSender();
+		/**
+		 * Constructor
+		 */
+		OscSender(){
+			
+		}
 	
 	
-		/* Methods */
-		void init(string _host, int _port);
-		void intMessage(string s, int val);
-		void floatMessage(string s, float val);
+		/**
+		* Initialize
+		* Open an outgoing connection to oscHost:oscPort
+		*/
+		void init(string _host, int _port) {
+			oscSender.setup(_host, _port);
+		}
+	
+	
+	
+		/**
+		* Send an osc message (integer value)
+		*/
+		void intMessage(string s, int val) {
+			ofxOscMessage m;
 		
+			m.setAddress(s);
+			m.addIntArg(val);
+		
+			oscSender.sendMessage(m);
+		}
+	
+		/**
+		* Send an osc message (float value)
+		*/
+		void floatMessage(string s, float val) {
+			ofxOscMessage m;
+		
+			m.setAddress(s);
+			m.addFloatArg(val);
+		
+			oscSender.sendMessage(m);
+		}
+	
+	
 	
 	private:
 		// openFrameworks osc addon
