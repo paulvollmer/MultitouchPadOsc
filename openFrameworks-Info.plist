@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIconFile</key>
-	<string>Xcode</string>
+	<string>MultitouchPadOsc</string>
 	<key>CFBundleName</key>
 	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
