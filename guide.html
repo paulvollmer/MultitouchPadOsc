@@ -16,7 +16,6 @@
 		<meta name="doc-class" content="Living Document" />
 		<link rel="stylesheet" type="text/css" href="styles.css" />
 	</head>
-
 	<body>
 		<!-- Header -->
 		<header>	
@@ -25,6 +24,7 @@
 				an application to send multitouch messages via osc
 	    	</div>
 		</header>
+		
 		<!-- Navigation -->
 		<nav>
 			<b><a href="index.html" target="_self">Introduction </a>|
@@ -32,42 +32,95 @@
 			<a href="download.html" target="_self">Download </a>|
 			<a href="contact.html" target="_self">Contact</a></b>
 		</nav>
+		
     	<!-- Main content area -->  
 		<section>
 			<h2>User Guide</h2>
 			<div id="guide">
-				<!-- <img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_01.jpg" width="500px">
-				<div class="subline">Application standart screen</div></br>
-				<img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_02.jpg" width="500px">
-				<div class="subline">Application settings</div></br>
-				<img src="http://www.wrong-entertainment.com/code/magictrackpadosc/magictrackpadosc_03.jpg" width="500px">
-				<div class="subline">Application console</div> -->
-				<p><b>Table of Content</b></p>
-				<p>1.0 Overview</br>
-				2.0 Multitouch and osc</br>
-				3.0 Settings</br>
-				4.0 Console</p>
-				<img src="images/img001.png" width="500px">
-				<div class="subline">Snapshot of three Multiouch points.</div></br>
 				
-				<p><b>1.0 Overview</b></p>
-				<p>If you start first time the Application you see this window.</p>
 				
-				<img src="images/img002.png" width="500px">
-				<div class="subline">Snapshot of three Multiouch points.</div></br>
+				<!-- Table of Content ******************************************************************* 
+				<div>
+					<h3>Table of Content</h3>
+					<p>
+						<a href="#overview">1.0 Overview</a><br/>
+						<a href="#scenarios">2.0 Scenarios</a><br/>
+						<a href="#multitouch">3.0 Multitouch</a><br/>
+						<a href="#osc">4.0 OSC</a><br/>
+						<a href="#settings">5.0 Settings</a><br/>
+						<a href="#console">6.0 Console</a><br/>
+						<a href="#connect">7.0 Connect</a><br/>
+						<a href="#processing-examples">8.0 Processing Examples</a><br/>
+						<a href="#faq">9.0 FAQ</a>
+					</p>
+				</div> -->
 				
-				If you've setting up your osc-types, you can receive a osc-message.</br>
-				   The only you need to know is the message-name to sync with your osc compatible software.</br>
-				You can choose between 4 different types of osc-messages.</p>
-				- frame</br>
-				- x, y position</br>
-				- size</br>
-				- angle</br>
-				</br>
-				Here is a list of all messages.</br>
-				</br>
-				<pre>
-NAME/FINGER-ID/frame
+				
+				<!-- Overview *************************************************************************** -->
+				<div>
+					<h3 id="overview">Overview</h3>
+					<p>
+						This application was developed to connect Trackpads/Magic-Trackpads to a Master Computer. <br/>
+						To connect the MultitouchPadOsc App with a Master Computer, you need to set the osc settings for each MultitouchPadOsc App.
+						After the app is started with the right settings, every capable osc application can receive the messages.<br/>
+						<br/>
+						Here is a Flowchart of the MultitouchPadOsc Application
+					</p>
+					<p>
+						<img src="images/flowchart.png"><br/>
+					</p>
+					<br/>
+					If you start first time the Application you see this window.
+					<img src="images/multitouchPadOsc_001.png" width="500px">
+					<p>If you touch the Trackpad, the Application draw the Touchpoint-Position, -Size and -Angle.</p>
+					<img src="images/multitouchPadOsc_001.png" width="250px">
+					<img src="images/multitouchPadOsc_002.png" width="250px">
+					<img src="images/multitouchPadOsc_003.png" width="250px">
+					<div class="subline">Three Touchpoints.</div></br>
+				</div>
+				
+				
+				<!-- Scenarios ************************************************************************** -->
+				<div>
+					<h3 id="scenarios">Scenarios</h3>
+					<p>
+						There are several scenarios to use that Application. Here, different scenarios are presented to illustrate the OSC-Network. Internal routing of osc messages is also possible, such as the use in multi-user applications...
+						<p><b>Internal Route</b></p>
+						<img src="images/scenarios001.png">
+						<br/><br/><br/>
+						<b>Single Master Route</b><br/>
+						<img src="images/scenarios002.png">
+						<br/><br/><br/>
+						<b>Multi Master Route</b><br/>
+						<img src="images/scenarios003.png">
+						<br/><br/><br/>
+					</p>
+				</div>
+				
+				
+				<!-- Multitouch ************************************************************************* -->
+				<div>
+					<h3 id="multitouch">Multitouch</h3>
+					<p>
+						Multitouch
+					</p>
+				</div>
+				
+				
+				<!-- OSC ******************************************************************************** -->
+				<div>
+					<h3 id="osc">OSC-Messages</h3>
+					<p>
+						If you've setting up your osc-types, you can receive a osc-message.</br>
+						The only you need to know is the message-name to sync with your osc compatible software.</br>
+						You can choose between 4 different types of osc-messages.</p>
+						- frame</br>
+						- x, y position</br>
+						- size</br>
+						- angle</br>
+						</br>
+						Here is a list of all messages.</br>
+						<pre>NAME/FINGER-ID/frame
 # return the current frame.
 
 
@@ -96,102 +149,84 @@ NAME/FINGER-ID/angle
 #
 # FINGER-ID: The finger id (from 0 to 20).
 # Actually the application use 20 Touchpoints.</pre>
-				</p>
-				<h3>Processing example</h3>
-				<p>This example is based on <a href="http://www.sojamo.de/libraries/oscP5/index.html">oscP5</a> Library example</p>
-				<pre>/**
+					</p>
+				</div>
+				
+				
+				<!-- Settings *************************************************************************** -->
+				<div>
+					<h3 id="settings">Settings</h3>
+					<p>
+						<img src="images/multitouchPadOsc_settings001.png">
+						<div class="subline">Settings page. </div></br>
+						<img src="images/multitouchPadOsc_settings002.png">
+						<div class="subline">send x-, y-position osc message.</div></br>
+					</p>
+				</div>
+				
+				
+				<!-- Console **************************************************************************** -->
+				<div>
+					<h3 id="console">Console</h3>
+					<p>
+						<img src="images/multitouchPadOsc_console001.png">
+						<div class="subline">Console after application launch..</div></br>
+						<img src="images/multitouchPadOsc_console002.png">
+						<div class="subline">App sending x-, y-position.</div></br>
+						<img src="images/multitouchPadOsc_console003.png">
+						<div class="subline">Three touchpoints.</div></br>
+					</p>
+				</div>
+				
+				
+				<!-- Connect **************************************************************************** -->
+				<div>
+					<h3 id="connect">Connection</h3>
+					<p>
+						Connect
+					</p>
+				</div>
+				
+				
+				<!-- Processing Examples **************************************************************** -->
+				<div>
+					<h3 id="processing-examples">Processing Examples</h3>
+					<p>
+						You can find an examples folder at the Repository <code>gh-pages</code> branch.<br/>
+						This example is based on <a href="http://www.sojamo.de/libraries/oscP5/index.html">oscP5</a> library example<br/>
+						<pre>/**
  * This example shows how toreceive osc messages from
  * Magic Trackpad. It will draw a ellipse with values from
  * received x-, y position and size.
  * 
  * Based on oscP5sendreceive by andreas schlegel
  * oscP5 website at http://www.sojamo.de/oscP5
- */
-
-import oscP5.*;
-import netP5.*;
-
-OscP5 oscP5;
-NetAddress myRemoteLocation;
-
-boolean oscIn;
-float x, y, diam;
-
-
-void setup() {
-	size(400,400);
-	smooth();
-	frameRate(25);
-	/* start oscP5, listening for incoming messages at port 12000 */
-	oscP5 = new OscP5(this,9000);
-	
-	/* myRemoteLocation is a NetAddress. a NetAddress takes 2 parameters,
- 	 * an ip address and a port number. myRemoteLocation is used as parameter in
- 	 * oscP5.send() when sending osc packets to another computer, device, 
- 	 * application. usage see below. for testing purposes the listening port
- 	 * and the port of the remote location address are the same, hence you will
- 	 * send messages back to this sketch.
-	 */
-	myRemoteLocation = new NetAddress("192.168.178.110",9000);
-}
-
-
-void draw() {
-	background(255);
-
-	noStroke();
-	fill(#00A8FA);
-	ellipse(x, y, diam, diam);
-}
-
-
-void mousePressed() {
-	/* in the following different ways of creating osc messages are shown by example */
-	OscMessage myMessage = new OscMessage("/test");
-
-	myMessage.add(123); /* add an int to the osc message */
-
-	/* send the message */
-	oscP5.send(myMessage, myRemoteLocation); 
-}
-
-
-/* incoming osc message are forwarded to the oscEvent method. */
-void oscEvent(OscMessage theOscMessage) {
-	/* print the address pattern and the typetag of the received OscMessage */
-	/*print("### received an osc message.");
-	print(" addrpattern: "+theOscMessage.addrPattern());
-	println(" typetag: "+theOscMessage.typetag());*/
-	
-	for(int i=0; i<20; i++) {
-		if(theOscMessage.checkAddrPattern("mt1/"+i+"/size/") == true) {
-			if(theOscMessage.checkTypetag("f")) {
-				diam = theOscMessage.get(0).floatValue() * 50;
-				println(diam);
-
-			}
-		}
-
-		if(theOscMessage.checkAddrPattern("mt1/"+i+"/x/") == true) {
-			x = map(theOscMessage.get(0).floatValue(), 0, 1, 0, width);
-		}
-		if(theOscMessage.checkAddrPattern("mt1/"+i+"/y/") == true) {
-			y = map(theOscMessage.get(0).floatValue(), 1, 0, 0, height);
-			println("Position x:"+x+", y: "+y);
-		}
-
-	}
-
-}
-			</pre>
+ */</pre>
+					</p>
+				</div>
+				
+				
+				<!-- FAQ ******************************************************************************** -->
+				<div>
+					<h3 id="faq">9.0 FAQ</h3>
+					<p>
+						<b>Where can i check the versioning?</b><br/>
+						At the Menubar you can click on "MultitouchPadOsc -> About MultitouchPadOsc"
+					</p>
+					<img src="images/multitouchPadOsc_about.png">
+				</div>
+				
+				
+				
 	    	</div>
-		</section>  
-		<!-- Footer -->  
+		</section>
+		
+		<!-- Footer ************************************************************************************* -->
 		<footer>
 			</br>
-			<a href="http://www.wrong-entertainment.com/" target="_blank"><img src="http://www.wrong-entertainment.com/code/wng_slogan_white.png" height="40" alt="wrong-entertainment.com creative studiolab for motion and graphicdesign"/></a>
-			<a href="http://www.fh-potsdam.de/" target="_blank"><img src="http://www.wrong-entertainment.com/code/fhp_white.png" height="35" hspace=30 alt="fh-potsdam, university of applied sciences"/></a>
-			<a href="http://www.github.com/" target="_blank"><img src="http://www.wrong-entertainment.com/code/github_white.png" height="45" alt="github, social coding"/></a>
+			<a href="http://www.wrong-entertainment.com/" target="_blank"><img src="images/footer/wng_slogan_white.png" height="40" alt="wrong-entertainment.com creative studiolab for motion and graphicdesign"/></a>
+			<a href="http://www.fh-potsdam.de/" target="_blank"><img src="images/footer/fhp_white.png" height="35" hspace=30 alt="FH-Potsdam, University of Applied Sciences"/></a>
+			<a href="http://www.github.com/" target="_blank"><img src="images/footer/github_white.png" height="45" alt="GitHub, social coding"/></a>
 			</br>
 			<p>Paul Vollmer, <b><a href="http://www.wrong-entertainment.com">wrong-entertainment.com </a></b></br>
 			Get the source code on <b><a href="https://github.com/WrongEntertainment/MagicTrackpadOsc">Github</a></b> or write a <b><a href="mailto:paul.vollmer@fh-potsdam.de"> Mail</a></b></p>
