@@ -399,6 +399,31 @@ void MultitouchPadOscApp::draw(){
 }
 
 
+/**
+ * Exit
+ *
+ * Update XML settings variables.
+ * Save the current app count, window position and framerate.
+ * Save OSC variables like Host, Port etc.
+ */
+void MultitouchPadOscApp::exit() {
+	
+	//defXML.setWindowPosition();
+	defXml.setValue("osc:out", defXmlOscOut, 0);
+	defXml.setValue("pad:devicename", defXmlPadDevicename, 0);
+	defXml.setValue("pad:frame", defXmlPadFrame, 0);
+	defXml.setValue("pad:timestamp", defXmlPadTimestamp, 0);
+	defXml.setValue("pad:position", defXmlPadPosition, 0);
+	defXml.setValue("pad:velocity", defXmlPadVelocity, 0);
+	defXml.setValue("pad:size", defXmlPadSize, 0);
+	defXml.setValue("pad:maxis", defXmlPadMaxis, 0);
+	defXml.setValue("pad:angle", defXmlPadAngle, 0);
+	
+	// Save the current settings to xml.
+	defXml.saveSettings();
+}
+
+
 
 /**
  * Trackpad update
@@ -655,30 +680,4 @@ void MultitouchPadOscApp::gotMessage(ofMessage msg) {
  * Drag event
  */
 void MultitouchPadOscApp::dragEvent(ofDragInfo dragInfo) {
-}
-
-
-
-/**
- * Exit
- *
- * Update XML settings variables.
- * Save the current app count, window position and framerate.
- * Save OSC variables like Host, Port etc.
- */
-void MultitouchPadOscApp::exit() {
-	
-	//defXML.setWindowPosition();
-	defXml.setValue("osc:out", defXmlOscOut, 0);
-	defXml.setValue("pad:devicename", defXmlPadDevicename, 0);
-	defXml.setValue("pad:frame", defXmlPadFrame, 0);
-	defXml.setValue("pad:timestamp", defXmlPadTimestamp, 0);
-	defXml.setValue("pad:position", defXmlPadPosition, 0);
-	defXml.setValue("pad:velocity", defXmlPadVelocity, 0);
-	defXml.setValue("pad:size", defXmlPadSize, 0);
-	defXml.setValue("pad:maxis", defXmlPadMaxis, 0);
-	defXml.setValue("pad:angle", defXmlPadAngle, 0);
-	
-	// Save the current settings to xml.
-	defXml.saveSettings();
 }

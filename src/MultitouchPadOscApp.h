@@ -47,7 +47,7 @@
 #define PROJECTVERSION "0.1.2"
 
 // Used to print debugging infos to console
-//#define MULTITOUCHPADOSC_DEBUG
+#define MULTITOUCHPADOSC_DEBUG
 
 
 
@@ -59,7 +59,12 @@ class MultitouchPadOscApp : public ofBaseApp {
 		void setup();
 		void update();
 		void draw();
-		
+		void exit();
+	
+		void padUpdates(int & t);
+		void newTouch(int & n);
+		void removedTouch(int & r);
+	
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y);
@@ -69,11 +74,6 @@ class MultitouchPadOscApp : public ofBaseApp {
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		void exit();
-		
-		void padUpdates(int & t);
-		void newTouch(int & n);
-		void removedTouch(int & r);
 		
 		
 	private:
