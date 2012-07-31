@@ -45,33 +45,21 @@ int main() {
 	if (NSApp){  
         NSMenu      *menu;  
         NSMenuItem  *menuItem;   
-		
         [NSApp setMainMenu:[[NSMenu alloc] init]];  
-		
 		// Appname menu
 		menu = [[NSMenu alloc] initWithTitle:@""];  
 		[menu addItemWithTitle:@"About MultitouchPadOsc" action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
-		
 		[menu addItem:[NSMenuItem separatorItem]];
-		
 		[menu addItemWithTitle:@"Hide MultitouchPadOsc" action:@selector(hide:) keyEquivalent:@"h"];
-		
 		menuItem = (NSMenuItem *)[menu addItemWithTitle:@"Hide Others" action:@selector(hideOtherApplications:) keyEquivalent:@"h"];
 		[menuItem setKeyEquivalentModifierMask:(NSAlternateKeyMask|NSCommandKeyMask)];
-		
 		[menu addItemWithTitle:@"Show All" action:@selector(unhideAllApplications:) keyEquivalent:@""];
-		
 		[menu addItem:[NSMenuItem separatorItem]];
-		
 		[menu addItemWithTitle:@"Quit MultitouchPadOsc" action:@selector(terminate:) keyEquivalent:@"q"]; 
-		
 		// Put menu into the menubar
 		menuItem = [[NSMenuItem alloc] initWithTitle:@"Apple" action:nil keyEquivalent:@""];  
 		[menuItem setSubmenu:menu];  
 		[[NSApp mainMenu] addItem:menuItem];
-		// Tell the application object that this is now the application menu
-		//[NSApp setMainMenu:menu];
-		
     }
 	
 	// this kicks off the running of my app can be
