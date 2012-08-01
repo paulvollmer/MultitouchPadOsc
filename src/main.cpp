@@ -28,8 +28,8 @@
  *                    Linux XXX
  *  @openFrameworks   0071
  *  @dependencies     
- *  @modified         2012.07.15
- *  @version          0.1.2
+ *  @modified         2012.08.01
+ *  @version          0.1.2b
  */
 
 #include "ofMain.h"
@@ -42,6 +42,7 @@ int main() {
     ofAppGlutWindow window;
 	ofSetupOpenGL(&window, 500, 400, OF_WINDOW); // setup the GL context
 	
+	// Setting up the menubar.
 	if (NSApp){  
         NSMenu      *menu;  
         NSMenuItem  *menuItem;   
