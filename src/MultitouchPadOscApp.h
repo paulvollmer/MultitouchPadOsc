@@ -28,8 +28,8 @@
  *                    Linux XXX
  *  @openFrameworks   0071
  *  @dependencies     
- *  @modified         2012.07.16
- *  @version          0.1.2
+ *  @modified         2012.08.01
+ *  @version          0.1.2b  
  */
 
 #pragma once
@@ -38,7 +38,7 @@
 #include "ofxXmlDefaultSettings.h"
 
 #include "TextConsole.h"
-#include "OscSender.h"
+#include "ofxOsc.h"
 #include "ofxMultiTouchPad.h"
 #include "wCheckbox.h"
 #include "wImageButton.h"
@@ -60,11 +60,6 @@ class MultitouchPadOscApp : public ofBaseApp {
 		void update();
 		void draw();
 		void exit();
-	
-		void padUpdates(int & t);
-		void newTouch(int & n);
-		void removedTouch(int & r);
-	
 		void keyPressed(int key);
 		void keyReleased(int key);
 		void mouseMoved(int x, int y);
@@ -74,6 +69,13 @@ class MultitouchPadOscApp : public ofBaseApp {
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+		// Multitouch events
+		void padUpdates(int & t);
+		void newTouch(int & n);
+		void removedTouch(int & r);
+		// osc events
+		void intMessage(string s, int val);
+		void floatMessage(string s, float val);
 		
 		
 	private:
@@ -92,12 +94,19 @@ class MultitouchPadOscApp : public ofBaseApp {
 		int    defXmlPadSize;          // Trackpad finger size
 		int    defXmlPadMaxis;         // Trackpad finger minor-, major-axis
 		int    defXmlPadAngle;         // Trackpad finger angle
+		// Touchpoint color variables
+		ofColor defXmlTouchpointColor;
+		ofColor defXmlTouchpointLines;
+		ofColor defXmlTouchpointCross;
+	
 	
 		// Font
 		ofTrueTypeFont vera;
 		
 		// OSC
-		OscSender   oscSender;
+		//OscSender   oscSender;
+		// openFrameworks osc addon
+		ofxOscSender   oscSender;
 	
 		// Multitouch Trackpad
 		ofxMultiTouchPad   pad;
@@ -108,6 +117,7 @@ class MultitouchPadOscApp : public ofBaseApp {
 		// GUI
 		wImageButton btnOscActive;   // button to trigger osc activity on/off
 		ofImage      oscSendImage;
+		wImageButton btnTouchpoints; // button to show/hide touchpoints
 		wImageButton btnSettings;    // button to show/hide settings
 		wImageButton btnConsole;     // button to show/hide console
 		wCheckbox    cbFrame;        // checkbox to trigger pad frame on/off
