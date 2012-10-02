@@ -454,7 +454,7 @@ void MultitouchPadOscApp::exit() {
 	defXml.setValue("pad:angle", defXmlPadAngle, 0);
 	
 	// Save the current settings to xml.
-	defXml.saveSettings();
+	defXml.save();
 }
 
 
