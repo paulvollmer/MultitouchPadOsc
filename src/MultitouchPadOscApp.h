@@ -38,11 +38,12 @@
 #define PROJECTVERSION "0.1.2"
 
 #include "ofMain.h"
-#include "ofxXmlDefaultSettings.h"
-
-#include "TextConsole.h"
 #include "ofxOsc.h"
 #include "ofxMultiTouchPad.h"
+#include "ofxXmlDefaultSettings.h"
+#include "ofxUI.h"
+
+#include "TextConsole.h"
 #include "wCheckbox.h"
 #include "wImageButton.h"
 
@@ -76,6 +77,8 @@ class MultitouchPadOscApp : public ofBaseApp {
 		// osc events
 		void intMessage(string s, int val);
 		void floatMessage(string s, float val);
+		// Gui events
+		void guiEvent(ofxUIEventArgs &e);
 		
 		
 	private:
@@ -115,6 +118,7 @@ class MultitouchPadOscApp : public ofBaseApp {
 		TextConsole console;
 	
 		// GUI
+		ofxUICanvas *gui;
 		wImageButton btnOscActive;   // button to trigger osc activity on/off
 		ofImage      oscSendImage;
 		wImageButton btnTouchpoints; // button to show/hide touchpoints
