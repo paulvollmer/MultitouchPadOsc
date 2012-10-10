@@ -34,6 +34,9 @@
 
 #pragma once
 
+#define PROJECTNAME "MultitouchPadOsc"
+#define PROJECTVERSION "0.1.2"
+
 #include "ofMain.h"
 #include "ofxXmlDefaultSettings.h"
 
@@ -42,9 +45,6 @@
 #include "ofxMultiTouchPad.h"
 #include "wCheckbox.h"
 #include "wImageButton.h"
-
-#define PROJECTNAME "MultitouchPadOsc"
-#define PROJECTVERSION "0.1.2"
 
 // Used to print debugging infos to console
 #define MULTITOUCHPADOSC_DEBUG
@@ -80,7 +80,7 @@ class MultitouchPadOscApp : public ofBaseApp {
 		
 	private:
 		// XML Settings
-		ofxXmlDefaultSettings defXml;
+		ofxXmlDefaultSettings XML;
 		// OSC variables
 		int    defXmlOscOut;           // Send out OSC message, 0 = true, 1 = false
 		string defXmlOscHost;          // OSC host variable

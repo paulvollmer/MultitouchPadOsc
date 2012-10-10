@@ -50,50 +50,108 @@
  */
 void MultitouchPadOscApp::setup() {
 	
-	// ofxXmlDefaultSettings
-	// Load our default xml file.
-	defXml.load();
+	/* Set the xml tag names and root-version, -url attributes.
+	 */
+	XML.changeSyntax(XML.ROOT, "multitouchPadOscApp");
+	XML.changeSyntax(XML.ROOT_VERSION, PROJECTVERSION);
+	XML.changeSyntax(XML.ROOT_URL, "http://www.wng.cc");
+	XML.changeSyntax(XML.CORE, "appCore");
 	
-	defXml.setFrameRate();
-	defXml.setFullscreen();
-	//defXml.setWindowShape();
-	ofSetWindowShape(500, 400);
-	defXml.setWindowPosition();
-	//defXml.setWindowTitle();
-	ofSetWindowTitle("MultitouchPadOsc");
+	/* Set the default Settings parameter.
+	 */
+	XML.defaultSettings.frameRate = 60;
+	XML.defaultSettings.windowX = 100;
+	XML.defaultSettings.windowY = 100;
+	XML.defaultSettings.windowWidth = 500;
+	XML.defaultSettings.windowHeight = 400;
+	XML.defaultSettings.windowTitle = PROJECTNAME;
+	XML.defaultSettings.cursor = false;
+	XML.defaultSettings.fullscreen = false;
+	XML.defaultSettings.escapeQuitsApp = true;
+	XML.defaultSettings.log = true;
 	
-	// OSC variables
-	if(defXml.tagExists("osc", 0)){
-		defXmlOscOut  = defXml.getValue("osc:out", 1);
-		defXmlOscHost = defXml.getValue("osc:host", "127.0.0.1");
-		defXmlOscPort = defXml.getValue("osc:port", 12345);
+	/* ofxXmlDefaultSettings
+	 * Load the xml file from default path.
+	 */
+	XML.load();
+	
+	/* Set the openFrameworks app settings.
+	 */
+	XML.setSettings();
+	ofLog() << XML.getStatusMessage();
+	
+	/* Add custom settings to the xml default file.
+	 * To read/write content from the root directory, you can use
+	 * the pushRoot/popRoot methods.
+	 */
+	XML.pushRoot();
+	if (XML.fileExist) {
+		/* OSC variables
+		 */
+		defXmlOscOut  = XML.getValue("osc", 1);
+		defXmlOscHost = XML.getAttribute("osc", "host", "127.0.0.1", 0);
+		defXmlOscPort = XML.getAttribute("osc", "port", 12345, 0);
+		/* Touchpoint color
+		 */
+		defXmlTouchpointColor[0] = XML.getAttribute("touchpoints:pointColor", "r", 0, 0);
+		defXmlTouchpointColor[1] = XML.getAttribute("touchpoints:pointColor", "g", 155, 0);
+		defXmlTouchpointColor[2] = XML.getAttribute("touchpoints:pointColor", "b", 255, 0);
+		defXmlTouchpointColor[3] = XML.getAttribute("touchpoints:pointColor", "a", 255, 0);
+		defXmlTouchpointLines[0] = XML.getAttribute("touchpoints:lineColor", "r", 0, 0);
+		defXmlTouchpointLines[1] = XML.getAttribute("touchpoints:lineColor", "g", 255, 0);
+		defXmlTouchpointLines[2] = XML.getAttribute("touchpoints:lineColor", "b", 255, 0);
+		defXmlTouchpointLines[3] = XML.getAttribute("touchpoints:lineColor", "a", 255, 0);
+		defXmlTouchpointCross[0] = XML.getAttribute("touchpoints:crossColor", "r", 255, 0);
+		defXmlTouchpointCross[1] = XML.getAttribute("touchpoints:crossColor", "g", 0, 0);
+		defXmlTouchpointCross[2] = XML.getAttribute("touchpoints:crossColor", "b", 0, 0);
+		defXmlTouchpointCross[3] = XML.getAttribute("touchpoints:crossColor", "a", 255, 0);
+		/* Trackpad variables
+		 */
+		defXmlPadDevicename = XML.getValue("pad:devicename", "mtpadosc");
+		defXmlPadFrame      = XML.getValue("pad:frame", 1);
+		defXmlPadTimestamp  = XML.getValue("pad:timestamp", 1);
+		defXmlPadPosition   = XML.getValue("pad:position", 1);
+		defXmlPadVelocity   = XML.getValue("pad:velocity", 1);
+		defXmlPadSize       = XML.getValue("pad:size", 1);
+		defXmlPadMaxis      = XML.getValue("pad:maxis", 1);
+		defXmlPadAngle      = XML.getValue("pad:angle", 1);
 	}
-	// if no default parameter exist, let create some.
+	/* If no xml file exist, create the <balls> tag and add some parameter.
+	 */
 	else {
+		/* OSC variables
+		 */
 		defXmlOscOut  = 1;
 		defXmlOscHost = "127.0.0.1";
 		defXmlOscPort = 12345;
-		
-		defXml.addTag("osc");
-		defXml.pushTag("osc", 0);
-		defXml.addValue("out", defXmlOscOut);
-		defXml.addValue("host", defXmlOscHost);
-		defXml.addValue("port", defXmlOscPort);
-		defXml.popTag();
-		defXml.saveFile();
-	}
-	// Trackpad variables
-	if(defXml.tagExists("pad", 0)){
-		defXmlPadDevicename = defXml.getValue("pad:devicename", "mtpadosc");
-		defXmlPadFrame      = defXml.getValue("pad:frame", 1);
-		defXmlPadTimestamp  = defXml.getValue("pad:timestamp", 1);
-		defXmlPadPosition   = defXml.getValue("pad:position", 1);
-		defXmlPadVelocity   = defXml.getValue("pad:velocity", 1);
-		defXmlPadSize       = defXml.getValue("pad:size", 1);
-		defXmlPadMaxis      = defXml.getValue("pad:maxis", 1);
-		defXmlPadAngle      = defXml.getValue("pad:angle", 1);
-	}
-	else {
+		XML.addValue("osc", defXmlOscOut);
+		XML.addAttribute("osc", "host", defXmlOscHost, 0);
+		XML.addAttribute("osc", "post", defXmlOscPort, 0);
+		/* Touchpoint color
+		 */
+		defXmlTouchpointColor.set(0, 155, 255, 255);
+		defXmlTouchpointLines.set(0, 255, 255, 255);
+		defXmlTouchpointCross.set(255, 255, 255, 255);
+		XML.addTag("touchpoints");
+		XML.pushTag("touchpoints", 0);
+		XML.addTag("pointColor");
+		XML.addAttribute("pointColor", "r", defXmlTouchpointColor[0], 0);
+		XML.addAttribute("pointColor", "g", defXmlTouchpointColor[1], 0);
+		XML.addAttribute("pointColor", "b", defXmlTouchpointColor[2], 0);
+		XML.addAttribute("pointColor", "a", defXmlTouchpointColor[3], 0);
+		XML.addTag("lineColor");
+		XML.addAttribute("lineColor", "r", defXmlTouchpointLines[0], 0);
+		XML.addAttribute("lineColor", "g", defXmlTouchpointLines[1], 0);
+		XML.addAttribute("lineColor", "b", defXmlTouchpointLines[2], 0);
+		XML.addAttribute("lineColor", "a", defXmlTouchpointLines[3], 0);
+		XML.addTag("crossColor");
+		XML.addAttribute("crossColor", "r", defXmlTouchpointCross[0], 0);
+		XML.addAttribute("crossColor", "g", defXmlTouchpointCross[1], 0);
+		XML.addAttribute("crossColor", "b", defXmlTouchpointCross[2], 0);
+		XML.addAttribute("crossColor", "a", defXmlTouchpointCross[3], 0);
+		XML.popTag();
+		/* Trackpad variables
+		 */
 		defXmlPadDevicename = "mtpadosc";
 		defXmlPadFrame      = 1;
 		defXmlPadTimestamp  = 1;
@@ -101,52 +159,23 @@ void MultitouchPadOscApp::setup() {
 		defXmlPadVelocity   = 1;
 		defXmlPadSize       = 1;
 		defXmlPadMaxis      = 1;
-		defXmlPadAngle      = 1;
-		
-		defXml.addTag("pad");
-		defXml.pushTag("pad", 0);
-		defXml.addValue("devicename", defXmlPadDevicename);
-		defXml.addValue("frame", defXmlPadFrame);
-		defXml.addValue("timestamp", defXmlPadTimestamp);
-		defXml.addValue("position", defXmlPadPosition);
-		defXml.addValue("velocity", defXmlPadVelocity);
-		defXml.addValue("size", defXmlPadSize);
-		defXml.addValue("maxis", defXmlPadMaxis);
-		defXml.addValue("angle", defXmlPadAngle);
-		defXml.popTag();
-		defXml.saveFile();
-	}
-	if(defXml.tagExists("touchpoints", 0)){
-		defXmlTouchpointColor[0] = defXml.getValue("touchpoints:color_r", 0);
-		defXmlTouchpointColor[1] = defXml.getValue("touchpoints:color_g", 155);
-		defXmlTouchpointColor[2] = defXml.getValue("touchpoints:color_b", 255);
-		defXmlTouchpointLines[0] = defXml.getValue("touchpoints:lines_r", 0);
-		defXmlTouchpointLines[1] = defXml.getValue("touchpoints:lines_g", 255);
-		defXmlTouchpointLines[2] = defXml.getValue("touchpoints:lines_b", 255);
-		defXmlTouchpointCross[0] = defXml.getValue("touchpoints:cross_b", 255);
-		defXmlTouchpointCross[1] = defXml.getValue("touchpoints:cross_b", 0);
-		defXmlTouchpointCross[2] = defXml.getValue("touchpoints:cross_b", 0);
-	}
-	else {
-		defXmlTouchpointColor.set(0, 155, 255, 255);
-		defXmlTouchpointLines.set(0, 255, 255, 255);
-		defXmlTouchpointCross.set(255, 255, 255, 255);
-		
-		defXml.addTag("touchpoints");
-		defXml.pushTag("touchpoints", 0);
-		defXml.addValue("color_r", defXmlTouchpointColor[0]);
-		defXml.addValue("color_g", defXmlTouchpointColor[1]);
-		defXml.addValue("color_b", defXmlTouchpointColor[2]);
-		defXml.addValue("lines_r", defXmlTouchpointLines[0]);
-		defXml.addValue("lines_g", defXmlTouchpointLines[1]);
-		defXml.addValue("lines_b", defXmlTouchpointLines[2]);
-		defXml.addValue("cross_r", defXmlTouchpointCross[0]);
-		defXml.addValue("cross_g", defXmlTouchpointCross[1]);
-		defXml.addValue("cross_b", defXmlTouchpointCross[2]);
-		defXml.popTag();
-		defXml.saveFile();
+		defXmlPadAngle      = 1;		XML.addTag("pad");
+		XML.pushTag("pad", 0);
+		XML.addValue("devicename", defXmlPadDevicename);
+		XML.addValue("frame", defXmlPadFrame);
+		XML.addValue("timestamp", defXmlPadTimestamp);
+		XML.addValue("position", defXmlPadPosition);
+		XML.addValue("velocity", defXmlPadVelocity);
+		XML.addValue("size", defXmlPadSize);
+		XML.addValue("maxis", defXmlPadMaxis);
+		XML.addValue("angle", defXmlPadAngle);
+		XML.popTag();
 	}
 
+	/* Pop root xml tag.
+	 */
+	XML.popRoot();
+	XML.saveFile();
 	
 	ofLog() << "[MultitouchPadOsc] XML default settings loaded";
 	ofLog() << "[MultitouchPadOsc] XML osc:out        = " << defXmlOscOut;
@@ -160,9 +189,15 @@ void MultitouchPadOscApp::setup() {
 	ofLog() << "[MultitouchPadOsc] XML pad:size       = " << defXmlPadSize;
 	ofLog() << "[MultitouchPadOsc] XML pad:maxis      = " << defXmlPadMaxis;
 	ofLog() << "[MultitouchPadOsc] XML pad:angle      = " << defXmlPadAngle;
-	ofLog() << "[MultitouchPadOsc] XML touchpoints:color r=" << defXmlTouchpointColor[0] << ", g=" << defXmlTouchpointColor[1] << ", b=" << defXmlTouchpointColor[2];
-	ofLog() << "[MultitouchPadOsc] XML touchpoints:color r=" << defXmlTouchpointLines[0] << ", g=" << defXmlTouchpointLines[1] << ", b=" << defXmlTouchpointLines[2];
-	ofLog() << "[MultitouchPadOsc] XML touchpoints:color r=" << defXmlTouchpointCross[0] << ", g=" << defXmlTouchpointCross[1] << ", b=" << defXmlTouchpointCross[2];
+	ofLog() << "[MultitouchPadOsc] XML touchpoints:color r=" << ofToString(defXmlTouchpointColor[0]) <<
+	                                                  ", g=" << ofToString(defXmlTouchpointColor[1]) <<
+	                                                  ", b=" << ofToString(defXmlTouchpointColor[2]);
+	ofLog() << "[MultitouchPadOsc] XML touchpoints:color r=" << ofToString(defXmlTouchpointLines[0]) <<
+												      ", g=" << ofToString(defXmlTouchpointLines[1]) <<
+													  ", b=" << ofToString(defXmlTouchpointLines[2]);
+	ofLog() << "[MultitouchPadOsc] XML touchpoints:color r=" << ofToString(defXmlTouchpointCross[0]) <<
+													  ", g=" << ofToString(defXmlTouchpointCross[1]) <<
+													  ", b=" << ofToString(defXmlTouchpointCross[2]);
 	
 	
 	// Font
@@ -442,19 +477,22 @@ void MultitouchPadOscApp::draw(){
  */
 void MultitouchPadOscApp::exit() {
 	
+	XML.pushRoot();
 	//defXML.setWindowPosition();
-	defXml.setValue("osc:out", defXmlOscOut, 0);
-	defXml.setValue("pad:devicename", defXmlPadDevicename, 0);
-	defXml.setValue("pad:frame", defXmlPadFrame, 0);
-	defXml.setValue("pad:timestamp", defXmlPadTimestamp, 0);
-	defXml.setValue("pad:position", defXmlPadPosition, 0);
-	defXml.setValue("pad:velocity", defXmlPadVelocity, 0);
-	defXml.setValue("pad:size", defXmlPadSize, 0);
-	defXml.setValue("pad:maxis", defXmlPadMaxis, 0);
-	defXml.setValue("pad:angle", defXmlPadAngle, 0);
+	XML.setValue("osc", defXmlOscOut, 0);
+	XML.setValue("pad:devicename", defXmlPadDevicename, 0);
+	XML.setValue("pad:frame", defXmlPadFrame, 0);
+	XML.setValue("pad:timestamp", defXmlPadTimestamp, 0);
+	XML.setValue("pad:position", defXmlPadPosition, 0);
+	XML.setValue("pad:velocity", defXmlPadVelocity, 0);
+	XML.setValue("pad:size", defXmlPadSize, 0);
+	XML.setValue("pad:maxis", defXmlPadMaxis, 0);
+	XML.setValue("pad:angle", defXmlPadAngle, 0);
+	XML.popRoot();
 	
-	// Save the current settings to xml.
-	defXml.save();
+	/* Save the current settings to xml.
+	 */
+	XML.save();
 }
 
 
