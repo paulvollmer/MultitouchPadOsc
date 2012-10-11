@@ -121,6 +121,8 @@ class MultitouchPadOscApp : public ofBaseApp {
 		ofxUICanvas *gui;
 		wImageButton btnOscActive;   // button to trigger osc activity on/off
 		ofImage      oscSendImage;
+		//wImageButton btnSafetyMode;  // This mode can be used to run in safety mode.
+	                                 // No dock or other system stuff can be selected.
 		wImageButton btnTouchpoints; // button to show/hide touchpoints
 		wImageButton btnSettings;    // button to show/hide settings
 		wImageButton btnConsole;     // button to show/hide console

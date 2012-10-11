@@ -243,7 +243,7 @@ void MultitouchPadOscApp::setup() {
 	} else {
 		btnOscActive.status = false;
 	}
-	
+	//btnSafetyMode.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_on.png", ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_off.png", ofGetWidth()-56, 0);
 	btnTouchpoints.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_left_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_left_off.png", 10, 0);
 	btnTouchpoints.status = true;
 	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_middle_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_middle_off.png", 87, 0);
@@ -301,17 +301,18 @@ void MultitouchPadOscApp::draw(){
 	
 	// GUI
 	ofSetColor(255);
-	btnTouchpoints.display();
 	btnOscActive.display();
+	//btnSafetyMode.display();
+	btnTouchpoints.display();
 	btnSettings.display();
 	btnConsole.display();
 	
 	
 	// Draw the touch count typo
     ofSetColor(255);
-	vera.drawString("Viewer", 20, 18);
-	vera.drawString("Settings", 120, 18);
-	vera.drawString("Console", 220, 18);
+	vera.drawString("Viewer", 30, 18);
+	vera.drawString("Settings", 107, 18);
+	vera.drawString("Console", 184, 18);
 	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 15, ofGetHeight()-15);
 	
 	
@@ -535,7 +536,6 @@ void MultitouchPadOscApp::keyPressed(int key) {
 		system(commandStr.c_str());
 	}
 	
-	
 	switch(key) {
 		// OSC out
 		case '1':
@@ -687,12 +687,21 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 	}
 	
 	
+	/*btnSafetyMode.pressed(x, y);
+	if (btnSafetyMode.status == true) {
+		cout << "### safety mode active" << endl;
+		ofSetFullscreen(true);
+	} else {
+		cout << "### safety mode not active" << endl;
+		ofSetFullscreen(false);
+	}*/
+	
+	
 	btnTouchpoints.pressed(x, y);
 	if(btnTouchpoints.status == true) {
 		// hide touchpoint, settings panel
 		btnSettings.status = false;
 		btnConsole.status = false;
-		
 		/* hide GUI textfield
 		 */
 		gui->setVisible(false);
@@ -758,7 +767,10 @@ void MultitouchPadOscApp::mouseReleased(int x, int y, int button) {
  * Window resized
  */
 void MultitouchPadOscApp::windowResized(int w, int h) {
+	/* GUI
+	 */
 	btnOscActive.setPosition(w-36, 0);
+	//btnSafetyMode.setPosition(w-66, 0);
 }
 
 
@@ -844,7 +856,8 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 	if (name == "TEXT HOST") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		cout << "### TEXT HOST = " << textInput->getTextString() << endl;
-	} else if (name == "TEXT PORT") {
+	}
+	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		cout << "### TEXT HOST = " << textInput->getTextString() << endl;
 	}
