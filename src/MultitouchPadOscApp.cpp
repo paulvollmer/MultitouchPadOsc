@@ -537,8 +537,26 @@ void MultitouchPadOscApp::keyPressed(int key) {
 	}
 	
 	switch(key) {
-		// OSC out
+		/* Shortcuts to select the toolbar buttons.
+		 */
 		case '1':
+			btnTouchpoints.status = true;
+			btnSettings.status = false;
+			btnConsole.status = false;
+			break;
+		case '2':
+			btnTouchpoints.status = false;
+			btnSettings.status = true;
+			btnConsole.status = false;
+			break;
+		case '3':
+			btnTouchpoints.status = false;
+			btnSettings.status = false;
+			btnConsole.status = true;
+			break;
+
+		// OSC out
+		case 'q':
 			if (defXmlOscOut == 0) {
 				defXmlOscOut = 1;
 				btnOscActive.status = !btnOscActive.status;
@@ -552,7 +570,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			break;
 		
 		// OSC frame
-		case '2':
+		case 'w':
 			if (defXmlPadFrame == 0) {
 				defXmlPadFrame = 1;
 			} else {
@@ -578,7 +596,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			break;*/
 		
 		// OSC position
-		case '3':
+		case 'e':
 			if (defXmlPadPosition == 0) {
 				defXmlPadPosition = 1;
 			} else {
@@ -616,7 +634,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			break;*/
 
 		// OSC maxis
-		case '4':
+		case 'r':
 			if (defXmlPadSize == 0) {
 				defXmlPadSize = 1;
 			} else {
@@ -630,7 +648,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			break;
 
 		// OSC angle
-		case '5':
+		case 't':
 			if (defXmlPadAngle == 0) {
 				defXmlPadAngle = 1;
 			} else {
