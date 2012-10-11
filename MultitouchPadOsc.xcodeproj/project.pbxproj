@@ -33,13 +33,15 @@
 		AF6E4C6215B3120C00D281DB /* Credits.rtf in Copy Files Resources */ = {isa = PBXBuildFile; fileRef = AF6E4C6115B311FE00D281DB /* Credits.rtf */; };
 		AF6E4D9B15B42AF000D281DB /* Vera.ttf in Copy Files Font */ = {isa = PBXBuildFile; fileRef = AF6E4D9915B42AC000D281DB /* Vera.ttf */; };
 		AF6E4DB715B42CEA00D281DB /* MultitouchPadOsc.icns in Copy Files Resources */ = {isa = PBXBuildFile; fileRef = AF6E4DB615B42CE400D281DB /* MultitouchPadOsc.icns */; };
-		AF6E4E6415B448D400D281DB /* console_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E5D15B448CD00D281DB /* console_off.png */; };
-		AF6E4E6515B448D400D281DB /* console_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E5E15B448CD00D281DB /* console_on.png */; };
 		AF6E4E6615B448D400D281DB /* oscactive_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E5F15B448CD00D281DB /* oscactive_off.png */; };
 		AF6E4E6715B448D400D281DB /* oscactive_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E6015B448CD00D281DB /* oscactive_on.png */; };
 		AF6E4E6815B448D400D281DB /* oscactive_send.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E6115B448CD00D281DB /* oscactive_send.png */; };
-		AF6E4E6915B448D400D281DB /* settings_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E6215B448CD00D281DB /* settings_off.png */; };
-		AF6E4E6A15B448D400D281DB /* settings_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF6E4E6315B448CD00D281DB /* settings_on.png */; };
+		AFDAE3ED1626D21400ABEBB0 /* btn_left_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AFDAE3E71626D20B00ABEBB0 /* btn_left_off.png */; };
+		AFDAE3EE1626D21400ABEBB0 /* btn_left_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AFDAE3E81626D20B00ABEBB0 /* btn_left_on.png */; };
+		AFDAE3EF1626D21400ABEBB0 /* btn_middle_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AFDAE3E91626D20B00ABEBB0 /* btn_middle_off.png */; };
+		AFDAE3F01626D21400ABEBB0 /* btn_middle_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AFDAE3EA1626D20B00ABEBB0 /* btn_middle_on.png */; };
+		AFDAE3F11626D21400ABEBB0 /* btn_right_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AFDAE3EB1626D20B00ABEBB0 /* btn_right_off.png */; };
+		AFDAE3F21626D21400ABEBB0 /* btn_right_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AFDAE3EC1626D20B00ABEBB0 /* btn_right_on.png */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in Copy Files Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -94,13 +96,15 @@
 			dstPath = gui;
 			dstSubfolderSpec = 6;
 			files = (
-				AF6E4E6415B448D400D281DB /* console_off.png in Copy Files GUI */,
-				AF6E4E6515B448D400D281DB /* console_on.png in Copy Files GUI */,
+				AFDAE3ED1626D21400ABEBB0 /* btn_left_off.png in Copy Files GUI */,
+				AFDAE3EE1626D21400ABEBB0 /* btn_left_on.png in Copy Files GUI */,
+				AFDAE3EF1626D21400ABEBB0 /* btn_middle_off.png in Copy Files GUI */,
+				AFDAE3F01626D21400ABEBB0 /* btn_middle_on.png in Copy Files GUI */,
+				AFDAE3F11626D21400ABEBB0 /* btn_right_off.png in Copy Files GUI */,
+				AFDAE3F21626D21400ABEBB0 /* btn_right_on.png in Copy Files GUI */,
 				AF6E4E6615B448D400D281DB /* oscactive_off.png in Copy Files GUI */,
 				AF6E4E6715B448D400D281DB /* oscactive_on.png in Copy Files GUI */,
 				AF6E4E6815B448D400D281DB /* oscactive_send.png in Copy Files GUI */,
-				AF6E4E6915B448D400D281DB /* settings_off.png in Copy Files GUI */,
-				AF6E4E6A15B448D400D281DB /* settings_on.png in Copy Files GUI */,
 			);
 			name = "Copy Files GUI";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,13 +189,9 @@
 		AF6E4C6115B311FE00D281DB /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Credits.rtf; path = resources/Credits.rtf; sourceTree = "<group>"; };
 		AF6E4D9915B42AC000D281DB /* Vera.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Vera.ttf; path = resources/Font/Vera.ttf; sourceTree = "<group>"; };
 		AF6E4DB615B42CE400D281DB /* MultitouchPadOsc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MultitouchPadOsc.icns; path = resources/MultitouchPadOsc.icns; sourceTree = "<group>"; };
-		AF6E4E5D15B448CD00D281DB /* console_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = console_off.png; path = resources/gui/console_off.png; sourceTree = "<group>"; };
-		AF6E4E5E15B448CD00D281DB /* console_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = console_on.png; path = resources/gui/console_on.png; sourceTree = "<group>"; };
 		AF6E4E5F15B448CD00D281DB /* oscactive_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_off.png; path = resources/gui/oscactive_off.png; sourceTree = "<group>"; };
 		AF6E4E6015B448CD00D281DB /* oscactive_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_on.png; path = resources/gui/oscactive_on.png; sourceTree = "<group>"; };
 		AF6E4E6115B448CD00D281DB /* oscactive_send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oscactive_send.png; path = resources/gui/oscactive_send.png; sourceTree = "<group>"; };
-		AF6E4E6215B448CD00D281DB /* settings_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_off.png; path = resources/gui/settings_off.png; sourceTree = "<group>"; };
-		AF6E4E6315B448CD00D281DB /* settings_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings_on.png; path = resources/gui/settings_on.png; sourceTree = "<group>"; };
 		AFDAE2E11625D24800ABEBB0 /* ofxUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUI.h; path = "../../../addons/rezaali-ofxUI-f29a7d7/src/ofxUI.h"; sourceTree = SOURCE_ROOT; };
 		AFDAE2E21625D24800ABEBB0 /* ofxUI2DPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUI2DPad.h; path = "../../../addons/rezaali-ofxUI-f29a7d7/src/ofxUI2DPad.h"; sourceTree = SOURCE_ROOT; };
 		AFDAE2E31625D24800ABEBB0 /* ofxUIBiLabelSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIBiLabelSlider.h; path = "../../../addons/rezaali-ofxUI-f29a7d7/src/ofxUIBiLabelSlider.h"; sourceTree = SOURCE_ROOT; };
@@ -232,6 +232,12 @@
 		AFDAE3061625D24800ABEBB0 /* ofxUIWaveform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWaveform.h; path = "../../../addons/rezaali-ofxUI-f29a7d7/src/ofxUIWaveform.h"; sourceTree = SOURCE_ROOT; };
 		AFDAE3071625D24800ABEBB0 /* ofxUIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWidget.h; path = "../../../addons/rezaali-ofxUI-f29a7d7/src/ofxUIWidget.h"; sourceTree = SOURCE_ROOT; };
 		AFDAE3081625D24800ABEBB0 /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWidgetWithLabel.h; path = "../../../addons/rezaali-ofxUI-f29a7d7/src/ofxUIWidgetWithLabel.h"; sourceTree = SOURCE_ROOT; };
+		AFDAE3E71626D20B00ABEBB0 /* btn_left_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_left_off.png; path = resources/gui/btn_left_off.png; sourceTree = "<group>"; };
+		AFDAE3E81626D20B00ABEBB0 /* btn_left_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_left_on.png; path = resources/gui/btn_left_on.png; sourceTree = "<group>"; };
+		AFDAE3E91626D20B00ABEBB0 /* btn_middle_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_middle_off.png; path = resources/gui/btn_middle_off.png; sourceTree = "<group>"; };
+		AFDAE3EA1626D20B00ABEBB0 /* btn_middle_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_middle_on.png; path = resources/gui/btn_middle_on.png; sourceTree = "<group>"; };
+		AFDAE3EB1626D20B00ABEBB0 /* btn_right_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_right_off.png; path = resources/gui/btn_right_off.png; sourceTree = "<group>"; };
+		AFDAE3EC1626D20B00ABEBB0 /* btn_right_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_right_on.png; path = resources/gui/btn_right_on.png; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -462,13 +468,15 @@
 		AF6E4C4D15B30F2000D281DB /* gui */ = {
 			isa = PBXGroup;
 			children = (
-				AF6E4E5D15B448CD00D281DB /* console_off.png */,
-				AF6E4E5E15B448CD00D281DB /* console_on.png */,
+				AFDAE3E71626D20B00ABEBB0 /* btn_left_off.png */,
+				AFDAE3E81626D20B00ABEBB0 /* btn_left_on.png */,
+				AFDAE3E91626D20B00ABEBB0 /* btn_middle_off.png */,
+				AFDAE3EA1626D20B00ABEBB0 /* btn_middle_on.png */,
+				AFDAE3EB1626D20B00ABEBB0 /* btn_right_off.png */,
+				AFDAE3EC1626D20B00ABEBB0 /* btn_right_on.png */,
 				AF6E4E5F15B448CD00D281DB /* oscactive_off.png */,
 				AF6E4E6015B448CD00D281DB /* oscactive_on.png */,
 				AF6E4E6115B448CD00D281DB /* oscactive_send.png */,
-				AF6E4E6215B448CD00D281DB /* settings_off.png */,
-				AF6E4E6315B448CD00D281DB /* settings_on.png */,
 			);
 			name = gui;
 			sourceTree = "<group>";

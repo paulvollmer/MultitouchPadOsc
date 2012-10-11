@@ -244,10 +244,10 @@ void MultitouchPadOscApp::setup() {
 		btnOscActive.status = false;
 	}
 	
-	btnTouchpoints.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_off.png", 10, 0);
+	btnTouchpoints.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_left_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_left_off.png", 10, 0);
 	btnTouchpoints.status = true;
-	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/settings_off.png", 87, 0);
-	btnConsole.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/console_on.png",    ofFilePath::getCurrentWorkingDirectory() + "/gui/console_off.png", 164, 0);
+	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_middle_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_middle_off.png", 87, 0);
+	btnConsole.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_right_on.png",    ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_right_off.png", 164, 0);
 	
 	cbFrame.init(vera,      "frame active",               15, 190, defXmlPadFrame);
 	//cbTimestamp.init(vera,  "timestamp active",           60, 170, defXmlPadTimestamp);
