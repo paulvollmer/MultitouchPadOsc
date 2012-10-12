@@ -190,9 +190,9 @@ void MultitouchPadOscApp::setup() {
 	ofLog() << "XML: pad:size        = " << defXmlPadSize;
 	ofLog() << "XML: pad:maxis       = " << defXmlPadMaxis;
 	ofLog() << "XML: pad:angle       = " << defXmlPadAngle;
-	ofLog() << "XML: pointColor rgba =" << defXmlTouchpointColor.getClamped();
-	ofLog() << "XML: lineColor rgba  =" << defXmlTouchpointLines.getClamped();
-	ofLog() << "XML: crossColor rgba =" << defXmlTouchpointCross.getClamped();
+	ofLog() << "XML: pointColor rgba = " << defXmlTouchpointColor.getClamped();
+	ofLog() << "XML: lineColor rgba  = " << defXmlTouchpointLines.getClamped();
+	ofLog() << "XML: crossColor rgba = " << defXmlTouchpointCross.getClamped();
 	
 	/* Save the XML file if no file existed
 	 */
@@ -203,14 +203,20 @@ void MultitouchPadOscApp::setup() {
 	
 	/* Load the font
 	 */
+	//ofTrueTypeFont::setGlobalDpi(96);
 	vera.loadFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf", 9, true, false);
-	
+	if (vera.isLoaded()) {
+		ofLog() << "FONT: Is loaded";
+	} else {
+		ofLog() << "FONT: Not loaded";
+	}
+
 	
 	/* OSC
 	 * Open an outgoing connection to oscHost, oscPort
 	 */
 	oscSender.setup(defXmlOscHost, defXmlOscPort);
-	console.addString(ofToString("Host: ") + ofToString(defXmlOscHost) + ofToString(" Port: ") + ofToString(defXmlOscPort) + " connected");
+	ofLog() << "OSC: setup host \"" << defXmlOscHost << "\", port " << "\"" << defXmlOscPort << "\"";
 	
 	
 	/* Console
@@ -228,11 +234,12 @@ void MultitouchPadOscApp::setup() {
 	 */
 	gui = new ofxUICanvas();
 	gui->setFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf"); //This loads a new font and sets the GUI font
-    gui->setFontSize(OFX_UI_FONT_LARGE, 9);                                   //These call are optional, but if you want to resize the LARGE, MEDIUM, and SMALL fonts, here is how to do it. 
+    gui->setFontSize(OFX_UI_FONT_LARGE, 12);                                    //These call are optional, but if you want to resize the LARGE, MEDIUM, and SMALL fonts, here is how to do it. 
     gui->setFontSize(OFX_UI_FONT_MEDIUM, 8);           
-    gui->setFontSize(OFX_UI_FONT_SMALL, 6);                                   //SUPER IMPORTANT NOTE: CALL THESE FUNTIONS BEFORE ADDING ANY WIDGETS, THIS AFFECTS THE SPACING OF THE GUI
-	gui->addWidget(new ofxUITextInput("TEXT HOST", defXmlOscHost, 150, 20, 100,100, OFX_UI_FONT_SMALL));
-	gui->addWidget(new ofxUITextInput("TEXT PORT", ofToString(defXmlOscPort), 150, 20, 100,130, OFX_UI_FONT_SMALL));
+    gui->setFontSize(OFX_UI_FONT_SMALL, 6);                                    //SUPER IMPORTANT NOTE: CALL THESE FUNTIONS BEFORE ADDING ANY WIDGETS, THIS AFFECTS THE SPACING OF THE GUI
+	gui->addWidget(new ofxUITextInput("TEXT HOST", defXmlOscHost, 130,20, 50,77, OFX_UI_FONT_SMALL));
+	gui->addWidget(new ofxUITextInput("TEXT PORT", ofToString(defXmlOscPort), 130,20, 50,97, OFX_UI_FONT_SMALL));
+	gui->addWidget(new ofxUITextInput("TEXT DEVICENAME", ofToString(defXmlPadDevicename), 150, 20, 100,113, OFX_UI_FONT_SMALL));
 	ofAddListener(gui->newGUIEvent, this, &MultitouchPadOscApp::guiEvent);
 	gui->setVisible(false);
 	
@@ -264,13 +271,10 @@ void MultitouchPadOscApp::setup() {
     ofAddListener(pad.update, this, &MultitouchPadOscApp::padUpdates);
     ofAddListener(pad.touchAdded, this, &MultitouchPadOscApp::newTouch);
     ofAddListener(pad.touchRemoved, this, &MultitouchPadOscApp::removedTouch);
-	cout << "  number of trackpad devices: " << pad.getNumDevices() << endl;
 	
 	
-	/* Add messages to Console
-	 */
-	console.addString("Application started!");
-	console.addString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()));
+	ofLog() << "Number of Devices: "<< pad.getNumDevices();
+	ofLog() << "SETUP: ready";
 }
 
 
@@ -290,16 +294,16 @@ void MultitouchPadOscApp::update() {
  * Display the GUI
  */
 void MultitouchPadOscApp::draw(){
-	
-	// background
+	/* background
+	 */
 	ofBackground(111, 112, 114);
-	
 	ofFill();
 	ofSetColor(88, 88, 90);
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	
 	
-	// GUI
+	/* GUI
+	 */
 	ofSetColor(255);
 	btnOscActive.display();
 	//btnSafetyMode.display();
@@ -308,7 +312,8 @@ void MultitouchPadOscApp::draw(){
 	btnConsole.display();
 	
 	
-	// Draw the touch count typo
+	/* Draw the touch count typo
+	 */
     ofSetColor(255);
 	vera.drawString("Viewer", 30, 18);
 	vera.drawString("Settings", 107, 18);
@@ -316,8 +321,9 @@ void MultitouchPadOscApp::draw(){
 	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 15, ofGetHeight()-15);
 	
 	
-	// Display finger blobs
-	// connect all touches with a line
+	/* Display finger blobs
+	 * connect all touches with a line
+	 */
     std::vector<ofPoint>touches;
     pad.getTouchesAsOfPoints(&touches);
 	
@@ -333,7 +339,8 @@ void MultitouchPadOscApp::draw(){
 	ofDisableSmoothing();
     
 	
-	// display all finger blobs
+	/* display all finger blobs
+	 */
 	for(int i=0; i<pad.getTouchCount(); i++) {
 		// get a single touch as MTouch struct....
 		MTouch touch;
@@ -376,7 +383,8 @@ void MultitouchPadOscApp::draw(){
 		
 		
 		
-		// OSC
+		/* OSC
+		 */
 		if(defXmlOscOut == 0) {
 			// if osc message will be send,
 			// show osc send icon.
@@ -441,7 +449,8 @@ void MultitouchPadOscApp::draw(){
     }
 	
 	
-	// settings button
+	/* settings button
+	 */
 	if(btnSettings.status == true) {
 		// ground
 		ofEnableAlphaBlending();
@@ -454,13 +463,10 @@ void MultitouchPadOscApp::draw(){
 		ofFill();
 		vera.drawString("OSC SETTINGS", 15, 50);
 		// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
-		vera.drawString("Host: "+ofToString(defXmlOscHost), 15, 90);
-		vera.drawString("[change at settings.xml file]", 251, 90);
-		vera.drawString("Port: "+ofToString(defXmlOscPort), 15, 110);
-		vera.drawString("[change at settings.xml file]", 251, 110);
-		vera.drawString("Devicename: " + defXmlPadDevicename, 15, 130);
-		vera.drawString("[change at settings.xml file]", 251, 130);
-		vera.drawString("[To open the settings xml, press key '0']", 167, 150);
+		vera.drawString("Host: ", 15, 90);
+		vera.drawString("Port: ", 15, 110);
+		vera.drawString("Devicename: ", 15, 130);
+		vera.drawString("[To open the settings xml, press key 's']", 167, 150);
 		cbFrame.display();
 		//cbTimestamp.display();
 		cbPosition.display();
@@ -477,7 +483,8 @@ void MultitouchPadOscApp::draw(){
 		//vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 15, 150);
 	}
 	
-	// console button
+	/* console button
+	 */
 	if(btnConsole.status == true) {
 		// ground
 		ofEnableAlphaBlending();
@@ -502,10 +509,12 @@ void MultitouchPadOscApp::draw(){
  * Save OSC variables like Host, Port etc.
  */
 void MultitouchPadOscApp::exit() {
-	
+	/* XML file
+	 */
 	XML.pushRoot();
-	//defXML.setWindowPosition();
 	XML.setValue("osc", defXmlOscOut, 0);
+	XML.setAttribute("osc", "host", defXmlOscHost, 0);
+	XML.setAttribute("osc", "port", defXmlOscPort, 0);
 	XML.setValue("pad:devicename", defXmlPadDevicename, 0);
 	XML.setValue("pad:frame", defXmlPadFrame, 0);
 	XML.setValue("pad:timestamp", defXmlPadTimestamp, 0);
@@ -530,8 +539,9 @@ void MultitouchPadOscApp::exit() {
  * Key pressed
  */
 void MultitouchPadOscApp::keyPressed(int key) {
-	// Open the settings xml file
-	if(key == '0') {
+	/* Open the settings xml file
+	 */
+	if(key == 's') {
 		string commandStr = "open " + ofFilePath::getCurrentWorkingDirectory() + "/ofSettings.xml";
 		system(commandStr.c_str());
 	}
@@ -555,7 +565,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			btnConsole.status = true;
 			break;
 
-		// OSC out
+		/* OSC out
+		 */
 		case 'q':
 			if (defXmlOscOut == 0) {
 				defXmlOscOut = 1;
@@ -569,7 +580,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			#endif
 			break;
 		
-		// OSC frame
+		/* OSC frame
+		 */
 		case 'w':
 			if (defXmlPadFrame == 0) {
 				defXmlPadFrame = 1;
@@ -583,7 +595,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			#endif
 			break;
 		
-		// OSC timestamp
+		/* OSC timestamp
+		 */
 		/*case '3':
 			if (settings.padTimestamp == 0) {
 				settings.padTimestamp = 1;
@@ -595,7 +608,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
 			break;*/
 		
-		// OSC position
+		/* OSC position
+		 */
 		case 'e':
 			if (defXmlPadPosition == 0) {
 				defXmlPadPosition = 1;
@@ -609,7 +623,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			#endif
 			break;
 
-		// OSC velocity
+		/* OSC velocity
+		 */
 		/*case '5':
 			if (settings.padVelocity == 0) {
 				settings.padVelocity = 1;
@@ -621,7 +636,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
 			break;*/
 
-		// OSC maxis
+		/* OSC maxis
+		 */
 		/*case '4':
 			if (settings.padMaxis == 0) {
 				settings.padMaxis = 1;
@@ -633,7 +649,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
 			break;*/
 
-		// OSC maxis
+		/* OSC maxis
+		 */
 		case 'r':
 			if (defXmlPadSize == 0) {
 				defXmlPadSize = 1;
@@ -647,7 +664,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			#endif
 			break;
 
-		// OSC angle
+		/* OSC angle
+		 */
 		case 't':
 			if (defXmlPadAngle == 0) {
 				defXmlPadAngle = 1;
@@ -696,14 +714,14 @@ void MultitouchPadOscApp::mouseDragged(int x, int y, int button) {
  * Mouse pressed
  */
 void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
-	// GUI
+	/* GUI
+	 */
 	btnOscActive.pressed(x, y);
 	if(btnOscActive.status == true) {
 		defXmlOscOut = 0;
 	} else {
 		defXmlOscOut = 1;
 	}
-	
 	
 	/*btnSafetyMode.pressed(x, y);
 	if (btnSafetyMode.status == true) {
@@ -714,7 +732,6 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		ofSetFullscreen(false);
 	}*/
 	
-	
 	btnTouchpoints.pressed(x, y);
 	if(btnTouchpoints.status == true) {
 		// hide touchpoint, settings panel
@@ -724,7 +741,6 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		 */
 		gui->setVisible(false);
 	}
-	
 	
 	btnSettings.pressed(x, y);
 	if(btnSettings.status == true) {
@@ -757,7 +773,6 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		 */
 		gui->setVisible(true);
 	}
-	
 	
 	btnConsole.pressed(x, y);
 	if(btnConsole.status == true) {
@@ -873,10 +888,19 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 	
 	if (name == "TEXT HOST") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		cout << "### TEXT HOST = " << textInput->getTextString() << endl;
+		defXmlOscHost = textInput->getTextString();
+		oscSender.setup(defXmlOscHost, defXmlOscPort);
+		ofLog() << "Change host to " << textInput->getTextString();
 	}
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		cout << "### TEXT HOST = " << textInput->getTextString() << endl;
+		defXmlOscPort = ofToInt(textInput->getTextString());
+		oscSender.setup(defXmlOscHost, defXmlOscPort);
+		ofLog() << "Change port to " << textInput->getTextString();
+	}
+	else if (name == "TEXT DEVICENAME") {
+		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
+		defXmlPadDevicename = textInput->getTextString();
+		ofLog() << "Change devicename to " << textInput->getTextString();
 	}
 }
