@@ -618,8 +618,8 @@
 			isa = PBXGroup;
 			children = (
 				AF6E4AF515B2FA6000D281DB /* main.cpp */,
-				AF6E4AF715B2FA6000D281DB /* MultitouchPadOscApp.cpp */,
 				AF6E4AF815B2FA6000D281DB /* MultitouchPadOscApp.h */,
+				AF6E4AF715B2FA6000D281DB /* MultitouchPadOscApp.cpp */,
 				AF6E4B0015B2FA6000D281DB /* TextConsole.h */,
 				AF6E4B1115B2FA8100D281DB /* MultitouchPad */,
 				AF6E4B1015B2FA6700D281DB /* wGui */,

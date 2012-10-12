@@ -1,36 +1,27 @@
-/**
- *  MultitouchPadOscApp.cpp
- *  This file is part of MultitouchPadOsc
- *
- *  
- *  The MIT License
- *  Copyright (c) 2012 Paul Vollmer, http://www.wrong-entertainment.com
- *  All rights reserved.
- *  
- *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
- *  and  associated documentation files  (the "Software"),  to deal in the Software without
- *  restriction, including without limitation the rights to use, copy, modify, merge, publish,
- *  distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
- *  Software is furnished to do so, subject to the following conditions:
- *  
- *  The above copyright notice and this permission notice shall be included in
- *  all copies or substantial portions of the Software.
- *  
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
- *  BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- *  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- *  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- *  
- *  @plattform        MacOs 10.6+
- *                    Win XXX
- *                    Linux XXX
- *  @openFrameworks   0071
- *  @dependencies     
- *  @modified         2012.08.01
- *  @version          0.1.2b
- */
+//
+// main.cpp
+// MultitouchPadOsc is released under the MIT License.
+//
+// Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
 
 #include "MultitouchPadOscApp.h"
 
@@ -575,9 +566,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlOscOut = 0;
 				btnOscActive.status = !btnOscActive.status;
 			}
-			#ifdef MULTITOUCHPADOSC_DEBUG
-				cout << "Shortcut oscOut: " << defXmlOscOut << endl;
-			#endif
+			ofLog() << "Shortcut oscOut: " << defXmlOscOut << endl;
 			break;
 		
 		/* OSC frame
@@ -589,10 +578,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlPadFrame = 0;
 			}
 			cbFrame.status = defXmlPadFrame;
-			
-			#ifdef MULTITOUCHPADOSC_DEBUG
-				cout << "Shortcut padFrame: " << defXmlPadFrame << endl;
-			#endif
+			ofLog() << "Shortcut padFrame: " << defXmlPadFrame << endl;
 			break;
 		
 		/* OSC timestamp
@@ -617,10 +603,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlPadPosition = 0;
 			}
 			cbPosition.status = defXmlPadPosition;
-			
-			#ifdef MULTITOUCHPADOSC_DEBUG
-				cout << "Shortcut padPosition: " << defXmlPadPosition << endl;
-			#endif
+			ofLog() << "Shortcut padPosition: " << defXmlPadPosition << endl;
 			break;
 
 		/* OSC velocity
@@ -658,10 +641,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlPadSize = 0;
 			}
 			cbSize.status = defXmlPadSize;
-			
-			#ifdef MULTITOUCHPADOSC_DEBUG
-				cout << "Shortcut padSize: " << defXmlPadSize << endl;
-			#endif
+			ofLog() << "Shortcut padSize: " << defXmlPadSize << endl;
 			break;
 
 		/* OSC angle
@@ -673,10 +653,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlPadAngle = 0;
 			}
 			cbAngle.status = defXmlPadAngle;
-			
-			#ifdef MULTITOUCHPADOSC_DEBUG
-				cout << "Shortcut padAngle: " << defXmlPadAngle << endl;
-			#endif
+			ofLog() << "Shortcut padAngle: " << defXmlPadAngle << endl;
 			break;
 
 		default:
@@ -732,9 +709,12 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		ofSetFullscreen(false);
 	}*/
 	
-	btnTouchpoints.pressed(x, y);
-	if(btnTouchpoints.status == true) {
-		// hide touchpoint, settings panel
+	if (btnTouchpoints.status == false) {
+		btnTouchpoints.pressed(x, y);
+	}
+	if (btnTouchpoints.status == true) {
+		/* hide settings, settings panel
+		 */
 		btnSettings.status = false;
 		btnConsole.status = false;
 		/* hide GUI textfield
@@ -742,44 +722,47 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		gui->setVisible(false);
 	}
 	
-	btnSettings.pressed(x, y);
-	if(btnSettings.status == true) {
-		// hide touchpoint, console panel
+	/* Settings button
+	 */
+	if (btnSettings.status == false) {
+		btnSettings.pressed(x, y);
+	}
+	if (btnSettings.status == true) {
+		/* hide touchpoint, console panel
+		 */
 		btnTouchpoints.status = false;
 		btnConsole.status = false;
-		
+		/* Check boxes
+		 */
 		cbFrame.pressed(x, y);
 		defXmlPadFrame = cbFrame.status;
-		
 		//cbTimestamp.pressed(x, y);
 		//settings.padTimestamp = cbTimestamp.status;
-		
 		cbPosition.pressed(x, y);
 		defXmlPadPosition = cbPosition.status;
-		
 		//cbVelocity.pressed(x, y);
 		//settings.padVelocity = cbVelocity.status;
-		
 		//cbMaxis.pressed(x, y);
 		//settings.padMaxis = cbMaxis.status;
-		
 		cbSize.pressed(x, y);
 		defXmlPadSize = cbSize.status;
-		
 		cbAngle.pressed(x, y);
 		defXmlPadAngle = cbAngle.status;
-		
 		/* show GUI textfield
 		 */
 		gui->setVisible(true);
 	}
 	
-	btnConsole.pressed(x, y);
-	if(btnConsole.status == true) {
-		// hide touchpoint, settings panel
+	/* Console button
+	 */
+	if (btnConsole.status == false) {
+		btnConsole.pressed(x, y);
+	}
+	if (btnConsole.status == true) {
+		/* hide touchpoint, settings panel
+		 */
 		btnTouchpoints.status = false;
 		btnSettings.status = false;
-		
 		/* hide GUI textfield
 		 */
 		gui->setVisible(false);
