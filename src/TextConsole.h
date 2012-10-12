@@ -59,13 +59,15 @@ class TextConsole {
 		/**
 		 * add a string to console text
 		 */
-		void addString(string msg) {
+		void addString(string msg, bool log = false) {
 			consoleStrings[currentConsoleStrings] = msg;
 		
-			if(currentConsoleStrings < NUM_STRINGS) {
+			if (log == true) ofLog() << msg;
+			
+			if (currentConsoleStrings < NUM_STRINGS) {
 				currentConsoleStrings++;
 			}
-			if(currentConsoleStrings == NUM_STRINGS) {
+			if (currentConsoleStrings == NUM_STRINGS) {
 				currentConsoleStrings = 0;
 			}
 		}
