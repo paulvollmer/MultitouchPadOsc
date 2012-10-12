@@ -486,7 +486,7 @@ void MultitouchPadOscApp::draw(){
 		
 		// headline text
 		ofSetColor(ofColor::white);
-		vera.drawString("OSC CONSOLE - SEND MESSAGES", 15, 50);
+		vera.drawString("Sended osc messages:", 15, 50);
 		console.display(15, 90);
 	}
 }
@@ -535,6 +535,8 @@ void MultitouchPadOscApp::keyPressed(int key) {
 	if(key == 's') {
 		string commandStr = "open " + ofFilePath::getCurrentWorkingDirectory() + "/ofSettings.xml";
 		system(commandStr.c_str());
+		
+		console.addString("Open XML settings file.");
 	}
 	
 	switch(key) {
@@ -566,7 +568,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlOscOut = 0;
 				btnOscActive.status = !btnOscActive.status;
 			}
-			ofLog() << "Shortcut oscOut: " << defXmlOscOut << endl;
+			console.addString("Shortcut oscOut: " + ofToString(defXmlOscOut), true);
 			break;
 		
 		/* OSC frame
@@ -578,7 +580,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlPadFrame = 0;
 			}
 			cbFrame.status = defXmlPadFrame;
-			ofLog() << "Shortcut padFrame: " << defXmlPadFrame << endl;
+			console.addString("Shortcut padFrame: " + ofToString(defXmlPadFrame), true);
 			break;
 		
 		/* OSC timestamp
@@ -603,7 +605,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlPadPosition = 0;
 			}
 			cbPosition.status = defXmlPadPosition;
-			ofLog() << "Shortcut padPosition: " << defXmlPadPosition << endl;
+			console.addString("Shortcut padPosition: " + ofToString(defXmlPadPosition), true);
 			break;
 
 		/* OSC velocity
@@ -641,7 +643,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlPadSize = 0;
 			}
 			cbSize.status = defXmlPadSize;
-			ofLog() << "Shortcut padSize: " << defXmlPadSize << endl;
+			console.addString("Shortcut padSize: " + ofToString(defXmlPadSize), true);
 			break;
 
 		/* OSC angle
@@ -653,7 +655,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 				defXmlPadAngle = 0;
 			}
 			cbAngle.status = defXmlPadAngle;
-			ofLog() << "Shortcut padAngle: " << defXmlPadAngle << endl;
+			console.addString("Shortcut padAngle: " + ofToString(defXmlPadAngle), true);
 			break;
 
 		default:
@@ -881,17 +883,17 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		defXmlOscHost = textInput->getTextString();
 		oscSender.setup(defXmlOscHost, defXmlOscPort);
-		ofLog() << "Change host to " << textInput->getTextString();
+		console.addString("Change host to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		defXmlOscPort = ofToInt(textInput->getTextString());
 		oscSender.setup(defXmlOscHost, defXmlOscPort);
-		ofLog() << "Change port to " << textInput->getTextString();
+		console.addString("Change port to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT DEVICENAME") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		defXmlPadDevicename = textInput->getTextString();
-		ofLog() << "Change devicename to " << textInput->getTextString();
+		console.addString("Change devicename to " + textInput->getTextString(), true);
 	}
 }
