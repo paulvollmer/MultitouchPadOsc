@@ -820,7 +820,13 @@ void MultitouchPadOscApp::padUpdates(int & t) {
  * Trackpad new touch
  */
 void MultitouchPadOscApp::newTouch(int & n) {
-    printf("+ a new touch\n",n);
+    //printf("+ a new touch\n", n);
+	
+	/* Send an osc message if the touchpoint is added.
+	 */
+	ofxOscMessage m;
+	m.setAddress("/" + defXmlPadDevicename + "/" + ofToString(n) + "/added");
+	oscSender.sendMessage(m);
 }
 
 
@@ -829,7 +835,13 @@ void MultitouchPadOscApp::newTouch(int & n) {
  * Trackpad remove touch
  */
 void MultitouchPadOscApp::removedTouch(int & r) {
-    printf("- a removed touch\n",r);
+    //printf("- a removed touch\n",r);
+	
+	/* Send an osc message if the touchpoint is removed.
+	 */
+	ofxOscMessage m;
+	m.setAddress("/" + defXmlPadDevicename + "/" + ofToString(r) + "/removed");
+	oscSender.sendMessage(m);
 }
 
 
@@ -839,10 +851,8 @@ void MultitouchPadOscApp::removedTouch(int & r) {
  */
 void MultitouchPadOscApp::intMessage(string s, int val) {
 	ofxOscMessage m;
-	
 	m.setAddress(s);
 	m.addIntArg(val);
-	
 	oscSender.sendMessage(m);
 }
 
@@ -853,10 +863,8 @@ void MultitouchPadOscApp::intMessage(string s, int val) {
  */
 void MultitouchPadOscApp::floatMessage(string s, float val) {
 	ofxOscMessage m;
-	
 	m.setAddress(s);
 	m.addFloatArg(val);
-	
 	oscSender.sendMessage(m);
 }
 
