@@ -66,11 +66,6 @@ void MultitouchPadOscApp::setup() {
 	 */
 	XML.load();
 	
-	/* Set the openFrameworks app settings.
-	 */
-	XML.setSettings();
-	ofLog() << "XML: " << XML.getStatusMessage();
-	
 	/* Add custom settings to the xml default file.
 	 * To read/write content from the root directory, you can use
 	 * the pushRoot/popRoot methods.
@@ -167,6 +162,12 @@ void MultitouchPadOscApp::setup() {
 	/* Pop root xml tag.
 	 */
 	XML.popRoot();
+	
+	/* Set the openFrameworks app settings.
+	 */
+	XML.setSettings();
+	ofLog() << "XML: " << XML.getStatusMessage();
+	setWindowTitle();
 	
 	/* Log the XML parameter
 	 */
@@ -883,12 +884,14 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		defXmlOscHost = textInput->getTextString();
 		oscSender.setup(defXmlOscHost, defXmlOscPort);
+		setWindowTitle();
 		console.addString("Change host to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		defXmlOscPort = ofToInt(textInput->getTextString());
 		oscSender.setup(defXmlOscHost, defXmlOscPort);
+		setWindowTitle();
 		console.addString("Change port to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT DEVICENAME") {
@@ -896,4 +899,13 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 		defXmlPadDevicename = textInput->getTextString();
 		console.addString("Change devicename to " + textInput->getTextString(), true);
 	}
+}
+
+
+
+/**
+ * Set the Application Window Title
+ */
+void MultitouchPadOscApp::setWindowTitle(){
+	ofSetWindowTitle(ofToString(PROJECTNAME) + " - Host: " + defXmlOscHost + " Port: " + ofToString(defXmlOscPort));
 }

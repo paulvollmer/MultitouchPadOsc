@@ -66,6 +66,9 @@ class MultitouchPadOscApp : public ofBaseApp {
 		
 		
 	private:
+		// Methods
+		void setWindowTitle();
+	
 		// XML Settings
 		ofxXmlDefaultSettings XML;
 		// OSC variables
