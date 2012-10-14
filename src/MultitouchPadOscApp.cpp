@@ -386,7 +386,7 @@ void MultitouchPadOscApp::draw(){
 				// e.g. /mt/1/frame/23
 				string sFrame = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/frame";
 				
-				intMessage(sFrame, touch.frame);
+				oscIntMessage(sFrame, touch.frame);
 				
 				console.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
 			}
@@ -403,8 +403,8 @@ void MultitouchPadOscApp::draw(){
 				// e.g. /mt/1/x/0.5
 				string sX = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/x";
 				string sY = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/y";
-				floatMessage(sX, touch.x);
-				floatMessage(sY, touch.y);
+				oscFloatMessage(sX, touch.x);
+				oscFloatMessage(sY, touch.y);
 				console.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
 				console.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
 			}
@@ -420,7 +420,7 @@ void MultitouchPadOscApp::draw(){
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/size/0.5
 				string sSize = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/size";
-				floatMessage(sSize, touch.size);
+				oscFloatMessage(sSize, touch.size);
 				console.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
 			}
 			 
@@ -429,7 +429,7 @@ void MultitouchPadOscApp::draw(){
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/angle/0.5
 				string sAngle = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/angle";
-				floatMessage(sAngle, touch.angle);
+				oscFloatMessage(sAngle, touch.angle);
 				console.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
 			}
 		}
@@ -813,24 +813,6 @@ void MultitouchPadOscApp::removedTouch(int & r) {
 
 
 
-void MultitouchPadOscApp::intMessage(string s, int val) {
-	ofxOscMessage m;
-	m.setAddress(s);
-	m.addIntArg(val);
-	oscSender.sendMessage(m);
-}
-
-
-
-void MultitouchPadOscApp::floatMessage(string s, float val) {
-	ofxOscMessage m;
-	m.setAddress(s);
-	m.addFloatArg(val);
-	oscSender.sendMessage(m);
-}
-
-
-
 void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 	string name = e.widget->getName(); 
 	int kind = e.widget->getKind(); 
@@ -860,4 +842,22 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 
 void MultitouchPadOscApp::setWindowTitle(){
 	ofSetWindowTitle(ofToString(PROJECTNAME) + " - Host: " + xmlOscHost + " Port: " + ofToString(xmlOscPort));
+}
+
+
+
+void MultitouchPadOscApp::oscIntMessage(string s, int val) {
+	ofxOscMessage m;
+	m.setAddress(s);
+	m.addIntArg(val);
+	oscSender.sendMessage(m);
+}
+
+
+
+void MultitouchPadOscApp::oscFloatMessage(string s, float val) {
+	ofxOscMessage m;
+	m.setAddress(s);
+	m.addFloatArg(val);
+	oscSender.sendMessage(m);
 }

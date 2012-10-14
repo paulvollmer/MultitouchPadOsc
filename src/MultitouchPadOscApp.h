@@ -120,17 +120,6 @@ public:
 	 * Trackpad remove touch
 	 */
 	void removedTouch(int & r);
-	
-	// osc events
-	/**
-	 * Send an osc message (integer value)
-	 */
-	void intMessage(string s, int val);
-	/**
-	 * Send an osc message (float value)
-	 */
-	void floatMessage(string s, float val);
-	
 	/**
 	 * Gui event
 	 */
@@ -143,6 +132,14 @@ private:
 	 * Set the Application Window Title
 	 */
 	void setWindowTitle();
+	/**
+	 * Send an osc message (integer value)
+	 */
+	void oscIntMessage(string s, int val);
+	/**
+	 * Send an osc message (float value)
+	 */
+	void oscFloatMessage(string s, float val);
 	
 		// XML Settings
 		ofxXmlDefaultSettings XML;
