@@ -39,55 +39,130 @@
 
 
 class MultitouchPadOscApp : public ofBaseApp {
-
-	public:
-		void setup();
-		void update();
-		void draw();
-		void exit();
-		void keyPressed(int key);
-		void keyReleased(int key);
-		void mouseMoved(int x, int y);
-		void mouseDragged(int x, int y, int button);
-		void mousePressed(int x, int y, int button);
-		void mouseReleased(int x, int y, int button);
-		void windowResized(int w, int h);
-		void dragEvent(ofDragInfo dragInfo);
-		void gotMessage(ofMessage msg);
-		// Multitouch events
-		void padUpdates(int & t);
-		void newTouch(int & n);
-		void removedTouch(int & r);
-		// osc events
-		void intMessage(string s, int val);
-		void floatMessage(string s, float val);
-		// Gui events
-		void guiEvent(ofxUIEventArgs &e);
-		
-		
-	private:
-		// Methods
-		void setWindowTitle();
+public:
+	/**
+	 * Setup
+	 * 
+	 * - Load the default settings xml.
+	 * - Load Font
+	 * - Initialize osc sender
+	 * - Initialize ofxMultiTouchPad
+	 * - Load background image.
+	 * - Initialize GUI
+	 */
+	void setup();
+	/**
+	 * Update
+	 */
+	void update();
+	/**
+	 * Draw
+	 *
+	 * - Draw the backgroundImage
+	 * - Display the GUI
+	 */
+	void draw();
+	/**
+	 * Exit
+	 *
+	 * - Update XML settings variables.
+	 * - Save the current app count, window position and framerate.
+	 * - Save OSC variables like Host, Port etc.
+	 */
+	void exit();
+	/**
+	 * Key pressed
+	 */
+	void keyPressed(int key);
+	/**
+	 * Key released
+	 */
+	void keyReleased(int key);
+	/**
+	 * Mouse moved
+	 */
+	void mouseMoved(int x, int y);
+	/**
+	 * Mouse dragged
+	 */
+	void mouseDragged(int x, int y, int button);
+	/**
+	 * Mouse pressed
+	 */
+	void mousePressed(int x, int y, int button);
+	/**
+	 * Mouse released
+	 */
+	void mouseReleased(int x, int y, int button);
+	/**
+	 * Window resized
+	 */
+	void windowResized(int w, int h);
+	/**
+	 * Got message
+	 */
+	void gotMessage(ofMessage msg);
+	/**
+	 * Drag event
+	 */
+	void dragEvent(ofDragInfo dragInfo);
+	
+	// Multitouch events
+	/**
+	 * Trackpad update
+	 */
+	void padUpdates(int & t);
+	/**
+	 * Trackpad new touch
+	 */
+	void newTouch(int & n);
+	/**
+	 * Trackpad remove touch
+	 */
+	void removedTouch(int & r);
+	
+	// osc events
+	/**
+	 * Send an osc message (integer value)
+	 */
+	void intMessage(string s, int val);
+	/**
+	 * Send an osc message (float value)
+	 */
+	void floatMessage(string s, float val);
+	
+	/**
+	 * Gui event
+	 */
+	void guiEvent(ofxUIEventArgs &e);
+	
+	
+	
+private:
+	/**
+	 * Set the Application Window Title
+	 */
+	void setWindowTitle();
 	
 		// XML Settings
 		ofxXmlDefaultSettings XML;
 		// OSC variables
-		int    defXmlOscOut;           // Send out OSC message, 0 = true, 1 = false
-		string defXmlOscHost;          // OSC host variable
-		int    defXmlOscPort;          // OSC port variable
+		int    xmlOscOut;           // Send out OSC message, 0 = true, 1 = false
+		string xmlOscHost;          // OSC host variable
+		int    xmlOscPort;          // OSC port variable
 		// Trackpad variables
-		string defXmlPadDevicename;    // Trackpad devicename
-		int    defXmlPadFrame;         // Trackpad frame
-		int    defXmlPadTimestamp;     // Trackpad timestamp
-		int    defXmlPadPosition;      // Trackpad finger x-, y-position
-		int    defXmlPadVelocity;      // Trackpad finger x-, y-velocity
-		int    defXmlPadSize;          // Trackpad finger size
-		int    defXmlPadMaxis;         // Trackpad finger minor-, major-axis
-		int    defXmlPadAngle;         // Trackpad finger angle
+		string xmlPadDevicename;    // Trackpad devicename
+		int    xmlPadFrame;         // Trackpad frame
+		int    xmlPadTimestamp;     // Trackpad timestamp
+		int    xmlPadPosition;      // Trackpad finger x-, y-position
+		int    xmlPadVelocity;      // Trackpad finger x-, y-velocity
+		int    xmlPadSize;          // Trackpad finger size
+		int    xmlPadMaxis;         // Trackpad finger minor-, major-axis
+		int    xmlPadAngle;         // Trackpad finger angle
 		// Touchpoint color variables
-		ofColor defXmlTouchpointColor;
-		ofColor defXmlTouchpointLines;
-		ofColor defXmlTouchpointCross;
+		ofColor xmlTouchpointColor;
+		ofColor xmlTouchpointLines;
+		ofColor xmlTouchpointCross;
 	
 		// Font
 		ofTrueTypeFont vera;
