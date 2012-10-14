@@ -72,6 +72,10 @@ void MultitouchPadOscApp::setup() {
 	 */
 	XML.pushRoot();
 	if (XML.fileExist) {
+		/* Other Application Core Settings
+		 */
+		xmlWindowMode = XML.getAttribute(XML.getSyntax(XML.CORE)+":window", "mode", false, 0);
+		
 		/* OSC variables
 		 */
 		defXmlOscOut  = XML.getValue("osc", 1);
@@ -105,6 +109,12 @@ void MultitouchPadOscApp::setup() {
 	/* If no xml file exist, create the <balls> tag and add some parameter.
 	 */
 	else {
+		/* Other Application Core Settings
+		 */
+		xmlWindowMode = false;
+		XML.pushTag(XML.getSyntax(XML.CORE), 0);
+		XML.addAttribute("window", "mode", xmlWindowMode, 0);
+		XML.popTag();
 		/* OSC variables
 		 */
 		defXmlOscOut  = 1;
@@ -171,6 +181,7 @@ void MultitouchPadOscApp::setup() {
 	
 	/* Log the XML parameter
 	 */
+	ofLog() << "XML: window mode     = " << xmlWindowMode;
 	ofLog() << "XML: osc:out         = " << defXmlOscOut;
 	ofLog() << "XML: osc:host        = " << defXmlOscHost;
 	ofLog() << "XML: osc:port        = " << defXmlOscPort;
@@ -216,11 +227,6 @@ void MultitouchPadOscApp::setup() {
 	console.init(vera);
 	
 	
-	/* Images
-	 */
-	oscSendImage.loadImage(ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_send.png");
-	
-	
 	/* GUI
 	 * set the status to osc:out settings value
 	 */
@@ -236,17 +242,26 @@ void MultitouchPadOscApp::setup() {
 	gui->setVisible(false);
 	
 	
-	btnOscActive.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_on.png", ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_off.png", ofGetWidth()-36, 0);
+	string tempGuiFilepath = ofFilePath::getCurrentWorkingDirectory() + "/gui/";
+	btnOscActive.init(tempGuiFilepath+"oscactive_on.png", tempGuiFilepath+"oscactive_off.png", ofGetWidth()-56, 0);
 	if (defXmlOscOut == 0) {
 		btnOscActive.status = true;
 	} else {
 		btnOscActive.status = false;
 	}
-	//btnSafetyMode.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_on.png", ofFilePath::getCurrentWorkingDirectory() + "/gui/oscactive_off.png", ofGetWidth()-56, 0);
-	btnTouchpoints.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_left_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_left_off.png", 10, 0);
+	oscSendImage.loadImage(tempGuiFilepath+"oscactive_send.png");
+	//btnSafetyMode.init(tempGuiFilepath+"oscactive_on.png", tempGuiFilepath+"oscactive_off.png", ofGetWidth()-56, 0);
+	btnWindowMode.init(tempGuiFilepath+"oscactive_send.png", tempGuiFilepath+"oscactive_send.png", ofGetWidth()-36, 0);
+	if (xmlWindowMode == true) {
+		btnWindowMode.status = true;
+	} else {
+		btnWindowMode.status = false;
+	}
+
+	btnTouchpoints.init(tempGuiFilepath+"btn_left_on.png",  tempGuiFilepath+"btn_left_off.png", 10, 0);
 	btnTouchpoints.status = true;
-	btnSettings.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_middle_on.png",  ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_middle_off.png", 87, 0);
-	btnConsole.init(ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_right_on.png",    ofFilePath::getCurrentWorkingDirectory() + "/gui/btn_right_off.png", 164, 0);
+	btnSettings.init(tempGuiFilepath+"btn_middle_on.png", tempGuiFilepath+"btn_middle_off.png", 87, 0);
+	btnConsole.init(tempGuiFilepath+ "btn_right_on.png", tempGuiFilepath+"btn_right_off.png", 164, 0);
 	
 	cbFrame.init(vera,      "frame active",               15, 190, defXmlPadFrame);
 	//cbTimestamp.init(vera,  "timestamp active",           60, 170, defXmlPadTimestamp);
@@ -299,6 +314,7 @@ void MultitouchPadOscApp::draw(){
 	ofSetColor(255);
 	btnOscActive.display();
 	//btnSafetyMode.display();
+	btnWindowMode.display();
 	btnTouchpoints.display();
 	btnSettings.display();
 	btnConsole.display();
@@ -322,10 +338,10 @@ void MultitouchPadOscApp::draw(){
 	ofEnableSmoothing();
     for(int i=0; (i<touches.size()-1 && touches.size()>1); i++) {
         ofSetColor(defXmlTouchpointLines);
-        int x1 = ofMap(touches.at(i).x,   0.0, 1.0, 40, ofGetWidth()-40);
-		int y1 = ofMap(touches.at(i).y,   0.0, 1.0, 80, ofGetHeight()-40);
-		int x2 = ofMap(touches.at(i+1).x, 0.0, 1.0, 40, ofGetWidth()-40);
-		int y2 = ofMap(touches.at(i+1).y, 0.0, 1.0, 80, ofGetHeight()-40);
+        int x1 = ofMap(touches.at(i).x,   0.0, 1.0, 30, ofGetWidth()-30);
+		int y1 = ofMap(touches.at(i).y,   0.0, 1.0, 70, ofGetHeight()-30);
+		int x2 = ofMap(touches.at(i+1).x, 0.0, 1.0, 30, ofGetWidth()-30);
+		int y2 = ofMap(touches.at(i+1).y, 0.0, 1.0, 70, ofGetHeight()-30);
 		ofLine(x1, y1, x2, y2);
     }
 	ofDisableSmoothing();
@@ -504,6 +520,7 @@ void MultitouchPadOscApp::exit() {
 	/* XML file
 	 */
 	XML.pushRoot();
+	XML.setAttribute(XML.CORE+":window", "mode", xmlWindowMode, 0);
 	XML.setValue("osc", defXmlOscOut, 0);
 	XML.setAttribute("osc", "host", defXmlOscHost, 0);
 	XML.setAttribute("osc", "port", defXmlOscPort, 0);
@@ -697,7 +714,7 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 	/* GUI
 	 */
 	btnOscActive.pressed(x, y);
-	if(btnOscActive.status == true) {
+	if (btnOscActive.status == true) {
 		defXmlOscOut = 0;
 	} else {
 		defXmlOscOut = 1;
@@ -711,6 +728,14 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		cout << "### safety mode not active" << endl;
 		ofSetFullscreen(false);
 	}*/
+	
+	btnWindowMode.pressed(x, y);
+	if (btnWindowMode.status == true) {
+		ofSetWindowShape(400, 100);
+	} else {
+		XML.setWindowShape();
+	}
+
 	
 	if (btnTouchpoints.status == false) {
 		btnTouchpoints.pressed(x, y);
@@ -788,8 +813,9 @@ void MultitouchPadOscApp::mouseReleased(int x, int y, int button) {
 void MultitouchPadOscApp::windowResized(int w, int h) {
 	/* GUI
 	 */
-	btnOscActive.setPosition(w-36, 0);
+	btnOscActive.setPosition(w-56, 0);
 	//btnSafetyMode.setPosition(w-66, 0);
+	btnWindowMode.setPosition(w-36, 0);
 }
 
 

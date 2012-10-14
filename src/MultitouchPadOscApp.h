@@ -109,6 +109,8 @@ class MultitouchPadOscApp : public ofBaseApp {
 		ofImage      oscSendImage;
 		//wImageButton btnSafetyMode;  // This mode can be used to run in safety mode.
 	                                 // No dock or other system stuff can be selected.
+		wImageButton btnWindowMode;
+		bool xmlWindowMode;          // The current window mode. Normal or mini
 		wImageButton btnTouchpoints; // button to show/hide touchpoints
 		wImageButton btnSettings;    // button to show/hide settings
 		wImageButton btnConsole;     // button to show/hide console
