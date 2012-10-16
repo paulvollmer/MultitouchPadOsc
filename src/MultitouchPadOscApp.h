@@ -1,5 +1,5 @@
 //
-// main.cpp
+// MultitouchPadOscApp.ch
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
@@ -38,7 +38,7 @@
 #include "wImageButton.h"
 
 #include "ToolbarMVC.h"
-#include "ViewerSettings.h"
+#include "SettingsMVC.h"
 
 
 class MultitouchPadOscApp : public ofBaseApp {
@@ -153,7 +153,7 @@ private:
 	/* Viewer
 	 */
 	ToolbarMVC toolbarMVC;
-	ViewerSettings viewerSettings;
+	SettingsMVC settingsMVC;
 	//ViewerTouchpoints viewerTouchpoints;
 	
 	

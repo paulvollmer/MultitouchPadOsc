@@ -1,19 +1,35 @@
-/*
- *  SettingsViewer.cpp
- *  MultitouchPadOsc
- *
- *  Created by Paul Vollmer on 16.10.12.
- *  Copyright 2012 Wrong-Entertainment. All rights reserved.
- *
- */
+//
+// SettingsMVC.cpp
+// MultitouchPadOsc is released under the MIT License.
+//
+// Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
 
-#include "ViewerSettings.h"
+#include "SettingsMVC.h"
 
 
-ViewerSettings::ViewerSettings(){}
+SettingsMVC::SettingsMVC(){}
 
 
-void ViewerSettings::init(ofTrueTypeFont font) {
+void SettingsMVC::init(ofTrueTypeFont font) {
 	cout << "ViewerSettings init()";
 	
 	checkboxOscArray.init(font, "osc array xysa", 15, 170);
@@ -27,7 +43,7 @@ void ViewerSettings::init(ofTrueTypeFont font) {
 }
 
 
-void ViewerSettings::getXml(ofxXmlDefaultSettings xml) {
+void SettingsMVC::getXml(ofxXmlDefaultSettings xml) {
 	/* OSC variables
 	 */
 	oscHost = xml.getAttribute("osc", "host", "127.0.0.1", 0);
@@ -48,7 +64,7 @@ void ViewerSettings::getXml(ofxXmlDefaultSettings xml) {
 }
 
 
-void ViewerSettings::addXml(ofxXmlDefaultSettings xml) {
+void SettingsMVC::addXml(ofxXmlDefaultSettings xml) {
 	/* OSC variables
 	 */
 	oscHost = "127.0.0.1";
@@ -83,7 +99,7 @@ void ViewerSettings::addXml(ofxXmlDefaultSettings xml) {
 }
 
 
-void ViewerSettings::setXml(ofxXmlDefaultSettings xml) {
+void SettingsMVC::setXml(ofxXmlDefaultSettings xml) {
 	xml.setValue("pad:devicename", oscTouchpadDevicename, 0);
 	
 	xml.setValue("pad:array", checkboxOscArray.status, 0);
@@ -97,7 +113,7 @@ void ViewerSettings::setXml(ofxXmlDefaultSettings xml) {
 }
 
 
-void ViewerSettings::logCheckboxStatus(){
+void SettingsMVC::logCheckboxStatus(){
 	ofLog() << "XML: osc:host        = " << oscHost;
 	ofLog() << "XML: osc:port        = " << oscPort;
 	
@@ -113,7 +129,7 @@ void ViewerSettings::logCheckboxStatus(){
 }
 	
 
-void ViewerSettings::draw(ofTrueTypeFont font) {
+void SettingsMVC::draw(ofTrueTypeFont font) {
 	// ground
 	ofEnableAlphaBlending();
 	ofSetColor(0, 150);
@@ -149,7 +165,7 @@ void ViewerSettings::draw(ofTrueTypeFont font) {
 }
 
 
-void ViewerSettings::mousePressed(int x, int y) {
+void SettingsMVC::mousePressed(int x, int y) {
 	cout << "ViewerSettings mousePressed()";
 	/* Check boxes
 	 */
@@ -164,7 +180,7 @@ void ViewerSettings::mousePressed(int x, int y) {
 }
 
 
-void ViewerSettings::keyPressed(int key) {
+void SettingsMVC::keyPressed(int key) {
 	cout << "ViewerSettings keyPressed()";
 	
 	switch (key) {
