@@ -79,11 +79,11 @@ void SettingsMVC::addXml(ofxXmlDefaultSettings xml) {
  	checkboxOscArray.status = false;
 	checkboxFrame.status = false;
 	//checkboxTimestamp.status = false;
-	checkboxPosition.status = false;
+	checkboxPosition.status = true;
 	//checkboxVelocity.status = false;
-	checkboxSize.status = false;
+	checkboxSize.status = true;
 	//checkboxMaxis.status = false;
-	checkboxAngle.status = false;
+	checkboxAngle.status = true;
 	xml.addTag("pad");
 	xml.pushTag("pad", 0);
 	xml.addValue("devicename", oscTouchpadDevicename);
