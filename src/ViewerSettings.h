@@ -29,24 +29,56 @@ public:
 	void mousePressed(int x, int y);
 	void keyPressed(int key);
 	
-	wCheckbox     checkboxOscArray;     
-	wCheckbox     checkboxFrame;        // checkbox to trigger pad frame on/off
-	//wCheckbox   checkboxTimestamp;    // checkbox to trigger pad timestamp on/off
-	wCheckbox     checkboxPosition;     // checkbox to trigger finger x-, y-position on/off
-	//wCheckbox   checkboxVelocity;     // checkbox to trigger finger x-, y-velocity on/off
-	//wCheckbox   checkboxMaxis;        // checkbox to trigger finger minor-, major-axis on/off
-	wCheckbox     checkboxSize;         // checkbox to trigger finger size on/off
-	wCheckbox     checkboxAngle;        // checkbox to trigger finger angle on/off
+	/**
+	 * Checkbox to trigger osc send on/off
+	 */
+	wCheckbox     checkboxOscArray;
+	/**
+	 * Checkbox to trigger pad frame on/off
+	 */
+	wCheckbox     checkboxFrame;
 	
-	string xmlPadDevicename;            // Trackpad devicename
+	// Checkbox to trigger pad timestamp on/off
+	//wCheckbox   checkboxTimestamp;
 	
-	// OSC variables
-	int    oscOut;                      // Send out OSC message, 0 = true, 1 = false
-	string oscHost;                     // OSC host variable
-	int    oscPort;                     // OSC port variable
+	/**
+	 * Checkbox to trigger finger x-, y-position on/off
+	 */
+	wCheckbox     checkboxPosition;
 	
+	/**
+	 * Checkbox to trigger finger x-, y-velocity on/off
+	 */
+	//wCheckbox   checkboxVelocity;
+	/**
+	 * Checkbox to trigger finger minor-, major-axis on/off
+	 */
+	//wCheckbox   checkboxMaxis;
 	
-private:
+	/**
+	 * Checkbox to trigger finger size on/off
+	 */
+	wCheckbox     checkboxSize;
+	
+	/**
+	 * Checkbox to trigger finger angle on/off
+	 */
+	wCheckbox     checkboxAngle;
+	
+	/**
+	 * OSC host variable
+	 */
+	string oscHost;
+	
+	/**
+	 * OSC port variable
+	 */
+	int    oscPort;
+	
+	/**
+	 * Trackpad devicename for the osc message
+	 */
+	string oscTouchpadDevicename;
 	
 };
 #endif // VIEWER_SETTINGS_H_

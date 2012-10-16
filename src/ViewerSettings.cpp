@@ -30,13 +30,12 @@ void ViewerSettings::init(ofTrueTypeFont font) {
 void ViewerSettings::getXml(ofxXmlDefaultSettings xml) {
 	/* OSC variables
 	 */
-	oscOut  = xml.getValue("osc", 1);
 	oscHost = xml.getAttribute("osc", "host", "127.0.0.1", 0);
 	oscPort = xml.getAttribute("osc", "port", 12345, 0);
 	
 	/* Trackpad variables
 	 */
-	xmlPadDevicename = xml.getValue("pad:devicename", "mtpadosc");
+	oscTouchpadDevicename = xml.getValue("pad:devicename", "mtpadosc");
 	checkboxOscArray.status  = xml.getValue("pad:array", false, 0);
 	//oscArrayActive = xml.getValue("pad:array", false, 0);
 	checkboxFrame.status = xml.getValue("pad:frame", false, 0);
@@ -52,16 +51,14 @@ void ViewerSettings::getXml(ofxXmlDefaultSettings xml) {
 void ViewerSettings::addXml(ofxXmlDefaultSettings xml) {
 	/* OSC variables
 	 */
-	oscOut  = 1;
 	oscHost = "127.0.0.1";
 	oscPort = 12345;
-	xml.addValue("osc", oscOut);
 	xml.addAttribute("osc", "host", oscHost, 0);
 	xml.addAttribute("osc", "post", oscPort, 0);
 	
 	/* Trackpad variables
 	 */
-	xmlPadDevicename = "mtpad";
+	oscTouchpadDevicename = "mtpad";
 	
  	checkboxOscArray.status = false;
 	checkboxFrame.status = false;
@@ -73,7 +70,7 @@ void ViewerSettings::addXml(ofxXmlDefaultSettings xml) {
 	checkboxAngle.status = false;
 	xml.addTag("pad");
 	xml.pushTag("pad", 0);
-	xml.addValue("devicename", xmlPadDevicename);
+	xml.addValue("devicename", oscTouchpadDevicename);
 	xml.addValue("array", checkboxOscArray.status);
 	xml.addValue("frame", checkboxFrame.status);
 	//xml.addValue("timestamp", checkboxTimestamp.status);
@@ -87,7 +84,7 @@ void ViewerSettings::addXml(ofxXmlDefaultSettings xml) {
 
 
 void ViewerSettings::setXml(ofxXmlDefaultSettings xml) {
-	xml.setValue("pad:devicename", xmlPadDevicename, 0);
+	xml.setValue("pad:devicename", oscTouchpadDevicename, 0);
 	
 	xml.setValue("pad:array", checkboxOscArray.status, 0);
 	xml.setValue("pad:frame", checkboxFrame.status, 0);
@@ -101,12 +98,10 @@ void ViewerSettings::setXml(ofxXmlDefaultSettings xml) {
 
 
 void ViewerSettings::logCheckboxStatus(){
-	ofLog() << "XML: osc:out         = " << oscOut;
 	ofLog() << "XML: osc:host        = " << oscHost;
 	ofLog() << "XML: osc:port        = " << oscPort;
 	
-	ofLog() << "pad:devicename  = " << xmlPadDevicename;
-	
+	ofLog() << "pad:devicename  = " << oscTouchpadDevicename;
 	ofLog() << "pad:array       = " << checkboxOscArray.status;
 	ofLog() << "pad:frame       = " << checkboxFrame.status;
 	//ofLog() << "pad:timestamp   = " << checkboxTimestamp.status;
@@ -149,6 +144,7 @@ void ViewerSettings::draw(ofTrueTypeFont font) {
 	font.drawString("[Shortcut: 4]", 350, 240);
 	font.drawString("[Shortcut: 5]", 350, 260);
 	
+	// TODO: 
 	//vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 15, 150);
 }
 
