@@ -43,7 +43,7 @@ void MultitouchPadOscApp::setup() {
 	 */
 	toolbarMVC.init();
 	settingsMVC.init(vera);
-	consoleMVC.init(vera);
+	consoleMVC.init();
 	
 	
 	
@@ -245,7 +245,7 @@ void MultitouchPadOscApp::draw(){
 				
 				oscIntMessage(sFrame, touch.frame);
 				
-				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
 			}
 			 
 			// check if padTimestamp is active
@@ -262,8 +262,8 @@ void MultitouchPadOscApp::draw(){
 				string sY = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/y";
 				oscFloatMessage(sX, touch.x);
 				oscFloatMessage(sY, touch.y);
-				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
-				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
 			}
 			 
 			// check if padVelocity is active
@@ -278,7 +278,7 @@ void MultitouchPadOscApp::draw(){
 				// e.g. /mt/1/size/0.5
 				string sSize = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/size";
 				oscFloatMessage(sSize, touch.size);
-				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
 			}
 			 
 			// check if padAngle is active
@@ -287,7 +287,7 @@ void MultitouchPadOscApp::draw(){
 				// e.g. /mt/1/angle/0.5
 				string sAngle = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/angle";
 				oscFloatMessage(sAngle, touch.angle);
-				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
 			}
 		}
     }
@@ -473,19 +473,19 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 		settingsMVC.oscHost = textInput->getTextString();
 		oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 		setWindowTitle();
-		consoleMVC.console.addString("Change host to " + textInput->getTextString(), true);
+		consoleMVC.addString("Change host to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		settingsMVC.oscPort = ofToInt(textInput->getTextString());
 		oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 		setWindowTitle();
-		consoleMVC.console.addString("Change port to " + textInput->getTextString(), true);
+		consoleMVC.addString("Change port to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT DEVICENAME") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		settingsMVC.oscTouchpadDevicename = textInput->getTextString();
-		consoleMVC.console.addString("Change devicename to " + textInput->getTextString(), true);
+		consoleMVC.addString("Change devicename to " + textInput->getTextString(), true);
 	}
 }
 

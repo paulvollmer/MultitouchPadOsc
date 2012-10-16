@@ -33,7 +33,6 @@
 #include "ofxMultiTouchPad.h"
 #include "ofxXmlDefaultSettings.h"
 #include "ofxUI.h"
-#include "TextConsole.h"
 #include "wCheckbox.h"
 #include "wImageButton.h"
 

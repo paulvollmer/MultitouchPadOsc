@@ -184,7 +184,6 @@
 		AF6E4AF815B2FA6000D281DB /* MultitouchPadOscApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultitouchPadOscApp.h; sourceTree = "<group>"; };
 		AF6E4AF915B2FA6000D281DB /* ofxMultiTouchPad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMultiTouchPad.cpp; sourceTree = "<group>"; };
 		AF6E4AFA15B2FA6000D281DB /* ofxMultiTouchPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMultiTouchPad.h; sourceTree = "<group>"; };
-		AF6E4B0015B2FA6000D281DB /* TextConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextConsole.h; sourceTree = "<group>"; };
 		AF6E4B0215B2FA6000D281DB /* wCheckbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wCheckbox.h; sourceTree = "<group>"; };
 		AF6E4B0415B2FA6000D281DB /* wImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wImageButton.h; sourceTree = "<group>"; };
 		AF6E4B0615B2FA6000D281DB /* wInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wInteraction.h; sourceTree = "<group>"; };
@@ -414,14 +413,14 @@
 			name = ofxOsc;
 			sourceTree = "<group>";
 		};
-		AF6E4B1015B2FA6700D281DB /* wGui */ = {
+		AF6E4B1015B2FA6700D281DB /* GUI */ = {
 			isa = PBXGroup;
 			children = (
 				AF6E4B0215B2FA6000D281DB /* wCheckbox.h */,
 				AF6E4B0415B2FA6000D281DB /* wImageButton.h */,
 				AF6E4B0615B2FA6000D281DB /* wInteraction.h */,
 			);
-			name = wGui;
+			name = GUI;
 			sourceTree = "<group>";
 		};
 		AF6E4B1115B2FA8100D281DB /* MultitouchPad */ = {
@@ -648,9 +647,8 @@
 				AF6E4AF815B2FA6000D281DB /* MultitouchPadOscApp.h */,
 				AF6E4AF715B2FA6000D281DB /* MultitouchPadOscApp.cpp */,
 				AF307C5B162DE9520068BA82 /* MVC */,
-				AF6E4B0015B2FA6000D281DB /* TextConsole.h */,
 				AF6E4B1115B2FA8100D281DB /* MultitouchPad */,
-				AF6E4B1015B2FA6700D281DB /* wGui */,
+				AF6E4B1015B2FA6700D281DB /* GUI */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
