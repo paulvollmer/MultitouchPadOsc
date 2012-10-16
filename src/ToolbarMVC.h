@@ -42,7 +42,7 @@ public:
 	void addXml(ofxXmlDefaultSettings xml);
 	void setXml(ofxXmlDefaultSettings xml);
 	void log();
-	void draw(ofTrueTypeFont font);
+	void draw(ofTrueTypeFont font, bool oscIsSending);
 	void windowResized(int w, int h);
 	void mousePressed(int x, int y);
 	void keyPressed(int key);

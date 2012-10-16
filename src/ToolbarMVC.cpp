@@ -72,7 +72,7 @@ void ToolbarMVC::log() {
 }
 
 
-void ToolbarMVC::draw(ofTrueTypeFont font) {
+void ToolbarMVC::draw(ofTrueTypeFont font, bool oscIsSending) {
 	/* GUI
 	 */
 	ofSetColor(255);
@@ -84,7 +84,7 @@ void ToolbarMVC::draw(ofTrueTypeFont font) {
 	
 	/* If osc message will be send, show osc send icon.
 	 */
-	if(buttonOscActive.status == true) {
+	if(oscIsSending == true) {
 		ofSetColor(255);
 		ofFill();
 		oscSendImage.draw(ofGetWidth()-OSC_ACTIVE_X, 0);
