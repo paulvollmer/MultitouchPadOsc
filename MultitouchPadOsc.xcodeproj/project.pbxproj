@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF307968162D740A0068BA82 /* ViewerSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307964162D740A0068BA82 /* ViewerSettings.cpp */; };
+		AF307969162D740A0068BA82 /* ViewerTouchpoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307966162D740A0068BA82 /* ViewerTouchpoints.cpp */; };
 		AF6E492C15B2F28400D281DB /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E48FE15B2F28400D281DB /* ofxOscBundle.cpp */; };
 		AF6E492D15B2F28400D281DB /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E490015B2F28400D281DB /* ofxOscMessage.cpp */; };
 		AF6E492E15B2F28400D281DB /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E490215B2F28400D281DB /* ofxOscReceiver.cpp */; };
@@ -134,6 +136,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF307964162D740A0068BA82 /* ViewerSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewerSettings.cpp; sourceTree = "<group>"; };
+		AF307965162D740A0068BA82 /* ViewerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewerSettings.h; sourceTree = "<group>"; };
+		AF307966162D740A0068BA82 /* ViewerTouchpoints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewerTouchpoints.cpp; sourceTree = "<group>"; };
+		AF307967162D740A0068BA82 /* ViewerTouchpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewerTouchpoints.h; sourceTree = "<group>"; };
 		AF6E48FC15B2F28400D281DB /* ofxOsc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOsc.h; path = ../../../addons/ofxOsc/src/ofxOsc.h; sourceTree = SOURCE_ROOT; };
 		AF6E48FD15B2F28400D281DB /* ofxOscArg.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscArg.h; path = ../../../addons/ofxOsc/src/ofxOscArg.h; sourceTree = SOURCE_ROOT; };
 		AF6E48FE15B2F28400D281DB /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
@@ -621,6 +627,10 @@
 				AF6E4AF815B2FA6000D281DB /* MultitouchPadOscApp.h */,
 				AF6E4AF715B2FA6000D281DB /* MultitouchPadOscApp.cpp */,
 				AF6E4B0015B2FA6000D281DB /* TextConsole.h */,
+				AF307965162D740A0068BA82 /* ViewerSettings.h */,
+				AF307964162D740A0068BA82 /* ViewerSettings.cpp */,
+				AF307967162D740A0068BA82 /* ViewerTouchpoints.h */,
+				AF307966162D740A0068BA82 /* ViewerTouchpoints.cpp */,
 				AF6E4B1115B2FA8100D281DB /* MultitouchPad */,
 				AF6E4B1015B2FA6700D281DB /* wGui */,
 			);
@@ -743,6 +753,8 @@
 				AF6E4B2115B2FAE200D281DB /* tinyxmlerror.cpp in Sources */,
 				AF6E4B2215B2FAE200D281DB /* tinyxmlparser.cpp in Sources */,
 				AF6E4BB015B300D300D281DB /* ofxXmlDefaultSettings.cpp in Sources */,
+				AF307968162D740A0068BA82 /* ViewerSettings.cpp in Sources */,
+				AF307969162D740A0068BA82 /* ViewerTouchpoints.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

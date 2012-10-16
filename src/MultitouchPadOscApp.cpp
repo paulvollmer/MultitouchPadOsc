@@ -29,6 +29,22 @@
 
 void MultitouchPadOscApp::setup() {
 	
+	/* Load the font
+	 */
+	//ofTrueTypeFont::setGlobalDpi(96);
+	vera.loadFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf", 9, true, false);
+	if (vera.isLoaded()) {
+		ofLog() << "FONT: Is loaded";
+	} else {
+		ofLog() << "FONT: Not loaded";
+	}
+	
+	/* Settings Viewer
+	 */
+	viewerSettings.init(vera);
+	
+	
+	
 	/* Set the xml tag names and root-version, -url attributes.
 	 */
 	XML.changeSyntax(XML.ROOT, "multitouchPadOscApp");
@@ -83,16 +99,8 @@ void MultitouchPadOscApp::setup() {
 		xmlTouchpointCross[1] = XML.getAttribute("touchpoints:crossColor", "g", 0, 0);
 		xmlTouchpointCross[2] = XML.getAttribute("touchpoints:crossColor", "b", 0, 0);
 		xmlTouchpointCross[3] = XML.getAttribute("touchpoints:crossColor", "a", 255, 0);
-		/* Trackpad variables
-		 */
-		xmlPadDevicename = XML.getValue("pad:devicename", "mtpadosc");
-		xmlPadFrame      = XML.getValue("pad:frame", 1);
-		xmlPadTimestamp  = XML.getValue("pad:timestamp", 1);
-		xmlPadPosition   = XML.getValue("pad:position", 1);
-		xmlPadVelocity   = XML.getValue("pad:velocity", 1);
-		xmlPadSize       = XML.getValue("pad:size", 1);
-		xmlPadMaxis      = XML.getValue("pad:maxis", 1);
-		xmlPadAngle      = XML.getValue("pad:angle", 1);
+		
+		viewerSettings.getXml(XML);
 	}
 	/* If no xml file exist, create the <balls> tag and add some parameter.
 	 */
@@ -134,27 +142,8 @@ void MultitouchPadOscApp::setup() {
 		XML.addAttribute("crossColor", "b", xmlTouchpointCross[2], 0);
 		XML.addAttribute("crossColor", "a", xmlTouchpointCross[3], 0);
 		XML.popTag();
-		/* Trackpad variables
-		 */
-		xmlPadDevicename = "mtpad";
-		xmlPadFrame      = 1;
-		xmlPadTimestamp  = 1;
-		xmlPadPosition   = 1;
-		xmlPadVelocity   = 1;
-		xmlPadSize       = 1;
-		xmlPadMaxis      = 1;
-		xmlPadAngle      = 1;
-		XML.addTag("pad");
-		XML.pushTag("pad", 0);
-		XML.addValue("devicename", xmlPadDevicename);
-		XML.addValue("frame", xmlPadFrame);
-		XML.addValue("timestamp", xmlPadTimestamp);
-		XML.addValue("position", xmlPadPosition);
-		XML.addValue("velocity", xmlPadVelocity);
-		XML.addValue("size", xmlPadSize);
-		XML.addValue("maxis", xmlPadMaxis);
-		XML.addValue("angle", xmlPadAngle);
-		XML.popTag();
+		
+		viewerSettings.addXml(XML);
 	}
 
 	/* Pop root xml tag.
@@ -173,17 +162,10 @@ void MultitouchPadOscApp::setup() {
 	ofLog() << "XML: osc:out         = " << xmlOscOut;
 	ofLog() << "XML: osc:host        = " << xmlOscHost;
 	ofLog() << "XML: osc:port        = " << xmlOscPort;
-	ofLog() << "XML: pad:devicename  = " << xmlPadDevicename;
-	ofLog() << "XML: pad:frame       = " << xmlPadFrame;
-	ofLog() << "XML: pad:timestamp   = " << xmlPadTimestamp;
-	ofLog() << "XML: pad:position    = " << xmlPadPosition;
-	ofLog() << "XML: pad:velocity    = " << xmlPadVelocity;
-	ofLog() << "XML: pad:size        = " << xmlPadSize;
-	ofLog() << "XML: pad:maxis       = " << xmlPadMaxis;
-	ofLog() << "XML: pad:angle       = " << xmlPadAngle;
 	ofLog() << "XML: pointColor rgba = " << xmlTouchpointColor.getClamped();
 	ofLog() << "XML: lineColor rgba  = " << xmlTouchpointLines.getClamped();
 	ofLog() << "XML: crossColor rgba = " << xmlTouchpointCross.getClamped();
+	viewerSettings.logCheckboxStatus();
 	
 	/* Save the XML file if no file existed
 	 */
@@ -191,17 +173,6 @@ void MultitouchPadOscApp::setup() {
 		XML.saveFile();
 	}
 	
-	
-	/* Load the font
-	 */
-	//ofTrueTypeFont::setGlobalDpi(96);
-	vera.loadFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf", 9, true, false);
-	if (vera.isLoaded()) {
-		ofLog() << "FONT: Is loaded";
-	} else {
-		ofLog() << "FONT: Not loaded";
-	}
-
 	
 	/* OSC
 	 * Open an outgoing connection to oscHost, oscPort
@@ -225,7 +196,7 @@ void MultitouchPadOscApp::setup() {
     gui->setFontSize(OFX_UI_FONT_SMALL, 6);                                    //SUPER IMPORTANT NOTE: CALL THESE FUNTIONS BEFORE ADDING ANY WIDGETS, THIS AFFECTS THE SPACING OF THE GUI
 	gui->addWidget(new ofxUITextInput("TEXT HOST", xmlOscHost, 130,20, 50,77, OFX_UI_FONT_SMALL));
 	gui->addWidget(new ofxUITextInput("TEXT PORT", ofToString(xmlOscPort), 130,20, 50,97, OFX_UI_FONT_SMALL));
-	gui->addWidget(new ofxUITextInput("TEXT DEVICENAME", ofToString(xmlPadDevicename), 150, 20, 100,113, OFX_UI_FONT_SMALL));
+	gui->addWidget(new ofxUITextInput("TEXT DEVICENAME", ofToString(viewerSettings.xmlPadDevicename), 150, 20, 100,113, OFX_UI_FONT_SMALL));
 	ofAddListener(gui->newGUIEvent, this, &MultitouchPadOscApp::guiEvent);
 	gui->setVisible(false);
 	
@@ -251,14 +222,6 @@ void MultitouchPadOscApp::setup() {
 	btnSettings.init(tempGuiFilepath+"btn_middle_on.png", tempGuiFilepath+"btn_middle_off.png", 87, 0);
 	btnConsole.init(tempGuiFilepath+ "btn_right_on.png", tempGuiFilepath+"btn_right_off.png", 164, 0);
 	
-	cbFrame.init(vera,      "frame active",               15, 190, xmlPadFrame);
-	//cbTimestamp.init(vera,  "timestamp active",           60, 170, defXmlPadTimestamp);
-	cbPosition.init(vera,   "x-, y-position active",      15, 210, xmlPadPosition);
-	//cbVelocity.init(vera,   "x-, y-velocity active",      60, 200, defXmlPadVelocity);
-	//cbMaxis.init(vera,      "minor-, major-axis active",  60, 215, defXmlPadMaxis);
-	cbSize.init(vera,       "size active",                15, 230, xmlPadSize);
-	cbAngle.init(vera,      "angle active",               15, 250, xmlPadAngle);
-	
 	
 	/* Multitouch Trackpad
 	 * Add the listeners
@@ -270,6 +233,7 @@ void MultitouchPadOscApp::setup() {
 	
 	ofLog() << "Number of Devices: "<< pad.getNumDevices();
 	ofLog() << "SETUP: ready";
+	
 }
 
 
@@ -381,10 +345,10 @@ void MultitouchPadOscApp::draw(){
 		
 			
 			// Check if padFrame is active
-			if (xmlPadFrame == 0) {
+			if (viewerSettings.checkboxFrame.status == true) {
 				// Send osc message, integer value with the current frame.
 				// e.g. /mt/1/frame/23
-				string sFrame = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/frame";
+				string sFrame = ofToString("/") + ofToString(viewerSettings.xmlPadDevicename) + ofToString("/") + ofToString(i) + "/frame";
 				
 				oscIntMessage(sFrame, touch.frame);
 				
@@ -398,11 +362,11 @@ void MultitouchPadOscApp::draw(){
 			}*/
 			 
 			// check if padPosition is active
-			if (xmlPadPosition == 0) {
+			if (viewerSettings.checkboxPosition.status == true) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/x/0.5
-				string sX = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/x";
-				string sY = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/y";
+				string sX = ofToString("/") + ofToString(viewerSettings.xmlPadDevicename) + ofToString("/") + ofToString(i) + "/x";
+				string sY = ofToString("/") + ofToString(viewerSettings.xmlPadDevicename) + ofToString("/") + ofToString(i) + "/y";
 				oscFloatMessage(sX, touch.x);
 				oscFloatMessage(sY, touch.y);
 				console.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
@@ -416,19 +380,19 @@ void MultitouchPadOscApp::draw(){
 			}*/
 			 
 			// check if padSize is active
-			if (xmlPadSize == 0) {
+			if (viewerSettings.checkboxSize.status == true) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/size/0.5
-				string sSize = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/size";
+				string sSize = ofToString("/") + ofToString(viewerSettings.xmlPadDevicename) + ofToString("/") + ofToString(i) + "/size";
 				oscFloatMessage(sSize, touch.size);
 				console.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
 			}
 			 
 			// check if padAngle is active
-			if (xmlPadAngle == 0) {
+			if (viewerSettings.checkboxAngle.status == true) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/angle/0.5
-				string sAngle = ofToString("/") + ofToString(xmlPadDevicename) + ofToString("/") + ofToString(i) + "/angle";
+				string sAngle = ofToString("/") + ofToString(viewerSettings.xmlPadDevicename) + ofToString("/") + ofToString(i) + "/angle";
 				oscFloatMessage(sAngle, touch.angle);
 				console.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
 			}
@@ -439,35 +403,9 @@ void MultitouchPadOscApp::draw(){
 	/* settings button
 	 */
 	if(btnSettings.status == true) {
-		// ground
-		ofEnableAlphaBlending();
-		ofSetColor(0, 150);
-		ofFill();
-		ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
-		ofDisableAlphaBlending();
-		// Osc settings
-		ofSetColor(ofColor::white);
-		ofFill();
-		vera.drawString("OSC SETTINGS", 15, 50);
-		// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
-		vera.drawString("Host: ", 15, 90);
-		vera.drawString("Port: ", 15, 110);
-		vera.drawString("Devicename: ", 15, 130);
-		vera.drawString("[To open the settings xml, press key 's']", 167, 150);
-		cbFrame.display();
-		//cbTimestamp.display();
-		cbPosition.display();
-		//cbVelocity.display();
-		//cbMaxis.display();
-		cbSize.display();
-		cbAngle.display();
-		// shortcuts
-		vera.drawString("[Shortcut: 2]", 350, 200);
-		vera.drawString("[Shortcut: 3]", 350, 220);
-		vera.drawString("[Shortcut: 4]", 350, 240);
-		vera.drawString("[Shortcut: 5]", 350, 260);
-		
-		//vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 15, 150);
+		/* Settings Viewer
+		 */
+		viewerSettings.draw(vera);
 	}
 	
 	/* console button
@@ -485,6 +423,7 @@ void MultitouchPadOscApp::draw(){
 		vera.drawString("Sended osc messages:", 15, 50);
 		console.display(15, 90);
 	}
+	
 }
 
 
@@ -497,14 +436,9 @@ void MultitouchPadOscApp::exit() {
 	XML.setValue("osc", xmlOscOut, 0);
 	XML.setAttribute("osc", "host", xmlOscHost, 0);
 	XML.setAttribute("osc", "port", xmlOscPort, 0);
-	XML.setValue("pad:devicename", xmlPadDevicename, 0);
-	XML.setValue("pad:frame", xmlPadFrame, 0);
-	XML.setValue("pad:timestamp", xmlPadTimestamp, 0);
-	XML.setValue("pad:position", xmlPadPosition, 0);
-	XML.setValue("pad:velocity", xmlPadVelocity, 0);
-	XML.setValue("pad:size", xmlPadSize, 0);
-	XML.setValue("pad:maxis", xmlPadMaxis, 0);
-	XML.setValue("pad:angle", xmlPadAngle, 0);
+	
+	viewerSettings.setXml(XML);
+	
 	XML.popRoot();
 	
 	/* Save the current settings to xml.
@@ -560,96 +494,11 @@ void MultitouchPadOscApp::keyPressed(int key) {
 			console.addString("Shortcut oscOut: " + ofToString(xmlOscOut), true);
 			break;
 		
-		/* OSC frame
-		 */
-		case 'w':
-			if (xmlPadFrame == 0) {
-				xmlPadFrame = 1;
-			} else {
-				xmlPadFrame = 0;
-			}
-			cbFrame.status = xmlPadFrame;
-			console.addString("Shortcut padFrame: " + ofToString(xmlPadFrame), true);
-			break;
-		
-		/* OSC timestamp
-		 */
-		/*case '3':
-			if (settings.padTimestamp == 0) {
-				settings.padTimestamp = 1;
-			} else {
-				settings.padTimestamp = 0;
-			}
-			cbTimestamp.status = settings.padTimestamp;
-			
-			cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
-			break;*/
-		
-		/* OSC position
-		 */
-		case 'e':
-			if (xmlPadPosition == 0) {
-				xmlPadPosition = 1;
-			} else {
-				xmlPadPosition = 0;
-			}
-			cbPosition.status = xmlPadPosition;
-			console.addString("Shortcut padPosition: " + ofToString(xmlPadPosition), true);
-			break;
-
-		/* OSC velocity
-		 */
-		/*case '5':
-			if (settings.padVelocity == 0) {
-				settings.padVelocity = 1;
-			} else {
-				settings.padVelocity = 0;
-			}
-			cbVelocity.status = settings.padVelocity;
-			
-			cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
-			break;*/
-
-		/* OSC maxis
-		 */
-		/*case '4':
-			if (settings.padMaxis == 0) {
-				settings.padMaxis = 1;
-			} else {
-				settings.padMaxis = 0;
-			}
-			cbMaxis.status = settings.padMaxis;
-			
-			cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
-			break;*/
-
-		/* OSC maxis
-		 */
-		case 'r':
-			if (xmlPadSize == 0) {
-				xmlPadSize = 1;
-			} else {
-				xmlPadSize = 0;
-			}
-			cbSize.status = xmlPadSize;
-			console.addString("Shortcut padSize: " + ofToString(xmlPadSize), true);
-			break;
-
-		/* OSC angle
-		 */
-		case 't':
-			if (xmlPadAngle == 0) {
-				xmlPadAngle = 1;
-			} else {
-				xmlPadAngle = 0;
-			}
-			cbAngle.status = xmlPadAngle;
-			console.addString("Shortcut padAngle: " + ofToString(xmlPadAngle), true);
-			break;
-
 		default:
 			break;
 	}
+	
+	viewerSettings.keyPressed(key);
 }
 
 
@@ -719,22 +568,9 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 		 */
 		btnTouchpoints.status = false;
 		btnConsole.status = false;
-		/* Check boxes
-		 */
-		cbFrame.pressed(x, y);
-		xmlPadFrame = cbFrame.status;
-		//cbTimestamp.pressed(x, y);
-		//settings.padTimestamp = cbTimestamp.status;
-		cbPosition.pressed(x, y);
-		xmlPadPosition = cbPosition.status;
-		//cbVelocity.pressed(x, y);
-		//settings.padVelocity = cbVelocity.status;
-		//cbMaxis.pressed(x, y);
-		//settings.padMaxis = cbMaxis.status;
-		cbSize.pressed(x, y);
-		xmlPadSize = cbSize.status;
-		cbAngle.pressed(x, y);
-		xmlPadAngle = cbAngle.status;
+		
+		viewerSettings.mousePressed(x, y);
+		
 		/* show GUI textfield
 		 */
 		gui->setVisible(true);
@@ -795,7 +631,7 @@ void MultitouchPadOscApp::newTouch(int & n) {
 	/* Send an osc message if the touchpoint is added.
 	 */
 	ofxOscMessage m;
-	m.setAddress("/" + xmlPadDevicename + "/" + ofToString(n) + "/added");
+	m.setAddress("/" + viewerSettings.xmlPadDevicename + "/" + ofToString(n) + "/added");
 	oscSender.sendMessage(m);
 }
 
@@ -807,7 +643,7 @@ void MultitouchPadOscApp::removedTouch(int & r) {
 	/* Send an osc message if the touchpoint is removed.
 	 */
 	ofxOscMessage m;
-	m.setAddress("/" + xmlPadDevicename + "/" + ofToString(r) + "/removed");
+	m.setAddress("/" + viewerSettings.xmlPadDevicename + "/" + ofToString(r) + "/removed");
 	oscSender.sendMessage(m);
 }
 
@@ -833,7 +669,7 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 	}
 	else if (name == "TEXT DEVICENAME") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		xmlPadDevicename = textInput->getTextString();
+		viewerSettings.xmlPadDevicename = textInput->getTextString();
 		console.addString("Change devicename to " + textInput->getTextString(), true);
 	}
 }
