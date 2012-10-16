@@ -72,7 +72,7 @@ void ToolbarMVC::log() {
 }
 
 
-void ToolbarMVC::draw() {
+void ToolbarMVC::draw(ofTrueTypeFont font) {
 	/* GUI
 	 */
 	ofSetColor(255);
@@ -85,11 +85,18 @@ void ToolbarMVC::draw() {
 	
 	/* If osc message will be send, show osc send icon.
 	 */
-	if(buttonOscActive.status == true) {
+	//if(buttonOscActive.status == true) {
 		ofSetColor(255);
 		ofFill();
 		oscSendImage.draw(ofGetWidth()-56, 0);
-	}
+	//}
+	
+	/* Draw the touch count typo
+	 */
+    ofSetColor(255);
+	font.drawString("Viewer", 30, 18);
+	font.drawString("Settings", 107, 18);
+	font.drawString("Console", 184, 18);
 }
 
 
