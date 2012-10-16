@@ -113,7 +113,7 @@ void SettingsMVC::setXml(ofxXmlDefaultSettings xml) {
 }
 
 
-void SettingsMVC::logCheckboxStatus(){
+void SettingsMVC::log(){
 	ofLog() << "XML: osc:host        = " << oscHost;
 	ofLog() << "XML: osc:port        = " << oscPort;
 	
@@ -181,8 +181,6 @@ void SettingsMVC::mousePressed(int x, int y) {
 
 
 void SettingsMVC::keyPressed(int key) {
-	cout << "ViewerSettings keyPressed()";
-	
 	switch (key) {
 		/* OSC frame
 		 */

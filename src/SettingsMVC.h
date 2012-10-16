@@ -40,7 +40,7 @@ public:
 	void getXml(ofxXmlDefaultSettings xml);
 	void addXml(ofxXmlDefaultSettings xml);
 	void setXml(ofxXmlDefaultSettings xml);
-	void logCheckboxStatus();
+	void log();
 	void draw(ofTrueTypeFont font);
 	void mousePressed(int x, int y);
 	void keyPressed(int key);
