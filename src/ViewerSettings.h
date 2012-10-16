@@ -38,16 +38,13 @@ public:
 	wCheckbox     checkboxSize;         // checkbox to trigger finger size on/off
 	wCheckbox     checkboxAngle;        // checkbox to trigger finger angle on/off
 	
-	string xmlPadDevicename; // Trackpad devicename
+	string xmlPadDevicename;            // Trackpad devicename
 	
-	/*bool oscSendArrayStatus;  // Send osc array (xysa)
-	bool oscSendFrame;     // Trackpad frame
-	bool oscSendTimestamp; // Trackpad timestamp
-	bool oscSendPosition;  // Trackpad finger x-, y-position
-	bool oscSendVelocity;  // Trackpad finger x-, y-velocity
-	bool oscSendSize;      // Trackpad finger size
-	bool oscSendMaxis;     // Trackpad finger minor-, major-axis
-	bool oscSendAngle;     // Trackpad finger angle*/
+	// OSC variables
+	int    oscOut;                      // Send out OSC message, 0 = true, 1 = false
+	string oscHost;                     // OSC host variable
+	int    oscPort;                     // OSC port variable
+	
 	
 private:
 	

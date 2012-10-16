@@ -80,11 +80,6 @@ void MultitouchPadOscApp::setup() {
 		 */
 		xmlWindowMode = XML.getAttribute(XML.getSyntax(XML.CORE)+":window", "mode", false, 0);
 		
-		/* OSC variables
-		 */
-		xmlOscOut  = XML.getValue("osc", 1);
-		xmlOscHost = XML.getAttribute("osc", "host", "127.0.0.1", 0);
-		xmlOscPort = XML.getAttribute("osc", "port", 12345, 0);
 		/* Touchpoint color
 		 */
 		xmlTouchpointColor[0] = XML.getAttribute("touchpoints:pointColor", "r", 0, 0);
@@ -111,14 +106,6 @@ void MultitouchPadOscApp::setup() {
 		XML.pushTag(XML.getSyntax(XML.CORE), 0);
 		XML.addAttribute("window", "mode", xmlWindowMode, 0);
 		XML.popTag();
-		/* OSC variables
-		 */
-		xmlOscOut  = 1;
-		xmlOscHost = "127.0.0.1";
-		xmlOscPort = 12345;
-		XML.addValue("osc", xmlOscOut);
-		XML.addAttribute("osc", "host", xmlOscHost, 0);
-		XML.addAttribute("osc", "post", xmlOscPort, 0);
 		/* Touchpoint color
 		 */
 		xmlTouchpointColor.set(0, 155, 255, 255);
@@ -159,9 +146,6 @@ void MultitouchPadOscApp::setup() {
 	/* Log the XML parameter
 	 */
 	ofLog() << "XML: window mode     = " << xmlWindowMode;
-	ofLog() << "XML: osc:out         = " << xmlOscOut;
-	ofLog() << "XML: osc:host        = " << xmlOscHost;
-	ofLog() << "XML: osc:port        = " << xmlOscPort;
 	ofLog() << "XML: pointColor rgba = " << xmlTouchpointColor.getClamped();
 	ofLog() << "XML: lineColor rgba  = " << xmlTouchpointLines.getClamped();
 	ofLog() << "XML: crossColor rgba = " << xmlTouchpointCross.getClamped();
@@ -177,8 +161,8 @@ void MultitouchPadOscApp::setup() {
 	/* OSC
 	 * Open an outgoing connection to oscHost, oscPort
 	 */
-	oscSender.setup(xmlOscHost, xmlOscPort);
-	ofLog() << "OSC: setup host \"" << xmlOscHost << "\", port " << "\"" << xmlOscPort << "\"";
+	oscSender.setup(viewerSettings.oscHost, viewerSettings.oscPort);
+	ofLog() << "OSC: setup host \"" << viewerSettings.oscHost << "\", port " << "\"" << viewerSettings.oscPort << "\"";
 	
 	
 	/* Console
@@ -194,8 +178,8 @@ void MultitouchPadOscApp::setup() {
     gui->setFontSize(OFX_UI_FONT_LARGE, 12);                                    //These call are optional, but if you want to resize the LARGE, MEDIUM, and SMALL fonts, here is how to do it. 
     gui->setFontSize(OFX_UI_FONT_MEDIUM, 8);           
     gui->setFontSize(OFX_UI_FONT_SMALL, 6);                                    //SUPER IMPORTANT NOTE: CALL THESE FUNTIONS BEFORE ADDING ANY WIDGETS, THIS AFFECTS THE SPACING OF THE GUI
-	gui->addWidget(new ofxUITextInput("TEXT HOST", xmlOscHost, 130,20, 50,77, OFX_UI_FONT_SMALL));
-	gui->addWidget(new ofxUITextInput("TEXT PORT", ofToString(xmlOscPort), 130,20, 50,97, OFX_UI_FONT_SMALL));
+	gui->addWidget(new ofxUITextInput("TEXT HOST", viewerSettings.oscHost, 130,20, 50,77, OFX_UI_FONT_SMALL));
+	gui->addWidget(new ofxUITextInput("TEXT PORT", ofToString(viewerSettings.oscPort), 130,20, 50,97, OFX_UI_FONT_SMALL));
 	gui->addWidget(new ofxUITextInput("TEXT DEVICENAME", ofToString(viewerSettings.xmlPadDevicename), 150, 20, 100,113, OFX_UI_FONT_SMALL));
 	ofAddListener(gui->newGUIEvent, this, &MultitouchPadOscApp::guiEvent);
 	gui->setVisible(false);
@@ -203,7 +187,7 @@ void MultitouchPadOscApp::setup() {
 	
 	string tempGuiFilepath = ofFilePath::getCurrentWorkingDirectory() + "/gui/";
 	btnOscActive.init(tempGuiFilepath+"oscactive_on.png", tempGuiFilepath+"oscactive_off.png", ofGetWidth()-56, 0);
-	if (xmlOscOut == 0) {
+	if (viewerSettings.oscOut == 0) {
 		btnOscActive.status = true;
 	} else {
 		btnOscActive.status = false;
@@ -336,7 +320,7 @@ void MultitouchPadOscApp::draw(){
 		
 		/* OSC
 		 */
-		if(xmlOscOut == 0) {
+		if(viewerSettings.oscOut == 0) {
 			// if osc message will be send,
 			// show osc send icon.
 			ofSetColor(255);
@@ -433,9 +417,10 @@ void MultitouchPadOscApp::exit() {
 	 */
 	XML.pushRoot();
 	XML.setAttribute(XML.CORE+":window", "mode", xmlWindowMode, 0);
-	XML.setValue("osc", xmlOscOut, 0);
-	XML.setAttribute("osc", "host", xmlOscHost, 0);
-	XML.setAttribute("osc", "port", xmlOscPort, 0);
+	
+	XML.setValue("osc", viewerSettings.oscOut, 0);
+	XML.setAttribute("osc", "host", viewerSettings.oscHost, 0);
+	XML.setAttribute("osc", "port", viewerSettings.oscPort, 0);
 	
 	viewerSettings.setXml(XML);
 	
@@ -484,14 +469,14 @@ void MultitouchPadOscApp::keyPressed(int key) {
 		/* OSC out
 		 */
 		case 'q':
-			if (xmlOscOut == 0) {
-				xmlOscOut = 1;
+			if (viewerSettings.oscOut == 0) {
+				viewerSettings.oscOut = 1;
 				btnOscActive.status = !btnOscActive.status;
 			} else {
-				xmlOscOut = 0;
+				viewerSettings.oscOut = 0;
 				btnOscActive.status = !btnOscActive.status;
 			}
-			console.addString("Shortcut oscOut: " + ofToString(xmlOscOut), true);
+			console.addString("Shortcut oscOut: " + ofToString(viewerSettings.oscOut), true);
 			break;
 		
 		default:
@@ -523,9 +508,9 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 	 */
 	btnOscActive.pressed(x, y);
 	if (btnOscActive.status == true) {
-		xmlOscOut = 0;
+		viewerSettings.oscOut = 0;
 	} else {
-		xmlOscOut = 1;
+		viewerSettings.oscOut = 1;
 	}
 	
 	/*btnSafetyMode.pressed(x, y);
@@ -655,15 +640,15 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 	
 	if (name == "TEXT HOST") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		xmlOscHost = textInput->getTextString();
-		oscSender.setup(xmlOscHost, xmlOscPort);
+		viewerSettings.oscHost = textInput->getTextString();
+		oscSender.setup(viewerSettings.oscHost, viewerSettings.oscPort);
 		setWindowTitle();
 		console.addString("Change host to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		xmlOscPort = ofToInt(textInput->getTextString());
-		oscSender.setup(xmlOscHost, xmlOscPort);
+		viewerSettings.oscPort = ofToInt(textInput->getTextString());
+		oscSender.setup(viewerSettings.oscHost, viewerSettings.oscPort);
 		setWindowTitle();
 		console.addString("Change port to " + textInput->getTextString(), true);
 	}
@@ -677,7 +662,7 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 
 
 void MultitouchPadOscApp::setWindowTitle(){
-	ofSetWindowTitle(ofToString(PROJECTNAME) + " - Host: " + xmlOscHost + " Port: " + ofToString(xmlOscPort));
+	ofSetWindowTitle(ofToString(PROJECTNAME) + " - Host: " + viewerSettings.oscHost + " Port: " + ofToString(viewerSettings.oscPort));
 }
 
 

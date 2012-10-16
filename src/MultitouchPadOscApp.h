@@ -44,7 +44,6 @@ class MultitouchPadOscApp : public ofBaseApp {
 public:
 	/**
 	 * Setup
-	 * 
 	 * - Load the default settings xml.
 	 * - Load Font
 	 * - Initialize osc sender
@@ -59,14 +58,12 @@ public:
 	void update();
 	/**
 	 * Draw
-	 *
 	 * - Draw the backgroundImage
 	 * - Display the GUI
 	 */
 	void draw();
 	/**
 	 * Exit
-	 *
 	 * - Update XML settings variables.
 	 * - Save the current app count, window position and framerate.
 	 * - Save OSC variables like Host, Port etc.
@@ -143,22 +140,15 @@ private:
 	 */
 	void oscFloatMessage(string s, float val);
 	
+	
+	/* Viewer
+	 */
+	ViewerSettings viewerSettings;
+	//ViewerTouchpoints viewerTouchpoints;
+	
+	
 		// XML Settings
 		ofxXmlDefaultSettings XML;
-		// OSC variables
-		int    xmlOscOut;           // Send out OSC message, 0 = true, 1 = false
-		string xmlOscHost;          // OSC host variable
-		int    xmlOscPort;          // OSC port variable
-		// Trackpad variables
-		/*string xmlPadDevicename;    // Trackpad devicename
-		int    xmlPadFrame;         // Trackpad frame
-		int    xmlPadTimestamp;     // Trackpad timestamp
-		int    xmlPadPosition;      // Trackpad finger x-, y-position
-		int    xmlPadVelocity;      // Trackpad finger x-, y-velocity
-		int    xmlPadSize;          // Trackpad finger size
-		int    xmlPadMaxis;         // Trackpad finger minor-, major-axis
-		int    xmlPadAngle;         // Trackpad finger angle
-		*/
 		// Touchpoint color variables
 		ofColor xmlTouchpointColor;
 		ofColor xmlTouchpointLines;
@@ -190,20 +180,4 @@ private:
 		wImageButton btnSettings;    // button to show/hide settings
 		wImageButton btnConsole;     // button to show/hide console
 	
-		/*
-		wCheckbox    cbFrame;        // checkbox to trigger pad frame on/off
-		//wCheckbox    cbTimestamp;    // checkbox to trigger pad timestamp on/off
-		wCheckbox    cbPosition;     // checkbox to trigger finger x-, y-position on/off
-		//wCheckbox    cbVelocity;     // checkbox to trigger finger x-, y-velocity on/off
-		//wCheckbox    cbMaxis;        // checkbox to trigger finger minor-, major-axis on/off
-		wCheckbox    cbSize;         // checkbox to trigger finger size on/off
-		wCheckbox    cbAngle;        // checkbox to trigger finger angle on/off
-		*/
-	
-	
-	
-	/* Viewer
-	 */
-	ViewerSettings viewerSettings;
-	//ViewerTouchpoints viewerTouchpoints;
 };
