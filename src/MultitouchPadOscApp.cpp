@@ -43,6 +43,7 @@ void MultitouchPadOscApp::setup() {
 	 */
 	toolbarMVC.init();
 	settingsMVC.init(vera);
+	consoleMVC.init(vera);
 	
 	
 	
@@ -77,55 +78,17 @@ void MultitouchPadOscApp::setup() {
 	 */
 	XML.pushRoot();
 	if (XML.fileExist) {
-		/* Touchpoint color
-		 */
-		xmlTouchpointColor[0] = XML.getAttribute("touchpoints:pointColor", "r", 0, 0);
-		xmlTouchpointColor[1] = XML.getAttribute("touchpoints:pointColor", "g", 155, 0);
-		xmlTouchpointColor[2] = XML.getAttribute("touchpoints:pointColor", "b", 255, 0);
-		xmlTouchpointColor[3] = XML.getAttribute("touchpoints:pointColor", "a", 255, 0);
-		xmlTouchpointLines[0] = XML.getAttribute("touchpoints:lineColor", "r", 0, 0);
-		xmlTouchpointLines[1] = XML.getAttribute("touchpoints:lineColor", "g", 255, 0);
-		xmlTouchpointLines[2] = XML.getAttribute("touchpoints:lineColor", "b", 255, 0);
-		xmlTouchpointLines[3] = XML.getAttribute("touchpoints:lineColor", "a", 255, 0);
-		xmlTouchpointCross[0] = XML.getAttribute("touchpoints:crossColor", "r", 255, 0);
-		xmlTouchpointCross[1] = XML.getAttribute("touchpoints:crossColor", "g", 0, 0);
-		xmlTouchpointCross[2] = XML.getAttribute("touchpoints:crossColor", "b", 0, 0);
-		xmlTouchpointCross[3] = XML.getAttribute("touchpoints:crossColor", "a", 255, 0);
-		
 		toolbarMVC.getXml(XML);
+		touchpointsMVC.getXml(XML);
 		settingsMVC.getXml(XML);
 	}
-	/* If no xml file exist, create the <balls> tag and add some parameter.
+	/* If no xml file exist, create the xml tag/attributes and add some parameter.
 	 */
 	else {
-		/* Touchpoint color
-		 */
-		xmlTouchpointColor.set(0, 155, 255, 255);
-		xmlTouchpointLines.set(0, 255, 255, 255);
-		xmlTouchpointCross.set(255, 255, 255, 255);
-		XML.addTag("touchpoints");
-		XML.pushTag("touchpoints", 0);
-		XML.addTag("pointColor");
-		XML.addAttribute("pointColor", "r", xmlTouchpointColor[0], 0);
-		XML.addAttribute("pointColor", "g", xmlTouchpointColor[1], 0);
-		XML.addAttribute("pointColor", "b", xmlTouchpointColor[2], 0);
-		XML.addAttribute("pointColor", "a", xmlTouchpointColor[3], 0);
-		XML.addTag("lineColor");
-		XML.addAttribute("lineColor", "r", xmlTouchpointLines[0], 0);
-		XML.addAttribute("lineColor", "g", xmlTouchpointLines[1], 0);
-		XML.addAttribute("lineColor", "b", xmlTouchpointLines[2], 0);
-		XML.addAttribute("lineColor", "a", xmlTouchpointLines[3], 0);
-		XML.addTag("crossColor");
-		XML.addAttribute("crossColor", "r", xmlTouchpointCross[0], 0);
-		XML.addAttribute("crossColor", "g", xmlTouchpointCross[1], 0);
-		XML.addAttribute("crossColor", "b", xmlTouchpointCross[2], 0);
-		XML.addAttribute("crossColor", "a", xmlTouchpointCross[3], 0);
-		XML.popTag();
-		
 		toolbarMVC.addXml(XML);
+		touchpointsMVC.addXml(XML);
 		settingsMVC.addXml(XML);
 	}
-
 	/* Pop root xml tag.
 	 */
 	XML.popRoot();
@@ -138,11 +101,9 @@ void MultitouchPadOscApp::setup() {
 	
 	/* Log the XML parameter
 	 */
-	ofLog() << "XML: pointColor rgba = " << xmlTouchpointColor.getClamped();
-	ofLog() << "XML: lineColor rgba  = " << xmlTouchpointLines.getClamped();
-	ofLog() << "XML: crossColor rgba = " << xmlTouchpointCross.getClamped();
 	toolbarMVC.log();
-	settingsMVC.logCheckboxStatus();
+	touchpointsMVC.log();
+	settingsMVC.log();
 	
 	/* Save the XML file if no file existed
 	 */
@@ -156,11 +117,6 @@ void MultitouchPadOscApp::setup() {
 	 */
 	oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 	ofLog() << "OSC: setup host \"" << settingsMVC.oscHost << "\", port " << "\"" << settingsMVC.oscPort << "\"";
-	
-	
-	/* Console
-	 */
-	console.init(vera);
 	
 	
 	/* GUI
@@ -208,27 +164,19 @@ void MultitouchPadOscApp::draw(){
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	
 	
-	toolbarMVC.draw();
-	
-	
-	/* Draw the touch count typo
-	 */
-    ofSetColor(255);
-	vera.drawString("Viewer", 30, 18);
-	vera.drawString("Settings", 107, 18);
-	vera.drawString("Console", 184, 18);
-	vera.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 15, ofGetHeight()-15);
+	toolbarMVC.draw(vera);
+	touchpointsMVC.draw(vera, pad);
 	
 	
 	/* Display finger blobs
 	 * connect all touches with a line
-	 */
+	 *
     std::vector<ofPoint>touches;
     pad.getTouchesAsOfPoints(&touches);
 	
 	ofEnableSmoothing();
     for(int i=0; (i<touches.size()-1 && touches.size()>1); i++) {
-        ofSetColor(xmlTouchpointLines);
+        ofSetColor(touchpointsMVC.touchpointLines);
         int x1 = ofMap(touches.at(i).x,   0.0, 1.0, 30, ofGetWidth()-30);
 		int y1 = ofMap(touches.at(i).y,   0.0, 1.0, 70, ofGetHeight()-30);
 		int x2 = ofMap(touches.at(i+1).x, 0.0, 1.0, 30, ofGetWidth()-30);
@@ -239,11 +187,9 @@ void MultitouchPadOscApp::draw(){
     
 	
 	/* display all finger blobs
-	 */
+	 *
 	for(int i=0; i<pad.getTouchCount(); i++) {
-		// get a single touch as MTouch struct....
-		MTouch touch;
-		if(!pad.getTouchAt(i,&touch)) continue; // guard..
+		
 		
 		// using MTouch struct
 		int x = ofMap(touch.x, 0.0, 1.0, 40, ofGetWidth()-40);
@@ -257,12 +203,12 @@ void MultitouchPadOscApp::draw(){
 		
 		ofEnableSmoothing();
 		// finger blob circle
-		ofSetColor(xmlTouchpointColor);
+		ofSetColor(touchpointsMVC.touchpointColor);
 		ofFill();
 		ofEllipse(0, 0, size, size*0.625);
 		
 		// cross at the circle center
-		ofSetColor(xmlTouchpointCross);
+		ofSetColor(touchpointsMVC.touchpointCross);
 		ofNoFill();
 		ofLine(-5, 0, 5, 0);
 		ofLine(0, -5, 0, +5);
@@ -281,6 +227,10 @@ void MultitouchPadOscApp::draw(){
 		 ofDrawBitmapString((string)_s, 0,0);*/
 		
 		
+	for(int i=0; i<pad.getTouchCount(); i++) {
+		// get a single touch as MTouch struct....
+		MTouch touch;
+		if(!pad.getTouchAt(i,&touch)) continue; // guard..
 		
 		/* OSC
 		 */
@@ -295,7 +245,7 @@ void MultitouchPadOscApp::draw(){
 				
 				oscIntMessage(sFrame, touch.frame);
 				
-				console.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
+				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
 			}
 			 
 			// check if padTimestamp is active
@@ -312,8 +262,8 @@ void MultitouchPadOscApp::draw(){
 				string sY = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/y";
 				oscFloatMessage(sX, touch.x);
 				oscFloatMessage(sY, touch.y);
-				console.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
-				console.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
+				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
+				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
 			}
 			 
 			// check if padVelocity is active
@@ -328,7 +278,7 @@ void MultitouchPadOscApp::draw(){
 				// e.g. /mt/1/size/0.5
 				string sSize = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/size";
 				oscFloatMessage(sSize, touch.size);
-				console.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
+				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
 			}
 			 
 			// check if padAngle is active
@@ -337,7 +287,7 @@ void MultitouchPadOscApp::draw(){
 				// e.g. /mt/1/angle/0.5
 				string sAngle = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/angle";
 				oscFloatMessage(sAngle, touch.angle);
-				console.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
+				consoleMVC.console.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
 			}
 		}
     }
@@ -354,17 +304,7 @@ void MultitouchPadOscApp::draw(){
 	/* console button
 	 */
 	if(toolbarMVC.buttonConsole.status == true) {
-		// ground
-		ofEnableAlphaBlending();
-		ofSetColor(0, 150);
-		ofFill();
-		ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
-		ofDisableAlphaBlending();
-		
-		// headline text
-		ofSetColor(ofColor::white);
-		vera.drawString("Sended osc messages:", 15, 50);
-		console.display(15, 90);
+		consoleMVC.draw(vera);
 	}
 	
 }
@@ -396,17 +336,9 @@ void MultitouchPadOscApp::exit() {
 
 
 void MultitouchPadOscApp::keyPressed(int key) {
-	/* Open the settings xml file
-	 */
-	if(key == 's') {
-		string commandStr = "open " + ofFilePath::getCurrentWorkingDirectory() + "/ofSettings.xml";
-		system(commandStr.c_str());
-		
-		console.addString("Open XML settings file.");
-	}
-	
 	toolbarMVC.keyPressed(key);
 	settingsMVC.keyPressed(key);
+	consoleMVC.keyPressed(key);
 }
 
 
@@ -541,19 +473,19 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 		settingsMVC.oscHost = textInput->getTextString();
 		oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 		setWindowTitle();
-		console.addString("Change host to " + textInput->getTextString(), true);
+		consoleMVC.console.addString("Change host to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		settingsMVC.oscPort = ofToInt(textInput->getTextString());
 		oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 		setWindowTitle();
-		console.addString("Change port to " + textInput->getTextString(), true);
+		consoleMVC.console.addString("Change port to " + textInput->getTextString(), true);
 	}
 	else if (name == "TEXT DEVICENAME") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		settingsMVC.oscTouchpadDevicename = textInput->getTextString();
-		console.addString("Change devicename to " + textInput->getTextString(), true);
+		consoleMVC.console.addString("Change devicename to " + textInput->getTextString(), true);
 	}
 }
 

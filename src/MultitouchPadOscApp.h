@@ -38,7 +38,9 @@
 #include "wImageButton.h"
 
 #include "ToolbarMVC.h"
+#include "TouchpointsMVC.h"
 #include "SettingsMVC.h"
+#include "ConsoleMVC.h"
 
 
 class MultitouchPadOscApp : public ofBaseApp {
@@ -53,16 +55,19 @@ public:
 	 * - Initialize GUI
 	 */
 	void setup();
+	
 	/**
 	 * Update
 	 */
 	void update();
+	
 	/**
 	 * Draw
 	 * - Draw the backgroundImage
 	 * - Display the GUI
 	 */
 	void draw();
+	
 	/**
 	 * Exit
 	 * - Update XML settings variables.
@@ -70,61 +75,71 @@ public:
 	 * - Save OSC variables like Host, Port etc.
 	 */
 	void exit();
+	
 	/**
 	 * Key pressed
 	 */
 	void keyPressed(int key);
+	
 	/**
 	 * Key released
 	 */
 	void keyReleased(int key);
+	
 	/**
 	 * Mouse moved
 	 */
 	void mouseMoved(int x, int y);
+	
 	/**
 	 * Mouse dragged
 	 */
 	void mouseDragged(int x, int y, int button);
+	
 	/**
 	 * Mouse pressed
 	 */
 	void mousePressed(int x, int y, int button);
+	
 	/**
 	 * Mouse released
 	 */
 	void mouseReleased(int x, int y, int button);
+	
 	/**
 	 * Window resized
 	 */
 	void windowResized(int w, int h);
+	
 	/**
 	 * Got message
 	 */
 	void gotMessage(ofMessage msg);
+	
 	/**
 	 * Drag event
 	 */
 	void dragEvent(ofDragInfo dragInfo);
 	
-	// Multitouch events
 	/**
-	 * Trackpad update
+	 * Multitouch Trackpad update
 	 */
 	void padUpdates(int & t);
+	
 	/**
-	 * Trackpad new touch
+	 * Multitouch Trackpad new touch
 	 */
 	void newTouch(int & n);
+	
 	/**
-	 * Trackpad remove touch
+	 * Multitouch Trackpad remove touch
 	 */
 	void removedTouch(int & r);
+	
 	/**
 	 * Gui event
 	 */
 	void guiEvent(ofxUIEventArgs &e);
-	
 	
 	
 private:
@@ -132,15 +147,20 @@ private:
 	 * Set the Application Window Title
 	 */
 	void setWindowTitle();
+	
 	/**
 	 * Send an osc message (integer value)
 	 */
 	void oscIntMessage(string s, int val);
+	
 	/**
 	 * Send an osc message (float value)
 	 */
 	void oscFloatMessage(string s, float val);
 	
+	/* XML Settings
+	 */
+	ofxXmlDefaultSettings XML;
 	
 	/* Font
 	 */
@@ -153,24 +173,16 @@ private:
 	/* Viewer
 	 */
 	ToolbarMVC toolbarMVC;
+	TouchpointsMVC touchpointsMVC;
 	SettingsMVC settingsMVC;
-	//ViewerTouchpoints viewerTouchpoints;
+	ConsoleMVC consoleMVC;
 	
+	/* Multitouch Trackpad
+	 */
+	ofxMultiTouchPad   pad;
 	
-		// XML Settings
-		ofxXmlDefaultSettings XML;
-		// Touchpoint color variables
-		ofColor xmlTouchpointColor;
-		ofColor xmlTouchpointLines;
-		ofColor xmlTouchpointCross;
-	
-		// Multitouch Trackpad
-		ofxMultiTouchPad   pad;
-	
-		// Console
-		TextConsole console;
-	
-		// GUI
-		ofxUICanvas *gui;
+	/* GUI
+	 */
+	ofxUICanvas *gui;
 	
 };

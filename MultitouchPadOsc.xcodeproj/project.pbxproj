@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AF307968162D740A0068BA82 /* SettingsMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307964162D740A0068BA82 /* SettingsMVC.cpp */; };
-		AF307969162D740A0068BA82 /* ViewerTouchpoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307966162D740A0068BA82 /* ViewerTouchpoints.cpp */; };
+		AF307969162D740A0068BA82 /* TouchpointsMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307966162D740A0068BA82 /* TouchpointsMVC.cpp */; };
 		AF307C5E162DE9890068BA82 /* ToolbarMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307C5D162DE9890068BA82 /* ToolbarMVC.cpp */; };
+		AF307E2E162E0E000068BA82 /* ConsoleMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307E2D162E0E000068BA82 /* ConsoleMVC.cpp */; };
 		AF6E492C15B2F28400D281DB /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E48FE15B2F28400D281DB /* ofxOscBundle.cpp */; };
 		AF6E492D15B2F28400D281DB /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E490015B2F28400D281DB /* ofxOscMessage.cpp */; };
 		AF6E492E15B2F28400D281DB /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E490215B2F28400D281DB /* ofxOscReceiver.cpp */; };
@@ -139,10 +140,12 @@
 /* Begin PBXFileReference section */
 		AF307964162D740A0068BA82 /* SettingsMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingsMVC.cpp; sourceTree = "<group>"; };
 		AF307965162D740A0068BA82 /* SettingsMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMVC.h; sourceTree = "<group>"; };
-		AF307966162D740A0068BA82 /* ViewerTouchpoints.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ViewerTouchpoints.cpp; sourceTree = "<group>"; };
-		AF307967162D740A0068BA82 /* ViewerTouchpoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewerTouchpoints.h; sourceTree = "<group>"; };
+		AF307966162D740A0068BA82 /* TouchpointsMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchpointsMVC.cpp; sourceTree = "<group>"; };
+		AF307967162D740A0068BA82 /* TouchpointsMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchpointsMVC.h; sourceTree = "<group>"; };
 		AF307C5C162DE9890068BA82 /* ToolbarMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolbarMVC.h; sourceTree = "<group>"; };
 		AF307C5D162DE9890068BA82 /* ToolbarMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToolbarMVC.cpp; sourceTree = "<group>"; };
+		AF307E2C162E0E000068BA82 /* ConsoleMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleMVC.h; sourceTree = "<group>"; };
+		AF307E2D162E0E000068BA82 /* ConsoleMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleMVC.cpp; sourceTree = "<group>"; };
 		AF6E48FC15B2F28400D281DB /* ofxOsc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOsc.h; path = ../../../addons/ofxOsc/src/ofxOsc.h; sourceTree = SOURCE_ROOT; };
 		AF6E48FD15B2F28400D281DB /* ofxOscArg.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscArg.h; path = ../../../addons/ofxOsc/src/ofxOscArg.h; sourceTree = SOURCE_ROOT; };
 		AF6E48FE15B2F28400D281DB /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
@@ -298,10 +301,12 @@
 			children = (
 				AF307C5C162DE9890068BA82 /* ToolbarMVC.h */,
 				AF307C5D162DE9890068BA82 /* ToolbarMVC.cpp */,
+				AF307967162D740A0068BA82 /* TouchpointsMVC.h */,
+				AF307966162D740A0068BA82 /* TouchpointsMVC.cpp */,
 				AF307965162D740A0068BA82 /* SettingsMVC.h */,
 				AF307964162D740A0068BA82 /* SettingsMVC.cpp */,
-				AF307967162D740A0068BA82 /* ViewerTouchpoints.h */,
-				AF307966162D740A0068BA82 /* ViewerTouchpoints.cpp */,
+				AF307E2C162E0E000068BA82 /* ConsoleMVC.h */,
+				AF307E2D162E0E000068BA82 /* ConsoleMVC.cpp */,
 			);
 			name = MVC;
 			sourceTree = "<group>";
@@ -767,8 +772,9 @@
 				AF6E4B2215B2FAE200D281DB /* tinyxmlparser.cpp in Sources */,
 				AF6E4BB015B300D300D281DB /* ofxXmlDefaultSettings.cpp in Sources */,
 				AF307968162D740A0068BA82 /* SettingsMVC.cpp in Sources */,
-				AF307969162D740A0068BA82 /* ViewerTouchpoints.cpp in Sources */,
+				AF307969162D740A0068BA82 /* TouchpointsMVC.cpp in Sources */,
 				AF307C5E162DE9890068BA82 /* ToolbarMVC.cpp in Sources */,
+				AF307E2E162E0E000068BA82 /* ConsoleMVC.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
