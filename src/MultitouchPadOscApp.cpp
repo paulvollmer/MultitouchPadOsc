@@ -28,7 +28,6 @@
 
 
 void MultitouchPadOscApp::setup() {
-	
 	/* Load the font
 	 */
 	//ofTrueTypeFont::setGlobalDpi(96);
@@ -39,12 +38,20 @@ void MultitouchPadOscApp::setup() {
 		ofLog() << "FONT: Not loaded";
 	}
 	
-	/* Settings Viewer
+	
+	/* Multitouch Trackpad
+	 * Add the listeners
+	 */
+    ofAddListener(pad.update, this, &MultitouchPadOscApp::padUpdates);
+    ofAddListener(pad.touchAdded, this, &MultitouchPadOscApp::newTouch);
+    ofAddListener(pad.touchRemoved, this, &MultitouchPadOscApp::removedTouch);
+	
+	
+	/* Viewer
 	 */
 	toolbarMVC.init();
 	settingsMVC.init(vera);
 	consoleMVC.init();
-	
 	
 	
 	/* Set the xml tag names and root-version, -url attributes.
@@ -89,8 +96,6 @@ void MultitouchPadOscApp::setup() {
 		touchpointsMVC.addXml(XML);
 		settingsMVC.addXml(XML);
 	}
-	/* Pop root xml tag.
-	 */
 	XML.popRoot();
 	
 	/* Set the openFrameworks app settings.
@@ -99,18 +104,17 @@ void MultitouchPadOscApp::setup() {
 	ofLog() << "XML: " << XML.getStatusMessage();
 	setWindowTitle();
 	
-	/* Log the XML parameter
-	 */
-	toolbarMVC.log();
-	touchpointsMVC.log();
-	settingsMVC.log();
-	
 	/* Save the XML file if no file existed
 	 */
 	if (XML.fileExist == false) {
 		XML.saveFile();
 	}
 	
+	/* Log the MVC parameter
+	 */
+	toolbarMVC.log();
+	touchpointsMVC.log();
+	settingsMVC.log();
 	
 	/* OSC
 	 * Open an outgoing connection to oscHost, oscPort
@@ -118,13 +122,12 @@ void MultitouchPadOscApp::setup() {
 	oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 	ofLog() << "OSC: setup host \"" << settingsMVC.oscHost << "\", port " << "\"" << settingsMVC.oscPort << "\"";
 	
-	
 	/* GUI
 	 * set the status to osc:out settings value
 	 */
 	gui = new ofxUICanvas();
 	gui->setFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf"); //This loads a new font and sets the GUI font
-    gui->setFontSize(OFX_UI_FONT_LARGE, 12);                                    //These call are optional, but if you want to resize the LARGE, MEDIUM, and SMALL fonts, here is how to do it. 
+    gui->setFontSize(OFX_UI_FONT_LARGE, 12);                                   //These call are optional, but if you want to resize the LARGE, MEDIUM, and SMALL fonts, here is how to do it. 
     gui->setFontSize(OFX_UI_FONT_MEDIUM, 8);           
     gui->setFontSize(OFX_UI_FONT_SMALL, 6);                                    //SUPER IMPORTANT NOTE: CALL THESE FUNTIONS BEFORE ADDING ANY WIDGETS, THIS AFFECTS THE SPACING OF THE GUI
 	gui->addWidget(new ofxUITextInput("TEXT HOST", settingsMVC.oscHost, 130,20, 50,77, OFX_UI_FONT_SMALL));
@@ -134,18 +137,8 @@ void MultitouchPadOscApp::setup() {
 	gui->setVisible(false);
 	
 	
-		
-	/* Multitouch Trackpad
-	 * Add the listeners
-	 */
-    ofAddListener(pad.update, this, &MultitouchPadOscApp::padUpdates);
-    ofAddListener(pad.touchAdded, this, &MultitouchPadOscApp::newTouch);
-    ofAddListener(pad.touchRemoved, this, &MultitouchPadOscApp::removedTouch);
-	
-	
 	ofLog() << "Number of Devices: "<< pad.getNumDevices();
 	ofLog() << "SETUP: ready";
-	
 }
 
 
@@ -163,166 +156,40 @@ void MultitouchPadOscApp::draw(){
 	ofSetColor(88, 88, 90);
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	
-	
-	toolbarMVC.draw(vera);
-	touchpointsMVC.draw(vera, pad);
-	
-	
-	/* Display finger blobs
-	 * connect all touches with a line
-	 *
-    std::vector<ofPoint>touches;
-    pad.getTouchesAsOfPoints(&touches);
-	
-	ofEnableSmoothing();
-    for(int i=0; (i<touches.size()-1 && touches.size()>1); i++) {
-        ofSetColor(touchpointsMVC.touchpointLines);
-        int x1 = ofMap(touches.at(i).x,   0.0, 1.0, 30, ofGetWidth()-30);
-		int y1 = ofMap(touches.at(i).y,   0.0, 1.0, 70, ofGetHeight()-30);
-		int x2 = ofMap(touches.at(i+1).x, 0.0, 1.0, 30, ofGetWidth()-30);
-		int y2 = ofMap(touches.at(i+1).y, 0.0, 1.0, 70, ofGetHeight()-30);
-		ofLine(x1, y1, x2, y2);
-    }
-	ofDisableSmoothing();
-    
-	
-	/* display all finger blobs
-	 *
-	for(int i=0; i<pad.getTouchCount(); i++) {
-		
-		
-		// using MTouch struct
-		int x = ofMap(touch.x, 0.0, 1.0, 40, ofGetWidth()-40);
-		int y = ofMap(touch.y, 0.0, 1.0, 80, ofGetHeight()-40);
-		int size = touch.size*50;
-		
-		// Transform
-		ofPushMatrix();
-		ofTranslate(x, y, 0);
-		ofRotateZ(touch.angle);
-		
-		ofEnableSmoothing();
-		// finger blob circle
-		ofSetColor(touchpointsMVC.touchpointColor);
-		ofFill();
-		ofEllipse(0, 0, size, size*0.625);
-		
-		// cross at the circle center
-		ofSetColor(touchpointsMVC.touchpointCross);
-		ofNoFill();
-		ofLine(-5, 0, 5, 0);
-		ofLine(0, -5, 0, +5);
-		ofDisableSmoothing();
-		
-		ofPopMatrix();
-		
-		
-		// draw info
-		/*char _s [128];
-		 sprintf(_s, "ID %05i, frame: %05i, x: %6.3f, y: %6.3f, angle: %8.3f,"
-		 "size: %6.3f nFingers: %d\n",
-		 touch.ID,touch.frame,touch.x,touch.y,touch.angle,
-		 touch.size,pad.getTouchCount());
-		 ofSetHexColor(0xffffff);
-		 ofDrawBitmapString((string)_s, 0,0);*/
-		
-		
-	for(int i=0; i<pad.getTouchCount(); i++) {
-		// get a single touch as MTouch struct....
-		MTouch touch;
-		if(!pad.getTouchAt(i,&touch)) continue; // guard..
-		
-		/* OSC
-		 */
-		if(toolbarMVC.buttonOscActive.status == true) {
-		
-			
-			// Check if padFrame is active
-			if (settingsMVC.checkboxFrame.status == true) {
-				// Send osc message, integer value with the current frame.
-				// e.g. /mt/1/frame/23
-				string sFrame = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/frame";
-				
-				oscIntMessage(sFrame, touch.frame);
-				
-				consoleMVC.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
-			}
-			 
-			// check if padTimestamp is active
-			/*if (settings.padTimestamp == 0) {
-				Finger finger;
-				cout << "padTimestamp " << finger.timestamp << endl;
-			}*/
-			 
-			// check if padPosition is active
-			if (settingsMVC.checkboxPosition.status == true) {
-				// Send osc message, float value between 0 and 1.
-				// e.g. /mt/1/x/0.5
-				string sX = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/x";
-				string sY = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/y";
-				oscFloatMessage(sX, touch.x);
-				oscFloatMessage(sY, touch.y);
-				consoleMVC.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
-				consoleMVC.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
-			}
-			 
-			// check if padVelocity is active
-			/*if (settings.padVelocity == 0) {
-				Finger finger;
-				cout << "padVelocity " << finger.mm.vel.x << endl;
-			}*/
-			 
-			// check if padSize is active
-			if (settingsMVC.checkboxSize.status == true) {
-				// Send osc message, float value between 0 and 1.
-				// e.g. /mt/1/size/0.5
-				string sSize = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/size";
-				oscFloatMessage(sSize, touch.size);
-				consoleMVC.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
-			}
-			 
-			// check if padAngle is active
-			if (settingsMVC.checkboxAngle.status == true) {
-				// Send osc message, float value between 0 and 1.
-				// e.g. /mt/1/angle/0.5
-				string sAngle = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/angle";
-				oscFloatMessage(sAngle, touch.angle);
-				consoleMVC.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
-			}
-		}
-    }
-	
-	
-	/* settings button
+	/* The Window Mode button display method isn't  includet at the Toolbar MVC.
+	 * Because we trigger on/off the MVC, the button must be draw seperate.
 	 */
-	if(toolbarMVC.buttonSettings.status == true) {
+	ofSetColor(255);
+	ofFill();
+	toolbarMVC.buttonWindowMode.display();
+	if (toolbarMVC.buttonWindowMode.status == false) {
+		/* MVC draw methods
+		 */
+		toolbarMVC.draw(vera);
+		touchpointsMVC.draw(vera, pad);
+		
 		/* Settings Viewer
 		 */
-		settingsMVC.draw(vera);
+		
+		if(toolbarMVC.buttonSettings.status == true) {
+			settingsMVC.draw(vera);
+		}
+		
+		/* Console button
+		 */
+		if(toolbarMVC.buttonConsole.status == true) {
+			consoleMVC.draw(vera);
+		}
 	}
-	
-	/* console button
-	 */
-	if(toolbarMVC.buttonConsole.status == true) {
-		consoleMVC.draw(vera);
-	}
-	
 }
 
 
 
 void MultitouchPadOscApp::exit() {
-	/* XML file
+	/* Set the XML file
 	 */
-	XML.pushRoot();
-	XML.setAttribute("osc", "host", settingsMVC.oscHost, 0);
-	XML.setAttribute("osc", "port", settingsMVC.oscPort, 0);
 	settingsMVC.setXml(XML);
-	XML.popRoot();
-	
-	
 	toolbarMVC.setXml(XML);
-	
 	
 	/* Save the current settings to xml.
 	 */
@@ -336,6 +203,8 @@ void MultitouchPadOscApp::exit() {
 
 
 void MultitouchPadOscApp::keyPressed(int key) {
+	/* MVC key pressed events
+	 */
 	toolbarMVC.keyPressed(key);
 	settingsMVC.keyPressed(key);
 	consoleMVC.keyPressed(key);
@@ -360,53 +229,20 @@ void MultitouchPadOscApp::mouseDragged(int x, int y, int button) {
 
 void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 	
-	
 	toolbarMVC.mousePressed(x, y);
 	
-	
-	if (toolbarMVC.buttonTouchpoints.status == false) {
-		toolbarMVC.buttonTouchpoints.pressed(x, y);
-	}
+	/* hide / show GUI textfield
+	 */
 	if (toolbarMVC.buttonTouchpoints.status == true) {
-		/* hide settings, settings panel
-		 */
-		toolbarMVC.buttonSettings.status = false;
-		toolbarMVC.buttonConsole.status = false;
-		/* hide GUI textfield
-		 */
 		gui->setVisible(false);
 	}
 	
-	/* Settings button
-	 */
-	if (toolbarMVC.buttonSettings.status == false) {
-		toolbarMVC.buttonSettings.pressed(x, y);
-	}
 	if (toolbarMVC.buttonSettings.status == true) {
-		/* hide touchpoint, console panel
-		 */
-		toolbarMVC.buttonTouchpoints.status = false;
-		toolbarMVC.buttonConsole.status = false;
-		
 		settingsMVC.mousePressed(x, y);
-		
-		/* show GUI textfield
-		 */
 		gui->setVisible(true);
 	}
 	
-	/* Console button
-	 */
-	if (toolbarMVC.buttonConsole.status == false) {
-		toolbarMVC.buttonConsole.pressed(x, y);
-	}
 	if (toolbarMVC.buttonConsole.status == true) {
-		/* hide touchpoint, settings panel
-		 */
-		toolbarMVC.buttonTouchpoints.status = false;
-		toolbarMVC.buttonSettings.status = false;
-		/* hide GUI textfield
-		 */
 		gui->setVisible(false);
 	}
 }
@@ -436,6 +272,73 @@ void MultitouchPadOscApp::dragEvent(ofDragInfo dragInfo) {
 
 void MultitouchPadOscApp::padUpdates(int & t) {
 	printf("pad updates & has %i touches\n",t);
+	
+	
+	for(int i=0; i<pad.getTouchCount(); i++) {
+		// get a single touch as MTouch struct....
+		MTouch touch;
+		if(!pad.getTouchAt(i,&touch)) continue; // guard..
+		
+		/* OSC
+		 */
+		if(toolbarMVC.buttonOscActive.status == true) {
+			
+			
+			// Check if padFrame is active
+			if (settingsMVC.checkboxFrame.status == true) {
+				// Send osc message, integer value with the current frame.
+				// e.g. /mt/1/frame/23
+				string sFrame = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/frame";
+				
+				oscIntMessage(sFrame, touch.frame);
+				
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
+			}
+			
+			// check if padTimestamp is active
+			/*if (settings.padTimestamp == 0) {
+			 Finger finger;
+			 cout << "padTimestamp " << finger.timestamp << endl;
+			 }*/
+			
+			// check if padPosition is active
+			if (settingsMVC.checkboxPosition.status == true) {
+				// Send osc message, float value between 0 and 1.
+				// e.g. /mt/1/x/0.5
+				string sX = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/x";
+				string sY = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/y";
+				oscFloatMessage(sX, touch.x);
+				oscFloatMessage(sY, touch.y);
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
+			}
+			
+			// check if padVelocity is active
+			/*if (settings.padVelocity == 0) {
+			 Finger finger;
+			 cout << "padVelocity " << finger.mm.vel.x << endl;
+			 }*/
+			
+			// check if padSize is active
+			if (settingsMVC.checkboxSize.status == true) {
+				// Send osc message, float value between 0 and 1.
+				// e.g. /mt/1/size/0.5
+				string sSize = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/size";
+				oscFloatMessage(sSize, touch.size);
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
+			}
+			
+			// check if padAngle is active
+			if (settingsMVC.checkboxAngle.status == true) {
+				// Send osc message, float value between 0 and 1.
+				// e.g. /mt/1/angle/0.5
+				string sAngle = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/angle";
+				oscFloatMessage(sAngle, touch.angle);
+				consoleMVC.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
+			}
+		}
+    }
+		
 }
 
 

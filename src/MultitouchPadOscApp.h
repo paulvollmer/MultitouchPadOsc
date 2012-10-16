@@ -157,17 +157,21 @@ private:
 	 */
 	void oscFloatMessage(string s, float val);
 	
-	/* XML Settings
-	 */
-	ofxXmlDefaultSettings XML;
-	
 	/* Font
 	 */
 	ofTrueTypeFont vera;
 	
+	/* Multitouch Trackpad
+	 */
+	ofxMultiTouchPad pad;
+	
+	/* XML Settings
+	 */
+	ofxXmlDefaultSettings XML;
+	
 	/* openFrameworks osc addon
 	 */
-	ofxOscSender   oscSender;
+	ofxOscSender oscSender;
 	
 	/* Viewer
 	 */
@@ -175,10 +179,6 @@ private:
 	TouchpointsMVC touchpointsMVC;
 	SettingsMVC settingsMVC;
 	ConsoleMVC consoleMVC;
-	
-	/* Multitouch Trackpad
-	 */
-	ofxMultiTouchPad   pad;
 	
 	/* GUI
 	 */

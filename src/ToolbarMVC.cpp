@@ -31,9 +31,9 @@ ToolbarMVC::ToolbarMVC(){}
 
 void ToolbarMVC::init() {
 	string tempGuiFilepath = ofFilePath::getCurrentWorkingDirectory()+"/gui/";
-	buttonOscActive.init(tempGuiFilepath+"oscactive_on.png", tempGuiFilepath+"oscactive_off.png", ofGetWidth()-56, 0);
+	buttonOscActive.init(tempGuiFilepath+"oscactive_on.png", tempGuiFilepath+"oscactive_off.png", ofGetWidth()-OSC_ACTIVE_X, 0);
 	oscSendImage.loadImage(tempGuiFilepath+"oscactive_send.png");
-	buttonWindowMode.init(tempGuiFilepath+"oscactive_send.png", tempGuiFilepath+"oscactive_send.png", ofGetWidth()-36, 0);
+	buttonWindowMode.init(tempGuiFilepath+"window_mode_on.png", tempGuiFilepath+"window_mode_off.png", ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
 	//btnSafetyMode.init(tempGuiFilepath+"oscactive_on.png", tempGuiFilepath+"oscactive_off.png", ofGetWidth()-56, 0);
 	buttonTouchpoints.init(tempGuiFilepath+"btn_left_on.png",  tempGuiFilepath+"btn_left_off.png", 10, 0);
 	buttonTouchpoints.status = true;
@@ -78,18 +78,17 @@ void ToolbarMVC::draw(ofTrueTypeFont font) {
 	ofSetColor(255);
 	buttonOscActive.display();
 	//btnSafetyMode.display();
-	buttonWindowMode.display();
 	buttonTouchpoints.display();
 	buttonSettings.display();
 	buttonConsole.display();
 	
 	/* If osc message will be send, show osc send icon.
 	 */
-	//if(buttonOscActive.status == true) {
+	if(buttonOscActive.status == true) {
 		ofSetColor(255);
 		ofFill();
-		oscSendImage.draw(ofGetWidth()-56, 0);
-	//}
+		oscSendImage.draw(ofGetWidth()-OSC_ACTIVE_X, 0);
+	}
 	
 	/* Draw the touch count typo
 	 */
@@ -103,8 +102,8 @@ void ToolbarMVC::draw(ofTrueTypeFont font) {
 void ToolbarMVC::windowResized(int w, int h) {
 	/* GUI
 	 */
-	buttonOscActive.setPosition(w-56, 0);
-	buttonWindowMode.setPosition(w-36, 0);
+	buttonOscActive.setPosition(w-OSC_ACTIVE_X, 0);
+	buttonWindowMode.setPosition(w-WINDOW_MODE_IMAGE_WIDTH, 0);
 	//btnSafetyMode.setPosition(w-66, 0);
 }
 
@@ -115,12 +114,13 @@ void ToolbarMVC::mousePressed(int x, int y) {
 	buttonOscActive.pressed(x, y);
 	
 	buttonWindowMode.pressed(x, y);
-	// TODO:
-	/*if (buttonWindowMode.status == true) {
-		ofSetWindowShape(400, 100);
-	} else {
-		XML.setWindowShape();
-	}*/
+	if (buttonWindowMode.status == true) {
+		ofSetWindowShape(ofGetWidth(), WINDOW_MODE_MIN_HEIGHT);
+		buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
+	} else if (buttonWindowMode.status == false) {
+		ofSetWindowShape(ofGetWidth(), 400);
+		buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
+	}
 	
 	/*btnSafetyMode.pressed(x, y);
 	 if (btnSafetyMode.status == true) {
@@ -130,6 +130,42 @@ void ToolbarMVC::mousePressed(int x, int y) {
 	 cout << "### safety mode not active" << endl;
 	 ofSetFullscreen(false);
 	 }*/
+	
+	/* Touchpoint button
+	 */
+	if (buttonTouchpoints.status == false) {
+		buttonTouchpoints.pressed(x, y);
+	}
+	if (buttonTouchpoints.status == true) {
+		/* hide settings, settings panel
+		 */
+		buttonSettings.status = false;
+		buttonConsole.status = false;
+	}
+	
+	/* Settings button
+	 */
+	if (buttonSettings.status == false) {
+		buttonSettings.pressed(x, y);
+	}
+	if (buttonSettings.status == true) {
+		/* hide touchpoint, console panel
+		 */
+		buttonTouchpoints.status = false;
+		buttonConsole.status = false;
+	}
+	
+	/* Console button
+	 */
+	if (buttonConsole.status == false) {
+		buttonConsole.pressed(x, y);
+	}
+	if (buttonConsole.status == true) {
+		/* hide touchpoint, settings panel
+		 */
+		buttonTouchpoints.status = false;
+		buttonSettings.status = false;
+	}
 }
 
 
@@ -170,11 +206,11 @@ void ToolbarMVC::keyPressed(int key) {
 			if (buttonWindowMode.status == true) {
 				buttonWindowMode.status = false;
 				ofSetWindowShape(ofGetWidth(), 400);
-				buttonWindowMode.setPosition(ofGetWidth()-36, 0);
+				buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
 			} else {
 				buttonWindowMode.status = true;
-				ofSetWindowShape(ofGetWidth(), 40);
-				buttonWindowMode.setPosition(ofGetWidth()-36, 0);
+				ofSetWindowShape(ofGetWidth(), WINDOW_MODE_MIN_HEIGHT);
+				buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
 			}
 			break;
 	

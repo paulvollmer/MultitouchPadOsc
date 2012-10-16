@@ -100,8 +100,12 @@ void SettingsMVC::addXml(ofxXmlDefaultSettings xml) {
 
 
 void SettingsMVC::setXml(ofxXmlDefaultSettings xml) {
-	xml.setValue("pad:devicename", oscTouchpadDevicename, 0);
+	xml.pushRoot();
 	
+	xml.setAttribute("osc", "host", oscHost, 0);
+	xml.setAttribute("osc", "port", oscPort, 0);
+	
+	xml.setValue("pad:devicename", oscTouchpadDevicename, 0);
 	xml.setValue("pad:array", checkboxOscArray.status, 0);
 	xml.setValue("pad:frame", checkboxFrame.status, 0);
 	//xml.setValue("pad:timestamp", checkboxTimestamp.status, 0);
@@ -110,6 +114,8 @@ void SettingsMVC::setXml(ofxXmlDefaultSettings xml) {
 	xml.setValue("pad:size", checkboxSize.status, 0);
 	//xml.setValue("pad:maxis", checkboxMaxis.status, 0);
 	xml.setValue("pad:angle", checkboxAngle.status, 0);
+	
+	xml.popRoot();
 }
 
 

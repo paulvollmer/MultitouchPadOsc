@@ -30,6 +30,10 @@
 #include "ofxXmlDefaultSettings.h"
 #include "wImageButton.h"
 
+#define WINDOW_MODE_IMAGE_WIDTH 10
+#define WINDOW_MODE_MIN_HEIGHT 40
+#define OSC_ACTIVE_X 36
+
 class ToolbarMVC {	
 public:
 	ToolbarMVC();

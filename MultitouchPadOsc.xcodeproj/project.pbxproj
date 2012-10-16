@@ -11,6 +11,8 @@
 		AF307969162D740A0068BA82 /* TouchpointsMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307966162D740A0068BA82 /* TouchpointsMVC.cpp */; };
 		AF307C5E162DE9890068BA82 /* ToolbarMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307C5D162DE9890068BA82 /* ToolbarMVC.cpp */; };
 		AF307E2E162E0E000068BA82 /* ConsoleMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307E2D162E0E000068BA82 /* ConsoleMVC.cpp */; };
+		AF307ED7162E1E0D0068BA82 /* window_mode_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF307ED5162E1DFA0068BA82 /* window_mode_off.png */; };
+		AF307F57162E23720068BA82 /* window_mode_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AF307F56162E23660068BA82 /* window_mode_on.png */; };
 		AF6E492C15B2F28400D281DB /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E48FE15B2F28400D281DB /* ofxOscBundle.cpp */; };
 		AF6E492D15B2F28400D281DB /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E490015B2F28400D281DB /* ofxOscMessage.cpp */; };
 		AF6E492E15B2F28400D281DB /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF6E490215B2F28400D281DB /* ofxOscReceiver.cpp */; };
@@ -100,6 +102,8 @@
 			dstPath = gui;
 			dstSubfolderSpec = 6;
 			files = (
+				AF307ED7162E1E0D0068BA82 /* window_mode_off.png in Copy Files GUI */,
+				AF307F57162E23720068BA82 /* window_mode_on.png in Copy Files GUI */,
 				AFDAE3ED1626D21400ABEBB0 /* btn_left_off.png in Copy Files GUI */,
 				AFDAE3EE1626D21400ABEBB0 /* btn_left_on.png in Copy Files GUI */,
 				AFDAE3EF1626D21400ABEBB0 /* btn_middle_off.png in Copy Files GUI */,
@@ -146,6 +150,8 @@
 		AF307C5D162DE9890068BA82 /* ToolbarMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToolbarMVC.cpp; sourceTree = "<group>"; };
 		AF307E2C162E0E000068BA82 /* ConsoleMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleMVC.h; sourceTree = "<group>"; };
 		AF307E2D162E0E000068BA82 /* ConsoleMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleMVC.cpp; sourceTree = "<group>"; };
+		AF307ED5162E1DFA0068BA82 /* window_mode_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = window_mode_off.png; path = resources/gui/window_mode_off.png; sourceTree = "<group>"; };
+		AF307F56162E23660068BA82 /* window_mode_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = window_mode_on.png; path = resources/gui/window_mode_on.png; sourceTree = "<group>"; };
 		AF6E48FC15B2F28400D281DB /* ofxOsc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOsc.h; path = ../../../addons/ofxOsc/src/ofxOsc.h; sourceTree = SOURCE_ROOT; };
 		AF6E48FD15B2F28400D281DB /* ofxOscArg.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscArg.h; path = ../../../addons/ofxOsc/src/ofxOscArg.h; sourceTree = SOURCE_ROOT; };
 		AF6E48FE15B2F28400D281DB /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
@@ -494,6 +500,8 @@
 		AF6E4C4D15B30F2000D281DB /* gui */ = {
 			isa = PBXGroup;
 			children = (
+				AF307ED5162E1DFA0068BA82 /* window_mode_off.png */,
+				AF307F56162E23660068BA82 /* window_mode_on.png */,
 				AFDAE3E71626D20B00ABEBB0 /* btn_left_off.png */,
 				AFDAE3E81626D20B00ABEBB0 /* btn_left_on.png */,
 				AFDAE3E91626D20B00ABEBB0 /* btn_middle_off.png */,
