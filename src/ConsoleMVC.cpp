@@ -28,26 +28,10 @@
 ConsoleMVC::ConsoleMVC(){}
 
 
-void ConsoleMVC::init(ofTrueTypeFont font) {
-	/* Console
+void ConsoleMVC::init() {
+	/* Set the currentConsoleStrings to 0
 	 */
-	console.init(font);
-}
-
-
-void ConsoleMVC::getXml(ofxXmlDefaultSettings xml) {
-	
-}
-
-
-void ConsoleMVC::addXml(ofxXmlDefaultSettings xml) {
-}
-
-/*void TouchpointsMVC::setXml(ofxXmlDefaultSettings xml) {
- 
- }*/
-
-void ConsoleMVC::log() {
+	currentConsoleStrings = 0;
 }
 
 
@@ -64,12 +48,33 @@ void ConsoleMVC::draw(ofTrueTypeFont font) {
 	 */
 	ofSetColor(ofColor::white);
 	font.drawString("Sended osc messages:", 15, 50);
-	console.display(15, 90);
+	
+	for(int i=0; i<NUM_STRINGS; i++) {
+		font.drawString(consoleStrings[i], 15, 90+(i*15));
+	}
 }
+
+
+void ConsoleMVC::addString(string msg, bool log) {
+	consoleStrings[currentConsoleStrings] = msg;
+	
+	if (log == true) {
+		ofLog() << msg;
+	}
+	
+	if (currentConsoleStrings < NUM_STRINGS) {
+		currentConsoleStrings++;
+	}
+	if (currentConsoleStrings == NUM_STRINGS) {
+		currentConsoleStrings = 0;
+	}
+}
+
 
 void ConsoleMVC::mousePressed(int x, int y) {
 	
 }
+
 
 void ConsoleMVC::keyPressed(int key) {
 	/* Open the settings xml file
@@ -78,6 +83,6 @@ void ConsoleMVC::keyPressed(int key) {
 		string commandStr = "open " + ofFilePath::getCurrentWorkingDirectory() + "/ofSettings.xml";
 		system(commandStr.c_str());
 		
-		console.addString("Open XML settings file.");
+		addString("Open XML settings file.");
 	}
 }

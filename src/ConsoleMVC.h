@@ -28,24 +28,25 @@
 
 #include "ofMain.h"
 #include "ofxXmlDefaultSettings.h"
-#include "TextConsole.h"
+#define NUM_STRINGS 20
 
 class ConsoleMVC {	
 public:
 	ConsoleMVC();
-	void init(ofTrueTypeFont font);
-	void getXml(ofxXmlDefaultSettings xml);
-	void addXml(ofxXmlDefaultSettings xml);
-	//void setXml(ofxXmlDefaultSettings xml);
-	void log();
+	void init();
 	void draw(ofTrueTypeFont font);
+	/**
+	 * add a string to console text
+	 */
+	void addString(string msg, bool log = false);
 	void mousePressed(int x, int y);
 	void keyPressed(int key);
 	
 	/**
-	 * Text Console
+	 * Variables
 	 */
-	TextConsole console;
+	int    currentConsoleStrings;
+	string consoleStrings[NUM_STRINGS];
 	
 };
 #endif // CONSOLE_MVC_H_
