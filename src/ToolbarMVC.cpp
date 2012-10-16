@@ -57,6 +57,7 @@ void ToolbarMVC::addXml(ofxXmlDefaultSettings xml) {
 	xml.addValue("osc", buttonOscActive.status);
 }
 
+
 void ToolbarMVC::setXml(ofxXmlDefaultSettings xml) {
 	xml.pushRoot();
 	xml.setAttribute(xml.getSyntax(xml.CORE)+":window", "mode", buttonWindowMode.status, 0);
@@ -105,7 +106,14 @@ void ToolbarMVC::mousePressed(int x, int y) {
 	/* GUI
 	 */
 	buttonOscActive.pressed(x, y);
+	
 	buttonWindowMode.pressed(x, y);
+	/*if (buttonWindowMode.status == true) {
+		ofSetWindowShape(400, 100);
+	} else {
+		XML.setWindowShape();
+	}*/
+	
 	/*btnSafetyMode.pressed(x, y);
 	 if (btnSafetyMode.status == true) {
 	 cout << "### safety mode active" << endl;
