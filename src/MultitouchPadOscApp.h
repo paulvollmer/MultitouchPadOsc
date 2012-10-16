@@ -172,6 +172,7 @@ private:
 	/* openFrameworks osc addon
 	 */
 	ofxOscSender oscSender;
+	bool oscIsSending;
 	
 	/* Viewer
 	 */

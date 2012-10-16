@@ -144,6 +144,7 @@ void MultitouchPadOscApp::setup() {
 
 
 void MultitouchPadOscApp::update() {
+	
 }
 
 
@@ -165,7 +166,7 @@ void MultitouchPadOscApp::draw(){
 	if (toolbarMVC.buttonWindowMode.status == false) {
 		/* MVC draw methods
 		 */
-		toolbarMVC.draw(vera);
+		toolbarMVC.draw(vera, oscIsSending);
 		touchpointsMVC.draw(vera, pad);
 		
 		/* Settings Viewer
@@ -181,6 +182,10 @@ void MultitouchPadOscApp::draw(){
 			consoleMVC.draw(vera);
 		}
 	}
+	
+	/* Reset oscIsSending variable to false
+	 */
+	oscIsSending = false;
 }
 
 
@@ -277,7 +282,10 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 	for(int i=0; i<pad.getTouchCount(); i++) {
 		// get a single touch as MTouch struct....
 		MTouch touch;
-		if(!pad.getTouchAt(i,&touch)) continue; // guard..
+		if(!pad.getTouchAt(i,&touch)) {
+			continue; // guard..
+		}
+
 		
 		/* OSC
 		 */
@@ -293,6 +301,8 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				oscIntMessage(sFrame, touch.frame);
 				
 				consoleMVC.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
+				
+				oscIsSending = true;
 			}
 			
 			// check if padTimestamp is active
@@ -311,6 +321,8 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				oscFloatMessage(sY, touch.y);
 				consoleMVC.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
 				consoleMVC.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
+				
+				oscIsSending = true;
 			}
 			
 			// check if padVelocity is active
@@ -326,6 +338,8 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				string sSize = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/size";
 				oscFloatMessage(sSize, touch.size);
 				consoleMVC.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
+				
+				oscIsSending = true;
 			}
 			
 			// check if padAngle is active
@@ -335,9 +349,11 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				string sAngle = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/angle";
 				oscFloatMessage(sAngle, touch.angle);
 				consoleMVC.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
+				
+				oscIsSending = true;
 			}
 		}
-    }
+	} // End for
 		
 }
 
