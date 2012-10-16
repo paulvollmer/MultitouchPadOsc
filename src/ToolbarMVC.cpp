@@ -1,5 +1,5 @@
 //
-// ToolbarMVC.h
+// ToolbarMVC.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
@@ -108,6 +108,7 @@ void ToolbarMVC::mousePressed(int x, int y) {
 	buttonOscActive.pressed(x, y);
 	
 	buttonWindowMode.pressed(x, y);
+	// TODO:
 	/*if (buttonWindowMode.status == true) {
 		ofSetWindowShape(400, 100);
 	} else {
