@@ -255,16 +255,31 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 		 */
 		if(toolbarMVC.buttonOscActive.status == true) {
 			
+			// Check if osc array is active
+			if (settingsMVC.checkboxOscArray.status == true) {
+				string tempMessage = "/"+settingsMVC.oscTouchpadDevicename+"/"+ofToString(i)+"/xysa";
+				
+				ofxOscMessage m;
+				m.setAddress(tempMessage);
+				m.addFloatArg(touch.x);
+				m.addFloatArg(touch.x);
+				m.addFloatArg(touch.size);
+				m.addFloatArg(touch.angle);
+				oscSender.sendMessage(m);
+				
+				//consoleMVC.addString("OSC "+tempMessage+"/"+ofToString(m));
+				oscIsSending = true;
+			}
 			
 			// Check if padFrame is active
 			if (settingsMVC.checkboxFrame.status == true) {
 				// Send osc message, integer value with the current frame.
 				// e.g. /mt/1/frame/23
-				string sFrame = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/frame";
+				string sFrame = "/"+settingsMVC.oscTouchpadDevicename+"/"+ofToString(i)+"/frame";
 				
 				oscIntMessage(sFrame, touch.frame);
 				
-				consoleMVC.addString(ofToString("OSC ") + ofToString(sFrame) + ofToString("/") + ofToString(touch.frame));
+				consoleMVC.addString("OSC "+sFrame+"/"+ofToString(touch.frame));
 				
 				oscIsSending = true;
 			}
@@ -279,12 +294,12 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 			if (settingsMVC.checkboxPosition.status == true) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/x/0.5
-				string sX = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/x";
-				string sY = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/y";
+				string sX = "/"+settingsMVC.oscTouchpadDevicename+"/"+ofToString(i)+"/x";
+				string sY = "/"+settingsMVC.oscTouchpadDevicename+"/"+ofToString(i)+"/y";
 				oscFloatMessage(sX, touch.x);
 				oscFloatMessage(sY, touch.y);
-				consoleMVC.addString(ofToString("OSC ") + ofToString(sX) + ofToString("/") + ofToString(touch.x));
-				consoleMVC.addString(ofToString("OSC ") + ofToString(sY) + ofToString("/") + ofToString(touch.y));
+				consoleMVC.addString("OSC "+sX+"/"+ofToString(touch.x));
+				consoleMVC.addString("OSC "+sY+"/"+ofToString(touch.y));
 				
 				oscIsSending = true;
 			}
