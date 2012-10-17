@@ -143,12 +143,6 @@ void MultitouchPadOscApp::setup() {
 
 
 
-void MultitouchPadOscApp::update() {
-	
-}
-
-
-
 void MultitouchPadOscApp::draw(){
 	/* background
 	 */
@@ -217,21 +211,6 @@ void MultitouchPadOscApp::keyPressed(int key) {
 
 
 
-void MultitouchPadOscApp::keyReleased(int key) {
-}
-
-
-
-void MultitouchPadOscApp::mouseMoved(int x, int y) {
-}
-
-
-
-void MultitouchPadOscApp::mouseDragged(int x, int y, int button) {
-}
-
-
-
 void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 	
 	toolbarMVC.mousePressed(x, y);
@@ -254,23 +233,8 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 
 
 
-void MultitouchPadOscApp::mouseReleased(int x, int y, int button) {
-}
-
-
-
 void MultitouchPadOscApp::windowResized(int w, int h) {
 	toolbarMVC.windowResized(w, h);
-}
-
-
-
-void MultitouchPadOscApp::gotMessage(ofMessage msg) {
-}
-
-
-
-void MultitouchPadOscApp::dragEvent(ofDragInfo dragInfo) {
 }
 
 

@@ -56,11 +56,6 @@ public:
 	void setup();
 	
 	/**
-	 * Update
-	 */
-	void update();
-	
-	/**
 	 * Draw
 	 * - Draw the backgroundImage
 	 * - Display the GUI
@@ -81,44 +76,14 @@ public:
 	void keyPressed(int key);
 	
 	/**
-	 * Key released
-	 */
-	void keyReleased(int key);
-	
-	/**
-	 * Mouse moved
-	 */
-	void mouseMoved(int x, int y);
-	
-	/**
-	 * Mouse dragged
-	 */
-	void mouseDragged(int x, int y, int button);
-	
-	/**
 	 * Mouse pressed
 	 */
 	void mousePressed(int x, int y, int button);
 	
 	/**
-	 * Mouse released
-	 */
-	void mouseReleased(int x, int y, int button);
-	
-	/**
 	 * Window resized
 	 */
 	void windowResized(int w, int h);
-	
-	/**
-	 * Got message
-	 */
-	void gotMessage(ofMessage msg);
-	
-	/**
-	 * Drag event
-	 */
-	void dragEvent(ofDragInfo dragInfo);
 	
 	/**
 	 * Multitouch Trackpad update
