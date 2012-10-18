@@ -146,9 +146,9 @@ void MultitouchPadOscApp::setup() {
 void MultitouchPadOscApp::draw(){
 	/* background
 	 */
-	ofBackground(111, 112, 114);
+	ofBackground(59, 59, 59);
 	ofFill();
-	ofSetColor(88, 88, 90);
+	ofSetColor(80, 80, 80);
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	
 	/* The Window Mode button display method isn't  includet at the Toolbar MVC.

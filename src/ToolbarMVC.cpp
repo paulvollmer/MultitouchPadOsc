@@ -37,8 +37,8 @@ void ToolbarMVC::init() {
 	//btnSafetyMode.init(tempGuiFilepath+"oscactive_on.png", tempGuiFilepath+"oscactive_off.png", ofGetWidth()-56, 0);
 	buttonTouchpoints.init(tempGuiFilepath+"btn_left_on.png",  tempGuiFilepath+"btn_left_off.png", 10, 0);
 	buttonTouchpoints.status = true;
-	buttonSettings.init(tempGuiFilepath+"btn_middle_on.png", tempGuiFilepath+"btn_middle_off.png", 87, 0);
-	buttonConsole.init(tempGuiFilepath+"btn_right_on.png", tempGuiFilepath+"btn_right_off.png", 164, 0);
+	buttonSettings.init(tempGuiFilepath+"btn_middle_on.png", tempGuiFilepath+"btn_middle_off.png", 81, 0);
+	buttonConsole.init(tempGuiFilepath+"btn_right_on.png", tempGuiFilepath+"btn_right_off.png", 159, 0);
 }
 
 
@@ -91,11 +91,11 @@ void ToolbarMVC::draw(ofTrueTypeFont font, bool oscIsSending) {
 	}
 	
 	/* Draw the touch count typo
-	 */
+	 *
     ofSetColor(255);
 	font.drawString("Viewer", 30, 18);
 	font.drawString("Settings", 107, 18);
-	font.drawString("Console", 184, 18);
+	font.drawString("Console", 184, 18);*/
 }
 
 
