@@ -27,7 +27,15 @@
 
 TouchpointsMVC::TouchpointsMVC(){}
 
+void TouchpointsMVC::init(ofTrueTypeFont font) {
+	checkboxShowInfo.init(font, "Show Information", 20, 40);
+}
+
+
 void TouchpointsMVC::getXml(ofxXmlDefaultSettings xml) {
+	/* Touchpoint info
+	 */
+	checkboxShowInfo.status = xml.getAttribute("touchpoints", "info", true, 0);
 	/* Touchpoint color
 	 */
 	touchpointColor[0] = xml.getAttribute("touchpoints:pointColor", "r", 0, 0);
@@ -47,6 +55,10 @@ void TouchpointsMVC::getXml(ofxXmlDefaultSettings xml) {
 
 
 void TouchpointsMVC::addXml(ofxXmlDefaultSettings xml) {
+	/* Touchpoint info
+	 */
+	checkboxShowInfo.status = true;
+	xml.addAttribute("touchpoints", "info", checkboxShowInfo.status, 0);
 	/* Touchpoint color
 	 */
 	touchpointColor.set(0, 155, 255, 255);
@@ -72,9 +84,13 @@ void TouchpointsMVC::addXml(ofxXmlDefaultSettings xml) {
 	xml.popTag();
 }
 
-/*void TouchpointsMVC::setXml(ofxXmlDefaultSettings xml) {
-	
-}*/
+
+void TouchpointsMVC::setXml(ofxXmlDefaultSettings xml) {
+	xml.pushRoot();
+	xml.setAttribute("touchpoints", "info", checkboxShowInfo.status, 0);
+	xml.popRoot();
+}
+
 
 void TouchpointsMVC::log() {
 	ofLog() << "XML: pointColor rgba = " << touchpointColor.getClamped();
@@ -83,13 +99,22 @@ void TouchpointsMVC::log() {
 }
 
 
-void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
+void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touchpointsMenuActive) {
+	/* Draw if the menu is active
+	 */
+	if (touchpointsMenuActive == true) {
+		/* GUI
+		 */
+		checkboxShowInfo.display();
+		/* The touch count typo
+		 */
+		ofSetColor(COLOR_LIGHT_GREY);
+		ofFill();
+		font.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 15, ofGetHeight()-15);
+	}
+	
 	std::vector<ofPoint>touches;
 	pad.getTouchesAsOfPoints(&touches);
-	
-	/* Draw the touch count typo
-	 */
-	font.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 15, ofGetHeight()-15);
 	
 	/* Display finger blobs
 	 * connect all touches with a line
@@ -108,51 +133,80 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 	/* display all finger blobs
 	 */
 	for(int i=0; i<pad.getTouchCount(); i++) {
-		// get a single touch as MTouch struct....
+		/* get a single touch as MTouch struct....
+		 */
 		MTouch touch;
 		if (!pad.getTouchAt(i,&touch)) continue; // guard..
 		
-		// using MTouch struct
+		/* Using MTouch struct
+		 */
 		int x = ofMap(touch.x, 0.0, 1.0, 40, ofGetWidth()-40);
 		int y = ofMap(touch.y, 0.0, 1.0, 80, ofGetHeight()-40);
 		int size = touch.size*50;
 		
-		// Transform
+		/* Transform
+		 */
 		ofPushMatrix();
 		ofTranslate(x, y, 0);
 		ofRotateZ(touch.angle);
-		
 		ofEnableSmoothing();
-		// finger blob circle
-		ofSetColor(touchpointColor);
-		ofFill();
-		ofEllipse(0, 0, size, size*0.625);
 		
-		// cross at the circle center
-		ofSetColor(touchpointCross);
-		ofNoFill();
-		ofLine(-5, 0, 5, 0);
-		ofLine(0, -5, 0, +5);
-		ofDisableSmoothing();
+		drawSingleTouchpoint(size);
+		drawSingleTouchpointCross();
 		
 		ofPopMatrix();
 		
-		// draw info
-		/*char _s [128];
-		 sprintf(_s, "ID %05i, frame: %05i, x: %6.3f, y: %6.3f, angle: %8.3f,"
-		 "size: %6.3f nFingers: %d\n",
-		 touch.ID,touch.frame,touch.x,touch.y,touch.angle,
-		 touch.size,pad.getTouchCount());
-		 ofSetHexColor(0xffffff);
-		 ofDrawBitmapString((string)_s, 0,0);*/
-	}
-	
+		if (touchpointsMenuActive == true) {
+			ofPushMatrix();
+			ofTranslate(x, y, 0);
+			drawSingleTouchpointInfo(font, touch);
+			ofPopMatrix();
+		}
+	} // End for
 }
+
 
 void TouchpointsMVC::mousePressed(int x, int y) {
-
+	checkboxShowInfo.pressed(x, y);
 }
 
-void TouchpointsMVC::keyPressed(int key) {
 
+void TouchpointsMVC::drawSingleTouchpoint(int size) {
+	/* finger blob circle
+	 */
+	ofSetColor(touchpointColor);
+	ofFill();
+	ofEllipse(0, 0, size, size*0.625);
+}
+
+
+void TouchpointsMVC::drawSingleTouchpointCross() {
+	/* cross at the circle center
+	 */
+	ofSetColor(touchpointCross);
+	ofNoFill();
+	ofLine(-5, 0, 5, 0);
+	ofLine(0, -5, 0, +5);
+	ofDisableSmoothing();
+}
+
+
+void TouchpointsMVC::drawSingleTouchpointInfo(ofTrueTypeFont font, MTouch & touch) {
+	if (checkboxShowInfo.status == true) {
+		/* The info background
+		 */
+		ofEnableAlphaBlending();
+		ofSetColor(ofColor::black, 127);
+		ofFill();
+		ofRect(5, 5, 245, 20);
+		ofDisableAlphaBlending();
+		/* The text info
+		 */
+		ofSetColor(ofColor::white);
+		ofFill();
+		char _s [128];
+		sprintf(_s, "X:%4.3f Y:%4.3f Size:%3.2f Angle:%3.0f\n",
+				touch.x, touch.y, touch.size, touch.angle);
+		font.drawString((string)_s, 10, 20);
+	}
 }

@@ -28,18 +28,28 @@
 
 #include "ofMain.h"
 #include "ofxXmlDefaultSettings.h"
+#include "wCheckbox.h"
 #include "ofxMultiTouchPad.h"
 
+#include "Colors.h"
+
+/**
+ * The Touchpoints MVC class
+ */
 class TouchpointsMVC {	
 public:
 	TouchpointsMVC();
+	void init(ofTrueTypeFont font);
 	void getXml(ofxXmlDefaultSettings xml);
 	void addXml(ofxXmlDefaultSettings xml);
-	//void setXml(ofxXmlDefaultSettings xml);
+	void setXml(ofxXmlDefaultSettings xml);
 	void log();
-	void draw(ofTrueTypeFont font, ofxMultiTouchPad & pad);
+	void draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touchpointsMenuActive);
 	void mousePressed(int x, int y);
-	void keyPressed(int key);
+	
+	/* GUI
+	 */
+	wCheckbox checkboxShowInfo;
 	
 	/* Touchpoint color variables
 	 */
@@ -47,5 +57,9 @@ public:
 	ofColor touchpointLines;
 	ofColor touchpointCross;
 	
+private:
+	void drawSingleTouchpoint(int size);
+	void drawSingleTouchpointCross();
+	void drawSingleTouchpointInfo(ofTrueTypeFont font, MTouch & touch);
 };
 #endif // TOUCHPOINTS_MVC_H_
