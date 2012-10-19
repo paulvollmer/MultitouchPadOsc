@@ -146,7 +146,7 @@ void SettingsMVC::draw(ofTrueTypeFont font) {
 	ofSetColor(ofColor::white);
 	ofFill();
 	font.drawString("OSC SETTINGS", 15, 50);
-	// Host: xxx.xxx.xxx.xxx Port: xxxx, Touch Count
+	// Host: xxx.xxx.xxx.xxx Port: xxxx, Devicename
 	font.drawString("Host: ", 15, 90);
 	font.drawString("Port: ", 15, 110);
 	font.drawString("Devicename: ", 15, 130);

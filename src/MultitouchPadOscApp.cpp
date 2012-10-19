@@ -50,6 +50,7 @@ void MultitouchPadOscApp::setup() {
 	/* Viewer
 	 */
 	toolbarMVC.init();
+	touchpointsMVC.init(vera);
 	settingsMVC.init(vera);
 	consoleMVC.init();
 	
@@ -187,8 +188,9 @@ void MultitouchPadOscApp::draw(){
 void MultitouchPadOscApp::exit() {
 	/* Set the XML file
 	 */
-	settingsMVC.setXml(XML);
 	toolbarMVC.setXml(XML);
+	touchpointsMVC.setXml(XML);
+	settingsMVC.setXml(XML);
 	
 	/* Save the current settings to xml.
 	 */
@@ -218,6 +220,10 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 	/* hide / show GUI textfield
 	 */
 	if (toolbarMVC.buttonTouchpoints.status == true) {
+		cout << "###" << endl;
+		
+		touchpointsMVC.mousePressed(x, y);
+		
 		gui->setVisible(false);
 	}
 	
@@ -240,7 +246,7 @@ void MultitouchPadOscApp::windowResized(int w, int h) {
 
 
 void MultitouchPadOscApp::padUpdates(int & t) {
-	printf("pad updates & has %i touches\n",t);
+	//printf("pad updates & has %i touches\n",t);
 	
 	
 	for(int i=0; i<pad.getTouchCount(); i++) {
