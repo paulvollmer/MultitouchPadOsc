@@ -77,6 +77,7 @@ void ToolbarMVC::draw(ofTrueTypeFont font, bool oscIsSending) {
 	 */
 	ofSetColor(255);
 	buttonOscActive.display();
+	// TODO:
 	//btnSafetyMode.display();
 	buttonTouchpoints.display();
 	buttonSettings.display();
@@ -89,13 +90,6 @@ void ToolbarMVC::draw(ofTrueTypeFont font, bool oscIsSending) {
 		ofFill();
 		oscSendImage.draw(ofGetWidth()-OSC_ACTIVE_X, 0);
 	}
-	
-	/* Draw the touch count typo
-	 *
-    ofSetColor(255);
-	font.drawString("Viewer", 30, 18);
-	font.drawString("Settings", 107, 18);
-	font.drawString("Console", 184, 18);*/
 }
 
 
@@ -104,6 +98,7 @@ void ToolbarMVC::windowResized(int w, int h) {
 	 */
 	buttonOscActive.setPosition(w-OSC_ACTIVE_X, 0);
 	buttonWindowMode.setPosition(w-WINDOW_MODE_IMAGE_WIDTH, 0);
+	// TODO:
 	//btnSafetyMode.setPosition(w-66, 0);
 }
 
@@ -122,6 +117,7 @@ void ToolbarMVC::mousePressed(int x, int y) {
 		buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
 	}
 	
+	// TODO:
 	/*btnSafetyMode.pressed(x, y);
 	 if (btnSafetyMode.status == true) {
 	 cout << "### safety mode active" << endl;
@@ -197,6 +193,7 @@ void ToolbarMVC::keyPressed(int key) {
 			} else {
 				buttonOscActive.status = true;
 			}
+			// TODO:
 			//console.addString("Shortcut oscOut: " + ofToString(btnOscActive.status), true);
 			break;
 		

@@ -34,6 +34,9 @@
 #define WINDOW_MODE_MIN_HEIGHT 40
 #define OSC_ACTIVE_X 36
 
+/**
+ * The Toolbar MVC class
+ */
 class ToolbarMVC {	
 public:
 	ToolbarMVC();
@@ -59,6 +62,7 @@ public:
 	wImageButton buttonWindowMode;
 	
 	/**
+	 * TODO:
 	 * This mode can be used to run in safety mode.
 	 * No dock or other system stuff can be selected.
 	 */
