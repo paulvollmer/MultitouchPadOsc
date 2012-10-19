@@ -142,6 +142,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF1D087A16315ACB00DE3C33 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		AF307964162D740A0068BA82 /* SettingsMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingsMVC.cpp; sourceTree = "<group>"; };
 		AF307965162D740A0068BA82 /* SettingsMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMVC.h; sourceTree = "<group>"; };
 		AF307966162D740A0068BA82 /* TouchpointsMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchpointsMVC.cpp; sourceTree = "<group>"; };
@@ -657,6 +658,7 @@
 				AF307C5B162DE9520068BA82 /* MVC */,
 				AF6E4B1115B2FA8100D281DB /* MultitouchPad */,
 				AF6E4B1015B2FA6700D281DB /* GUI */,
+				AF1D087A16315ACB00DE3C33 /* Colors.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
