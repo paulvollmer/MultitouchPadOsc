@@ -1,5 +1,5 @@
 //
-// MultitouchPadOscApp.ch
+// MultitouchPadOscApp.h
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
@@ -40,6 +40,8 @@
 #include "TouchpointsMVC.h"
 #include "SettingsMVC.h"
 #include "ConsoleMVC.h"
+
+#include "Colors.h"
 
 
 class MultitouchPadOscApp : public ofBaseApp {
