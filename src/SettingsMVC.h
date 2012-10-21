@@ -30,6 +30,8 @@
 #include "ofxXmlDefaultSettings.h"
 #include "wCheckbox.h"
 
+#include "Variables.h"
+
 /**
  * 
  */

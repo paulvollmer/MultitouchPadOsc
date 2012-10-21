@@ -31,7 +31,7 @@
 #include "wCheckbox.h"
 #include "ofxMultiTouchPad.h"
 
-#include "Colors.h"
+#include "Variables.h"
 
 /**
  * The Touchpoints MVC class

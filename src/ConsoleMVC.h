@@ -28,19 +28,25 @@
 
 #include "ofMain.h"
 #include "ofxXmlDefaultSettings.h"
-#define NUM_STRINGS 20
+#include "Variables.h"
 
+#define NUM_STRINGS 23
+
+
+/**
+ * This class is used to print out some information about the application.
+ */
 class ConsoleMVC {	
 public:
 	ConsoleMVC();
 	void init();
 	void draw(ofTrueTypeFont font);
+	void mousePressed(int x, int y);
+	void keyPressed(int key);
 	/**
 	 * add a string to console text
 	 */
 	void addString(string msg, bool log = false);
-	void mousePressed(int x, int y);
-	void keyPressed(int key);
 	
 	/**
 	 * Variables

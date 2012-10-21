@@ -29,6 +29,8 @@
 #include "ofMain.h"
 #include "wInteraction.h"
 
+#include "Variables.h"
+
 
 class wCheckbox {
 	
@@ -88,7 +90,7 @@ class wCheckbox {
 			ofRect(x, y, size, size);
 		
 			// message
-			ofSetColor(ofColor::white);
+			ofSetColor(COLOR_LIGHT_GREY);
 			ofFill();
 			font.drawString(message, x+size+10, y+size);
 		}

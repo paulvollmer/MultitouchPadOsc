@@ -46,11 +46,10 @@ void ConsoleMVC::draw(ofTrueTypeFont font) {
 	
 	/* headline text
 	 */
-	ofSetColor(ofColor::white);
-	font.drawString("Sended osc messages:", 15, 50);
+	ofSetColor(COLOR_LIGHT_GREY);
 	
 	for(int i=0; i<NUM_STRINGS; i++) {
-		font.drawString(consoleStrings[i], 15, 90+(i*15));
+		font.drawString(consoleStrings[i], FONT_POSITION_X, 50+(i*15));
 	}
 }
 

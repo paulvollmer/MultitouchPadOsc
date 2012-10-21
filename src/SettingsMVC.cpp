@@ -32,14 +32,14 @@ SettingsMVC::SettingsMVC(){}
 void SettingsMVC::init(ofTrueTypeFont font) {
 	cout << "ViewerSettings init()";
 	
-	checkboxOscArray.init(font, "osc array xysa", 15, 170);
-	checkboxFrame.init(font, "frame active", 15, 190);
+	checkboxOscArray.init(font, "osc array xysa", FONT_POSITION_X, 170);
+	checkboxFrame.init(font, "frame active", FONT_POSITION_X, 190);
 	//checkboxTimestamp.init(vera, "timestamp active",  60, 170, defXmlPadTimestamp);
-	checkboxPosition.init(font, "x-, y-position active", 15, 210);
+	checkboxPosition.init(font, "x-, y-position active", FONT_POSITION_X, 210);
 	//checkboxVelocity.init(vera, "x-, y-velocity active", 60, 200, defXmlPadVelocity);
 	//checkboxMaxis.init(vera, "minor-, major-axis active", 60, 215, defXmlPadMaxis);
-	checkboxSize.init(font, "size active", 15, 230);
-	checkboxAngle.init(font, "angle active", 15, 250);
+	checkboxSize.init(font, "size active", FONT_POSITION_X, 230);
+	checkboxAngle.init(font, "angle active", FONT_POSITION_X, 250);
 }
 
 
@@ -143,14 +143,14 @@ void SettingsMVC::draw(ofTrueTypeFont font) {
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	ofDisableAlphaBlending();
 	// Osc settings
-	ofSetColor(ofColor::white);
+	ofSetColor(COLOR_LIGHT_GREY);
 	ofFill();
-	font.drawString("OSC SETTINGS", 15, 50);
+	font.drawString("OSC SETTINGS", FONT_POSITION_X, 50);
 	// Host: xxx.xxx.xxx.xxx Port: xxxx, Devicename
-	font.drawString("Host: ", 15, 90);
-	font.drawString("Port: ", 15, 110);
-	font.drawString("Devicename: ", 15, 130);
-	font.drawString("[To open the settings xml, press key 's']", 167, 150);
+	font.drawString("Host: ", FONT_POSITION_X, 90);
+	font.drawString("Port: ", FONT_POSITION_X, 110);
+	font.drawString("Devicename: ", FONT_POSITION_X, 130);
+	font.drawString("[To open the settings xml, press key 's']", FONT_POSITION_X, 150);
 	
 	checkboxOscArray.display();
 	checkboxFrame.display();

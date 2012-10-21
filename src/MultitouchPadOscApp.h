@@ -41,7 +41,7 @@
 #include "SettingsMVC.h"
 #include "ConsoleMVC.h"
 
-#include "Colors.h"
+#include "Variables.h"
 
 
 class MultitouchPadOscApp : public ofBaseApp {
