@@ -44,11 +44,14 @@ void ConsoleMVC::draw(ofTrueTypeFont font) {
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	ofDisableAlphaBlending();
 	
-	/* headline text
+	/* console text
 	 */
-	ofSetColor(COLOR_LIGHT_GREY);
-	
 	for(int i=0; i<NUM_STRINGS; i++) {
+		if (i == (currentConsoleStrings-1)) {
+			ofSetColor(ofColor::white);
+		} else {
+			ofSetColor(COLOR_LIGHT_GREY);
+		}
 		font.drawString(consoleStrings[i], FONT_POSITION_X, 50+(i*15));
 	}
 }
