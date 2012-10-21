@@ -1,5 +1,5 @@
 //
-// Colors.h
+// Variables.h
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
@@ -23,6 +23,13 @@
 // THE SOFTWARE.
 //
 
+#ifndef VARIABLES_H_
+#define VARIABLES_H_
+
 #define COLOR_DARK_GREY 59
 #define COLOR_MIDDLE_GREY 80
 #define COLOR_LIGHT_GREY 157
+
+#define FONT_POSITION_X 15
+
+#endif // VARIABLES_H_
