@@ -28,9 +28,9 @@
 TouchpointsMVC::TouchpointsMVC(){}
 
 void TouchpointsMVC::init(ofTrueTypeFont font) {
-	checkboxShowTouchpoints.init(font, "Show Touchpoints", FONT_POSITION_X, 40);
-	checkboxShowLines.init(font, "Show Lines", FONT_POSITION_X, 60);
-	checkboxShowInfo.init(font, "Show Information", FONT_POSITION_X, 80);
+	checkboxShowTouchpoints.init(font, "Touchpoints", 70, 40);
+	checkboxShowLines.init(font, "Lines", 178, 40);
+	checkboxShowInfo.init(font, "Information", 240, 40);
 }
 
 
@@ -106,7 +106,6 @@ void TouchpointsMVC::log() {
 	ofLog() << "XML: points          = " << checkboxShowTouchpoints.status;
 	ofLog() << "XML: lines           = " << checkboxShowLines.status;
 	ofLog() << "XML: infos           = " << checkboxShowInfo.status;
-	
 	ofLog() << "XML: pointColor rgba = " << touchpointColor.getClamped();
 	ofLog() << "XML: lineColor rgba  = " << touchpointLines.getClamped();
 	ofLog() << "XML: crossColor rgba = " << touchpointCross.getClamped();
@@ -119,6 +118,9 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 	if (touchpointsMenuActive == true) {
 		/* GUI
 		 */
+		ofSetColor(COLOR_LIGHT_GREY);
+		ofFill();
+		font.drawString("Display", FONT_POSITION_X, 50);
 		checkboxShowTouchpoints.display();
 		checkboxShowLines.display();
 		checkboxShowInfo.display();
