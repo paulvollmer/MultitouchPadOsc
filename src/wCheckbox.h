@@ -52,7 +52,7 @@ class wCheckbox {
 		 * _y Checkbox Y-position
 		 * _status Checkbox status
 		 */
-		void init(ofTrueTypeFont &_f, string _message, int _x, int _y, int _status) {
+		void init(ofTrueTypeFont &_f, string _message, int _x, int _y, bool _status) {
 			font    = _f;
 			message = _message;
 			x       = _x;
@@ -64,7 +64,7 @@ class wCheckbox {
 		}
 	
 		void init(ofTrueTypeFont &_f, string _message, int _x, int _y) {
-			init(_f, _message, _x, _y, 1);
+			init(_f, _message, _x, _y, true);
 		}
 	
 	
@@ -73,19 +73,14 @@ class wCheckbox {
 		 */
 		void display() {
 			switch (status) {
-				case 0:
+				case true:
 					ofSetColor(0 ,255, 0);
 					break;
-				case 1:
+				case false:
 					ofSetColor(255, 0, 0);
 					break;
 			}
 		
-			/*if (status == true) {
-				ofSetColor(0 ,255, 0);
-			} else {
-				ofSetColor(255, 0, 0);
-			}*/
 			ofFill();
 			ofRect(x, y, size, size);
 		
@@ -101,15 +96,7 @@ class wCheckbox {
 		 */
 		void pressed(int _mx, int _my) {
 			if(interaction.overRect(_mx, _my)) {
-				//status = !status;
-				switch (status) {
-					case 0:
-						status = 1;
-						break;
-					case 1:
-						status = 0;
-						break;
-				}
+				status = !status;
 			}
 		}
 	
@@ -118,7 +105,7 @@ class wCheckbox {
 		/**
 		 * Variables
 		 */
-		int status;
+		bool status;
 	
 	
 	private:
