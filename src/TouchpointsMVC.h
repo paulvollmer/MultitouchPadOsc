@@ -49,6 +49,8 @@ public:
 	
 	/* GUI
 	 */
+	wCheckbox checkboxShowTouchpoints;
+	wCheckbox checkboxShowLines;
 	wCheckbox checkboxShowInfo;
 	
 	/* Touchpoint color variables
