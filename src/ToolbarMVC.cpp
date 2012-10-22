@@ -201,7 +201,7 @@ void ToolbarMVC::keyPressed(int key, bool cmdKeyPressed) {
 				
 				/* Window mode
 				 */
-			case 'l':
+			case 'p':
 				if (buttonWindowMode.status == true) {
 					buttonWindowMode.status = false;
 					ofSetWindowShape(ofGetWidth(), 400);
