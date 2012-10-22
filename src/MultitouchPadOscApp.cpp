@@ -222,7 +222,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 	//consoleMVC.keyPressed(key, cmdKeyPressed);
 	/* Open the settings xml file
 	 */
-	if(key == 's' && cmdKeyPressed == true) {
+	if(key == 'x' && cmdKeyPressed == true) {
 		string commandStr = "open " + ofFilePath::getCurrentWorkingDirectory() + "/ofSettings.xml";
 		system(commandStr.c_str());
 		/* set message to log file.
