@@ -28,7 +28,6 @@
 
 #include "ofMain.h"
 #include "wInteraction.h"
-
 #include "Variables.h"
 
 
@@ -74,10 +73,10 @@ class wCheckbox {
 		void display() {
 			switch (status) {
 				case true:
-					ofSetColor(0 ,255, 0);
+					ofSetColor(CHECKBOX_COLOR_ON_R, CHECKBOX_COLOR_ON_G, CHECKBOX_COLOR_ON_B);
 					break;
 				case false:
-					ofSetColor(255, 0, 0);
+					ofSetColor(COLOR_DARK_GREY);
 					break;
 			}
 		

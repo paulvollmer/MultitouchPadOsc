@@ -30,7 +30,6 @@
 #include "ofxXmlDefaultSettings.h"
 #include "wCheckbox.h"
 #include "ofxMultiTouchPad.h"
-
 #include "Variables.h"
 
 /**

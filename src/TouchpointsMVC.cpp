@@ -42,9 +42,9 @@ void TouchpointsMVC::getXml(ofxXmlDefaultSettings xml) {
 	checkboxShowInfo.status = xml.getAttribute("touchpoints", "infos", true, 0);
 	/* Touchpoint color
 	 */
-	touchpointColor[0] = xml.getAttribute("touchpoints:pointColor", "r", 0, 0);
-	touchpointColor[1] = xml.getAttribute("touchpoints:pointColor", "g", 155, 0);
-	touchpointColor[2] = xml.getAttribute("touchpoints:pointColor", "b", 255, 0);
+	touchpointColor[0] = xml.getAttribute("touchpoints:pointColor", "r", CHECKBOX_COLOR_ON_R, 0);
+	touchpointColor[1] = xml.getAttribute("touchpoints:pointColor", "g", CHECKBOX_COLOR_ON_G, 0);
+	touchpointColor[2] = xml.getAttribute("touchpoints:pointColor", "b", CHECKBOX_COLOR_ON_B, 0);
 	touchpointColor[3] = xml.getAttribute("touchpoints:pointColor", "a", 255, 0);
 	touchpointLines[0] = xml.getAttribute("touchpoints:lineColor", "r", 0, 0);
 	touchpointLines[1] = xml.getAttribute("touchpoints:lineColor", "g", 255, 0);
@@ -69,7 +69,7 @@ void TouchpointsMVC::addXml(ofxXmlDefaultSettings xml) {
 	xml.addAttribute("touchpoints", "infos", checkboxShowInfo.status, 0);
 	/* Touchpoint color
 	 */
-	touchpointColor.set(0, 155, 255, 255);
+	touchpointColor.set(CHECKBOX_COLOR_ON_R, CHECKBOX_COLOR_ON_G, CHECKBOX_COLOR_ON_B, 255);
 	touchpointLines.set(0, 255, 255, 255);
 	touchpointCross.set(255, 255, 255, 255);
 	xml.addTag("touchpoints");
