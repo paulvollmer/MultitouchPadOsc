@@ -57,6 +57,8 @@ public:
 	 */
 	void setup();
 	
+	void update();
+	
 	/**
 	 * Draw
 	 * - Draw the backgroundImage
@@ -152,4 +154,7 @@ private:
 	 */
 	ofxUICanvas *gui;
 	
+	/* Shortcut cmd
+	 */
+	bool cmdKeyPressed;
 };

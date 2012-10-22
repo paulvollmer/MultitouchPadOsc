@@ -24,7 +24,7 @@
 //
 
 #include "MultitouchPadOscApp.h"
-
+#include "ofxModifierKeys.h"
 
 
 void MultitouchPadOscApp::setup() {
@@ -102,7 +102,7 @@ void MultitouchPadOscApp::setup() {
 	/* Set the openFrameworks app settings.
 	 */
 	XML.setSettings();
-	ofLog() << "XML: " << XML.getStatusMessage();
+	consoleMVC.addString("XML: "+XML.getStatusMessage(), true);
 	setWindowTitle();
 	
 	/* Save the XML file if no file existed
@@ -122,6 +122,7 @@ void MultitouchPadOscApp::setup() {
 	 */
 	oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 	ofLog() << "OSC: setup host \"" << settingsMVC.oscHost << "\", port " << "\"" << settingsMVC.oscPort << "\"";
+	 consoleMVC.addString("OSC: setup host \""+settingsMVC.oscHost+"\", port "+"\""+ofToString(settingsMVC.oscPort)+"\"", true);
 	
 	/* GUI
 	 * set the status to osc:out settings value
@@ -131,9 +132,9 @@ void MultitouchPadOscApp::setup() {
     gui->setFontSize(OFX_UI_FONT_LARGE, 12);                                   //These call are optional, but if you want to resize the LARGE, MEDIUM, and SMALL fonts, here is how to do it. 
     gui->setFontSize(OFX_UI_FONT_MEDIUM, 8);           
     gui->setFontSize(OFX_UI_FONT_SMALL, 6);                                    //SUPER IMPORTANT NOTE: CALL THESE FUNTIONS BEFORE ADDING ANY WIDGETS, THIS AFFECTS THE SPACING OF THE GUI
-	gui->addWidget(new ofxUITextInput("TEXT HOST", settingsMVC.oscHost, 130,20, 50,77, OFX_UI_FONT_SMALL));
-	gui->addWidget(new ofxUITextInput("TEXT PORT", ofToString(settingsMVC.oscPort), 130,20, 50,97, OFX_UI_FONT_SMALL));
-	gui->addWidget(new ofxUITextInput("TEXT DEVICENAME", ofToString(settingsMVC.oscTouchpadDevicename), 150, 20, 100,113, OFX_UI_FONT_SMALL));
+	gui->addWidget(new ofxUITextInput("TEXT HOST", settingsMVC.oscHost, 130,20, 50,67, OFX_UI_FONT_SMALL));
+	gui->addWidget(new ofxUITextInput("TEXT PORT", ofToString(settingsMVC.oscPort), 130,20, 223,67, OFX_UI_FONT_SMALL));
+	gui->addWidget(new ofxUITextInput("TEXT DEVICENAME", ofToString(settingsMVC.oscTouchpadDevicename), 253, 20, 100,87, OFX_UI_FONT_SMALL));
 	ofAddListener(gui->newGUIEvent, this, &MultitouchPadOscApp::guiEvent);
 	gui->setVisible(false);
 	
@@ -144,7 +145,16 @@ void MultitouchPadOscApp::setup() {
 
 
 
-void MultitouchPadOscApp::draw(){
+void MultitouchPadOscApp::update() {
+	cmdKeyPressed = ofGetModifierPressed(OF_KEY_SPECIAL);
+	/*if (cmdKeyPressed == true) {
+		cout << "# cmd" << endl;
+	}*/
+}
+
+
+
+void MultitouchPadOscApp::draw() {
 	/* background
 	 */
 	ofBackground(COLOR_DARK_GREY);
@@ -168,7 +178,7 @@ void MultitouchPadOscApp::draw(){
 		 */
 		
 		if(toolbarMVC.buttonSettings.status == true) {
-			settingsMVC.draw(vera);
+			settingsMVC.draw(vera, pad);
 		}
 		
 		/* Console button
@@ -206,9 +216,19 @@ void MultitouchPadOscApp::exit() {
 void MultitouchPadOscApp::keyPressed(int key) {
 	/* MVC key pressed events
 	 */
-	toolbarMVC.keyPressed(key);
-	settingsMVC.keyPressed(key);
-	consoleMVC.keyPressed(key);
+	toolbarMVC.keyPressed(key, cmdKeyPressed);
+	settingsMVC.keyPressed(key, cmdKeyPressed);
+	
+	//consoleMVC.keyPressed(key, cmdKeyPressed);
+	/* Open the settings xml file
+	 */
+	if(key == 's' && cmdKeyPressed == true) {
+		string commandStr = "open " + ofFilePath::getCurrentWorkingDirectory() + "/ofSettings.xml";
+		system(commandStr.c_str());
+		/* set message to log file.
+		 */
+		consoleMVC.addString("Open XML settings file.");
+	}
 }
 
 
@@ -220,10 +240,7 @@ void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
 	/* hide / show GUI textfield
 	 */
 	if (toolbarMVC.buttonTouchpoints.status == true) {
-		cout << "###" << endl;
-		
 		touchpointsMVC.mousePressed(x, y);
-		
 		gui->setVisible(false);
 	}
 	
@@ -248,20 +265,19 @@ void MultitouchPadOscApp::windowResized(int w, int h) {
 void MultitouchPadOscApp::padUpdates(int & t) {
 	//printf("pad updates & has %i touches\n",t);
 	
-	
 	for(int i=0; i<pad.getTouchCount(); i++) {
 		// get a single touch as MTouch struct....
 		MTouch touch;
 		if(!pad.getTouchAt(i,&touch)) {
 			continue; // guard..
 		}
-
 		
 		/* OSC
 		 */
 		if(toolbarMVC.buttonOscActive.status == true) {
 			
-			// Check if osc array is active
+			/* Check if osc array is active
+			 */
 			if (settingsMVC.checkboxOscArray.status == true) {
 				string tempMessage = "/"+settingsMVC.oscTouchpadDevicename+"/"+ofToString(i)+"/xysa";
 				
@@ -277,7 +293,8 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				oscIsSending = true;
 			}
 			
-			// Check if padFrame is active
+			/* Check if padFrame is active
+			 */
 			if (settingsMVC.checkboxFrame.status == true) {
 				// Send osc message, integer value with the current frame.
 				// e.g. /mt/1/frame/23
@@ -290,13 +307,15 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				oscIsSending = true;
 			}
 			
-			// check if padTimestamp is active
-			/*if (settings.padTimestamp == 0) {
-			 Finger finger;
-			 cout << "padTimestamp " << finger.timestamp << endl;
-			 }*/
+			/* check if padTimestamp is active
+			 */
+			//if (settings.padTimestamp == 0) {
+			//Finger finger;
+			//cout << "padTimestamp " << finger.timestamp << endl;
+			//}
 			
-			// check if padPosition is active
+			/* check if padPosition is active
+			 */
 			if (settingsMVC.checkboxPosition.status == true) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/x/0.5
@@ -310,13 +329,15 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				oscIsSending = true;
 			}
 			
-			// check if padVelocity is active
-			/*if (settings.padVelocity == 0) {
-			 Finger finger;
-			 cout << "padVelocity " << finger.mm.vel.x << endl;
-			 }*/
+			/* check if padVelocity is active
+			 */
+			//if (settings.padVelocity == 0) {
+			//Finger finger2;
+			//cout << "padVelocity " << finger2.mm.vel.x << endl;
+			//}
 			
-			// check if padSize is active
+			/* check if padSize is active
+			 */
 			if (settingsMVC.checkboxSize.status == true) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/size/0.5
@@ -327,7 +348,8 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				oscIsSending = true;
 			}
 			
-			// check if padAngle is active
+			/* check if padAngle is active
+			 */
 			if (settingsMVC.checkboxAngle.status == true) {
 				// Send osc message, float value between 0 and 1.
 				// e.g. /mt/1/angle/0.5

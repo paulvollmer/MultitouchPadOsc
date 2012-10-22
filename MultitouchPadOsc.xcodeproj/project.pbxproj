@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF1D0A911635FDFD00DE3C33 /* ofxModifierKeys_impl_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF1D0A8F1635FDFD00DE3C33 /* ofxModifierKeys_impl_mac.mm */; };
 		AF307968162D740A0068BA82 /* SettingsMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307964162D740A0068BA82 /* SettingsMVC.cpp */; };
 		AF307969162D740A0068BA82 /* TouchpointsMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307966162D740A0068BA82 /* TouchpointsMVC.cpp */; };
 		AF307C5E162DE9890068BA82 /* ToolbarMVC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF307C5D162DE9890068BA82 /* ToolbarMVC.cpp */; };
@@ -143,6 +144,8 @@
 
 /* Begin PBXFileReference section */
 		AF1D091016342CD600DE3C33 /* Variables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Variables.h; sourceTree = "<group>"; };
+		AF1D0A8F1635FDFD00DE3C33 /* ofxModifierKeys_impl_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofxModifierKeys_impl_mac.mm; path = "../../../addons/ofxModifierKeys-580a7a6/src/ofxModifierKeys_impl_mac.mm"; sourceTree = SOURCE_ROOT; };
+		AF1D0A901635FDFD00DE3C33 /* ofxModifierKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxModifierKeys.h; path = "../../../addons/ofxModifierKeys-580a7a6/src/ofxModifierKeys.h"; sourceTree = SOURCE_ROOT; };
 		AF307964162D740A0068BA82 /* SettingsMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingsMVC.cpp; sourceTree = "<group>"; };
 		AF307965162D740A0068BA82 /* SettingsMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMVC.h; sourceTree = "<group>"; };
 		AF307966162D740A0068BA82 /* TouchpointsMVC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TouchpointsMVC.cpp; sourceTree = "<group>"; };
@@ -302,6 +305,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF1D0A8B1635FDCD00DE3C33 /* ofxModifierKeys */ = {
+			isa = PBXGroup;
+			children = (
+				AF1D0A8D1635FDE000DE3C33 /* src */,
+			);
+			name = ofxModifierKeys;
+			sourceTree = "<group>";
+		};
+		AF1D0A8D1635FDE000DE3C33 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				AF1D0A8F1635FDFD00DE3C33 /* ofxModifierKeys_impl_mac.mm */,
+				AF1D0A901635FDFD00DE3C33 /* ofxModifierKeys.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
 		AF307C5B162DE9520068BA82 /* MVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +602,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				AF1D0A8B1635FDCD00DE3C33 /* ofxModifierKeys */,
 				AFDAE2DD1625D1E300ABEBB0 /* ofxUI */,
 				AF6E4BAB15B300B500D281DB /* ofxXmlDefaultSettings */,
 				AF6E4B1215B2FAB100D281DB /* ofxXmlSettings */,
@@ -783,6 +804,7 @@
 				AF307969162D740A0068BA82 /* TouchpointsMVC.cpp in Sources */,
 				AF307C5E162DE9890068BA82 /* ToolbarMVC.cpp in Sources */,
 				AF307E2E162E0E000068BA82 /* ConsoleMVC.cpp in Sources */,
+				AF1D0A911635FDFD00DE3C33 /* ofxModifierKeys_impl_mac.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
