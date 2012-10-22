@@ -179,7 +179,7 @@ void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 	font.drawString("Settings Information", FONT_POSITION_X, 290);
 	ofLine(FONT_POSITION_X, 300, ofGetWidth()-FONT_POSITION_X, 300);
 	font.drawString("Number of Devices: "+ofToString(pad.getNumDevices()), 15, 320);
-	font.drawString("To open the settings xml, press key 's'", FONT_POSITION_X, 360);
+	font.drawString("To open the settings xml, press key 'x'", FONT_POSITION_X, 360);
 }
 
 
@@ -202,86 +202,76 @@ void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 	if (cmdKeyPressed == true) {
 		
 		switch (key) {
+			/* OSC array
+			 */
+			case 'a':
+				checkboxOscArray.status = !checkboxOscArray.status;
+				break;
+
 			/* OSC frame
 			 */
-			case 'w':
-				if (checkboxFrame.status == true) {
-					checkboxFrame.status = false;
-				} else {
-					checkboxFrame.status = true;
-				}
+			case 's':
+				checkboxFrame.status = !checkboxFrame.status;
 				// TODO:
 				//console.addString("Shortcut padFrame: " + ofToString(xmlPadFrame), true);
 				break;
 				
-				/* OSC timestamp
-				 */
-				/*case '3':
-				 if (settings.padTimestamp == 0) {
-				 settings.padTimestamp = 1;
-				 } else {
-				 settings.padTimestamp = 0;
-				 }
-				 cbTimestamp.status = settings.padTimestamp;
-				 cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
-				 break;*/
+			/* OSC timestamp
+			 */
+			/*case '3':
+				if (settings.padTimestamp == 0) {
+					settings.padTimestamp = 1;
+				} else {
+					settings.padTimestamp = 0;
+				}
+				cbTimestamp.status = settings.padTimestamp;
+				cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
+				break;*/
 				
 			/* OSC position
 			 */
-			case 'e':
-				if (checkboxPosition.status == true) {
-					checkboxPosition.status = false;
-				} else {
-					checkboxPosition.status = true;
-				}
+			case 'd':
+				checkboxPosition.status = !checkboxPosition.status;
 				// TODO:
 				//console.addString("Shortcut padPosition: " + ofToString(xmlPadPosition), true);
 				break;
 				
-				/* OSC velocity
-				 */
-				/*case '5':
-				 if (settings.padVelocity == 0) {
-				 settings.padVelocity = 1;
-				 } else {
-				 settings.padVelocity = 0;
-				 }
-				 cbVelocity.status = settings.padVelocity;
-				 cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
-				 break;*/
-				
-				/* OSC maxis
-				 */
-				/*case '4':
-				 if (settings.padMaxis == 0) {
-				 settings.padMaxis = 1;
-				 } else {
-				 settings.padMaxis = 0;
-				 }
-				 cbMaxis.status = settings.padMaxis;
-				 cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
-				 break;*/
+			/* OSC velocity
+			 */
+			/*case '5':
+				if (settings.padVelocity == 0) {
+					settings.padVelocity = 1;
+				} else {
+					settings.padVelocity = 0;
+				}
+				cbVelocity.status = settings.padVelocity;
+				cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
+				break;*/
 				
 			/* OSC maxis
 			 */
-			case 'r':
-				if (checkboxSize.status == true) {
-					checkboxSize.status = false;
+			/*case '4':
+				if (settings.padMaxis == 0) {
+					settings.padMaxis = 1;
 				} else {
-					checkboxSize.status = true;
+					settings.padMaxis = 0;
 				}
+				cbMaxis.status = settings.padMaxis;
+				cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
+				break;*/
+				
+			/* OSC maxis
+			 */
+			case 'f':
+				checkboxSize.status = !checkboxSize.status;
 				// TODO:
 				//console.addString("Shortcut padSize: " + ofToString(xmlPadSize), true);
 				break;
 				
 			/* OSC angle
 			 */
-			case 't':
-				if (checkboxAngle.status == true) {
-					checkboxAngle.status = false;
-				} else {
-					checkboxAngle.status = true;
-				}
+			case 'g':
+				checkboxAngle.status = !checkboxAngle.status;
 				// TODO:
 				//console.addString("Shortcut padAngle: " + ofToString(xmlPadAngle), true);
 				break;
