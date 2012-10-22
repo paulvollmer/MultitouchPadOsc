@@ -28,12 +28,13 @@
 
 #include "ofMain.h"
 #include "ofxXmlDefaultSettings.h"
+#include "ofxMultiTouchPad.h"
 #include "wCheckbox.h"
 
 #include "Variables.h"
 
 /**
- * 
+ * This class contains all settings stuff (host, port, devicename etc.)
  */
 class SettingsMVC {
 public:
@@ -43,51 +44,47 @@ public:
 	void addXml(ofxXmlDefaultSettings xml);
 	void setXml(ofxXmlDefaultSettings xml);
 	void log();
-	void draw(ofTrueTypeFont font);
+	void draw(ofTrueTypeFont font, ofxMultiTouchPad & pad);
 	void mousePressed(int x, int y);
 	void keyPressed(int key);
 	
 	/**
 	 * Checkbox to trigger osc send on/off
 	 */
-	wCheckbox     checkboxOscArray;
+	wCheckbox checkboxOscArray;
 	/**
 	 * Checkbox to trigger pad frame on/off
 	 */
-	wCheckbox     checkboxFrame;
-	
-	// Checkbox to trigger pad timestamp on/off
-	//wCheckbox   checkboxTimestamp;
-	
+	wCheckbox checkboxFrame;
+	/**
+	 * Checkbox to trigger pad timestamp on/off
+	 */
+	//wCheckbox checkboxTimestamp;
 	/**
 	 * Checkbox to trigger finger x-, y-position on/off
 	 */
-	wCheckbox     checkboxPosition;
-	
+	wCheckbox checkboxPosition;
 	/**
 	 * Checkbox to trigger finger x-, y-velocity on/off
 	 */
-	//wCheckbox   checkboxVelocity;
+	//wCheckbox checkboxVelocity;
 	/**
 	 * Checkbox to trigger finger minor-, major-axis on/off
 	 */
-	//wCheckbox   checkboxMaxis;
-	
+	//wCheckbox checkboxMaxis;
 	/**
 	 * Checkbox to trigger finger size on/off
 	 */
-	wCheckbox     checkboxSize;
-	
+	wCheckbox checkboxSize;
 	/**
 	 * Checkbox to trigger finger angle on/off
 	 */
-	wCheckbox     checkboxAngle;
+	wCheckbox checkboxAngle;
 	
 	/**
 	 * OSC host variable
 	 */
 	string oscHost;
-	
 	/**
 	 * OSC port variable
 	 */

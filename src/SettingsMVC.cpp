@@ -32,14 +32,14 @@ SettingsMVC::SettingsMVC(){}
 void SettingsMVC::init(ofTrueTypeFont font) {
 	cout << "ViewerSettings init()";
 	
-	checkboxOscArray.init(font, "osc array xysa", FONT_POSITION_X, 170);
-	checkboxFrame.init(font, "frame active", FONT_POSITION_X, 190);
+	checkboxOscArray.init(font, "OSC array xysa", FONT_POSITION_X, 160);
+	checkboxFrame.init(font, "Frame active", FONT_POSITION_X, 180);
 	//checkboxTimestamp.init(vera, "timestamp active",  60, 170, defXmlPadTimestamp);
-	checkboxPosition.init(font, "x-, y-position active", FONT_POSITION_X, 210);
+	checkboxPosition.init(font, "X-, Y-Position active", FONT_POSITION_X, 200);
 	//checkboxVelocity.init(vera, "x-, y-velocity active", 60, 200, defXmlPadVelocity);
 	//checkboxMaxis.init(vera, "minor-, major-axis active", 60, 215, defXmlPadMaxis);
-	checkboxSize.init(font, "size active", FONT_POSITION_X, 230);
-	checkboxAngle.init(font, "angle active", FONT_POSITION_X, 250);
+	checkboxSize.init(font, "Size active", FONT_POSITION_X, 220);
+	checkboxAngle.init(font, "Angle active", FONT_POSITION_X, 240);
 }
 
 
@@ -135,23 +135,31 @@ void SettingsMVC::log(){
 }
 	
 
-void SettingsMVC::draw(ofTrueTypeFont font) {
-	// ground
+void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
+	/* ground
+	 */
 	ofEnableAlphaBlending();
 	ofSetColor(0, 150);
 	ofFill();
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	ofDisableAlphaBlending();
-	// Osc settings
+	
 	ofSetColor(COLOR_LIGHT_GREY);
 	ofFill();
-	font.drawString("OSC SETTINGS", FONT_POSITION_X, 50);
-	// Host: xxx.xxx.xxx.xxx Port: xxxx, Devicename
-	font.drawString("Host: ", FONT_POSITION_X, 90);
-	font.drawString("Port: ", FONT_POSITION_X, 110);
-	font.drawString("Devicename: ", FONT_POSITION_X, 130);
-	font.drawString("[To open the settings xml, press key 's']", FONT_POSITION_X, 150);
 	
+	/* Osc Main Settings
+	 */
+	font.drawString("OSC Main Settings", FONT_POSITION_X, 50);
+	ofLine(FONT_POSITION_X, 60, ofGetWidth()-FONT_POSITION_X, 60);
+	// Host: xxx.xxx.xxx.xxx Port: xxxx, Devicename
+	font.drawString("Host: ", FONT_POSITION_X, 80);
+	font.drawString("Port: ", 190, 80);
+	font.drawString("Devicename: ", FONT_POSITION_X, 100);
+	
+	/* OSC Message Settings
+	 */
+	font.drawString("OSC Message Settings", FONT_POSITION_X, 140);
+	ofLine(FONT_POSITION_X, 150, ofGetWidth()-FONT_POSITION_X, 150);
 	checkboxOscArray.display();
 	checkboxFrame.display();
 	//cbTimestamp.display();
@@ -161,13 +169,17 @@ void SettingsMVC::draw(ofTrueTypeFont font) {
 	checkboxSize.display();
 	checkboxAngle.display();
 	// shortcuts
-	font.drawString("[Shortcut: 2]", 350, 200);
+	/*font.drawString("[Shortcut: 2]", 350, 200);
 	font.drawString("[Shortcut: 3]", 350, 220);
 	font.drawString("[Shortcut: 4]", 350, 240);
-	font.drawString("[Shortcut: 5]", 350, 260);
+	font.drawString("[Shortcut: 5]", 350, 260);*/
 	
-	// TODO: 
-	//vera.drawString(ofToString("Number of Devices: ") + ofToString(pad.getNumDevices()), 15, 150);
+	/* Settings information
+	 */
+	font.drawString("Settings Information", FONT_POSITION_X, 290);
+	ofLine(FONT_POSITION_X, 300, ofGetWidth()-FONT_POSITION_X, 300);
+	font.drawString("Number of Devices: "+ofToString(pad.getNumDevices()), 15, 320);
+	font.drawString("To open the settings xml, press key 's'", FONT_POSITION_X, 360);
 }
 
 
