@@ -46,7 +46,7 @@ public:
 	void log();
 	void draw(ofTrueTypeFont font, ofxMultiTouchPad & pad);
 	void mousePressed(int x, int y);
-	void keyPressed(int key);
+	void keyPressed(int key, bool cmdKeyPressed);
 	
 	/**
 	 * Checkbox to trigger osc send on/off

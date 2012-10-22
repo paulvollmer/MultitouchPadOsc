@@ -165,53 +165,57 @@ void ToolbarMVC::mousePressed(int x, int y) {
 }
 
 
-void ToolbarMVC::keyPressed(int key) {
-	switch (key) {
-		/* Shortcuts to select the toolbar buttons.
-		 */
-		case '1':
-			buttonTouchpoints.status = true;
-			buttonSettings.status = false;
-			buttonConsole.status = false;
-			break;
-		case '2':
-			buttonTouchpoints.status = false;
-			buttonSettings.status = true;
-			buttonConsole.status = false;
-			break;
-		case '3':
-			buttonTouchpoints.status = false;
-			buttonSettings.status = false;
-			buttonConsole.status = true;
-			break;
-			
-		/* OSC out
-		 */
-		case 'o':
-			if (buttonOscActive.status == true) {
-				buttonOscActive.status = false;
-			} else {
-				buttonOscActive.status = true;
-			}
-			// TODO:
-			//console.addString("Shortcut oscOut: " + ofToString(btnOscActive.status), true);
-			break;
-		
-		/* Window mode
-		 */
-		case 'l':
-			if (buttonWindowMode.status == true) {
-				buttonWindowMode.status = false;
-				ofSetWindowShape(ofGetWidth(), 400);
-				buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
-			} else {
-				buttonWindowMode.status = true;
-				ofSetWindowShape(ofGetWidth(), WINDOW_MODE_MIN_HEIGHT);
-				buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
-			}
-			break;
+void ToolbarMVC::keyPressed(int key, bool cmdKeyPressed) {
+	if (cmdKeyPressed == true) {
 	
-		default:
-			break;
-	}
+		switch (key) {
+				/* Shortcuts to select the toolbar buttons.
+				 */
+			case '1':
+				buttonTouchpoints.status = true;
+				buttonSettings.status = false;
+				buttonConsole.status = false;
+				break;
+			case '2':
+				buttonTouchpoints.status = false;
+				buttonSettings.status = true;
+				buttonConsole.status = false;
+				break;
+			case '3':
+				buttonTouchpoints.status = false;
+				buttonSettings.status = false;
+				buttonConsole.status = true;
+				break;
+				
+				/* OSC out
+				 */
+			case 'o':
+				if (buttonOscActive.status == true) {
+					buttonOscActive.status = false;
+				} else {
+					buttonOscActive.status = true;
+				}
+				// TODO:
+				//console.addString("Shortcut oscOut: " + ofToString(btnOscActive.status), true);
+				break;
+				
+				/* Window mode
+				 */
+			case 'l':
+				if (buttonWindowMode.status == true) {
+					buttonWindowMode.status = false;
+					ofSetWindowShape(ofGetWidth(), 400);
+					buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
+				} else {
+					buttonWindowMode.status = true;
+					ofSetWindowShape(ofGetWidth(), WINDOW_MODE_MIN_HEIGHT);
+					buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
+				}
+				break;
+				
+			default:
+				break;
+		}
+		
+	} // End if cmdKeyPressed
 }

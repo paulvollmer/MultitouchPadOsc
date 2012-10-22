@@ -42,7 +42,6 @@ public:
 	void init();
 	void draw(ofTrueTypeFont font);
 	void mousePressed(int x, int y);
-	void keyPressed(int key);
 	/**
 	 * add a string to console text
 	 */

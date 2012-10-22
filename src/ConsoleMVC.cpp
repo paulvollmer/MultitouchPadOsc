@@ -76,15 +76,3 @@ void ConsoleMVC::addString(string msg, bool log) {
 void ConsoleMVC::mousePressed(int x, int y) {
 	
 }
-
-
-void ConsoleMVC::keyPressed(int key) {
-	/* Open the settings xml file
-	 */
-	if(key == 's') {
-		string commandStr = "open " + ofFilePath::getCurrentWorkingDirectory() + "/ofSettings.xml";
-		system(commandStr.c_str());
-		
-		addString("Open XML settings file.");
-	}
-}

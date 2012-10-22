@@ -198,92 +198,97 @@ void SettingsMVC::mousePressed(int x, int y) {
 }
 
 
-void SettingsMVC::keyPressed(int key) {
-	switch (key) {
-		/* OSC frame
-		 */
-		case 'w':
-			if (checkboxFrame.status == true) {
-				checkboxFrame.status = false;
-			} else {
-				checkboxFrame.status = true;
-			}
-			//console.addString("Shortcut padFrame: " + ofToString(xmlPadFrame), true);
-			break;
-			
-			/* OSC timestamp
+void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
+	if (cmdKeyPressed == true) {
+		
+		switch (key) {
+			/* OSC frame
 			 */
-			/*case '3':
-			 if (settings.padTimestamp == 0) {
-			 settings.padTimestamp = 1;
-			 } else {
-			 settings.padTimestamp = 0;
-			 }
-			 cbTimestamp.status = settings.padTimestamp;
-			 
-			 cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
-			 break;*/
-			
-		/* OSC position
-		 */
-		case 'e':
-			if (checkboxPosition.status == true) {
-				checkboxPosition.status = false;
-			} else {
-				checkboxPosition.status = true;
-			}
-			//console.addString("Shortcut padPosition: " + ofToString(xmlPadPosition), true);
-			break;
-			
-			/* OSC velocity
+			case 'w':
+				if (checkboxFrame.status == true) {
+					checkboxFrame.status = false;
+				} else {
+					checkboxFrame.status = true;
+				}
+				// TODO:
+				//console.addString("Shortcut padFrame: " + ofToString(xmlPadFrame), true);
+				break;
+				
+				/* OSC timestamp
+				 */
+				/*case '3':
+				 if (settings.padTimestamp == 0) {
+				 settings.padTimestamp = 1;
+				 } else {
+				 settings.padTimestamp = 0;
+				 }
+				 cbTimestamp.status = settings.padTimestamp;
+				 cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
+				 break;*/
+				
+			/* OSC position
 			 */
-			/*case '5':
-			 if (settings.padVelocity == 0) {
-			 settings.padVelocity = 1;
-			 } else {
-			 settings.padVelocity = 0;
-			 }
-			 cbVelocity.status = settings.padVelocity;
-			 
-			 cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
-			 break;*/
-			
+			case 'e':
+				if (checkboxPosition.status == true) {
+					checkboxPosition.status = false;
+				} else {
+					checkboxPosition.status = true;
+				}
+				// TODO:
+				//console.addString("Shortcut padPosition: " + ofToString(xmlPadPosition), true);
+				break;
+				
+				/* OSC velocity
+				 */
+				/*case '5':
+				 if (settings.padVelocity == 0) {
+				 settings.padVelocity = 1;
+				 } else {
+				 settings.padVelocity = 0;
+				 }
+				 cbVelocity.status = settings.padVelocity;
+				 cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
+				 break;*/
+				
+				/* OSC maxis
+				 */
+				/*case '4':
+				 if (settings.padMaxis == 0) {
+				 settings.padMaxis = 1;
+				 } else {
+				 settings.padMaxis = 0;
+				 }
+				 cbMaxis.status = settings.padMaxis;
+				 cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
+				 break;*/
+				
 			/* OSC maxis
 			 */
-			/*case '4':
-			 if (settings.padMaxis == 0) {
-			 settings.padMaxis = 1;
-			 } else {
-			 settings.padMaxis = 0;
-			 }
-			 cbMaxis.status = settings.padMaxis;
-			 
-			 cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
-			 break;*/
-			
-		/* OSC maxis
-		 */
-		case 'r':
-			if (checkboxSize.status == true) {
-				checkboxSize.status = false;
-			} else {
-				checkboxSize.status = true;
-			}
-			//console.addString("Shortcut padSize: " + ofToString(xmlPadSize), true);
-			break;
-			
-		/* OSC angle
-		 */
-		case 't':
-			if (checkboxAngle.status == true) {
-				checkboxAngle.status = false;
-			} else {
-				checkboxAngle.status = true;
-			}
-			//console.addString("Shortcut padAngle: " + ofToString(xmlPadAngle), true);
-			break;
-			
-		default:
-			break;
-	}
+			case 'r':
+				if (checkboxSize.status == true) {
+					checkboxSize.status = false;
+				} else {
+					checkboxSize.status = true;
+				}
+				// TODO:
+				//console.addString("Shortcut padSize: " + ofToString(xmlPadSize), true);
+				break;
+				
+			/* OSC angle
+			 */
+			case 't':
+				if (checkboxAngle.status == true) {
+					checkboxAngle.status = false;
+				} else {
+					checkboxAngle.status = true;
+				}
+				// TODO:
+				//console.addString("Shortcut padAngle: " + ofToString(xmlPadAngle), true);
+				break;
+				
+			default:
+				break;
+		}
+		
+	} // End if cmdKeyPressed
 }
