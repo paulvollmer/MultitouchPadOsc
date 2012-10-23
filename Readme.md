@@ -2,7 +2,7 @@
   
 **General Information**  
 The MultitouchPadOsc application checks the incomming Multitouch Events and send them as an osc-message.  
-It gives the possibility to use a Multitouch Pad as a control-device over osc protocol.  
+It gives the possibility to use a Multitouch Pad as a control-device via osc protocol.  
   
 The MultitouchPadOsc Project Page is Hosted at http://wrongentertainment.github.com/MultitouchPadOsc/  
 Check out for New released Version at https://github.com/WrongEntertainment/MultitouchPadOsc  
@@ -11,7 +11,7 @@ The application is using the [Bitstream Vera](http://ftp.gnome.org/pub/GNOME/sou
 Build with [openFrameworks](http://www.openframeworks.cc)  
 Third Party Code Additional copyright notices and license terms applicable to portions of the Software are set forth in the THIRDPARTYLICENSEREADME.txt file.  
   
-MultitouchPadOsc (version 0.1.2 codename TouchDown) is developed by:  
+MultitouchPadOsc (version 0.1.3 codename TouchDown) is developed by:  
 Paul Vollmer [wrong-entertainment.com](http://wrong-entertainment.com)  
 Copyright (c) 2011-2012 Paul Vollmer, wrong-entertainment.com  
   
@@ -21,15 +21,21 @@ MIT License
 **Platform**  
 Mac OS  
 **Dependencies**  
-Software: Mac OS 10.5+  
+Software: Mac OS 10.6  
 Hardware: MacBook, MacBook Pro with a Multitouch Trackpad or an Magic Trackpad.
   
 **Issues and Bugs**  
-You can find a list of all known bugs at [GitHub](https://github.com/wrongentertainment/ofxXmlDefaulSettings/issues). Please report if you find an unknown bug.  
+You can find a list of all known bugs at [GitHub](https://github.com/wrongentertainment/multitouchpadosc/issues). Please report if you find an unknown bug.  
   
   
 ## Changelog  
 A detailed changelog, intended for programmers.  
+  
+0.1.3  
+- Changes at OSC messages  
+- Added Resize Window Mode  
+- Added GUI osc host/port textfield  
+- Added Finger Information  
   
 0.1.2  
 Changes at default xml settings, changes at gui.  

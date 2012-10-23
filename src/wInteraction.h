@@ -1,5 +1,5 @@
 //
-// main.cpp
+// wInteraction.h
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com

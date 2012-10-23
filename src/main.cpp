@@ -24,13 +24,17 @@
 //
 
 /**
- * @plattform        MacOs 10.6+
+ * @plattform        MacOs 10.6
  *                   Win XXX
  *                   Linux XXX
  * @openFrameworks   0071
- * @dependencies     
- * @modified         2012.10.12
- * @version          0.1.2c
+ * @dependencies     ofxXmlSettings
+ *                   ofxXmlDefaultSettings
+ *                   ofxOsc
+ *                   ofxUI
+ *                   ofxModifierKeys
+ * @modified         2012.10.23
+ * @version          0.1.3
  */
 
 #include "ofMain.h"

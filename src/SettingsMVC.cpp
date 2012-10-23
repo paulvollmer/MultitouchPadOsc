@@ -30,8 +30,6 @@ SettingsMVC::SettingsMVC(){}
 
 
 void SettingsMVC::init(ofTrueTypeFont font) {
-	cout << "ViewerSettings init()";
-	
 	checkboxOscArray.init(font, "OSC array xysa", FONT_POSITION_X, 160);
 	checkboxFrame.init(font, "Frame active", FONT_POSITION_X, 180);
 	//checkboxTimestamp.init(vera, "timestamp active",  60, 170, defXmlPadTimestamp);
