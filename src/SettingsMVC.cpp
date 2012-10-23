@@ -179,8 +179,9 @@ void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 	 */
 	font.drawString("Settings Information", FONT_POSITION_X, 290);
 	ofLine(FONT_POSITION_X, 300, ofGetWidth()-FONT_POSITION_X, 300);
-	font.drawString("Number of Devices: "+ofToString(pad.getNumDevices()), 15, 320);
-	font.drawString("To open the settings xml, press key 'cmd x'", FONT_POSITION_X, 360);
+	font.drawString("Number of Touchpoints: "+ofToString(pad.getTouchCount()), 15, 320);
+	font.drawString("Number of Devices: "+ofToString(pad.getNumDevices()), 15, 340);
+	font.drawString("To open the settings xml, press key 'cmd x'", FONT_POSITION_X, 380);
 }
 
 

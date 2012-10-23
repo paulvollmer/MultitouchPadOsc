@@ -186,6 +186,17 @@ void MultitouchPadOscApp::draw() {
 		if(toolbarMVC.buttonConsole.status == true) {
 			consoleMVC.draw(vera);
 		}
+	} else if (toolbarMVC.buttonWindowMode.status == true) {
+		ofSetColor(COLOR_LIGHT_GREY);
+		ofFill();
+		string str;
+		if (oscIsSending == true) {
+			vera.drawString("Send OSC: Yes", 5, 20);
+		} else {
+			vera.drawString("Send OSC: No", 5, 20);
+		}
+		vera.drawString("Touchpoints: " + ofToString(pad.getTouchCount()), 120, 20);
+		vera.drawString("Number of Devices: " + ofToString(pad.getNumDevices()), 240, 20);
 	}
 	
 	/* Reset oscIsSending variable to false
@@ -224,8 +235,6 @@ void MultitouchPadOscApp::keyPressed(int key) {
 	}
 	settingsMVC.keyPressed(key, cmdKeyPressed);
 
-	
-	//consoleMVC.keyPressed(key, cmdKeyPressed);
 	/* Open the settings xml file
 	 */
 	if(key == 'x' && cmdKeyPressed == true) {
