@@ -169,10 +169,11 @@ void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 	checkboxSize.display();
 	checkboxAngle.display();
 	// shortcuts
-	/*font.drawString("[Shortcut: 2]", 350, 200);
-	font.drawString("[Shortcut: 3]", 350, 220);
-	font.drawString("[Shortcut: 4]", 350, 240);
-	font.drawString("[Shortcut: 5]", 350, 260);*/
+	font.drawString("'cmd a'", 190, 170);
+	font.drawString("'cmd s'", 190, 190);
+	font.drawString("'cmd d'", 190, 210);
+	font.drawString("'cmd f'", 190, 230);
+	font.drawString("'cmd g'", 190, 250);
 	
 	/* Settings information
 	 */
