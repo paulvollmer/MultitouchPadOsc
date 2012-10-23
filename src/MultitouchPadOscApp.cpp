@@ -74,6 +74,9 @@ void MultitouchPadOscApp::setup() {
 	XML.defaultSettings.fullscreen = false;
 	XML.defaultSettings.escapeQuitsApp = true;
 	XML.defaultSettings.log = true;
+	string tempLogin = getlogin();
+	XML.defaultSettings.logFilepath = "//Users/"+tempLogin+"/Library/Application Support/"+PROJECTNAME;
+	XML.defaultSettings.logFilename = "logs.txt";
 	
 	/* ofxXmlDefaultSettings
 	 * Load the xml file from default path.
@@ -242,7 +245,7 @@ void MultitouchPadOscApp::keyPressed(int key) {
 		system(commandStr.c_str());
 		/* set message to log file.
 		 */
-		consoleMVC.addString("Open XML settings file.");
+		consoleMVC.addString("Open XML settings file.", true);
 	}
 }
 
