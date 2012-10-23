@@ -217,7 +217,13 @@ void MultitouchPadOscApp::keyPressed(int key) {
 	/* MVC key pressed events
 	 */
 	toolbarMVC.keyPressed(key, cmdKeyPressed);
+	if (toolbarMVC.buttonSettings.status == true) {
+		gui->setVisible(true);
+	} else {
+		gui->setVisible(false);
+	}
 	settingsMVC.keyPressed(key, cmdKeyPressed);
+
 	
 	//consoleMVC.keyPressed(key, cmdKeyPressed);
 	/* Open the settings xml file

@@ -28,9 +28,9 @@
 TouchpointsMVC::TouchpointsMVC(){}
 
 void TouchpointsMVC::init(ofTrueTypeFont font) {
-	checkboxShowTouchpoints.init(font, "Touchpoints", 70, 40);
-	checkboxShowLines.init(font, "Lines", 178, 40);
-	checkboxShowInfo.init(font, "Information", 240, 40);
+	checkboxShowTouchpoints.init(font, "Size", 70, 40);
+	checkboxShowLines.init(font, "Connection", 124, 40);
+	checkboxShowInfo.init(font, "Information", 225, 40);
 }
 
 
@@ -39,16 +39,16 @@ void TouchpointsMVC::getXml(ofxXmlDefaultSettings xml) {
 	 */
 	checkboxShowTouchpoints.status = xml.getAttribute("touchpoints", "points", true, 0);
 	checkboxShowLines.status = xml.getAttribute("touchpoints", "lines", true, 0);
-	checkboxShowInfo.status = xml.getAttribute("touchpoints", "infos", true, 0);
+	checkboxShowInfo.status = xml.getAttribute("touchpoints", "infos", false, 0);
 	/* Touchpoint color
 	 */
 	touchpointColor[0] = xml.getAttribute("touchpoints:pointColor", "r", CHECKBOX_COLOR_ON_R, 0);
 	touchpointColor[1] = xml.getAttribute("touchpoints:pointColor", "g", CHECKBOX_COLOR_ON_G, 0);
 	touchpointColor[2] = xml.getAttribute("touchpoints:pointColor", "b", CHECKBOX_COLOR_ON_B, 0);
 	touchpointColor[3] = xml.getAttribute("touchpoints:pointColor", "a", 255, 0);
-	touchpointLines[0] = xml.getAttribute("touchpoints:lineColor", "r", 0, 0);
-	touchpointLines[1] = xml.getAttribute("touchpoints:lineColor", "g", 255, 0);
-	touchpointLines[2] = xml.getAttribute("touchpoints:lineColor", "b", 255, 0);
+	touchpointLines[0] = xml.getAttribute("touchpoints:lineColor", "r", COLOR_LIGHT_GREY, 0);
+	touchpointLines[1] = xml.getAttribute("touchpoints:lineColor", "g", COLOR_LIGHT_GREY, 0);
+	touchpointLines[2] = xml.getAttribute("touchpoints:lineColor", "b", COLOR_LIGHT_GREY, 0);
 	touchpointLines[3] = xml.getAttribute("touchpoints:lineColor", "a", 255, 0);
 	touchpointCross[0] = xml.getAttribute("touchpoints:crossColor", "r", 255, 0);
 	touchpointCross[1] = xml.getAttribute("touchpoints:crossColor", "g", 0, 0);
@@ -63,14 +63,14 @@ void TouchpointsMVC::addXml(ofxXmlDefaultSettings xml) {
 	 */
 	checkboxShowTouchpoints.status = true;
 	checkboxShowLines.status = true;
-	checkboxShowInfo.status = true;
+	checkboxShowInfo.status = false;
 	xml.addAttribute("touchpoints", "points", checkboxShowTouchpoints.status, 0);
 	xml.addAttribute("touchpoints", "lines", checkboxShowLines.status, 0);
 	xml.addAttribute("touchpoints", "infos", checkboxShowInfo.status, 0);
 	/* Touchpoint color
 	 */
 	touchpointColor.set(CHECKBOX_COLOR_ON_R, CHECKBOX_COLOR_ON_G, CHECKBOX_COLOR_ON_B, 255);
-	touchpointLines.set(0, 255, 255, 255);
+	touchpointLines.set(COLOR_LIGHT_GREY, COLOR_LIGHT_GREY, COLOR_LIGHT_GREY, 255);
 	touchpointCross.set(255, 255, 255, 255);
 	xml.addTag("touchpoints");
 	xml.pushTag("touchpoints", 0);
@@ -150,6 +150,8 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 		ofDisableSmoothing();
 	}
 	
+	ofEnableSmoothing();
+	
 	/* display all finger blobs
 	 */
 	for(int i=0; i<pad.getTouchCount(); i++) {
@@ -164,19 +166,18 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 		int y = ofMap(touch.y, 0.0, 1.0, 80, ofGetHeight()-40);
 		int size = touch.size*50;
 		
-		/* Transform
+		ofPushMatrix();
+		ofTranslate(x, y, 0);
+		ofRotateZ(touch.angle);
+		/* Draw Touchpoint size
 		 */
 		if (checkboxShowTouchpoints.status == true) {
-			ofPushMatrix();
-			ofTranslate(x, y, 0);
-			ofRotateZ(touch.angle);
-			ofEnableSmoothing();
-		
 			drawSingleTouchpoint(size);
-			drawSingleTouchpointCross();
-		
-			ofPopMatrix();
 		}
+		/* Draw Touchpoint cross
+		 */
+		drawSingleTouchpointCross();
+		ofPopMatrix();
 		
 		if (touchpointsMenuActive == true) {
 			ofPushMatrix();
@@ -185,6 +186,8 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 			ofPopMatrix();
 		}
 	} // End for
+	
+	ofDisableSmoothing();
 }
 
 
