@@ -28,195 +28,325 @@
 		<!-- Navigation -->
 		<nav>
 			<b><a href="index.html" target="_self">Introduction </a>|
-			<a href="guide.html"target="_self">User Guide </a>|
+			<a href="guide.html"target="_self">Documentation </a>|
 			<a href="download.html" target="_self">Download </a>|
 			<a href="contact.html" target="_self">Contact</a></b>
 		</nav>
 		
     	<!-- Main content area -->  
 		<section>
-			<h2>User Guide</h2>
-			<div id="guide">
+			<div id="documentation">
 				
-				
-				<!-- Table of Content ******************************************************************* 
+				<!-- Table of Content ******************************************************************* -->
 				<div>
-					<h3>Table of Content</h3>
-					<p>
-						<a href="#overview">1.0 Overview</a><br/>
-						<a href="#scenarios">2.0 Scenarios</a><br/>
-						<a href="#multitouch">3.0 Multitouch</a><br/>
-						<a href="#osc">4.0 OSC</a><br/>
-						<a href="#settings">5.0 Settings</a><br/>
-						<a href="#console">6.0 Console</a><br/>
-						<a href="#connect">7.0 Connect</a><br/>
-						<a href="#processing-examples">8.0 Processing Examples</a><br/>
-						<a href="#faq">9.0 FAQ</a>
-					</p>
-				</div> -->
-				
-				
+					<h2>Table of Content</h2>
+					<ul>
+						<li><a href="#overview">Overview</a></li>
+						<li><a href="#settings">Settings</a></li>
+						<li><a href="#console">Console</a></li>
+						<li><a href="#scenarios">Scenarios</a></li>
+						<ul>
+							<li><a href="#scenarios_internal">Internal Route</a></li>
+							<li><a href="#scenarios_single">Single Master Route</a></li>
+							<li><a href="#scenarios_multi">Multi Master Route</a></li>
+						</ul>
+						<li><a href="#multitouch">Multitouch</a></li>
+						<li><a href="#osc">OSC Properties</a></li>
+						<!-- <li><a href="#connection">Connection</a></li> -->
+						<li><a href="#processing-examples">Processing Examples</a></li>
+						<li><a href="#faq">FAQ</a></li>
+					</ul>
+				</div>
+								
 				<!-- Overview *************************************************************************** -->
 				<div>
-					<h3 id="overview">Overview</h3>
+					<h2 id="overview">Overview</h2>
 					<p>
-						This application was developed to connect Trackpads/Magic-Trackpads to a Master Computer. <br/>
-						To connect the MultitouchPadOsc App with a Master Computer, you need to set the osc settings for each MultitouchPadOsc App.
-						After the app is started with the right settings, every capable osc application can receive the messages.<br/>
-						<br/>
-						Here is a Flowchart of the MultitouchPadOsc Application
+						This application was developed to connect Trackpads/Magic-Trackpads to a Master Computer. <br>
+						To connect the MultitouchPadOsc Application with a Master Computer, you need to set the OSC Host and Port settings.
+						After the app is started with the right settings, every capable OSC application can receive the messages.<br>
+						<br>
+						Here is a Flowchart of the MultitouchPadOsc Application.
 					</p>
-					<p>
-						<img src="images/flowchart.png"><br/>
-					</p>
-					<br/>
+					<object data="images/flowchart.svg" type="image/svg+xml">
+					    Your browser can not display the object, unfortunately!
+					</object>
+					<br>
 					If you start first time the Application you see this window.
-					<img src="images/multitouchPadOsc_001.png" width="500px">
-					<p>If you touch the Trackpad, the Application draw the Touchpoint-Position, -Size and -Angle.</p>
-					<img src="images/multitouchPadOsc_001.png" width="250px">
-					<img src="images/multitouchPadOsc_002.png" width="250px">
-					<img src="images/multitouchPadOsc_003.png" width="250px">
-					<div class="subline">Three Touchpoints.</div></br>
+					<img src="images/multitouchPadOsc_001.png">
+					<p>If you touch the Trackpad, the Application draw the Touchpoint-Position, -Size, -Angle and connection.<br>
+						You can set the Viewer mode with the three Checkboxes (Size, Connection & Information)</p>
+					<table width="100%">
+					  <tr>
+					    <td><img src="images/multitouchPadOsc_002.png" width="250px"></td>
+					    <td><img src="images/multitouchPadOsc_003.png" width="250px"></td>
+					    <td><img src="images/multitouchPadOsc_006.png" width="250px"></td>
+					  </tr>
+					  <tr>
+					    <td class="subline">Two Touchpoints</td>
+					    <td class="subline">Three Touchpoints</td>
+					    <td class="subline">Two Touchpoints with Informations</td>
+					  </tr>
+					</table>
 				</div>
-				
-				
-				<!-- Scenarios ************************************************************************** -->
-				<div>
-					<h3 id="scenarios">Scenarios</h3>
-					<p>
-						There are several scenarios to use that Application. Here, different scenarios are presented to illustrate the OSC-Network. Internal routing of osc messages is also possible, such as the use in multi-user applications...
-						<p><b>Internal Route</b></p>
-						<img src="images/scenarios001.png">
-						<br/><br/><br/>
-						<b>Single Master Route</b><br/>
-						<img src="images/scenarios002.png">
-						<br/><br/><br/>
-						<b>Multi Master Route</b><br/>
-						<img src="images/scenarios003.png">
-						<br/><br/><br/>
-					</p>
-				</div>
-				
-				
-				<!-- Multitouch ************************************************************************* -->
-				<div>
-					<h3 id="multitouch">Multitouch</h3>
-					<p>
-						Multitouch
-					</p>
-				</div>
-				
-				
-				<!-- OSC ******************************************************************************** -->
-				<div>
-					<h3 id="osc">OSC-Messages</h3>
-					<p>
-						If you've setting up your osc-types, you can receive a osc-message.</br>
-						The only you need to know is the message-name to sync with your osc compatible software.</br>
-						You can choose between 4 different types of osc-messages.</p>
-						- frame</br>
-						- x, y position</br>
-						- size</br>
-						- angle</br>
-						</br>
-						Here is a list of all messages.</br>
-						<pre>NAME/FINGER-ID/frame
-# return the current frame.
-
-
-NAME/FINGER-ID/x
-# return the x value of the finger.
-
-
-NAME/FINGER-ID/y
-# return the y value of the finger.
-
-
-NAME/FINGER-ID/size
-# return the size of the finger.
-
-
-NAME/FINGER-ID/angle
-# return the angle of the finger.
-
-
-
-# Here you can find a description for NAME and FINGER
-#
-#
-# NAME: Set a name for your.
-# You can change the device name at the settings.xml file.
-#
-# FINGER-ID: The finger id (from 0 to 20).
-# Actually the application use 20 Touchpoints.</pre>
-					</p>
-				</div>
-				
 				
 				<!-- Settings *************************************************************************** -->
 				<div>
-					<h3 id="settings">Settings</h3>
+					<h2 id="settings">Settings</h2>
 					<p>
-						<img src="images/multitouchPadOsc_settings001.png">
-						<div class="subline">Settings page. </div></br>
-						<img src="images/multitouchPadOsc_settings002.png">
-						<div class="subline">send x-, y-position osc message.</div></br>
+						On the settings tab you can change various properties.<br>
+						The last settings are stored in the application and are available the next time you launch.<br>
+						Also the number of the current trackpads is listed.<br><br>
+						The main OSC settings are:
+						<ul>
+							<li>OSC Host<br>The host ip where to send the application.</li>
+							<li>OSC Port<br>The port number through which the osc messages can be received.</li>
+							<li>Devicename<br>The name that is used as a start for the osc message.</li>
+						</ul>
+						The OSC message settings are:
+						<ul>
+							<li>OSC array active<br>If active, then sent the x-, y-position, size and angle values.</li>
+							<li>Frame active<br>If active, then sent the frame value.</li>
+							<li>Position active<br>If active, then sent the x-, y-position value.</li>
+							<li>Size active<br>If active, then sent the size value.</li>
+							<li>Angle active<br>If active, then sent the angle value.</li>
+						<ul>
 					</p>
+					<img src="images/multitouchPadOsc_settings001.png">
+					<table>
+						<tr>
+							<td><img src="images/multitouchPadOsc_settings001.png" width="250px"></td>
+							<td><img src="images/multitouchPadOsc_settings003.png" width="250px"></td>
+							<td><img src="images/multitouchPadOsc_settings002.png" width="250px"></td>
+						</tr>
+						<tr>
+							<td><p class="subline">The default Settings properties.</p></td>
+							<td><p class="subline">Send x-, y-position osc message.</p></td>
+							<td><p class="subline">Send no osc message.</p></td>
+						</tr>
+					</table>
 				</div>
-				
 				
 				<!-- Console **************************************************************************** -->
 				<div>
-					<h3 id="console">Console</h3>
+					<h2 id="console">Console</h2>
 					<p>
-						<img src="images/multitouchPadOsc_console001.png">
-						<div class="subline">Console after application launch..</div></br>
-						<img src="images/multitouchPadOsc_console002.png">
-						<div class="subline">App sending x-, y-position.</div></br>
-						<img src="images/multitouchPadOsc_console003.png">
-						<div class="subline">Three touchpoints.</div></br>
+						on the console tab, the last sent osc messages can be viewed
+					</p>
+					<img src="images/multitouchPadOsc_console001.png">
+					<div class="subline">Console after application launch..</div></br>
+					<img src="images/multitouchPadOsc_console002.png">
+					<div class="subline">App sending x-, y-position, size and angle...</div></br>
+					<img src="images/multitouchPadOsc_console003.png">
+					<div class="subline">...of three touchpoints.</div></br>
+				</div>
+				
+				<!-- Scenarios ************************************************************************** -->
+				<div>
+					<h2 id="scenarios">Scenarios</h2>
+					<p>
+						There are several scenarios to use that Application. Here, different scenarios are presented to illustrate the OSC-Network. Internal routing of osc messages is also possible, such as the use in multi-user applications.
+					</p>
+					<b id="scenarios_internal">Internal Route</b><br>
+					Single Hardware setup
+					<table>
+						<tr>
+							<td width="50%" rowspan="4"><img src="images/scenarios001.png"></td>
+							<td height="50">
+								<font color="green">Internal routing on host 127.0.0.1</font>
+							</td>
+						</tr>
+						<tr>
+							<td height="75">On this machine we run the MultitouchPadOsc application to send OSC messages.</td>
+						</tr>
+						<tr>
+							<td height="30"><font color="green">Receive Touchpoints</font></td>
+						</tr>
+						<tr>
+							<td>Magic Trackpad</td>
+						</tr>
+					</table>
+					<br><br><br>
+					<b id="scenarios_single">Single Master Route</b><br/>
+					Single Node Hardware setup
+					<table>
+						<tr>
+							<td width="50%" rowspan="5"><img src="images/scenarios002.png"></td>
+							<td height="40">Machine that receive the OSC messages</td>
+						</tr>
+						<tr>
+							<td height="20"><font color="green">Send OSC messages</font></td>
+						</tr>
+						<tr>
+							<td height="85">On this machine we run the MultitouchPadOsc application to send OSC messages</td>
+						</tr>
+						<tr>
+							<td height="30"><font color="green">Receive Touchpoints</font></td>
+						</tr>
+						<tr>
+							<td>Magic Trackpad</td>
+						</tr>
+					</table>
+					<br><br><br>
+					<b id="scenarios_multi">Multi Master Route</b><br/>
+					Multi Nodes Hardware setup
+					<table>
+						<tr>
+							<td width="50%" rowspan="5"><img src="images/scenarios003.png"></td>
+							<td height="40">Machine that receive the OSC messages from the 3 sender machines</td>
+						</tr>
+						<tr>
+							<td height="20"><font color="green">Send OSC messages.</font></td>
+						</tr>
+						<tr>
+							<td height="85">On this machines we run the MultitouchPadOsc application to send OSC messages.</td>
+						</tr>
+						<tr>
+							<td height="30"><font color="green">Receive Touchpoints</font></td>
+						</tr>
+						<tr>
+							<td>3 Magic Trackpad's</td>
+						</tr>
+					</table>
+				</div>
+				
+				<!-- Multitouch ************************************************************************* -->
+				<div>
+					<h2 id="multitouch">Multitouch</h2>
+					<p>
+						"In computing, multi-touch refers to a touch sensing surface's (trackpad or touchscreen) ability to recognize the presence of two or more points of contact with the surface. This plural-point awareness is often used to implement advanced functionality such as pinch to zoom or activating predefined programs."<br>
+						Source: <a href="http://en.wikipedia.org/wiki/Multi-touch">Wikipedia</a>
 					</p>
 				</div>
 				
+				<!-- OSC ******************************************************************************** -->
+				<div>
+					<h2 id="osc">OSC Properties</h2>
+					<p>
+						If you've setting up your osc-types, you can receive a osc-message.<br>
+						The only you need to know is the message-name to sync with your osc compatible software.<br>
+						You can choose between 5 different types of osc-messages.
+					</p>
+					<p>
+						- osc array (xysa) x, y position, size and angle<br>
+						- frame<br>
+						- x, y position<br>
+						- size<br>
+						- angle<br>
+					</p>
+					<p>
+						<b>Here is a list of all messages.</b>
+					</p>
+					<table width="100%">
+						<tr>
+							<td>Frame
+								<pre>Example:   ['/mtpad/1/frame', i, 768]<br><br>Pseudo:    ['/NAME/FINGER-ID/frame', i, VALUE]</pre>
+							</td>
+							<td>
+								Send the current frame as an integer.<br><br>
+								Typetag: i
+							</td>
+						</tr>
+						<tr>
+							<td>X-Position
+								<pre>Example:   ['/mtpad/1/x', f, 0.5]<br><br>Pseudo:    ['/NAME/FINGER-ID/x', f, VALUE]</pre>
+							</td>
+							<td>
+								Send the x value of the finger.<br><br>
+								Typetag: f<br>
+								Value Range from: 0.0 to: 1.0
+							</td>
+						</tr>
+						<tr>
+							<td>Y-Position
+								<pre>Example:   ['/mtpad/1/y', f, 0.5]<br><br>Pseudo:    ['/NAME/FINGER-ID/x', f, VALUE]</pre>
+							</td>
+							<td>
+								Send the y value of the finger.<br><br>
+								Typetag: f<br>
+								Value Range from: 0.0 to: 1.0
+							</td>
+						</tr>
+						<tr>
+							<td>Size
+								<pre>Example:   ['/mtpad/1/size', f, 2.3]<br><br>Pseudo:    ['/NAME/FINGER-ID/size', f, VALUE]</pre>
+							</td>
+							<td>
+								Send the size of the finger.<br><br>
+								Typetag: f<br>
+								Value Range from: 0.0 to: 6.0
+							</td>
+						</tr>
+						<tr>
+							<td>Angle
+								<pre>Example:   ['/mtpad/1/angle', f, 90.0]<br><br>Pseudo:    ['/NAME/FINGER-ID/angle', f, VALUE]</pre>
+							</td>
+							<td>
+								Send the angle of the finger.<br><br>
+								Typetag: f<br>
+								Value Range from: 0.0 to: 180.0
+							</td>
+						</tr>
+						<tr>
+							<td>Array
+								<pre>Example:   ['/mtpad/1/xysa', f, 0.5,
+                             f, 0.5,
+                             f, 2.3,
+                             f, 90.0]<br><br>Pseudo:    ['/NAME/FINGER-ID/xysa, f, VALUE,
+                                   f, VALUE,
+                                   f, VALUE,
+                                   f, VALUE]</pre>
+							</td>
+							<td>
+								Send the x-, y-position, size and angle as an osc package<br><br>
+								Typetag: ffff<br>
+								Value Range (same as x, y, size and angle)<br>
+							</td>
+						</tr>
+					</table>
+					
+					<p>
+						Here you can find a description for <code>NAME</code> and <code>FINGER</code><br>
+					 	<code>NAME</code> Set a name of your devicename you've set at settings.<br>
+						<code>FINGER-ID</code> The finger id.<br>
+					</p>
+				</div>
 				
 				<!-- Connect **************************************************************************** -->
-				<div>
-					<h3 id="connect">Connection</h3>
+				<!-- <div>
+					<h2 id="connection">Connection</h2>
 					<p>
 						Connect
 					</p>
-				</div>
-				
+				</div> -->
 				
 				<!-- Processing Examples **************************************************************** -->
 				<div>
-					<h3 id="processing-examples">Processing Examples</h3>
+					<h2 id="processing-examples">Processing Examples</h2>
 					<p>
-						You can find an examples folder at the Repository <code>gh-pages</code> branch.<br/>
-						This example is based on <a href="http://www.sojamo.de/libraries/oscP5/index.html">oscP5</a> library example<br/>
-						<pre>/**
- * This example shows how toreceive osc messages from
- * Magic Trackpad. It will draw a ellipse with values from
- * received x-, y position and size.
- * 
- * Based on oscP5sendreceive by andreas schlegel
- * oscP5 website at http://www.sojamo.de/oscP5
- */</pre>
+						You can find all available examples at the Repository <code>gh-pages</code> branch.<br/>
+						<!-- Here is a list of all available examples currently:<br>
+						<a href="https://github.com/WrongEntertainment/MultitouchPadOsc/blob/gh-pages/examples/Processing/oscReceive_basic/oscReceive_basic.pde">oscReceive_basic.pde</a> -->
+					</p>
+					<p>
+						Example: oscReceive_basic.pde
+					<script src="http://gist-it.appspot.com/github/WrongEntertainment/MultitouchPadOsc/raw/gh-pages/examples/Processing/oscReceive_basic/oscReceive_basic.pde"></script>
 					</p>
 				</div>
-				
 				
 				<!-- FAQ ******************************************************************************** -->
 				<div>
-					<h3 id="faq">9.0 FAQ</h3>
+					<h2 id="faq">FAQ</h2>
 					<p>
-						<b>Where can i check the versioning?</b><br/>
-						At the Menubar you can click on "MultitouchPadOsc -> About MultitouchPadOsc"
+						<b>Why is no signal send OSC?</b><br>
+						Thus, the application sends the OSC messages, if the icon placed at the top right is in active mode.
 					</p>
-					<img src="images/multitouchPadOsc_about.png">
+					<p>
+						<b>Where can i check the current version of the application?</b><br>
+						At the Menubar you can click on "MultitouchPadOsc -> About MultitouchPadOsc"
+						<img src="images/multitouchPadOsc_about.png">
+					</p>
 				</div>
-				
-				
 				
 	    	</div>
 		</section>
