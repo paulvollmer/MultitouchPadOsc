@@ -6,8 +6,8 @@
 	<text x="45" y="20" font-family="sans-serif" font-size="12" fill="white">Application to control</text>
 	<text x="245" y="20" font-family="sans-serif" font-size="12" fill="black">Receive OSC messages from MultitouchPadOsc defined port.</text>
 	
-	<line x1="100" y1="40" x2="100" y2="90" stroke="green" stroke-width="4px"/>
-	<polygon points="95 80 100 90 105 80" fill="green" stroke="green" stroke-width="4px"/>
+	<line x1="100" y1="40" x2="100" y2="90" stroke="green" stroke-width="2px"/>
+	<polygon points="95 80 100 90 105 80" fill="green" stroke="green" stroke-width="2px"/>
 	<text x="245" y="65" font-family="sans-serif" font-size="12" fill="green">Send OSC messages</text>
 
 	<rect x="0" y="100" width="200" height="35" fill="#444"/>
@@ -15,8 +15,8 @@
 	<text x="245" y="120" font-family="sans-serif" font-size="12" fill="black">- Set the Host and Port</text>
 	<text x="245" y="135" font-family="sans-serif" font-size="12" fill="black">- Receive Touchpoint data and translate to OSC message</text>
 
-	<line x1="100" y1="145" x2="100" y2="195" stroke="green" stroke-width="4px"/>
-	<polygon points="95 155 100 145 105 155" fill="green" stroke="green" stroke-width="4px"/>
+	<line x1="100" y1="145" x2="100" y2="195" stroke="green" stroke-width="2px"/>
+	<polygon points="95 155 100 145 105 155" fill="green" stroke="green" stroke-width="2px"/>
 	<text x="245" y="170" font-family="sans-serif" font-size="12" fill="green">Grab the data</text>
 	
 	<rect x="0" y="200" width="200" height="35" fill="#444"/>
