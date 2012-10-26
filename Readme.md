@@ -11,6 +11,10 @@ The application is using the [Bitstream Vera](http://ftp.gnome.org/pub/GNOME/sou
 Build with [openFrameworks](http://www.openframeworks.cc)  
 Third Party Code Additional copyright notices and license terms applicable to portions of the Software are set forth in the THIRDPARTYLICENSEREADME.txt file.  
   
+Used openFrameworks addons:  
+ofxUI  
+ofxModifierKeys  
+  
 MultitouchPadOsc (version 0.1.3 codename TouchDown) is developed by:  
 Paul Vollmer [wrong-entertainment.com](http://wrong-entertainment.com)  
 Copyright (c) 2011-2012 Paul Vollmer, wrong-entertainment.com  
