@@ -385,25 +385,29 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 
 
 void MultitouchPadOscApp::newTouch(int & n) {
-    //printf("+ a new touch\n", n);
+    cout << "+ a new touch no: " << n << endl;
 	
-	/* Send an osc message if the touchpoint is added.
-	 */
-	ofxOscMessage m;
-	m.setAddress("/" + settingsMVC.oscTouchpadDevicename + "/" + ofToString(n) + "/added");
-	oscSender.sendMessage(m);
+	if (toolbarMVC.buttonOscActive.status == true) {
+		/* Send an osc message if the touchpoint is added.
+		 */
+		ofxOscMessage m;
+		m.setAddress("/" + settingsMVC.oscTouchpadDevicename + "/" + ofToString(n) + "/added");
+		oscSender.sendMessage(m);
+	}
 }
 
 
 
 void MultitouchPadOscApp::removedTouch(int & r) {
-    //printf("- a removed touch\n",r);
+    cout << "- a removed touch no: " << r << endl;
 	
-	/* Send an osc message if the touchpoint is removed.
-	 */
-	ofxOscMessage m;
-	m.setAddress("/" + settingsMVC.oscTouchpadDevicename + "/" + ofToString(r) + "/removed");
-	oscSender.sendMessage(m);
+	if (toolbarMVC.buttonOscActive.status == true) {
+		/* Send an osc message if the touchpoint is removed.
+		 */
+		ofxOscMessage m;
+		m.setAddress("/" + settingsMVC.oscTouchpadDevicename + "/" + ofToString(r+1) + "/removed");
+		oscSender.sendMessage(m);
+	}
 }
 
 
