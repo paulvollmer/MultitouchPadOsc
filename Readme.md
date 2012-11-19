@@ -15,7 +15,7 @@ Used openFrameworks addons:
 ofxUI  
 ofxModifierKeys  
   
-MultitouchPadOsc (version 0.1.3 codename TouchDown) is developed by:  
+MultitouchPadOsc (version 0.1.31 codename TouchDown) is developed by:  
 Paul Vollmer [wrong-entertainment.com](http://wrong-entertainment.com)  
 Copyright (c) 2011-2012 Paul Vollmer, wrong-entertainment.com  
   
