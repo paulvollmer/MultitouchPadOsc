@@ -412,6 +412,8 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 	string name = e.widget->getName(); 
 	int kind = e.widget->getKind(); 
 	
+	//cout << "got event from: " << name << endl; 
+	
 	if (name == "TEXT HOST") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		settingsMVC.oscHost = textInput->getTextString();
@@ -419,13 +421,22 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 		setWindowTitle();
 		consoleMVC.addString("Change host to " + textInput->getTextString(), true);
 	}
+	
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		settingsMVC.oscPort = ofToInt(textInput->getTextString());
-		oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
-		setWindowTitle();
-		consoleMVC.addString("Change port to " + textInput->getTextString(), true);
+		textInput->setAutoClear(false);
+		
+		if(textInput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER) {
+            // save the new port
+			int tempPort = ofToInt(textInput->getTextString());
+			//cout << "### TEXT PORT: " << tempPort << endl;
+			settingsMVC.oscPort = tempPort;
+			oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
+			setWindowTitle();
+			consoleMVC.addString("Change port to " + tempPort, true);
+        }
 	}
+	
 	else if (name == "TEXT DEVICENAME") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		settingsMVC.oscTouchpadDevicename = textInput->getTextString();
