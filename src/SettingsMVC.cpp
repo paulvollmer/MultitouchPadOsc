@@ -184,7 +184,7 @@ void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 
 
 void SettingsMVC::mousePressed(int x, int y) {
-	cout << "ViewerSettings mousePressed()";
+	//cout << "ViewerSettings mousePressed()" << endl;
 	/* Check boxes
 	 */
 	checkboxOscArray.pressed(x, y);
