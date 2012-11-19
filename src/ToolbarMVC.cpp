@@ -53,7 +53,7 @@ void ToolbarMVC::getXml(ofxXmlDefaultSettings xml) {
 void ToolbarMVC::addXml(ofxXmlDefaultSettings xml) {
 	buttonWindowMode.status = false;
 	xml.addAttribute(xml.getSyntax(xml.CORE)+":window", "mode", buttonWindowMode.status, 0);
-	buttonOscActive.status = false;
+	buttonOscActive.status = true;
 	xml.addValue("osc", buttonOscActive.status);
 }
 

@@ -307,7 +307,10 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				m.addFloatArg(touch.angle);
 				oscSender.sendMessage(m);
 				
-				//consoleMVC.addString("OSC "+tempMessage+"/"+ofToString(m));
+				consoleMVC.addString("OSC "+tempMessage+"/ "+ofToString(touch.x)+", "
+									 +ofToString(touch.y)+", "+ofToString(touch.size)+", "
+									 +ofToString(touch.angle));
+				
 				oscIsSending = true;
 			}
 			
@@ -385,7 +388,7 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 
 
 void MultitouchPadOscApp::newTouch(int & n) {
-    cout << "+ a new touch no: " << n << endl;
+    //cout << "+ a new touch no: " << n << endl;
 	
 	if (toolbarMVC.buttonOscActive.status == true) {
 		/* Send an osc message if the touchpoint is added.
@@ -399,7 +402,7 @@ void MultitouchPadOscApp::newTouch(int & n) {
 
 
 void MultitouchPadOscApp::removedTouch(int & r) {
-    cout << "- a removed touch no: " << r << endl;
+    //cout << "- a removed touch no: " << r << endl;
 	
 	if (toolbarMVC.buttonOscActive.status == true) {
 		/* Send an osc message if the touchpoint is removed.
