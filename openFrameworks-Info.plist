@@ -2,23 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleIconFile</key>
-	<string>MultitouchPadOsc</string>
 	<key>CFBundleName</key>
-	<string></string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
+	<string>MultitouchPadOsc</string>
+	<key>CFBundleVersion</key>
+	<string>0.1.31</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1.31</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.wrong-entertainment.openFrameworks</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleIconFile</key>
+	<string>MultitouchPadOsc</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>0.1.3</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.wrong-entertainment.openFrameworks</string>
+	<key>DTXcode</key>
+	<string>0322</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.6</string>
 </dict>
 </plist>
