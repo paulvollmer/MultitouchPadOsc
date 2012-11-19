@@ -307,7 +307,10 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				m.addFloatArg(touch.angle);
 				oscSender.sendMessage(m);
 				
-				//consoleMVC.addString("OSC "+tempMessage+"/"+ofToString(m));
+				consoleMVC.addString("OSC "+tempMessage+"/ "+ofToString(touch.x)+", "
+									 +ofToString(touch.y)+", "+ofToString(touch.size)+", "
+									 +ofToString(touch.angle));
+				
 				oscIsSending = true;
 			}
 			
@@ -385,25 +388,29 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 
 
 void MultitouchPadOscApp::newTouch(int & n) {
-    //printf("+ a new touch\n", n);
+    //cout << "+ a new touch no: " << n << endl;
 	
-	/* Send an osc message if the touchpoint is added.
-	 */
-	ofxOscMessage m;
-	m.setAddress("/" + settingsMVC.oscTouchpadDevicename + "/" + ofToString(n) + "/added");
-	oscSender.sendMessage(m);
+	if (toolbarMVC.buttonOscActive.status == true) {
+		/* Send an osc message if the touchpoint is added.
+		 */
+		ofxOscMessage m;
+		m.setAddress("/" + settingsMVC.oscTouchpadDevicename + "/" + ofToString(n) + "/added");
+		oscSender.sendMessage(m);
+	}
 }
 
 
 
 void MultitouchPadOscApp::removedTouch(int & r) {
-    //printf("- a removed touch\n",r);
+    //cout << "- a removed touch no: " << r << endl;
 	
-	/* Send an osc message if the touchpoint is removed.
-	 */
-	ofxOscMessage m;
-	m.setAddress("/" + settingsMVC.oscTouchpadDevicename + "/" + ofToString(r) + "/removed");
-	oscSender.sendMessage(m);
+	if (toolbarMVC.buttonOscActive.status == true) {
+		/* Send an osc message if the touchpoint is removed.
+		 */
+		ofxOscMessage m;
+		m.setAddress("/" + settingsMVC.oscTouchpadDevicename + "/" + ofToString(r+1) + "/removed");
+		oscSender.sendMessage(m);
+	}
 }
 
 
@@ -412,24 +419,49 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 	string name = e.widget->getName(); 
 	int kind = e.widget->getKind(); 
 	
+	//cout << "got event from: " << name << endl; 
+	
 	if (name == "TEXT HOST") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		settingsMVC.oscHost = textInput->getTextString();
-		oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
-		setWindowTitle();
-		consoleMVC.addString("Change host to " + textInput->getTextString(), true);
+		textInput->setAutoClear(false);
+		
+		if (textInput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER) {
+			// save the new host
+			string tempHost = textInput->getTextString();
+			//cout << "### TEXT HOST: " << tempHost << endl;
+			settingsMVC.oscHost = tempHost;
+			oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
+			setWindowTitle();
+			consoleMVC.addString("Change host to " + tempHost, true);
+		}
 	}
+	
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		settingsMVC.oscPort = ofToInt(textInput->getTextString());
-		oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
-		setWindowTitle();
-		consoleMVC.addString("Change port to " + textInput->getTextString(), true);
+		textInput->setAutoClear(false);
+		
+		if (textInput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER) {
+            // save the new port
+			int tempPort = ofToInt(textInput->getTextString());
+			//cout << "### TEXT PORT: " << tempPort << endl;
+			settingsMVC.oscPort = tempPort;
+			oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
+			setWindowTitle();
+			consoleMVC.addString("Change port to " + tempPort, true);
+        }
 	}
+	
 	else if (name == "TEXT DEVICENAME") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
-		settingsMVC.oscTouchpadDevicename = textInput->getTextString();
-		consoleMVC.addString("Change devicename to " + textInput->getTextString(), true);
+		textInput->setAutoClear(false);
+		
+		if (textInput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER) {
+			// save new devicename
+			string tempDevicename = textInput->getTextString();
+			//cout << "### TEXT DEVICENAME: " << tempDevicename << endl;
+			settingsMVC.oscTouchpadDevicename = tempDevicename;
+			consoleMVC.addString("Change devicename to " + tempDevicename, true);
+		}
 	}
 }
 
