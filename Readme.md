@@ -35,6 +35,11 @@ You can find a list of all known bugs at [GitHub](https://github.com/wrongentert
 ## Changelog  
 A detailed changelog, intended for programmers.  
   
+0.1.31  
+- Fixed Bug Entering port -> Crash  
+- Fixed Bug Wrong osc message on finger added/removed  
+- Fixed Bug Array is not being send  
+  
 0.1.3  
 - Changes at OSC messages  
 - Added Resize Window Mode  
@@ -42,13 +47,13 @@ A detailed changelog, intended for programmers.
 - Added Finger Information  
   
 0.1.2  
-Changes at default xml settings, changes at gui.  
+- Changes at default xml settings, changes at gui.  
   
 0.1.1  
-Lot of changes at usability  
+- Lot of changes at usability  
   
 0.1.0  
-Beginning MultitouchPadOsc App, first test  
+- Beginning MultitouchPadOsc App, first test  
   
   
 ## Author
