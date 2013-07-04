@@ -1,3 +1,9 @@
 [submodule "addons/ofxXmlDefaultSettings"]
 	path = addons/ofxXmlDefaultSettings
 	url = git@github.com:WrongEntertainment/ofxXmlDefaultSettings.git
+[submodule "addons/ofxModifierKeys"]
+	path = addons/ofxModifierKeys
+	url = https://github.com/satoruhiga/ofxModifierKeys.git
+[submodule "addons/ofxUI"]
+	path = addons/ofxUI
+	url = https://github.com/rezaali/ofxUI.git
