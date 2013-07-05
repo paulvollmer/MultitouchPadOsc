@@ -1,8 +1,8 @@
 //
-// wInteraction.h
+// Interaction.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,53 +23,34 @@
 // THE SOFTWARE.
 //
 
-#ifndef _WINTERACTION_H
-#define _WINTERACTION_H
+#ifndef _INTERACTION_H
+#define _INTERACTION_H
 
 
-class wInteraction {
+class Interaction {
 
 	public:
 		/**
 		 * Constructor
 		 */
-		wInteraction(){}
+        Interaction();
 		
 		/**
 		 * Initialize
 		 * Calculate the width and height of interaction area.
 		 */
-		void init(int _x, int _y, int _width, int _height) {
-			x      = _x;
-			y      = _y;
-			width  = _x+_width;
-			height = _y+_height;
-		}
+        void init(int _x, int _y, int _width, int _height);
 	
 		/**
 		 * Check if the mouse is over a rectangle.
 		 */
-		bool overRect(int _mx, int _my, int _x, int _y, int _width, int _height) {
-			if(_mx > _x        && _my > _y &&
-			   _mx < _x+_width && _my < _y+_height) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+        bool overRect(int _mx, int _my, int _x, int _y, int _width, int _height);
 	
 		/**
 		 * Check if the mouse is over a rectangle.
 		 * Use this method if you have init wInteraction before.
 		 */
-		bool overRect(int _mx, int _my) {
-			if(_mx > x     && _my > y &&
-			   _mx < width && _my < height) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+        bool overRect(int _mx, int _my);
 	
 	
 	private:
@@ -82,4 +63,4 @@ class wInteraction {
 		int height;
 	
 };
-#endif // End _WINTERACTION_H
+#endif // End _INTERACTION_H

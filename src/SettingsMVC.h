@@ -2,7 +2,7 @@
 // SettingsMVC.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 #include "ofMain.h"
 #include "ofxXmlDefaultSettings.h"
 #include "ofxMultiTouchPad.h"
-#include "wCheckbox.h"
+#include "Checkbox.h"
 
 #include "Variables.h"
 
@@ -51,35 +51,35 @@ public:
 	/**
 	 * Checkbox to trigger osc send on/off
 	 */
-	wCheckbox checkboxOscArray;
+	Checkbox checkboxOscArray;
 	/**
 	 * Checkbox to trigger pad frame on/off
 	 */
-	wCheckbox checkboxFrame;
+	Checkbox checkboxFrame;
 	/**
 	 * Checkbox to trigger pad timestamp on/off
 	 */
-	//wCheckbox checkboxTimestamp;
+	//Checkbox checkboxTimestamp;
 	/**
 	 * Checkbox to trigger finger x-, y-position on/off
 	 */
-	wCheckbox checkboxPosition;
+	Checkbox checkboxPosition;
 	/**
 	 * Checkbox to trigger finger x-, y-velocity on/off
 	 */
-	//wCheckbox checkboxVelocity;
+	//Checkbox checkboxVelocity;
 	/**
 	 * Checkbox to trigger finger minor-, major-axis on/off
 	 */
-	//wCheckbox checkboxMaxis;
+	//Checkbox checkboxMaxis;
 	/**
 	 * Checkbox to trigger finger size on/off
 	 */
-	wCheckbox checkboxSize;
+	Checkbox checkboxSize;
 	/**
 	 * Checkbox to trigger finger angle on/off
 	 */
-	wCheckbox checkboxAngle;
+	Checkbox checkboxAngle;
 	
 	/**
 	 * OSC host variable

@@ -1,5 +1,5 @@
 //
-// Checkbox.h
+// Checkbox.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
@@ -23,60 +23,46 @@
 // THE SOFTWARE.
 //
 
-#ifndef _CHECKBOX_H
-#define _CHECKBOX_H
-
-#include "ofMain.h"
-#include "Interaction.h"
-#include "Variables.h"
+#include "Checkbox.h"
 
 
-class Checkbox {
-	
-	public:
-		/*
-		 * Constructor
-		 */
-        Checkbox();
-		
-		/**
-		 * Initialize
-		 *
-		 * _message Checkbox message
-		 * _x Checkbox X-position
-		 * _y Checkbox Y-position
-		 * _status Checkbox status
-		 */
-        void init(ofTrueTypeFont &_f, string _message, int _x, int _y, bool _status);
-	
-        void init(ofTrueTypeFont &_f, string _message, int _x, int _y);
-	
-		/**
-		 * Display the button
-		 */
-        void display();
-	
-		/**
-		 * Mouse pressed
-		 */
-        void pressed(int _mx, int _my);
-	
-		/**
-		 * Variables
-		 */
-		bool status;
-	
-	
-	private:
-		ofTrueTypeFont font;
-		
-		Interaction interaction;
+Checkbox::Checkbox() {
+	size = 10;
+}
 
-		/* Variables */
-		int    x;
-		int    y;
-		int    size;
-		string message;
+void Checkbox::init(ofTrueTypeFont &_f, string _message, int _x, int _y, bool _status) {
+    font    = _f;
+	message = _message;
+	x       = _x;
+	y       = _y;
+	status  = _status;
 	
-};
-#endif // End _CHECKBOX_H
+	// Initialize interaction
+	interaction.init(x, y, size, size);
+}
+
+void Checkbox::init(ofTrueTypeFont &_f, string _message, int _x, int _y) {
+	init(_f, _message, _x, _y, true);
+}
+	
+void Checkbox::display() {
+	if(status) {
+        ofSetColor(CHECKBOX_COLOR_ON_R, CHECKBOX_COLOR_ON_G, CHECKBOX_COLOR_ON_B);
+    } else {
+        ofSetColor(COLOR_DARK_GREY);
+	}
+
+	ofFill();
+	ofRect(x, y, size, size);
+
+	// message
+	ofSetColor(COLOR_LIGHT_GREY);
+	ofFill();
+	font.drawString(message, x+size+10, y+size);
+}
+	
+void Checkbox::pressed(int _mx, int _my) {
+	if(interaction.overRect(_mx, _my)) {
+		status = !status;
+	}
+}

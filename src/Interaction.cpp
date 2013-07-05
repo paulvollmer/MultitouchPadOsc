@@ -1,5 +1,5 @@
 //
-// Checkbox.h
+// Interaction.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
@@ -23,60 +23,32 @@
 // THE SOFTWARE.
 //
 
-#ifndef _CHECKBOX_H
-#define _CHECKBOX_H
-
-#include "ofMain.h"
 #include "Interaction.h"
-#include "Variables.h"
 
 
-class Checkbox {
-	
-	public:
-		/*
-		 * Constructor
-		 */
-        Checkbox();
-		
-		/**
-		 * Initialize
-		 *
-		 * _message Checkbox message
-		 * _x Checkbox X-position
-		 * _y Checkbox Y-position
-		 * _status Checkbox status
-		 */
-        void init(ofTrueTypeFont &_f, string _message, int _x, int _y, bool _status);
-	
-        void init(ofTrueTypeFont &_f, string _message, int _x, int _y);
-	
-		/**
-		 * Display the button
-		 */
-        void display();
-	
-		/**
-		 * Mouse pressed
-		 */
-        void pressed(int _mx, int _my);
-	
-		/**
-		 * Variables
-		 */
-		bool status;
-	
-	
-	private:
-		ofTrueTypeFont font;
-		
-		Interaction interaction;
+Interaction::Interaction(){}
 
-		/* Variables */
-		int    x;
-		int    y;
-		int    size;
-		string message;
-	
-};
-#endif // End _CHECKBOX_H
+void Interaction::init(int _x, int _y, int _width, int _height) {
+    x      = _x;
+	y      = _y;
+	width  = _x+_width;
+	height = _y+_height;
+}
+
+bool Interaction::overRect(int _mx, int _my, int _x, int _y, int _width, int _height) {
+	if(_mx > _x        && _my > _y &&
+	   _mx < _x+_width && _my < _y+_height) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool Interaction::overRect(int _mx, int _my) {
+	if(_mx > x     && _my > y &&
+	   _mx < width && _my < height) {
+		return true;
+	} else {
+		return false;
+	}
+}

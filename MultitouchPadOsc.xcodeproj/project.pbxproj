@@ -50,6 +50,8 @@
 		AFDAE3F11626D21400ABEBB0 /* btn_right_off.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AFDAE3EB1626D20B00ABEBB0 /* btn_right_off.png */; };
 		AFDAE3F21626D21400ABEBB0 /* btn_right_on.png in Copy Files GUI */ = {isa = PBXBuildFile; fileRef = AFDAE3EC1626D20B00ABEBB0 /* btn_right_on.png */; };
 		AFFBB9071787530900C54D85 /* ImageButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AFFBB9061787530900C54D85 /* ImageButton.cpp */; };
+		AFFBB909178757D900C54D85 /* Checkbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AFFBB908178757D900C54D85 /* Checkbox.cpp */; };
+		AFFBB90B178757E000C54D85 /* Interaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AFFBB90A178757E000C54D85 /* Interaction.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in Copy Files Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -268,6 +270,8 @@
 		AFFBB8D51785B8AF00C54D85 /* ofxUIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWidget.h; path = addons/ofxUI/src/ofxUIWidget.h; sourceTree = "<group>"; };
 		AFFBB8D61785B8AF00C54D85 /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxUIWidgetWithLabel.h; path = addons/ofxUI/src/ofxUIWidgetWithLabel.h; sourceTree = "<group>"; };
 		AFFBB9061787530900C54D85 /* ImageButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageButton.cpp; sourceTree = "<group>"; };
+		AFFBB908178757D900C54D85 /* Checkbox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Checkbox.cpp; sourceTree = "<group>"; };
+		AFFBB90A178757E000C54D85 /* Interaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Interaction.cpp; sourceTree = "<group>"; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -453,9 +457,11 @@
 			isa = PBXGroup;
 			children = (
 				AF6E4B0215B2FA6000D281DB /* Checkbox.h */,
+				AFFBB908178757D900C54D85 /* Checkbox.cpp */,
 				AF6E4B0415B2FA6000D281DB /* ImageButton.h */,
 				AFFBB9061787530900C54D85 /* ImageButton.cpp */,
 				AF6E4B0615B2FA6000D281DB /* Interaction.h */,
+				AFFBB90A178757E000C54D85 /* Interaction.cpp */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -832,6 +838,8 @@
 				AF307E2E162E0E000068BA82 /* ConsoleMVC.cpp in Sources */,
 				AF1D0A911635FDFD00DE3C33 /* ofxModifierKeys_impl_mac.mm in Sources */,
 				AFFBB9071787530900C54D85 /* ImageButton.cpp in Sources */,
+				AFFBB909178757D900C54D85 /* Checkbox.cpp in Sources */,
+				AFFBB90B178757E000C54D85 /* Interaction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

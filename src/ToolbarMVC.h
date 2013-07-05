@@ -2,7 +2,7 @@
 // ToolbarMVC.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 
 #include "ofMain.h"
 #include "ofxXmlDefaultSettings.h"
-#include "wImageButton.h"
+#include "ImageButton.h"
 
 #define WINDOW_MODE_IMAGE_WIDTH 10
 #define WINDOW_MODE_MIN_HEIGHT 40
@@ -53,35 +53,35 @@ public:
 	/**
 	 * Button to trigger osc activity on/off
 	 */
-	wImageButton buttonOscActive;
+	ImageButton buttonOscActive;
 	ofImage      oscSendImage;
 	
 	/**
 	 * The current window mode. Normal or mini
 	 */
-	wImageButton buttonWindowMode;
+	ImageButton buttonWindowMode;
 	
 	/**
 	 * TODO:
 	 * This mode can be used to run in safety mode.
 	 * No dock or other system stuff can be selected.
 	 */
-	//wImageButton btnSafetyMode;
+	//ImageButton btnSafetyMode;
 	
 	/**
 	 * Button to show/hide touchpoints
 	 */
-	wImageButton buttonTouchpoints;
+	ImageButton buttonTouchpoints;
 	
 	/**
 	 * Button to show/hide settings
 	 */
-	wImageButton buttonSettings;
+	ImageButton buttonSettings;
 	
 	/**
 	 * Button to show/hide console
 	 */
-	wImageButton buttonConsole;
+	ImageButton buttonConsole;
 	
 };
 #endif // TOOLBAR_MVC_H_
