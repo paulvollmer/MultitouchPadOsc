@@ -70,7 +70,7 @@ void MultitouchPadOscApp::setup() {
 	XML.defaultSettings.windowWidth = 500;
 	XML.defaultSettings.windowHeight = 400;
 	XML.defaultSettings.windowTitle = PROJECTNAME;
-	XML.defaultSettings.cursor = false;
+	XML.defaultSettings.cursor = true;
 	XML.defaultSettings.fullscreen = false;
 	XML.defaultSettings.escapeQuitsApp = true;
 	XML.defaultSettings.log = true;
