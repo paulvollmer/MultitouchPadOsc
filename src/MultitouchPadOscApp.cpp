@@ -302,7 +302,7 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				ofxOscMessage m;
 				m.setAddress(tempMessage);
 				m.addFloatArg(touch.x);
-				m.addFloatArg(touch.x);
+				m.addFloatArg(touch.y);
 				m.addFloatArg(touch.size);
 				m.addFloatArg(touch.angle);
 				oscSender.sendMessage(m);
