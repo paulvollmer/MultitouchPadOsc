@@ -1,14 +1,15 @@
-# https://gist.github.com/gists/1876339
+# General Files
 *.DS_Store
 
-# ignore Xcode compiled build folder and application.
+# Ignore Xcode compiled build folder and application.
 *build
 *.app
 
-# ignore Xcode User .pbxuser and .mode1v3 files.
+# Ignore Xcode User data
 *.pbxuser
 *.mode1v3
 *.pbxproj
-
 *.xcworkspacedata
 *.xcscheme
+*.xcuserdatad
+*.xcuserstate
