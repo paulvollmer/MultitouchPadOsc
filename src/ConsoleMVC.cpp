@@ -71,8 +71,3 @@ void ConsoleMVC::addString(string msg, bool log) {
 		currentConsoleStrings = 0;
 	}
 }
-
-
-void ConsoleMVC::mousePressed(int x, int y) {
-	
-}

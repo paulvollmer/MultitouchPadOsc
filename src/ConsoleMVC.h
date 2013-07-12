@@ -41,7 +41,6 @@ public:
 	ConsoleMVC();
 	void init();
 	void draw(ofTrueTypeFont font);
-	void mousePressed(int x, int y);
 	/**
 	 * add a string to console text
 	 */
