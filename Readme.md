@@ -14,10 +14,11 @@ Third Party Code Additional copyright notices and license terms applicable to po
 Used openFrameworks addons:  
 ofxUI  
 ofxModifierKeys  
+ofxXmlDefaultSettings  
   
 MultitouchPadOsc (version 0.1.31 codename TouchDown) is developed by:  
 Paul Vollmer [wrong-entertainment.com](http://wrong-entertainment.com)  
-Copyright (c) 2011-2012 Paul Vollmer, wrong-entertainment.com  
+Copyright (c) 2011-2013 Paul Vollmer, wrong-entertainment.com  
   
   
 **License**  
