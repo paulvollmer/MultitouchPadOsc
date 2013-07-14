@@ -1,8 +1,8 @@
 //
-// wImageButton.h
+// ImageButton.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,71 +23,47 @@
 // THE SOFTWARE.
 //
 
-#ifndef _WIMAGEBUTTON_H
-#define _WIMAGEBUTTON_H
+#ifndef _IMAGEBUTTON_H
+#define _IMAGEBUTTON_H
 
 #include "ofMain.h"
-#include "wInteraction.h"
+#include "Interaction.h"
 
 
-class wImageButton {
+class ImageButton {
 	
 	public:
 		/**
 		 * Constructor
 		 */
-		wImageButton() {
-			status = false;
-		}
+        ImageButton();
 	
 		/**
 		 * Initialize
 		 */
-		void init(string _on, string _off, int _x, int _y) {
-			on.loadImage(_on);
-			off.loadImage(_off);
-			x = _x;
-			y = _y;
-		
-			// Initialize interaction
-			interaction.init(x, y, on.width, on.height);
-		}
+        void init(string _on, string _off, int _x, int _y);
 	
 		/**
 		 * Display the button
 		 */
-		void display() {
-			if (status == true) {
-				on.draw(x, y);
-			} else {
-				off.draw(x, y);
-			}
-		}
+        void display();
 	
 		/**
 		 * Mouse pressed
 		 */
-		void pressed(int _mx, int _my) {
-			if(interaction.overRect(_mx, _my)) {
-				status = !status;
-			}
-		}
+        void pressed(int _mx, int _my);
 	
 		/**
 		 * Set the position of the button
 		 */
-		void setPosition(int _x, int _y){
-			x = _x;
-			y = _y;
-			interaction.init(x, y, on.width, on.height);
-		}
+        void setPosition(int _x, int _y);
 	
 		/* Variables */
 		bool status;
 	
 	
 	private:
-		wInteraction interaction;
+		Interaction interaction;
 
 		/* Variables */
 		int x;
@@ -96,4 +72,4 @@ class wImageButton {
 		ofImage off;
 
 };
-#endif // End _WIMAGEBUTTON_H
+#endif // End _IMAGEBUTTON_H

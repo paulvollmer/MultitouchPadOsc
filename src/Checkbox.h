@@ -1,8 +1,8 @@
 //
-// wInteraction.h
+// Checkbox.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,63 +23,60 @@
 // THE SOFTWARE.
 //
 
-#ifndef _WINTERACTION_H
-#define _WINTERACTION_H
+#ifndef _CHECKBOX_H
+#define _CHECKBOX_H
+
+#include "ofMain.h"
+#include "Interaction.h"
+#include "Variables.h"
 
 
-class wInteraction {
-
+class Checkbox {
+	
 	public:
-		/**
+		/*
 		 * Constructor
 		 */
-		wInteraction(){}
+        Checkbox();
 		
 		/**
 		 * Initialize
-		 * Calculate the width and height of interaction area.
+		 *
+		 * _message Checkbox message
+		 * _x Checkbox X-position
+		 * _y Checkbox Y-position
+		 * _status Checkbox status
 		 */
-		void init(int _x, int _y, int _width, int _height) {
-			x      = _x;
-			y      = _y;
-			width  = _x+_width;
-			height = _y+_height;
-		}
+        void init(ofTrueTypeFont &_f, string _message, int _x, int _y, bool _status);
+	
+        void init(ofTrueTypeFont &_f, string _message, int _x, int _y);
 	
 		/**
-		 * Check if the mouse is over a rectangle.
+		 * Display the button
 		 */
-		bool overRect(int _mx, int _my, int _x, int _y, int _width, int _height) {
-			if(_mx > _x        && _my > _y &&
-			   _mx < _x+_width && _my < _y+_height) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+        void display();
 	
 		/**
-		 * Check if the mouse is over a rectangle.
-		 * Use this method if you have init wInteraction before.
+		 * Mouse pressed
 		 */
-		bool overRect(int _mx, int _my) {
-			if(_mx > x     && _my > y &&
-			   _mx < width && _my < height) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+        void pressed(int _mx, int _my);
 	
-	
-	private:
 		/**
 		 * Variables
 		 */
-		int x;
-		int y;
-		int width;
-		int height;
+		bool status;
+	
+	
+	private:
+		ofTrueTypeFont font;
+		
+		Interaction interaction;
+
+		/* Variables */
+		int    x;
+		int    y;
+		int    size;
+		string message;
 	
 };
-#endif // End _WINTERACTION_H
+#endif // End _CHECKBOX_H

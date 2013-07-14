@@ -1,5 +1,5 @@
 //
-// Variables.h
+// Interaction.h
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
@@ -23,20 +23,44 @@
 // THE SOFTWARE.
 //
 
-#ifndef VARIABLES_H_
-#define VARIABLES_H_
+#ifndef _INTERACTION_H
+#define _INTERACTION_H
 
-#define COLOR_DARK_GREY 59
-#define COLOR_MIDDLE_GREY 80
-#define COLOR_LIGHT_GREY 157
 
-#define FONT_POSITION_X 15
+class Interaction {
 
-#define CHECKBOX_COLOR_ON_R 0
-#define CHECKBOX_COLOR_ON_G 110
-#define CHECKBOX_COLOR_ON_B 153
-#define CHECKBOX_COLOR_OFF_R 15
-#define CHECKBOX_COLOR_OFF_G 15
-#define CHECKBOX_COLOR_OFF_B 15
-
-#endif // VARIABLES_H_
+	public:
+		/**
+		 * Constructor
+		 */
+        Interaction();
+		
+		/**
+		 * Initialize
+		 * Calculate the width and height of interaction area.
+		 */
+        void init(int _x, int _y, int _width, int _height);
+	
+		/**
+		 * Check if the mouse is over a rectangle.
+		 */
+        bool overRect(int _mx, int _my, int _x, int _y, int _width, int _height);
+	
+		/**
+		 * Check if the mouse is over a rectangle.
+		 * Use this method if you have init wInteraction before.
+		 */
+        bool overRect(int _mx, int _my);
+	
+	
+	private:
+		/**
+		 * Variables
+		 */
+		int x;
+		int y;
+		int width;
+		int height;
+	
+};
+#endif // End _INTERACTION_H
