@@ -42,6 +42,11 @@ The following openFrameworks addons are embed as submodule.
 ## Changelog  
 A detailed changelog, intended for programmers.  
   
+- 0.1.32  
+Fixed osc array x-, y-position Bug  
+Added openFrameworks addons as submodule  
+Added bootstrap script for cloning the repository and downloading openFrameworks  
+
 - 0.1.31  
 Fixed Bug Entering port -> Crash  
 Fixed Bug Wrong osc message on finger added/removed  
