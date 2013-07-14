@@ -1,5 +1,5 @@
 //
-// Variables.h
+// ImageButton.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
@@ -23,20 +23,38 @@
 // THE SOFTWARE.
 //
 
-#ifndef VARIABLES_H_
-#define VARIABLES_H_
+#include "ImageButton.h"
 
-#define COLOR_DARK_GREY 59
-#define COLOR_MIDDLE_GREY 80
-#define COLOR_LIGHT_GREY 157
+ImageButton::ImageButton() {
+	status = false;
+}
 
-#define FONT_POSITION_X 15
+void ImageButton::init(string _on, string _off, int _x, int _y) {
+	on.loadImage(_on);
+	off.loadImage(_off);
+	x = _x;
+	y = _y;
+	
+	// Initialize interaction
+	interaction.init(x, y, on.width, on.height);
+}
 
-#define CHECKBOX_COLOR_ON_R 0
-#define CHECKBOX_COLOR_ON_G 110
-#define CHECKBOX_COLOR_ON_B 153
-#define CHECKBOX_COLOR_OFF_R 15
-#define CHECKBOX_COLOR_OFF_G 15
-#define CHECKBOX_COLOR_OFF_B 15
+void ImageButton::display() {
+	if (status == true) {
+		on.draw(x, y);
+	} else {
+		off.draw(x, y);
+	}
+}
 
-#endif // VARIABLES_H_
+void ImageButton::pressed(int _mx, int _my) {
+	if(interaction.overRect(_mx, _my)) {
+		status = !status;
+	}
+}
+
+void ImageButton::setPosition(int _x, int _y){
+	x = _x;
+	y = _y;
+	interaction.init(x, y, on.width, on.height);
+}

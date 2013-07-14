@@ -2,7 +2,7 @@
 // MultitouchPadOscApp.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011 - 2012, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -70,7 +70,7 @@ void MultitouchPadOscApp::setup() {
 	XML.defaultSettings.windowWidth = 500;
 	XML.defaultSettings.windowHeight = 400;
 	XML.defaultSettings.windowTitle = PROJECTNAME;
-	XML.defaultSettings.cursor = false;
+	XML.defaultSettings.cursor = true;
 	XML.defaultSettings.fullscreen = false;
 	XML.defaultSettings.escapeQuitsApp = true;
 	XML.defaultSettings.log = true;
@@ -302,7 +302,7 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				ofxOscMessage m;
 				m.setAddress(tempMessage);
 				m.addFloatArg(touch.x);
-				m.addFloatArg(touch.x);
+				m.addFloatArg(touch.y);
 				m.addFloatArg(touch.size);
 				m.addFloatArg(touch.angle);
 				oscSender.sendMessage(m);
@@ -447,7 +447,7 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 			settingsMVC.oscPort = tempPort;
 			oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 			setWindowTitle();
-			consoleMVC.addString("Change port to " + tempPort, true);
+			consoleMVC.addString("Change port to " + ofToString(tempPort), true);
         }
 	}
 	

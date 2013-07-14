@@ -1,5 +1,5 @@
 //
-// Variables.h
+// Interaction.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
@@ -23,20 +23,32 @@
 // THE SOFTWARE.
 //
 
-#ifndef VARIABLES_H_
-#define VARIABLES_H_
+#include "Interaction.h"
 
-#define COLOR_DARK_GREY 59
-#define COLOR_MIDDLE_GREY 80
-#define COLOR_LIGHT_GREY 157
 
-#define FONT_POSITION_X 15
+Interaction::Interaction(){}
 
-#define CHECKBOX_COLOR_ON_R 0
-#define CHECKBOX_COLOR_ON_G 110
-#define CHECKBOX_COLOR_ON_B 153
-#define CHECKBOX_COLOR_OFF_R 15
-#define CHECKBOX_COLOR_OFF_G 15
-#define CHECKBOX_COLOR_OFF_B 15
+void Interaction::init(int _x, int _y, int _width, int _height) {
+    x      = _x;
+	y      = _y;
+	width  = _x+_width;
+	height = _y+_height;
+}
 
-#endif // VARIABLES_H_
+bool Interaction::overRect(int _mx, int _my, int _x, int _y, int _width, int _height) {
+	if(_mx > _x        && _my > _y &&
+	   _mx < _x+_width && _my < _y+_height) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool Interaction::overRect(int _mx, int _my) {
+	if(_mx > x     && _my > y &&
+	   _mx < width && _my < height) {
+		return true;
+	} else {
+		return false;
+	}
+}

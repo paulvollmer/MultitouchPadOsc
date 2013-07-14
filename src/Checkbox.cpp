@@ -1,5 +1,5 @@
 //
-// Variables.h
+// Checkbox.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
 // Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
@@ -23,20 +23,46 @@
 // THE SOFTWARE.
 //
 
-#ifndef VARIABLES_H_
-#define VARIABLES_H_
+#include "Checkbox.h"
 
-#define COLOR_DARK_GREY 59
-#define COLOR_MIDDLE_GREY 80
-#define COLOR_LIGHT_GREY 157
 
-#define FONT_POSITION_X 15
+Checkbox::Checkbox() {
+	size = 10;
+}
 
-#define CHECKBOX_COLOR_ON_R 0
-#define CHECKBOX_COLOR_ON_G 110
-#define CHECKBOX_COLOR_ON_B 153
-#define CHECKBOX_COLOR_OFF_R 15
-#define CHECKBOX_COLOR_OFF_G 15
-#define CHECKBOX_COLOR_OFF_B 15
+void Checkbox::init(ofTrueTypeFont &_f, string _message, int _x, int _y, bool _status) {
+    font    = _f;
+	message = _message;
+	x       = _x;
+	y       = _y;
+	status  = _status;
+	
+	// Initialize interaction
+	interaction.init(x, y, size, size);
+}
 
-#endif // VARIABLES_H_
+void Checkbox::init(ofTrueTypeFont &_f, string _message, int _x, int _y) {
+	init(_f, _message, _x, _y, true);
+}
+	
+void Checkbox::display() {
+	if(status) {
+        ofSetColor(CHECKBOX_COLOR_ON_R, CHECKBOX_COLOR_ON_G, CHECKBOX_COLOR_ON_B);
+    } else {
+        ofSetColor(COLOR_DARK_GREY);
+	}
+
+	ofFill();
+	ofRect(x, y, size, size);
+
+	// message
+	ofSetColor(COLOR_LIGHT_GREY);
+	ofFill();
+	font.drawString(message, x+size+10, y+size);
+}
+	
+void Checkbox::pressed(int _mx, int _my) {
+	if(interaction.overRect(_mx, _my)) {
+		status = !status;
+	}
+}
