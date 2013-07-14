@@ -13,3 +13,6 @@
 *.xcscheme
 *.xcuserdatad
 *.xcuserstate
+
+# createReleasePackage.sh output file
+*.dmg

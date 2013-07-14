@@ -16,8 +16,8 @@ cp -R $TEMP_PATH.app $TEMP_PATH/MultitouchPadOsc.app
 echo "Making link to Applications dir"
 ln -s /Applications $TEMP_PATH/Applications
 
-#echo "Copy License"
-#cp -R $SCRIPT_FOLDER/LICENSE.txt $TEMP_PATH/LICENSE.txt
+echo "Copy License"
+cp -R $SCRIPT_FOLDER/LICENSE.txt $TEMP_PATH/LICENSE.txt
 
 echo "Generate .dmg file"
 hdiutil create -format UDZO -srcfolder $TEMP_PATH $SCRIPT_FOLDER/bin/MultitouchPadOsc.dmg
