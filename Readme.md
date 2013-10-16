@@ -79,3 +79,5 @@ Github: http://www.github.com/WrongEntertainment
   
 ## License  
 MultitouchPadOsc is Licensed under [MIT License](http://wrong-entertainment.mit-license.org/)  
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/WrongEntertainment/multitouchpadosc/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
