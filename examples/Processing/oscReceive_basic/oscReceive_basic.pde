@@ -1,12 +1,12 @@
 /**
  * This example shows how to receive osc messages from MultitouchPadOsc App.
  * It will draw a ellipse with values from received x-, y position and size.
- * 
+ *
  * Based on oscP5 oscP5sendreceive example by andreas schlegel [ http://www.sojamo.de/oscP5 ]
  *
  * MultitouchPadOsc version: 0.1.2
  *
- * @author   Paul Vollmer <paul.vollmer@fh-potsdam.de>
+ * @author   Paul Vollmer
  * @date     2012.10.12
  */
 
@@ -67,4 +67,3 @@ void oscEvent(OscMessage theOscMessage) {
     }
   }
 }
-
