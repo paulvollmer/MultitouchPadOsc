@@ -2,7 +2,7 @@
 // ToolbarMVC.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@ void TouchpointsMVC::getXml(ofxXmlDefaultSettings xml) {
 	touchpointCross[1] = xml.getAttribute("touchpoints:crossColor", "g", 0, 0);
 	touchpointCross[2] = xml.getAttribute("touchpoints:crossColor", "b", 0, 0);
 	touchpointCross[3] = xml.getAttribute("touchpoints:crossColor", "a", 255, 0);
-	
+
 }
 
 
@@ -130,10 +130,10 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 		ofFill();
 		font.drawString("Touch Count: "+ofToString(pad.getTouchCount(), 0), 15, ofGetHeight()-15);
 	}
-	
+
 	std::vector<ofPoint>touches;
 	pad.getTouchesAsOfPoints(&touches);
-	
+
 	/* Display finger blobs if the checkbox ist true.
 	 * Connect all touches with a line.
 	 */
@@ -149,9 +149,9 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 		}
 		ofDisableSmoothing();
 	}
-	
+
 	ofEnableSmoothing();
-	
+
 	/* display all finger blobs
 	 */
 	for(int i=0; i<pad.getTouchCount(); i++) {
@@ -159,13 +159,13 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 		 */
 		MTouch touch;
 		if (!pad.getTouchAt(i,&touch)) continue; // guard..
-		
+
 		/* Using MTouch struct
 		 */
 		int x = ofMap(touch.x, 0.0, 1.0, 40, ofGetWidth()-40);
 		int y = ofMap(touch.y, 0.0, 1.0, 80, ofGetHeight()-40);
 		int size = touch.size*50;
-		
+
 		ofPushMatrix();
 		ofTranslate(x, y, 0);
 		ofRotateZ(touch.angle);
@@ -178,7 +178,7 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 		 */
 		drawSingleTouchpointCross();
 		ofPopMatrix();
-		
+
 		if (touchpointsMenuActive == true) {
 			ofPushMatrix();
 			ofTranslate(x, y, 0);
@@ -186,7 +186,7 @@ void TouchpointsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad, bool touc
 			ofPopMatrix();
 		}
 	} // End for
-	
+
 	ofDisableSmoothing();
 }
 

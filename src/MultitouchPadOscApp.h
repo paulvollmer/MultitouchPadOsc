@@ -2,7 +2,7 @@
 // MultitouchPadOscApp.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -56,16 +56,16 @@ public:
 	 * - Initialize GUI
 	 */
 	void setup();
-	
+
 	void update();
-	
+
 	/**
 	 * Draw
 	 * - Draw the backgroundImage
 	 * - Display the GUI
 	 */
 	void draw();
-	
+
 	/**
 	 * Exit
 	 * - Update XML settings variables.
@@ -73,87 +73,87 @@ public:
 	 * - Save OSC variables like Host, Port etc.
 	 */
 	void exit();
-	
+
 	/**
 	 * Key pressed
 	 */
 	void keyPressed(int key);
-	
+
 	/**
 	 * Mouse pressed
 	 */
 	void mousePressed(int x, int y, int button);
-	
+
 	/**
 	 * Window resized
 	 */
 	void windowResized(int w, int h);
-	
+
 	/**
 	 * Multitouch Trackpad update
 	 */
 	void padUpdates(int & t);
-	
+
 	/**
 	 * Multitouch Trackpad new touch
 	 */
 	void newTouch(int & n);
-	
+
 	/**
 	 * Multitouch Trackpad remove touch
 	 */
 	void removedTouch(int & r);
-	
+
 	/**
 	 * Gui event
 	 */
 	void guiEvent(ofxUIEventArgs &e);
-	
-	
+
+
 private:
 	/**
 	 * Set the Application Window Title
 	 */
 	void setWindowTitle();
-	
+
 	/**
 	 * Send an osc message (integer value)
 	 */
 	void oscIntMessage(string s, int val);
-	
+
 	/**
 	 * Send an osc message (float value)
 	 */
 	void oscFloatMessage(string s, float val);
-	
+
 	/* Font
 	 */
 	ofTrueTypeFont vera;
-	
+
 	/* Multitouch Trackpad
 	 */
 	ofxMultiTouchPad pad;
-	
+
 	/* XML Settings
 	 */
 	ofxXmlDefaultSettings XML;
-	
+
 	/* openFrameworks osc addon
 	 */
 	ofxOscSender oscSender;
 	bool oscIsSending;
-	
+
 	/* Viewer
 	 */
 	ToolbarMVC toolbarMVC;
 	TouchpointsMVC touchpointsMVC;
 	SettingsMVC settingsMVC;
 	ConsoleMVC consoleMVC;
-	
+
 	/* GUI
 	 */
 	ofxUICanvas *gui;
-	
+
 	/* Shortcut cmd
 	 */
 	bool cmdKeyPressed;

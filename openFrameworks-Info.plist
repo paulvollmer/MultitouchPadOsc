@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.wrong-entertainment.openFrameworks</string>
+	<string>net.paulvollmer.openFrameworks</string>
 	<key>DTXcode</key>
 	<string>0322</string>
 	<key>LSMinimumSystemVersion</key>

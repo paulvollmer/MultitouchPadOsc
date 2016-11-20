@@ -2,7 +2,7 @@
 // ToolbarMVC.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -82,7 +82,7 @@ void ToolbarMVC::draw(ofTrueTypeFont font, bool oscIsSending) {
 	buttonTouchpoints.display();
 	buttonSettings.display();
 	buttonConsole.display();
-	
+
 	/* If osc message will be send, show osc send icon.
 	 */
 	if(oscIsSending == true) {
@@ -107,7 +107,7 @@ void ToolbarMVC::mousePressed(int x, int y) {
 	/* GUI
 	 */
 	buttonOscActive.pressed(x, y);
-	
+
 	buttonWindowMode.pressed(x, y);
 	if (buttonWindowMode.status == true) {
 		ofSetWindowShape(ofGetWidth(), WINDOW_MODE_MIN_HEIGHT);
@@ -116,7 +116,7 @@ void ToolbarMVC::mousePressed(int x, int y) {
 		ofSetWindowShape(ofGetWidth(), 400);
 		buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
 	}
-	
+
 	// TODO:
 	/*btnSafetyMode.pressed(x, y);
 	 if (btnSafetyMode.status == true) {
@@ -126,7 +126,7 @@ void ToolbarMVC::mousePressed(int x, int y) {
 	 cout << "### safety mode not active" << endl;
 	 ofSetFullscreen(false);
 	 }*/
-	
+
 	/* Touchpoint button
 	 */
 	if (buttonTouchpoints.status == false) {
@@ -138,7 +138,7 @@ void ToolbarMVC::mousePressed(int x, int y) {
 		buttonSettings.status = false;
 		buttonConsole.status = false;
 	}
-	
+
 	/* Settings button
 	 */
 	if (buttonSettings.status == false) {
@@ -150,7 +150,7 @@ void ToolbarMVC::mousePressed(int x, int y) {
 		buttonTouchpoints.status = false;
 		buttonConsole.status = false;
 	}
-	
+
 	/* Console button
 	 */
 	if (buttonConsole.status == false) {
@@ -167,7 +167,7 @@ void ToolbarMVC::mousePressed(int x, int y) {
 
 void ToolbarMVC::keyPressed(int key, bool cmdKeyPressed) {
 	if (cmdKeyPressed == true) {
-	
+
 		switch (key) {
 				/* Shortcuts to select the toolbar buttons.
 				 */
@@ -186,7 +186,7 @@ void ToolbarMVC::keyPressed(int key, bool cmdKeyPressed) {
 				buttonSettings.status = false;
 				buttonConsole.status = true;
 				break;
-				
+
 				/* OSC out
 				 */
 			case 'o':
@@ -198,7 +198,7 @@ void ToolbarMVC::keyPressed(int key, bool cmdKeyPressed) {
 				// TODO:
 				//console.addString("Shortcut oscOut: " + ofToString(btnOscActive.status), true);
 				break;
-				
+
 				/* Window mode
 				 */
 			case 'p':
@@ -212,10 +212,10 @@ void ToolbarMVC::keyPressed(int key, bool cmdKeyPressed) {
 					buttonWindowMode.setPosition(ofGetWidth()-WINDOW_MODE_IMAGE_WIDTH, 0);
 				}
 				break;
-				
+
 			default:
 				break;
 		}
-		
+
 	} // End if cmdKeyPressed
 }

@@ -2,7 +2,7 @@
 // SettingsMVC.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,7 @@ void SettingsMVC::getXml(ofxXmlDefaultSettings xml) {
 	 */
 	oscHost = xml.getAttribute("osc", "host", "127.0.0.1", 0);
 	oscPort = xml.getAttribute("osc", "port", 12345, 0);
-	
+
 	/* Trackpad variables
 	 */
 	oscTouchpadDevicename = xml.getValue("pad:devicename", "mtpadosc");
@@ -69,11 +69,11 @@ void SettingsMVC::addXml(ofxXmlDefaultSettings xml) {
 	oscPort = 12345;
 	xml.addAttribute("osc", "host", oscHost, 0);
 	xml.addAttribute("osc", "post", oscPort, 0);
-	
+
 	/* Trackpad variables
 	 */
 	oscTouchpadDevicename = "mtpad";
-	
+
  	checkboxOscArray.status = false;
 	checkboxFrame.status = false;
 	//checkboxTimestamp.status = false;
@@ -99,10 +99,10 @@ void SettingsMVC::addXml(ofxXmlDefaultSettings xml) {
 
 void SettingsMVC::setXml(ofxXmlDefaultSettings xml) {
 	xml.pushRoot();
-	
+
 	xml.setAttribute("osc", "host", oscHost, 0);
 	xml.setAttribute("osc", "port", oscPort, 0);
-	
+
 	xml.setValue("pad:devicename", oscTouchpadDevicename, 0);
 	xml.setValue("pad:array", checkboxOscArray.status, 0);
 	xml.setValue("pad:frame", checkboxFrame.status, 0);
@@ -112,7 +112,7 @@ void SettingsMVC::setXml(ofxXmlDefaultSettings xml) {
 	xml.setValue("pad:size", checkboxSize.status, 0);
 	//xml.setValue("pad:maxis", checkboxMaxis.status, 0);
 	xml.setValue("pad:angle", checkboxAngle.status, 0);
-	
+
 	xml.popRoot();
 }
 
@@ -120,7 +120,7 @@ void SettingsMVC::setXml(ofxXmlDefaultSettings xml) {
 void SettingsMVC::log(){
 	ofLog() << "XML: osc:host        = " << oscHost;
 	ofLog() << "XML: osc:port        = " << oscPort;
-	
+
 	ofLog() << "pad:devicename  = " << oscTouchpadDevicename;
 	ofLog() << "pad:array       = " << checkboxOscArray.status;
 	ofLog() << "pad:frame       = " << checkboxFrame.status;
@@ -131,7 +131,7 @@ void SettingsMVC::log(){
 	//ofLog() << "pad:maxis       = " << checkboxMaxis.status;
 	ofLog() << "pad:angle       = " << checkboxAngle.status;
 }
-	
+
 
 void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 	/* ground
@@ -141,10 +141,10 @@ void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 	ofFill();
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
 	ofDisableAlphaBlending();
-	
+
 	ofSetColor(COLOR_LIGHT_GREY);
 	ofFill();
-	
+
 	/* Osc Main Settings
 	 */
 	font.drawString("OSC Main Settings", FONT_POSITION_X, 50);
@@ -153,7 +153,7 @@ void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 	font.drawString("Host: ", FONT_POSITION_X, 80);
 	font.drawString("Port: ", 190, 80);
 	font.drawString("Devicename: ", FONT_POSITION_X, 100);
-	
+
 	/* OSC Message Settings
 	 */
 	font.drawString("OSC Message Settings", FONT_POSITION_X, 140);
@@ -172,7 +172,7 @@ void SettingsMVC::draw(ofTrueTypeFont font, ofxMultiTouchPad & pad) {
 	font.drawString("'cmd d'", 190, 210);
 	font.drawString("'cmd f'", 190, 230);
 	font.drawString("'cmd g'", 190, 250);
-	
+
 	/* Settings information
 	 */
 	font.drawString("Settings Information", FONT_POSITION_X, 290);
@@ -200,7 +200,7 @@ void SettingsMVC::mousePressed(int x, int y) {
 
 void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 	if (cmdKeyPressed == true) {
-		
+
 		switch (key) {
 			/* OSC array
 			 */
@@ -215,7 +215,7 @@ void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 				// TODO:
 				//console.addString("Shortcut padFrame: " + ofToString(xmlPadFrame), true);
 				break;
-				
+
 			/* OSC timestamp
 			 */
 			/*case '3':
@@ -227,7 +227,7 @@ void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 				cbTimestamp.status = settings.padTimestamp;
 				cout << "Shortcut padTimestamp: " << settings.padTimestamp << endl;
 				break;*/
-				
+
 			/* OSC position
 			 */
 			case 'd':
@@ -235,7 +235,7 @@ void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 				// TODO:
 				//console.addString("Shortcut padPosition: " + ofToString(xmlPadPosition), true);
 				break;
-				
+
 			/* OSC velocity
 			 */
 			/*case '5':
@@ -247,7 +247,7 @@ void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 				cbVelocity.status = settings.padVelocity;
 				cout << "Shortcut padVelocity: " << settings.padVelocity << endl;
 				break;*/
-				
+
 			/* OSC maxis
 			 */
 			/*case '4':
@@ -259,7 +259,7 @@ void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 				cbMaxis.status = settings.padMaxis;
 				cout << "Shortcut padMaxis: " << settings.padMaxis << endl;
 				break;*/
-				
+
 			/* OSC maxis
 			 */
 			case 'f':
@@ -267,7 +267,7 @@ void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 				// TODO:
 				//console.addString("Shortcut padSize: " + ofToString(xmlPadSize), true);
 				break;
-				
+
 			/* OSC angle
 			 */
 			case 'g':
@@ -275,10 +275,10 @@ void SettingsMVC::keyPressed(int key, bool cmdKeyPressed) {
 				// TODO:
 				//console.addString("Shortcut padAngle: " + ofToString(xmlPadAngle), true);
 				break;
-				
+
 			default:
 				break;
 		}
-		
+
 	} // End if cmdKeyPressed
 }

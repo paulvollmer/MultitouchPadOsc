@@ -2,7 +2,7 @@
 // ConsoleMVC.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@
 /**
  * This class is used to print out some information about the application.
  */
-class ConsoleMVC {	
+class ConsoleMVC {
 public:
 	ConsoleMVC();
 	void init();
@@ -45,12 +45,12 @@ public:
 	 * add a string to console text
 	 */
 	void addString(string msg, bool log = false);
-	
+
 	/**
 	 * Variables
 	 */
 	int    currentConsoleStrings;
 	string consoleStrings[NUM_STRINGS];
-	
+
 };
 #endif // CONSOLE_MVC_H_

@@ -2,7 +2,7 @@
 // MultitouchPadOscApp.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -37,31 +37,31 @@ void MultitouchPadOscApp::setup() {
 	} else {
 		ofLog() << "FONT: Not loaded";
 	}
-	
-	
+
+
 	/* Multitouch Trackpad
 	 * Add the listeners
 	 */
     ofAddListener(pad.update, this, &MultitouchPadOscApp::padUpdates);
     ofAddListener(pad.touchAdded, this, &MultitouchPadOscApp::newTouch);
     ofAddListener(pad.touchRemoved, this, &MultitouchPadOscApp::removedTouch);
-	
-	
+
+
 	/* Viewer
 	 */
 	toolbarMVC.init();
 	touchpointsMVC.init(vera);
 	settingsMVC.init(vera);
 	consoleMVC.init();
-	
-	
+
+
 	/* Set the xml tag names and root-version, -url attributes.
 	 */
 	XML.changeSyntax(XML.ROOT, "multitouchPadOscApp");
 	XML.changeSyntax(XML.ROOT_VERSION, PROJECTVERSION);
 	XML.changeSyntax(XML.ROOT_URL, "http://www.wng.cc");
 	XML.changeSyntax(XML.CORE, "appCore");
-	
+
 	/* Set the default Settings parameter.
 	 */
 	XML.defaultSettings.frameRate = 60;
@@ -77,12 +77,12 @@ void MultitouchPadOscApp::setup() {
 	string tempLogin = getlogin();
 	XML.defaultSettings.logFilepath = "//Users/"+tempLogin+"/Library/Application Support/"+PROJECTNAME;
 	XML.defaultSettings.logFilename = "logs.txt";
-	
+
 	/* ofxXmlDefaultSettings
 	 * Load the xml file from default path.
 	 */
 	XML.load();
-	
+
 	/* Add custom settings to the xml default file.
 	 * To read/write content from the root directory, you can use
 	 * the pushRoot/popRoot methods.
@@ -101,47 +101,47 @@ void MultitouchPadOscApp::setup() {
 		settingsMVC.addXml(XML);
 	}
 	XML.popRoot();
-	
+
 	/* Set the openFrameworks app settings.
 	 */
 	XML.setSettings();
 	consoleMVC.addString("XML: "+XML.getStatusMessage(), true);
 	setWindowTitle();
-	
+
 	/* Save the XML file if no file existed
 	 */
 	if (XML.fileExist == false) {
 		XML.saveFile();
 	}
-	
+
 	/* Log the MVC parameter
 	 */
 	toolbarMVC.log();
 	touchpointsMVC.log();
 	settingsMVC.log();
-	
+
 	/* OSC
 	 * Open an outgoing connection to oscHost, oscPort
 	 */
 	oscSender.setup(settingsMVC.oscHost, settingsMVC.oscPort);
 	ofLog() << "OSC: setup host \"" << settingsMVC.oscHost << "\", port " << "\"" << settingsMVC.oscPort << "\"";
 	 consoleMVC.addString("OSC: setup host \""+settingsMVC.oscHost+"\", port "+"\""+ofToString(settingsMVC.oscPort)+"\"", true);
-	
+
 	/* GUI
 	 * set the status to osc:out settings value
 	 */
 	gui = new ofxUICanvas();
 	gui->setFont(ofFilePath::getCurrentWorkingDirectory() + "/Font/Vera.ttf"); //This loads a new font and sets the GUI font
-    gui->setFontSize(OFX_UI_FONT_LARGE, 12);                                   //These call are optional, but if you want to resize the LARGE, MEDIUM, and SMALL fonts, here is how to do it. 
-    gui->setFontSize(OFX_UI_FONT_MEDIUM, 8);           
+    gui->setFontSize(OFX_UI_FONT_LARGE, 12);                                   //These call are optional, but if you want to resize the LARGE, MEDIUM, and SMALL fonts, here is how to do it.
+    gui->setFontSize(OFX_UI_FONT_MEDIUM, 8);
     gui->setFontSize(OFX_UI_FONT_SMALL, 6);                                    //SUPER IMPORTANT NOTE: CALL THESE FUNTIONS BEFORE ADDING ANY WIDGETS, THIS AFFECTS THE SPACING OF THE GUI
 	gui->addWidget(new ofxUITextInput("TEXT HOST", settingsMVC.oscHost, 130,20, 50,67, OFX_UI_FONT_SMALL));
 	gui->addWidget(new ofxUITextInput("TEXT PORT", ofToString(settingsMVC.oscPort), 130,20, 223,67, OFX_UI_FONT_SMALL));
 	gui->addWidget(new ofxUITextInput("TEXT DEVICENAME", ofToString(settingsMVC.oscTouchpadDevicename), 253, 20, 100,87, OFX_UI_FONT_SMALL));
 	ofAddListener(gui->newGUIEvent, this, &MultitouchPadOscApp::guiEvent);
 	gui->setVisible(false);
-	
-	
+
+
 	ofLog() << "Number of Devices: "<< pad.getNumDevices();
 	ofLog() << "SETUP: ready";
 }
@@ -164,7 +164,7 @@ void MultitouchPadOscApp::draw() {
 	ofFill();
 	ofSetColor(COLOR_MIDDLE_GREY);
 	ofRect(10, 30, ofGetWidth()-20, ofGetHeight()-40);
-	
+
 	/* The Window Mode button display method isn't  includet at the Toolbar MVC.
 	 * Because we trigger on/off the MVC, the button must be draw seperate.
 	 */
@@ -176,14 +176,14 @@ void MultitouchPadOscApp::draw() {
 		 */
 		toolbarMVC.draw(vera, oscIsSending);
 		touchpointsMVC.draw(vera, pad, toolbarMVC.buttonTouchpoints.status);
-		
+
 		/* Settings Viewer
 		 */
-		
+
 		if(toolbarMVC.buttonSettings.status == true) {
 			settingsMVC.draw(vera, pad);
 		}
-		
+
 		/* Console button
 		 */
 		if(toolbarMVC.buttonConsole.status == true) {
@@ -201,7 +201,7 @@ void MultitouchPadOscApp::draw() {
 		vera.drawString("Touchpoints: " + ofToString(pad.getTouchCount()), 120, 20);
 		vera.drawString("Number of Devices: " + ofToString(pad.getNumDevices()), 240, 20);
 	}
-	
+
 	/* Reset oscIsSending variable to false
 	 */
 	oscIsSending = false;
@@ -215,11 +215,11 @@ void MultitouchPadOscApp::exit() {
 	toolbarMVC.setXml(XML);
 	touchpointsMVC.setXml(XML);
 	settingsMVC.setXml(XML);
-	
+
 	/* Save the current settings to xml.
 	 */
 	XML.save();
-	
+
 	/* GUI
 	 */
 	delete gui;
@@ -252,21 +252,21 @@ void MultitouchPadOscApp::keyPressed(int key) {
 
 
 void MultitouchPadOscApp::mousePressed(int x, int y, int button) {
-	
+
 	toolbarMVC.mousePressed(x, y);
-	
+
 	/* hide / show GUI textfield
 	 */
 	if (toolbarMVC.buttonTouchpoints.status == true) {
 		touchpointsMVC.mousePressed(x, y);
 		gui->setVisible(false);
 	}
-	
+
 	if (toolbarMVC.buttonSettings.status == true) {
 		settingsMVC.mousePressed(x, y);
 		gui->setVisible(true);
 	}
-	
+
 	if (toolbarMVC.buttonConsole.status == true) {
 		gui->setVisible(false);
 	}
@@ -282,23 +282,23 @@ void MultitouchPadOscApp::windowResized(int w, int h) {
 
 void MultitouchPadOscApp::padUpdates(int & t) {
 	//printf("pad updates & has %i touches\n",t);
-	
+
 	for(int i=0; i<pad.getTouchCount(); i++) {
 		// get a single touch as MTouch struct....
 		MTouch touch;
 		if(!pad.getTouchAt(i,&touch)) {
 			continue; // guard..
 		}
-		
+
 		/* OSC
 		 */
 		if(toolbarMVC.buttonOscActive.status == true) {
-			
+
 			/* Check if osc array is active
 			 */
 			if (settingsMVC.checkboxOscArray.status == true) {
 				string tempMessage = "/"+settingsMVC.oscTouchpadDevicename+"/"+ofToString(i)+"/xysa";
-				
+
 				ofxOscMessage m;
 				m.setAddress(tempMessage);
 				m.addFloatArg(touch.x);
@@ -306,35 +306,35 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				m.addFloatArg(touch.size);
 				m.addFloatArg(touch.angle);
 				oscSender.sendMessage(m);
-				
+
 				consoleMVC.addString("OSC "+tempMessage+"/ "+ofToString(touch.x)+", "
 									 +ofToString(touch.y)+", "+ofToString(touch.size)+", "
 									 +ofToString(touch.angle));
-				
+
 				oscIsSending = true;
 			}
-			
+
 			/* Check if padFrame is active
 			 */
 			if (settingsMVC.checkboxFrame.status == true) {
 				// Send osc message, integer value with the current frame.
 				// e.g. /mt/1/frame/23
 				string sFrame = "/"+settingsMVC.oscTouchpadDevicename+"/"+ofToString(i)+"/frame";
-				
+
 				oscIntMessage(sFrame, touch.frame);
-				
+
 				consoleMVC.addString("OSC "+sFrame+"/"+ofToString(touch.frame));
-				
+
 				oscIsSending = true;
 			}
-			
+
 			/* check if padTimestamp is active
 			 */
 			//if (settings.padTimestamp == 0) {
 			//Finger finger;
 			//cout << "padTimestamp " << finger.timestamp << endl;
 			//}
-			
+
 			/* check if padPosition is active
 			 */
 			if (settingsMVC.checkboxPosition.status == true) {
@@ -346,17 +346,17 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				oscFloatMessage(sY, touch.y);
 				consoleMVC.addString("OSC "+sX+"/"+ofToString(touch.x));
 				consoleMVC.addString("OSC "+sY+"/"+ofToString(touch.y));
-				
+
 				oscIsSending = true;
 			}
-			
+
 			/* check if padVelocity is active
 			 */
 			//if (settings.padVelocity == 0) {
 			//Finger finger2;
 			//cout << "padVelocity " << finger2.mm.vel.x << endl;
 			//}
-			
+
 			/* check if padSize is active
 			 */
 			if (settingsMVC.checkboxSize.status == true) {
@@ -365,10 +365,10 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				string sSize = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/size";
 				oscFloatMessage(sSize, touch.size);
 				consoleMVC.addString(ofToString("OSC ") + ofToString(sSize) + ofToString("/") + ofToString(touch.size));
-				
+
 				oscIsSending = true;
 			}
-			
+
 			/* check if padAngle is active
 			 */
 			if (settingsMVC.checkboxAngle.status == true) {
@@ -377,19 +377,19 @@ void MultitouchPadOscApp::padUpdates(int & t) {
 				string sAngle = ofToString("/") + ofToString(settingsMVC.oscTouchpadDevicename) + ofToString("/") + ofToString(i) + "/angle";
 				oscFloatMessage(sAngle, touch.angle);
 				consoleMVC.addString(ofToString("OSC ") + ofToString(sAngle) + ofToString("/") + ofToString(touch.angle));
-				
+
 				oscIsSending = true;
 			}
 		}
 	} // End for
-		
+
 }
 
 
 
 void MultitouchPadOscApp::newTouch(int & n) {
     //cout << "+ a new touch no: " << n << endl;
-	
+
 	if (toolbarMVC.buttonOscActive.status == true) {
 		/* Send an osc message if the touchpoint is added.
 		 */
@@ -403,7 +403,7 @@ void MultitouchPadOscApp::newTouch(int & n) {
 
 void MultitouchPadOscApp::removedTouch(int & r) {
     //cout << "- a removed touch no: " << r << endl;
-	
+
 	if (toolbarMVC.buttonOscActive.status == true) {
 		/* Send an osc message if the touchpoint is removed.
 		 */
@@ -416,15 +416,15 @@ void MultitouchPadOscApp::removedTouch(int & r) {
 
 
 void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
-	string name = e.widget->getName(); 
-	int kind = e.widget->getKind(); 
-	
-	//cout << "got event from: " << name << endl; 
-	
+	string name = e.widget->getName();
+	int kind = e.widget->getKind();
+
+	//cout << "got event from: " << name << endl;
+
 	if (name == "TEXT HOST") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		textInput->setAutoClear(false);
-		
+
 		if (textInput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER) {
 			// save the new host
 			string tempHost = textInput->getTextString();
@@ -435,11 +435,11 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 			consoleMVC.addString("Change host to " + tempHost, true);
 		}
 	}
-	
+
 	else if (name == "TEXT PORT") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		textInput->setAutoClear(false);
-		
+
 		if (textInput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER) {
             // save the new port
 			int tempPort = ofToInt(textInput->getTextString());
@@ -450,11 +450,11 @@ void MultitouchPadOscApp::guiEvent(ofxUIEventArgs &e) {
 			consoleMVC.addString("Change port to " + ofToString(tempPort), true);
         }
 	}
-	
+
 	else if (name == "TEXT DEVICENAME") {
 		ofxUITextInput *textInput = (ofxUITextInput *) e.widget;
 		textInput->setAutoClear(false);
-		
+
 		if (textInput->getTriggerType() == OFX_UI_TEXTINPUT_ON_ENTER) {
 			// save new devicename
 			string tempDevicename = textInput->getTextString();

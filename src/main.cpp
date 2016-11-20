@@ -2,7 +2,7 @@
 // main.cpp
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -45,14 +45,14 @@
 int main() {
     ofAppGlutWindow window;
 	ofSetupOpenGL(&window, 500, 400, OF_WINDOW); // setup the GL context
-	
+
 	// Setting up the menubar.
-	if (NSApp){  
-        NSMenu      *menu;  
-        NSMenuItem  *menuItem;   
-        [NSApp setMainMenu:[[NSMenu alloc] init]];  
+	if (NSApp){
+        NSMenu      *menu;
+        NSMenuItem  *menuItem;
+        [NSApp setMainMenu:[[NSMenu alloc] init]];
 		// Appname menu
-		menu = [[NSMenu alloc] initWithTitle:@""];  
+		menu = [[NSMenu alloc] initWithTitle:@""];
 		[menu addItemWithTitle:@"About MultitouchPadOsc" action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
 		[menu addItem:[NSMenuItem separatorItem]];
 		[menu addItemWithTitle:@"Hide MultitouchPadOsc" action:@selector(hide:) keyEquivalent:@"h"];
@@ -60,13 +60,13 @@ int main() {
 		[menuItem setKeyEquivalentModifierMask:(NSAlternateKeyMask|NSCommandKeyMask)];
 		[menu addItemWithTitle:@"Show All" action:@selector(unhideAllApplications:) keyEquivalent:@""];
 		[menu addItem:[NSMenuItem separatorItem]];
-		[menu addItemWithTitle:@"Quit MultitouchPadOsc" action:@selector(terminate:) keyEquivalent:@"q"]; 
+		[menu addItemWithTitle:@"Quit MultitouchPadOsc" action:@selector(terminate:) keyEquivalent:@"q"];
 		// Put menu into the menubar
-		menuItem = [[NSMenuItem alloc] initWithTitle:@"Apple" action:nil keyEquivalent:@""];  
-		[menuItem setSubmenu:menu];  
+		menuItem = [[NSMenuItem alloc] initWithTitle:@"Apple" action:nil keyEquivalent:@""];
+		[menuItem setSubmenu:menu];
 		[[NSApp mainMenu] addItem:menuItem];
     }
-	
+
 	// this kicks off the running of my app can be
 	// OF_WINDOW or OF_FULLSCREEN pass in width and height too:
 	ofRunApp(new MultitouchPadOscApp());

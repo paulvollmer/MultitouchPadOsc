@@ -2,7 +2,7 @@
 // ToolbarMVC.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@
 /**
  * The Toolbar MVC class
  */
-class ToolbarMVC {	
+class ToolbarMVC {
 public:
 	ToolbarMVC();
 	void init();
@@ -49,39 +49,39 @@ public:
 	void windowResized(int w, int h);
 	void mousePressed(int x, int y);
 	void keyPressed(int key, bool cmdKeyPressed);
-	
+
 	/**
 	 * Button to trigger osc activity on/off
 	 */
 	ImageButton buttonOscActive;
 	ofImage      oscSendImage;
-	
+
 	/**
 	 * The current window mode. Normal or mini
 	 */
 	ImageButton buttonWindowMode;
-	
+
 	/**
 	 * TODO:
 	 * This mode can be used to run in safety mode.
 	 * No dock or other system stuff can be selected.
 	 */
 	//ImageButton btnSafetyMode;
-	
+
 	/**
 	 * Button to show/hide touchpoints
 	 */
 	ImageButton buttonTouchpoints;
-	
+
 	/**
 	 * Button to show/hide settings
 	 */
 	ImageButton buttonSettings;
-	
+
 	/**
 	 * Button to show/hide console
 	 */
 	ImageButton buttonConsole;
-	
+
 };
 #endif // TOOLBAR_MVC_H_

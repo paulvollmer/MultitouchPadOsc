@@ -2,7 +2,7 @@
 // ImageButton.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,37 +31,37 @@
 
 
 class ImageButton {
-	
+
 	public:
 		/**
 		 * Constructor
 		 */
         ImageButton();
-	
+
 		/**
 		 * Initialize
 		 */
         void init(string _on, string _off, int _x, int _y);
-	
+
 		/**
 		 * Display the button
 		 */
         void display();
-	
+
 		/**
 		 * Mouse pressed
 		 */
         void pressed(int _mx, int _my);
-	
+
 		/**
 		 * Set the position of the button
 		 */
         void setPosition(int _x, int _y);
-	
+
 		/* Variables */
 		bool status;
-	
-	
+
+
 	private:
 		Interaction interaction;
 

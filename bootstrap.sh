@@ -12,4 +12,4 @@ rm openFrameworks_0073.zip
 
 echo "--> clone MultitouchPadOsc repo"
 cd MultitouchPadOsc_of/apps/myApps
-git clone git@github.com:WrongEntertainment/MultitouchPadOsc.git
+git clone git@github.com:paulvollmer/MultitouchPadOsc.git

@@ -2,7 +2,7 @@
 // SettingsMVC.h
 // MultitouchPadOsc is released under the MIT License.
 //
-// Copyright (c) 2011-2013, Paul Vollmer http://www.wrong-entertainment.com
+// Copyright (c) 2011-2016, Paul Vollmer
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ public:
 	void draw(ofTrueTypeFont font, ofxMultiTouchPad & pad);
 	void mousePressed(int x, int y);
 	void keyPressed(int key, bool cmdKeyPressed);
-	
+
 	/**
 	 * Checkbox to trigger osc send on/off
 	 */
@@ -80,7 +80,7 @@ public:
 	 * Checkbox to trigger finger angle on/off
 	 */
 	Checkbox checkboxAngle;
-	
+
 	/**
 	 * OSC host variable
 	 */
@@ -89,11 +89,11 @@ public:
 	 * OSC port variable
 	 */
 	int    oscPort;
-	
+
 	/**
 	 * Trackpad devicename for the osc message
 	 */
 	string oscTouchpadDevicename;
-	
+
 };
 #endif // VIEWER_MVC_H_
